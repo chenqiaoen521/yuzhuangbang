@@ -1,0 +1,64 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Dimensions
+} from 'react-native';
+var {width,height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/Ionicons';
+export default class Notice extends Component {
+  static defaultProps = {
+    iconText: '公告',
+    title:'变革的基因：移动互联网时代的组织能力创新',
+    browserCount:1100,
+    time:'2017-05-02'
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+          <View style={styles.bounce}>
+            <Text style={[styles.titleStyle,{fontSize:9},{backgroundColor:'#ff3d2c'},{paddingLeft:2},{paddingRight:2}]}>{this.props.iconText}</Text>
+            <Text style={[styles.titleStyle,{fontSize:12},{marginLeft:10}]}>{this.props.title}</Text>
+          </View>
+          <View style={styles.bounce}>
+            <Text style={{color:'#ae8300'}}>&bull;</Text>
+            <Text style={[styles.subFontStyle,{marginLeft:8}]}>{this.props.browserCount}人浏览</Text>
+            <Text style={[styles.subFontStyle,{marginLeft:20}]}>时间:{this.props.time}</Text>
+          </View>
+          <Icon name="ios-arrow-dropright-outline" size={25} style={{color:'#fff',position:'absolute',right:4,bottom:15}}/>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    width:width,
+    backgroundColor:'#1b1b1b',
+    padding:8,
+    alignItems:'center',
+  },
+  bounce:{
+    width:width-16,
+    flexDirection : 'row',
+    alignItems : 'center',
+    justifyContent :'flex-start',
+  },
+  subFontStyle:{
+    fontSize:10,
+    color:'#777777'
+  },
+  titleStyle:{
+    color:'#fff'
+  }
+});
+

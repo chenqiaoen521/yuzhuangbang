@@ -9,38 +9,34 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Wz';
+import DesignList from '../Components/DesignList';
 export default class FindYP extends Component {
   static navigationOptions = {
     title:'找优品',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="goodicon" size={25} color={tintColor} />
+      <Icon name="goodicon" size={25} color={tintColor}  style={{marginTop:1.5}}/>
     ),
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
+      <ScrollView>
+        <View>
+          <DesignList/>
+        </View>
+      </ScrollView>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#151515',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  }
 });
 

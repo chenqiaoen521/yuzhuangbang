@@ -1,0 +1,20 @@
+export const data = [
+	{
+		icon:require('../imgs/detialimg_02.jpg')
+	},
+	{
+		icon:require('../imgs/indeximg_02.jpg')
+	},
+	{
+		icon:require('../imgs/detialimg_02.jpg')
+	},
+	{
+		icon:require('../imgs/indeximg_02.jpg')
+	},
+	{
+		icon:require('../imgs/detialimg_02.jpg')
+	},
+	{
+		icon:require('../imgs/indeximg_02.jpg')
+	}
+]

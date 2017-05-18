@@ -15,12 +15,16 @@ import {
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
-export default class Search extends Component {
+export default class HomeTitle extends Component {
+  static defaultProps = {
+    name: '找灵感'
+  }
   render() {
     return (
       <View style={styles.container}>
-          <Icon style={styles.iconStyle} name="ios-search-outline" size={25}  />
-          <TextInput underlineColorAndroid="transparent"  placeholderTextColor="#7c7c7c" placeholder={"输入你想搜索的内容"} style={styles.inputStyle}/>
+         <View style={{width:3,height:15,backgroundColor:'#ae8300',marginLeft:5}}></View>
+         <Text style={{color:'#fff'}}>{this.props.name}</Text>
+         <View style={{width:width*0.77,height:1,backgroundColor:'#242424'}}></View>
       </View>
     );
   }
@@ -29,19 +33,9 @@ export default class Search extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection:'row',
-    justifyContent :'center',
-    backgroundColor:'#4c4c4c',
-    borderRadius:25,
-    width:width*0.93,
+    justifyContent : 'space-around',
     alignItems:'center',
+    height:40
   },
-  inputStyle:{
-    width:width*0.8,
-    height:32,
-    fontSize:12,
-  },
-  iconStyle:{
-    marginLeft:10
-  }
 });
 

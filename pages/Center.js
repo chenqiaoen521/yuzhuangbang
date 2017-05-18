@@ -16,7 +16,7 @@ export default class Center extends Component {
   static navigationOptions = {
     title:'个人中心',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="mineicon" size={25} color={tintColor} />
+      <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     )
   }
   render() {

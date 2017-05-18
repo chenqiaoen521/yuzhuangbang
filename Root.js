@@ -9,6 +9,7 @@ import Main  from './pages/Main';
 import FindLG  from './pages/FindLG';
 import FindYP  from './pages/FindYP';
 import Center  from './pages/Center';
+import MainDetail  from './pages/MainDetail';
 import {
   StackNavigator,
   TabNavigator 
@@ -21,7 +22,8 @@ const TabContainer = TabNavigator({
     FindYP: { screen: FindYP },
     Center: { screen: Center }
 },{
-    lazy: true,
+    animationEnabled: true, 
+    swipeEnabled: true, 
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#ae8300',
@@ -47,9 +49,13 @@ const Root = StackNavigator(
         headerLeft: null
       }
     },
+    MainDetail:{
+      screen:MainDetail,
+    }
   },
   {
     headerMode: 'screen',
+    swipeEnabled: true,
     navigationOptions: {
       headerStyle: {
         backgroundColor: '#151515'

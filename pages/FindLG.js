@@ -9,23 +9,26 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Wz';
+import DesignList from '../Components/DesignList';
 export default class FindLG extends Component {
   static navigationOptions = {
     title:'找灵感',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="mindicon" size={25} color={tintColor} />
+      <Icon name="mindicon" size={26} color={tintColor} />
     )
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        
+      <ScrollView>
+        <View>
+          <DesignList/>
+        </View>
+      </ScrollView>
       </View>
     );
   }
@@ -34,19 +37,7 @@ export default class FindLG extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    backgroundColor: '#151515',
   },
 });
 
