@@ -62,7 +62,7 @@ const Root = StackNavigator(
       },
       headerTitleStyle: {
         color: '#fff',
-        fontSize: 20
+        fontSize: 10,
       },
       headerTintColor: '#fff'
     }

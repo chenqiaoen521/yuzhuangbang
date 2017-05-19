@@ -41,11 +41,19 @@ export default class MainDetail extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        {this.renderHeader()}
-        <View style={{marginTop:5}}>
-          <IconDetail/>
-        </View>
         
+        <WebView
+          automaticallyAdjustContentInsets={false}
+          style={styles.webView}
+          source={require('./index.html')}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          decelerationRate="normal"
+          onNavigationStateChange={this.onNavigationStateChange}
+          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+          startInLoadingState={true}
+          scalesPageToFit={false}
+        />
       </ScrollView>
     );
   }
@@ -67,3 +75,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#151515',
   },
 });
+/*
+  {this.renderHeader()}
+        <View style={{marginTop:5}}>
+          <IconDetail/>
+        </View>
+*/
