@@ -23,7 +23,7 @@ export default class MainDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.title,
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
+      <Icon name="mineicon" size={25} color={tintColor} stylesrrrle={{marginTop:1.5}}/>
     ),
     headerRight: (
       <Ionicons.Button
@@ -33,8 +33,7 @@ export default class MainDetail extends Component {
         activeOpacity={0.8}
         onPress={() => {
           navigation.state.params.handleShare();
-        }}
-      />
+        }} />
     )
   });
 
@@ -43,17 +42,16 @@ export default class MainDetail extends Component {
       <ScrollView contentContainerStyle={styles.container}>
         
         <WebView
-          automaticallyAdjustContentInsets={false}
-          style={styles.webView}
-          source={require('./index.html')}
+            automaticallyAdjustContentInsets={false}
+            style={styles.webView}
+          source={require('../fw/index.html')}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           decelerationRate="normal"
           onNavigationStateChange={this.onNavigationStateChange}
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           startInLoadingState={true}
-          scalesPageToFit={false}
-        />
+          scalesPageToFit={false} />
       </ScrollView>
     );
   }
