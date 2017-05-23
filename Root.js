@@ -9,6 +9,7 @@ import Main  from './pages/Main';
 import FindLG  from './pages/FindLG';
 import FindYP  from './pages/FindYP';
 import Center  from './pages/Center';
+import Splash from './pages/Splash';
 import MainDetail  from './pages/MainDetail';
 import {
   StackNavigator,
@@ -43,6 +44,9 @@ const TabContainer = TabNavigator({
 
 const Root = StackNavigator(
   {
+    Splash:{
+      screen:Splash
+    },
     Index: {
       screen: TabContainer,
       navigationOptions: {
@@ -62,7 +66,7 @@ const Root = StackNavigator(
       },
       headerTitleStyle: {
         color: '#fff',
-        fontSize: 10,
+        fontSize: 15,
       },
       headerTintColor: '#fff'
     }

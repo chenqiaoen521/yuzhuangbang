@@ -37,7 +37,7 @@ export default class Slider extends Component {
           pagingEnabled={true}
           showsHorizontalScrollIndicator ={false}
           iosonScrollAnimationEnd ={(e) => this.onAnimationEnd(e)}
-          onScrollBeginDrag={()=>this.onScrollBeginDrag()}
+          onScrollBeginDrag={(e)=>this.onScrollBeginDrag(e)}
           onScrollEndDrag={()=>this.onScrollEndDrag()}
         >
           {this.renderBannerView()}
@@ -52,6 +52,11 @@ export default class Slider extends Component {
     //停止定时器
     console.log('begin')
     clearInterval(this.timer);
+    let offsetX = e.nativeEvent.contentOffset.x
+    let currentPage = Math.floor(offsetX / width)
+    this.setState({
+      activePage:currentPage
+    })
   }
   onScrollEndDrag () {
     console.log('end')
