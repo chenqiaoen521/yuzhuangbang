@@ -43,9 +43,9 @@ export default class Splash extends Component {
         >
         {this.renderImage()}
         </ScrollView>
-        <View style={styles.pageStyle}>
+       { /*<View style={styles.pageStyle}>
           {this.renderIndicator()}
-        </View>
+        </View>*/}
       </View>
     );
   }

@@ -10,15 +10,17 @@ import FindLG  from './pages/FindLG';
 import FindYP  from './pages/FindYP';
 import Center  from './pages/Center';
 import Splash from './pages/Splash';
+import SearchPage from './pages/SearchPage';
 import MainDetail  from './pages/MainDetail';
+import Settings  from './pages/Settings';
+import PersonInfo  from './pages/PersonInfo';
 import {
   StackNavigator,
-  TabNavigator 
+  TabNavigator,
 } from 'react-navigation';
 
-
 const TabContainer = TabNavigator({
-    Main: { screen: Main },
+    Main: { screen: Main},
     FindLG: { screen: FindLG },
     FindYP: { screen: FindYP },
     Center: { screen: Center }
@@ -55,6 +57,16 @@ const Root = StackNavigator(
     },
     MainDetail:{
       screen:MainDetail,
+    },
+    SearchPage:{
+      screen:SearchPage,
+      path: 'wu/:search'
+    },
+    Settings:{
+      screen:Settings
+    },
+    personInfo:{
+      screen:PersonInfo
     }
   },
   {

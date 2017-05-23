@@ -20,11 +20,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class CenterItem extends Component {
   static defaultProps = {
     icon: null,
-    txt:''
+    txt:'',
+    popToCenter:null
   }
   render() {
     return (
-      <TouchableOpacity TouchableOpacity={0.5}   style={styles.container}>
+      <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.todoTouch()}   style={styles.container}>
         <View style={{flexDirection:'row',
                       justifyContent : 'flex-start',
                       alignItems:'center'}}>
@@ -34,6 +35,11 @@ export default class CenterItem extends Component {
         <Icon name="angle-right" size={18}/>
       </TouchableOpacity>
     );
+  }
+  todoTouch () {
+    if(this.props.popToCenter){
+      this.props.popToCenter()
+    }
   }
 }
 

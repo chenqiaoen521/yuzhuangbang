@@ -9,9 +9,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
-
-
 
 AppRegistry.registerComponent('yuzhuangbang', () => Root);

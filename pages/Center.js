@@ -57,11 +57,15 @@ export default class Center extends Component {
             <CenterItem icon={require('../imgs/middle_03.png')} txt="部门管理"/>
             <CenterItem icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
             <CenterItem icon={require('../imgs/middle_05.png')} txt="我的消息"/>
-            <CenterItem icon={require('../imgs/middle_06.png')} txt="设置"/>
+            <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
           </View>
         </ScrollView>
       </View>
     );
+  }
+  toSetting(){
+    const {navigate} = this.props.navigation;
+    navigate('Settings');
   }
   renderHead(){
     return(

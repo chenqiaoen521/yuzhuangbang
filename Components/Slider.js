@@ -48,7 +48,7 @@ export default class Slider extends Component {
       </View>
     );
   }
-  onScrollBeginDrag () {
+  onScrollBeginDrag (e) {
     //停止定时器
     console.log('begin')
     clearInterval(this.timer);

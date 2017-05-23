@@ -21,7 +21,8 @@ import DesignList from '../Components/DesignList';
 import Icon from 'react-native-vector-icons/Wz';
 export default class Main extends Component {
   static navigationOptions = {
-    title:'主页',
+    header:null,
+    tabBarLabel: '主页',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="homeicon" size={25} color={tintColor} />
     )
@@ -31,7 +32,7 @@ export default class Main extends Component {
       <View style={styles.container}>
       <ScrollView>
       <View style={{alignItems: 'center'}}>
-        <Search/>
+        <Search popToHome={()=>this.toSearchPage()}  />
       </View>
         <View style={{marginTop:5}}>
           <Slider/>
@@ -51,10 +52,15 @@ export default class Main extends Component {
     const {navigate} = this.props.navigation;
     navigate('MainDetail',{title:'时尚简约风格'})
   }
+  toSearchPage () {
+    const {navigate} = this.props.navigation;
+    navigate('SearchPage')
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop:15,
     flex: 1,
     backgroundColor: '#151515',
   },

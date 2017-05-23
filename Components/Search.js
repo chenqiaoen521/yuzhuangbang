@@ -11,18 +11,31 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
 export default class Search extends Component {
+  static defaultProps = {
+    popToHome: null
+  }
   render() {
     return (
-      <View style={styles.container}>
-          <Icon style={styles.iconStyle} name="ios-search-outline" size={25}  />
-          <TextInput underlineColorAndroid="transparent"  placeholderTextColor="#7c7c7c" placeholder={"输入你想搜索的内容"} style={styles.inputStyle}/>
-      </View>
+      <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.toSearch()}>
+        <View style={styles.container}>
+            <Icon style={styles.iconStyle} name="ios-search-outline" size={25}  />
+            <Text style={styles.inputStyle}>
+              输入你想搜索的内容
+            </Text>
+        </View>
+      </TouchableOpacity>
     );
+  }
+  toSearch () {
+    if(this.props.popToHome){
+      this.props.popToHome()
+    }
   }
 }
 
@@ -38,8 +51,9 @@ const styles = StyleSheet.create({
   },
   inputStyle:{
     width:width*0.8,
-    height:32,
     fontSize:12,
+    color:'#7c7c7c',
+    marginLeft:10
   },
   iconStyle:{
     marginLeft:10

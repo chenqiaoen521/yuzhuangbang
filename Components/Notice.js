@@ -48,8 +48,6 @@ const styles = StyleSheet.create({
     width:width,
     padding:8,
     alignItems:'center',
-    borderTopColor:'#eeeeee',
-    borderTopWidth:0.5
   },
   bounce:{
     width:width-16,
