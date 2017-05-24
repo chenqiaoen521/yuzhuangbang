@@ -92,7 +92,6 @@ export default class DesignList extends Component {
           <Image source={rowdata.img} style={styles.imgStyle}/>
           <Text style={{color:'#aaaaaa'}}>{rowdata.title}</Text>
         </View>
-
       )
   }
 }
