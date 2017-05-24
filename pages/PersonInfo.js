@@ -39,28 +39,13 @@ export default class PersonInfo extends Component {
     return (
       <View style={styles.container}>
       <ScrollView>
-        <Unit bgColor="#282828" txtCol="#999999" icon={require('../imgs/yihan.jpg')} title="头像"/>
-        <Unit bgColor="#282828" txtCol="#999999" title="姓名" rightTxt="刘德华"/>
-        <Unit bgColor="#282828" txtCol="#999999" title="昵称" rightTxt="北七"/>
-          <Unit bgColor="#282828" txtCol="#999999" title="手机号" rightTxt="158****2135"/>
+        <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" icon={require('../imgs/yihan.jpg')} title="头像"/>
+        <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" title="姓名" rightTxt="刘德华"/>
+        <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" title="昵称" rightTxt="北七"/>
+          <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" title="手机号" rightTxt="158****2135"/>
         <View style={{marginTop:10}}>
-          <Unit bgColor="#282828" txtCol="#999999" title="性别" rightTxt="男"/>
-          <Unit bgColor="#282828" txtCol="#999999" title="地区" rightTxt="北京 朝阳区"/>
-        </View>
-        <View style={{marginTop:10}}>
-          
-          <Unit title="客服热线"  hotTel="0371-0062887"/>
-        </View>
-        <View style={{marginTop:10}}>
-          <Unit title="接收消息通知" rightBtn="true"/>
-        </View>
-        <View style={{marginTop:10}}>
-          <TouchableOpacity TouchableOpacity={0.5} >
-            <View style={[styles.unitStyle,{justifyContent:'center'}]}>
-              <Icon name="power-off" color="#ff4141" size={14} style={{marginRight:5}}/>
-              <Text style={{color:'#ff4141',fontSize:14}}>退出登录</Text>
-            </View>
-          </TouchableOpacity>
+          <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" title="性别" rightTxt="男"/>
+          <Unit topColor="#5a5a5a" bgColor="#282828" txtCol="#999999" title="地区" rightTxt="北京 朝阳区"/>
         </View>
       </ScrollView>
       </View>

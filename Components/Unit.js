@@ -28,12 +28,13 @@ export default class Unit extends Component {
     popToSetting:null,
     bgColor:'#fff',
     txtCol:'#333333',
-    icon:null
+    icon:null,
+    topColor:'#e5e5e5'
   }
   render () {
     return (
       <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.todoEvent()}>
-      <View style={[styles.unitStyle,{backgroundColor:this.props.bgColor}]}>
+      <View style={[styles.unitStyle,{backgroundColor:this.props.bgColor},{borderTopColor:this.props.topColor}]}>
         <Text style={{color:this.props.txtCol,fontSize:14}}>{this.props.title}</Text>
         {this.renderRight()}
       </View>
@@ -97,7 +98,6 @@ const styles = StyleSheet.create({
     paddingLeft:10,
     paddingRight:10,
     height:50,
-    borderTopColor:'#e5e5e5',
     borderTopWidth:0.5
   }
 });
