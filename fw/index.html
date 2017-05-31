@@ -192,8 +192,10 @@
             $$(this).toggleClass("on");
             if($$(this).hasClass("on")){
                 $$(this).text('已关注');
+                window.postMessage('aaa');
             }else{
                 $$(this).text('+ 关注'); 
+                window.postMessage('bbb');
             }
             
         })

@@ -13,7 +13,8 @@ import {
   ScrollView,
   Image,
   Dimensions,
-  WebView
+  WebView,
+  Alert
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
@@ -47,6 +48,7 @@ export default class MainDetail extends Component {
           source={require('../fw/index.html')}
           javaScriptEnabled={true}
           domStorageEnabled={true}
+          onMessage={this.receiveMessage.bind(this)}
           decelerationRate="normal"
           onNavigationStateChange={this.onNavigationStateChange}
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
@@ -54,6 +56,15 @@ export default class MainDetail extends Component {
           scalesPageToFit={false} />
       </ScrollView>
     );
+  }
+  receiveMessage (e) {
+    let message = e.nativeEvent.data
+    if(message == 'aaa'){
+      Alert.alert(message)
+    }else{
+      const {navigate} = this.props.navigation;
+      navigate('SearchPage');
+    }
   }
   renderHeader () {
     return (

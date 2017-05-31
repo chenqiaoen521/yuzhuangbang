@@ -59,8 +59,7 @@ const Root = StackNavigator(
       screen:MainDetail,
     },
     SearchPage:{
-      screen:SearchPage,
-      path: 'wu/:search'
+      screen:SearchPage
     },
     Settings:{
       screen:Settings
