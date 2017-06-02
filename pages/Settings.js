@@ -42,7 +42,7 @@ export default class Settings extends Component {
         <Unit title="个人资料" popToSetting={()=>this.toInfo()}/>
         <Unit title="修改资料"/>
         <View style={{marginTop:10}}>
-          <Unit title="帮助中心"/>
+          <Unit title="帮助中心" popToSetting={()=>this.toHelp()}/>
           <Unit title="关于我们"/>
           <Unit title="意见反馈"/>
         </View>
@@ -68,6 +68,11 @@ export default class Settings extends Component {
   toInfo () {
     const {navigate} = this.props.navigation;
     navigate('personInfo');
+  }
+  toHelp () {
+    //alert(1)
+    const {navigate} = this.props.navigation;
+    navigate('HelpCenter');
   }
 }
 

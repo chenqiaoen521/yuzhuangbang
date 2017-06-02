@@ -14,6 +14,8 @@ import SearchPage from './pages/SearchPage';
 import MainDetail  from './pages/MainDetail';
 import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
+import HelpCenter  from './pages/HelpCenter';
+import HelpDetail  from './pages/HelpDetail';
 import {
   StackNavigator,
   TabNavigator,
@@ -66,6 +68,12 @@ const Root = StackNavigator(
     },
     personInfo:{
       screen:PersonInfo
+    },
+    HelpCenter:{
+      screen:HelpCenter
+    },
+    HelpDetail:{
+      screen:HelpDetail
     }
   },
   {
