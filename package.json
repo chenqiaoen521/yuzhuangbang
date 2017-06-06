@@ -10,6 +10,8 @@
     "autoresponsive-react-native": "^1.0.9",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
+    "react-native-flexi-radio-button": "^0.2.1",
+    "react-native-roll-picker": "^1.0.2",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.9"
   },
