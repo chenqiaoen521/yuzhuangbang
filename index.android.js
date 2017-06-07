@@ -4,7 +4,7 @@
  * @flow
  */
 
-import Root from './Root.js'
+import Setup from './Setup.js'
 import {
   AppRegistry,
   StyleSheet,
@@ -13,4 +13,4 @@ import {
   Platform
 } from 'react-native';
 
-AppRegistry.registerComponent('yuzhuangbang', () => Root);
+AppRegistry.registerComponent('yuzhuangbang', () => Setup);

@@ -15,10 +15,13 @@ import {
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
-export default class Notice extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as noticeCreators from '../actions/notice';
+class Notice extends Component {
   static defaultProps = {
     iconText: '公告',
-    title:'变革的基因：移动互联网时代的组织能力创新',
+    title:'',
     browserCount:1100,
     time:'2017-05-02',
     bgcolor:'#1b1b1b',
@@ -30,7 +33,7 @@ export default class Notice extends Component {
       <View style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
           <View style={styles.bounce}>
             <Text style={[styles.titleStyle,{fontSize:9},{backgroundColor:'#ff3d2c'},{paddingLeft:2},{paddingRight:2}]}>{this.props.iconText}</Text>
-            <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:12},{marginLeft:10}]}>{this.props.title}</Text>
+            <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:12},{marginLeft:10}]}>{this.props.notice.list}</Text>
           </View>
           <View style={styles.bounce}>
             <Text style={{color:'#ae8300'}}>&bull;</Text>
@@ -40,6 +43,10 @@ export default class Notice extends Component {
           <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
       </View>
     );
+  }
+  componentDidMount() {
+    const { noticeActions } = this.props;
+    noticeActions.requestTypeList();
   }
 }
 
@@ -63,4 +70,20 @@ const styles = StyleSheet.create({
     color:'#fff'
   }
 });
+
+const mapStateToProps = (state) => {
+  const { notice } = state;
+  return {
+    notice
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const noticeActions = bindActionCreators(noticeCreators, dispatch);
+  return {
+    noticeActions
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notice);
 

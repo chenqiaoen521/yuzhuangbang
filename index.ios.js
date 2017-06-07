@@ -4,7 +4,7 @@
  * @flow
  */
 
-import Root from './Root.js'
+import Setup from './Setup.js'
 import {
   AppRegistry,
   StyleSheet,
@@ -14,4 +14,4 @@ import {
 
 
 
-AppRegistry.registerComponent('yuzhuangbang', () => Root);
+AppRegistry.registerComponent('yuzhuangbang', () => Setup);
