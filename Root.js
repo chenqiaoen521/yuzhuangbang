@@ -16,6 +16,9 @@ import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
 import HelpCenter  from './pages/HelpCenter';
 import HelpDetail  from './pages/HelpDetail';
+import Message  from './pages/Message';
+import ForgetPassword  from './pages/ForgetPassword';
+
 import {
   StackNavigator,
   TabNavigator,
@@ -60,6 +63,9 @@ const Root = StackNavigator(
     MainDetail:{
       screen:MainDetail,
     },
+    Message:{
+      screen:Message,
+    },
     SearchPage:{
       screen:SearchPage
     },
@@ -74,7 +80,11 @@ const Root = StackNavigator(
     },
     HelpDetail:{
       screen:HelpDetail
+    },
+    ForgetPassword:{
+      screen:ForgetPassword
     }
+
   },
   {
     headerMode: 'screen',

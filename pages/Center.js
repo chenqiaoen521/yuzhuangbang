@@ -56,7 +56,7 @@ export default class Center extends Component {
             <CenterItem icon={require('../imgs/middle_02.png')} txt="黑名单"/>
             <CenterItem icon={require('../imgs/middle_03.png')} txt="部门管理"/>
             <CenterItem icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
-            <CenterItem icon={require('../imgs/middle_05.png')} txt="我的消息"/>
+            <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
             <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
           </View>
         </ScrollView>
@@ -66,6 +66,10 @@ export default class Center extends Component {
   toSetting(){
     const {navigate} = this.props.navigation;
     navigate('Settings');
+  }
+  toMessage () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
   }
   renderHead(){
     return(

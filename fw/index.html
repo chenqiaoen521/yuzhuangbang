@@ -26,7 +26,13 @@
                     <div data-page="index" class="page">
                         <!-- Scrollable page content-->
                         <div class="page-content">
-
+                            <div class="loadingbox">
+                                <div class="loadingtip">
+                                    <span class="preloader"></span>
+                                    <i>页面正在赶来的路上</i>
+                                </div>
+                            </div>
+                            <div class="mainload">
                             <!-- Slider container -->
                             <div class="swiper-container">
                                 <!-- Slides wrapper -->
@@ -82,8 +88,7 @@
                                 </div>
                             </div>
                             <div class="tuwen">
-                                <h2><span>产品推荐</span></h2>
-                                
+                                <h2><span>产品推荐</span></h2>    
                             </div>
                             <div class="tuwen">
                                 <h2><span>留言板</span></h2>
@@ -109,7 +114,7 @@
                                 <a href="tel:0371-1122335"><span class="bg1">联系Ta</span></a>
                                 <a><span class="bg2">我要留言</span></a>
                             </div>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,6 +139,10 @@
         </script>
         <style type="text/css">
             body{ padding: 0; margin:0;}
+            .loadingbox{ background-color: #fff; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 5;}
+            .loadingbox .loadingtip span{ display: block; width: 50px; height: 50px; margin: 0 auto;}
+            .loadingbox .loadingtip i{ display: block; margin-top: 18px; font-size: 15px; color: #333; font-style: normal; line-height: 30px; text-align: center;}
+            .loadingbox .loadingtip{ width: 280px; margin: 0 auto; position: absolute; left: 50%; margin-left: -140px; top: 50%; margin-top: -100px; }
             .views{ background-color: #151515;}
             .view-main{ margin: 0 !important;}
             .swiper-wrapper{ }
@@ -176,7 +185,7 @@
             .tuwen .list .sg h6 i img{ display: block; width: 16px; height: 16px; margin: 5px;}
             .fixedbtn{/* position: fixed; left: 0; bottom: 0;*/ width:100%; overflow: hidden;}
             .fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 50%; float: left;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
-            .fixedbtn a span{ display: inline-block; padding-left: 40px; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 0.36rem;}
+            .fixedbtn a span{ display: inline-block; padding-left: 40px; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 0.30rem;}
             .fixedbtn a span.bg1{ background-image: url('img/detailicon_53.png');}
             .fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
             .page-content{ }
@@ -202,16 +211,20 @@
         $$('.sg h6 i').on('click', function () {
             var thisdom = $$(this);
             //alert(this)
-            myApp.confirm('确认要删除该评论吗', '删除评论',
+            myApp.confirm('你确定要将此条留言删除吗', '删除留言',
                 function () {
                     thisdom.parents(".sg").remove();
-                    myApp.alert('评论已删除');
+                    myApp.alert('留言已删除');
                 },
                 function () {
                     
                 }
             );
         });
+        
+        setTimeout(function(){
+            $$(".loadingbox").hide();
+        },1000)
 
 
 

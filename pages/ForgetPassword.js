@@ -39,7 +39,11 @@ export default class Center extends Component {
                     </View>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
-                        <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
+
+
+
+                        <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
+
                         <TouchableOpacity>
                             {/*验证码按钮*/}
                             <View style={styles.yanzheng}>
