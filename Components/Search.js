@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     justifyContent :'center',
     backgroundColor:'#4c4c4c',
     borderRadius:25,
-    width:width*0.93,
+    width:width*0.85,
     height:34,
     alignItems:'center',
   },
   inputStyle:{
-    width:width*0.8,
+    width:width*0.75,
     fontSize:12,
     color:'#7c7c7c',
     marginLeft:10
