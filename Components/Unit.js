@@ -15,10 +15,12 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Switch
+  Switch,
+  popToCSex
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 export default class Unit extends Component {
   static defaultProps = {
     title: '',
@@ -29,7 +31,7 @@ export default class Unit extends Component {
     bgColor:'#fff',
     txtCol:'#333333',
     icon:null,
-    topColor:'#e5e5e5'
+    topColor:'#e5e5e5',
   }
   render () {
     return (
@@ -51,6 +53,22 @@ export default class Unit extends Component {
       return (
         <View style={styles.rightBarStyle}>
           <Text style={{color:'#cccccc',marginRight:20}}>{this.props.rightTxt}</Text>
+          <Icon name="angle-right" size={25} color="#b6b6b6" />
+        </View>
+        )
+    }
+    if(this.props.rightSheet){
+      return (
+        <View style={styles.rightBarStyle}>
+          <Text style={{color:'#cccccc',marginRight:20}}>{this.props.rightTxt}</Text>
+          <Icon name="angle-right" size={25} color="#b6b6b6" />
+        </View>
+        )
+    }
+    if(this.props.rightInput){
+      return (
+        <View style={styles.rightBarStyle}>
+          <TextInput underlineColorAndroid="transparent" style={{color:'#cccccc',marginRight:20,padding:0,width:100,textAlign:'right'}} defaultValue ={this.props.rightInput}/>
           <Icon name="angle-right" size={25} color="#b6b6b6" />
         </View>
         )

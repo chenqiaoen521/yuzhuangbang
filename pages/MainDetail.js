@@ -24,7 +24,7 @@ export default class MainDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.title,
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="mineicon" size={25} color={tintColor} stylesrrrle={{marginTop:1.5}}/>
+      <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),
     headerRight: (
       <Ionicons.Button
