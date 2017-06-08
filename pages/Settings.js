@@ -15,7 +15,8 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Switch
+  Switch,
+  Linking
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -39,21 +40,21 @@ export default class Settings extends Component {
     return (
       <View style={styles.container}>
       <ScrollView>
-        <Unit title="个人资料" popToSetting={()=>this.toInfo()}/>
-        <Unit title="修改资料"/>
-        <View style={{marginTop:10}}>
-          <Unit title="帮助中心" popToSetting={()=>this.toHelp()}/>
-          <Unit title="关于我们"/>
-          <Unit title="意见反馈"/>
+        <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="个人资料" popToSetting={()=>this.toInfo()}/>
+        <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="修改密码" popToSetting={()=>this.toPassword()}/>
+        <View style={{marginTop:6}}>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="帮助中心" popToSetting={()=>this.toHelp()}/>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="关于我们" popToSetting={()=>this.toAbout()}/>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="意见反馈" popToSetting={()=>this.toFeedback()}/>
         </View>
-        <View style={{marginTop:10}}>
-          <Unit title="版本更新" rightTxt="V123AW.01"/>
-          <Unit title="客服热线"  hotTel="0371-0062887"/>
+        <View style={{marginTop:6}}>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="版本更新" rightTxt="v1.01"/>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="客服热线"  hotTel="0371-0062887" popToSetting={()=>this.tel()}/>
         </View>
-        <View style={{marginTop:10}}>
-          <Unit title="接收消息通知" rightBtn="true"/>
+        <View style={{marginTop:6}}>
+          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="接收消息通知" rightBtn="true"/>
         </View>
-        <View style={{marginTop:10}}>
+        <View style={{marginTop:6}}>
           <TouchableOpacity TouchableOpacity={0.5} >
             <View style={[styles.unitStyle,{justifyContent:'center'}]}>
               <Icon name="power-off" color="#ff4141" size={14} style={{marginRight:5}}/>
@@ -65,9 +66,31 @@ export default class Settings extends Component {
       </View>
     );
   }
+  tel () {
+    let url = 'tel:0371-0062887'
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        console.log('Can\'t handle url: ' + url);
+      }else{
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
+  }
+  toAbout () {
+    const {navigate} = this.props.navigation;
+    navigate('About');
+  }
+  toPassword () {
+    const {navigate} = this.props.navigation;
+    navigate('password');
+  }
   toInfo () {
     const {navigate} = this.props.navigation;
     navigate('personInfo');
+  }
+  toFeedback () {
+    const {navigate} = this.props.navigation;
+    navigate('Feedback');
   }
   toHelp () {
     //alert(1)
@@ -79,17 +102,18 @@ export default class Settings extends Component {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#f7f7f7'
+    backgroundColor:'#151515'
   },
   unitStyle:{
-    backgroundColor:'#fff',
+    backgroundColor:'#282828',
     flexDirection:'row',
     alignItems :'center',
     justifyContent :'space-between',
     padding:10,
-    paddingTop:12,
-    paddingBottom:12,
-    borderBottomColor:'#e5e5e5',
-    borderBottomWidth:0.5
+    paddingTop:18,
+    paddingBottom:18,
+    borderBottomColor:'#151515',
+    borderBottomWidth:0.5,
+    marginBottom:100
   }
 });

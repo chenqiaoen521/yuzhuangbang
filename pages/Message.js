@@ -73,6 +73,7 @@ class Message extends Component {
              dataSource={this.state.dataSource.cloneWithRows(this.props.list.articleList)}
              renderRow={(rowdata)=>this.renderRow(rowdata)}
              contentContainerStyle={styles.contentViewStyle}
+             enableEmptySections={true}
              initialListSize ={1}
              onEndReached={() => this.onEndReached()}
              onEndReachedThreshold ={100}
@@ -116,7 +117,7 @@ class Message extends Component {
     if(this.props.list.isLoadMore){
       return (
         <View style={styles.footerContainer}>
-          <ActivityIndicator size="small" color="#3e9ce9" />
+          <ActivityIndicator size="small" color="#ffb14c" />
           <Text style={styles.footerText}>
             数据加载中……
           </Text>
@@ -175,7 +176,8 @@ const styles = StyleSheet.create({
   footerText: {
     textAlign: 'center',
     fontSize: 16,
-    marginLeft: 10
+    marginLeft: 10,
+    color:'#ffb14c'
   },
   icon:{
     backgroundColor:'#ae8300',

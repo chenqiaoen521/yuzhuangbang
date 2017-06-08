@@ -16,8 +16,13 @@ import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
 import HelpCenter  from './pages/HelpCenter';
 import HelpDetail  from './pages/HelpDetail';
+import Feedback  from './pages/Feedback';
 import Message  from './pages/Message';
+import About  from './pages/About';
+import PasswordPage  from './pages/Password';
 import ForgetPassword  from './pages/ForgetPassword';
+import AddressPage  from './pages/address';
+import DetailAddr  from './pages/detailAddr';
 
 import {
   StackNavigator,
@@ -65,6 +70,21 @@ const Root = StackNavigator(
     },
     Message:{
       screen:Message,
+    },
+    detailAddr:{
+      screen:DetailAddr,
+    },
+    Feedback:{
+      screen:Feedback,
+    },
+    password:{
+      screen:PasswordPage,
+    },
+    address:{
+      screen:AddressPage,
+    },
+    About:{
+      screen:About,
     },
     SearchPage:{
       screen:SearchPage

@@ -12,6 +12,7 @@
     "react-native": "0.44.0",
     "react-native-actionsheet": "^2.1.0",
     "react-native-flexi-radio-button": "^0.2.1",
+    "react-native-image-picker": "^0.26.3",
     "react-native-roll-picker": "^1.0.2",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.9",
