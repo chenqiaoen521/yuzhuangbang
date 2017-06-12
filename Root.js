@@ -23,6 +23,7 @@ import PasswordPage  from './pages/Password';
 import ForgetPassword  from './pages/ForgetPassword';
 import AddressPage  from './pages/address';
 import DetailAddr  from './pages/detailAddr';
+import MessageFriend  from './pages/messageFriend';
 
 import {
   StackNavigator,
@@ -76,6 +77,9 @@ const Root = StackNavigator(
     },
     Feedback:{
       screen:Feedback,
+    },
+    messageFriend:{
+      screen:MessageFriend,
     },
     password:{
       screen:PasswordPage,

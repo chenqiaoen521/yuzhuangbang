@@ -35,6 +35,6 @@ function request (aa) {
     const data = require('../pages/message.json')
     setTimeout(()=>{
       resolve(data)
-    },3000)
+    },1500)
   })
 }

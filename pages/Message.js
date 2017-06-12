@@ -101,7 +101,7 @@ class Message extends Component {
   }
   renderRow(rowdata){
       return (
-        <TouchableOpacity style={styles.unit}>
+        <TouchableOpacity style={styles.unit} onPress={()=>this.toDetail()}>
           <View style={styles.item}>
             <View style={styles.icon}>
               <Icon name="bell-o"  style={{fontSize:14,color:'#fff'}}/>
@@ -112,6 +112,10 @@ class Message extends Component {
           <Text style={styles.info}>{rowdata.info}</Text>
         </TouchableOpacity>
       )
+  }
+  toDetail(){
+    const {navigate} = this.props.navigation;
+    navigate('messageFriend');
   }
   renderFooter(){
     if(this.props.list.isLoadMore){
