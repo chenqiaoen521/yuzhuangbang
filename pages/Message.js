@@ -92,10 +92,12 @@ class Message extends Component {
   }
   onEndReached(){
     const {listActions} = this.props;
+    alert('Bottom')
     listActions.requestArticleList(false,false,true);
   }
   onRefresh(){
     const {listActions} = this.props;
+    alert('刷')
     listActions.requestArticleList(true,false,false);
   }
   renderRow(rowdata){

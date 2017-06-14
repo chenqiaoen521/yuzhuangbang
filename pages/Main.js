@@ -27,6 +27,9 @@ import HomeTitle from '../Components/HomeTitle';
 import DesignList from '../Components/DesignList';
 import Icon from 'react-native-vector-icons/Wz';
 
+import RNCarousel from '../Components/RNCarousel';
+
+
 import Picker from 'react-native-roll-picker/lib/Picker'
 import cityCode from '../Components/ChinaCityCode'
 
@@ -65,12 +68,17 @@ export default class Main extends Component {
                 <ScrollView>
                     <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
-                        <TouchableOpacity style={{width:0.1*width,alignItems: 'flex-end',}} onPress={()=>this.onRequestOpen()}>
-                            <Image style={{width:26, height:26}} source={require('./../imgs/loginpng_10.png')}></Image>
+                        <TouchableOpacity style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} onPress={()=>this.onRequestOpen()}>
+                            {/*<Image style={{width:26, height:26}} source={require('./../imgs/loginpng_10.png')}></Image>*/}
+                            <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
                         </TouchableOpacity>
                     </View>
+                    
                     <View style={{marginTop:5}}>
                         <Slider/>
+                    </View>
+                    <View style={{marginTop:5}}>
+                        <RNCarousel/>
                     </View>
                     <View style={{marginTop:5}}>
                         <Notice/>
@@ -94,11 +102,11 @@ export default class Main extends Component {
                         <View style={styles.biao}><Text style={styles.biaoti}>用户登录</Text></View>
                         <View style={styles.fill}>
                             <View style={styles.sg}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image></View>
                                 <TextInput style={styles.shuru} placeholder='手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                             </View>
                             <View style={styles.sg}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
                                 <TextInput style={styles.shuru} placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                             </View>
                             <View style={[styles.sg , styles.noneb]} >
@@ -175,7 +183,7 @@ export default class Main extends Component {
                                 <View style = {styles.ktext}><Text style = {styles.ktxt}>市/区</Text></View>
                                 <View style = {styles.ktext}><Text style = {styles.ktxt}>区县</Text></View>
                             </View>
-                            <View style = {{height: height*0.55-144, flexDirection: 'row'}}>
+                            <View style = {{/*height: height*0.55-144,*/ height:165, flexDirection: 'row'}}>
                                 
                                 <View style = {{flex: 1}}>
                                     <Picker 
@@ -216,7 +224,7 @@ export default class Main extends Component {
                                     {/*登录按钮*/}
                                     <View style={[styles.jun,styles.jtu]}>
                                         <Text style={styles.jtext}>一键获取</Text>
-                                        <Image style={{width:16, height:16,marginLeft:5}} source={require('./../imgs/loginpng_10.png')}></Image>
+                                        <Image style={{width:16, height:16,marginLeft:5}} source={require('./../imgs/dlweizhi.png')}></Image>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={()=>this.Gofill()}>
@@ -243,11 +251,13 @@ export default class Main extends Component {
                         <View style={styles.biao}><Text style={styles.biaoti}>注册信息</Text></View>
                         <View style={styles.fillFill}>
                             <View style={styles.sgFill}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}>
+                                    <Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image>
+                                </View>
                                 <TextInput style={styles.shuruFill} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                             </View>
                             <View style={styles.sgFill}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
                                 <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
                                 <TouchableOpacity>
                                     {/*验证码按钮*/}
@@ -257,16 +267,16 @@ export default class Main extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.sgFill}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
                                 <TextInput style={styles.shuruFill} placeholder='请设置您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                             </View>
                             <View style={styles.sgFill}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
                                 <TextInput style={styles.shuruFill} placeholder='请再次输入密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                             </View>
                             <View style={styles.sgFill}>
-                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
-                                <TextInput style={styles.shuruFill} placeholder='请输入您的昵称' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon05.png')}></Image></View>
+                                <TextInput style={styles.shuruFill} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
                             </View>
                             
                             <View style={[styles.sgFill , styles.nonebaFill]}>
@@ -293,7 +303,7 @@ export default class Main extends Component {
                    <View style={{height:0.4*height,backgroundColor:'white',borderRadius:10}}>
                         <View style={styles.biao}><Text style={styles.biaoti}>注册成功</Text></View>
                         <View style={{ height:height*0.4-99,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
-                             <Image style={{width:26, height:26,marginRight:10,}} source={require('./../imgs/loginpng_10.png')}></Image>
+                             <Image style={{width:26, height:26,marginRight:10,}} source={require('./../imgs/dlok.png')}></Image>
                             <Text style={{color:'#777',fontSize:16}}>恭喜您注册成功</Text>
                         </View>
                         <View>
@@ -325,6 +335,10 @@ export default class Main extends Component {
         this.onRequestClose();
         const {navigate} = this.props.navigation;
         navigate('ForgetPassword')
+    }
+    GoWork () {
+        const {navigate} = this.props.navigation;
+        navigate('WorkManage')
     }
 
     //打开登录框
@@ -421,8 +435,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        paddingTop:8,
-        paddingBottom:8,
+        paddingTop:10,
+        paddingBottom:10,
         borderBottomWidth:1,
         borderBottomColor:'#eee',     
         width:width-30,
@@ -440,7 +454,6 @@ const styles = StyleSheet.create({
     imgb: {
         width:0.1*(width-30),
         alignItems:'center',
-        backgroundColor:'#eee'
     },
     img: {
         width:0.06*(width-30),
@@ -448,9 +461,9 @@ const styles = StyleSheet.create({
     },
     shuru: {
         width:0.9*(width-30),
-        height:30,
         color:'#999',
-        marginTop: Platform.OS === 'ios' ? 4 : 8,
+        height:36,
+        //marginTop: Platform.OS === 'ios' ? 4 : 8,
     },
     link: {
         fontSize:13,
@@ -479,7 +492,7 @@ const styles = StyleSheet.create({
         height:35, 
         alignItems:'center', 
         justifyContent:'space-between', 
-        color:'red',
+        //color:'red',
     },
     mid: {
         alignItems:'center',
@@ -490,6 +503,7 @@ const styles = StyleSheet.create({
         width:width,
         borderTopWidth:1,
         borderTopColor:'#eee',
+        backgroundColor:'#fff'
     },
     anniu: {
         alignItems:'center',
@@ -513,7 +527,7 @@ const styles = StyleSheet.create({
     },
     ktxt: {
         color:'#333',
-        fontSize:15,
+        fontSize:14,
     },
     allWidth: {
         flexDirection: 'row',
@@ -525,11 +539,12 @@ const styles = StyleSheet.create({
         width:width*0.5,
         alignItems:'center',
         justifyContent:'center',
-        height:40,
+        height:38,
+        backgroundColor:'#fff'
     },
     jright: {
         borderLeftWidth:1,
-        borderLeftColor:'#eee'
+        borderLeftColor:'#eee',
     },
     jtext: {
         color:'#b08400'
@@ -581,10 +596,10 @@ const styles = StyleSheet.create({
     },
     shuruFill: {
         width:0.9*(width-30),
-        height:30,
+        height:38,
         color:'#999',
         fontSize:12,
-        marginTop: Platform.OS === 'ios' ? 4: 8,
+        //marginTop: Platform.OS === 'ios' ? 4: 8,
     },
     small: {
         width:0.7*(width-30),
