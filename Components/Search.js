@@ -24,7 +24,7 @@ export default class Search extends Component {
     return (
       <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.toSearch()}>
         <View style={styles.container}>
-            <Icon style={styles.iconStyle} name="ios-search-outline" size={25}  />
+            <Icon style={styles.iconStyle} name="ios-search-outline" size={23} color='#888'  />
             <Text style={styles.inputStyle}>
               输入你想搜索的内容
             </Text>
@@ -45,18 +45,18 @@ const styles = StyleSheet.create({
     justifyContent :'center',
     backgroundColor:'#4c4c4c',
     borderRadius:25,
-    width:width*0.85,
+    width:width*0.82,
     height:34,
     alignItems:'center',
   },
   inputStyle:{
-    width:width*0.75,
+    width:width*0.66,
     fontSize:12,
     color:'#7c7c7c',
-    marginLeft:10
+    marginLeft:10,
   },
   iconStyle:{
-    marginLeft:10
+    marginLeft:5
   }
 });
 

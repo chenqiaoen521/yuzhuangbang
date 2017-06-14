@@ -23,7 +23,6 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 export default class Center extends Component {
     static navigationOptions = {
         title:'忘记密码',
-        tintColor:'red'
     }
     render() {
         return (
@@ -34,15 +33,15 @@ export default class Center extends Component {
                 </View>
                 <View style={styles.fillFill}>
                     <View style={styles.sgFill}>
-                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon012.png')}></Image></View>
+                        <TextInput style={styles.shuruFill} placeholder='请填写您的手机号' placeholderTextColor="#888" keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.sgFill}>
-                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
+                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon014.png')}></Image></View>
 
 
 
-                        <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
+                        <TextInput style={[styles.shuruFill,styles.small]}  placeholderTextColor="#888" placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
 
                         <TouchableOpacity>
                             {/*验证码按钮*/}
@@ -52,12 +51,12 @@ export default class Center extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.sgFill}>
-                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholder='请设置新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon013.png')}></Image></View>
+                        <TextInput style={styles.shuruFill} placeholderTextColor="#888" placeholder='请设置新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.sgFill}>
-                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/loginpng_10.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholder='请再次输入新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                        <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon013.png')}></Image></View>
+                        <TextInput style={styles.shuruFill} placeholderTextColor="#888" placeholder='请再次输入新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                     </View>
 
                    
