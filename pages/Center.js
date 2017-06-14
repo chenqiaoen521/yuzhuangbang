@@ -52,12 +52,17 @@ export default class Center extends Component {
           </View>
           <View style={styles.middle}>
             <CenterItem icon={require('../imgs/middle_01.png')} txt="我的主页"/>
-            <CenterItem icon={require('../imgs/middle_02.png')} txt="商品管理"/>
-            <CenterItem icon={require('../imgs/middle_02.png')} txt="黑名单"/>
+            <CenterItem icon={require('../imgs/middle_07.png')} txt="商品管理"/>
+            <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
             <CenterItem icon={require('../imgs/middle_03.png')} txt="部门管理"/>
             <CenterItem icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
+            <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}>
+            </View>
             <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
+            <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/middle_05.png')} txt="我的收藏"/>
             <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
+            <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -66,6 +71,14 @@ export default class Center extends Component {
   toSetting(){
     const {navigate} = this.props.navigation;
     navigate('Settings');
+  }
+  toFav(){
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{page:'fav'});
+  }
+  toBlack(){
+    const {navigate} = this.props.navigation;
+    navigate('blackList');
   }
   toMessage () {
     const {navigate} = this.props.navigation;
@@ -116,6 +129,6 @@ const styles = StyleSheet.create({
       alignItems:'center',
   },
   middle:{
-    backgroundColor:'#fff'
+    backgroundColor:'#f7f7f7',
   }
 });

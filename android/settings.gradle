@@ -1,4 +1,5 @@
 rootProject.name = 'yuzhuangbang'
 
-include ':app', ':react-native-vector-icons'
+include ':app', ':react-native-vector-icons', ':react-native-image-picker'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+project(':react-native-image-picker').projectDir = new File(settingsDir, '../node_modules/react-native-image-picker/android')
