@@ -5,21 +5,6 @@
  */
 
 import React, { Component } from 'react';
-import  ImagePicker from 'react-native-image-picker'; //第三方相机
-const photoOptions = {
-    //底部弹出框选项
-    title:'请选择',
-    cancelButtonTitle:'取消',
-    takePhotoButtonTitle:'拍照',
-    chooseFromLibraryButtonTitle:'选择相册',
-    quality:0.75,
-    allowsEditing:true,
-    noData:false,
-    storageOptions: {
-        skipBackup: true,
-        path:'images'
-    }
-}
 import {
   StyleSheet,
   Text,
@@ -34,21 +19,18 @@ import {
   Alert,
   Modal
 } from 'react-native';
-const CANCEL_INDEX = 0
-const options = [  'Cancel','男', '女' ]
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit';
 import ActionSheet from 'react-native-actionsheet';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
-export default class PersonInfo extends Component {
+export default class DetailAddr extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      sex: '男',
-      modalVisible: false
+      modalVisible:false
     };
     //三级联动
     this.rowIndex0 = 0;
@@ -56,7 +38,7 @@ export default class PersonInfo extends Component {
     this.rowIndex2 = 0;
   }
   static navigationOptions = {
-    title:'个人资料',
+    title:'地址详情',
     headerRight: (
       <Icon.Button
         name="bell-o"
@@ -69,55 +51,73 @@ export default class PersonInfo extends Component {
       />
     )
   }
-  chooseImg () {
-    ImagePicker.showImagePicker(photoOptions,(response) =>{
-             console.log('response'+response);
-             if (response.didCancel){
-                 return
-             }
-         })
+  checkArea(){
+    this.setState({
+      modalVisible:true
+    })
   }
   render() {
+    let that = this 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <Unit popToSetting={()=>this.chooseImg()} topColor="#151515" bgColor="#282828" txtCol="#999999" icon={require('../imgs/yihan.jpg')} title="头像"/>
-          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="姓名" rightInput="刘德华"/>
-          <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="昵称" rightInput="北七"/>
-            <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="手机号" rightInput="158****2135"/>
-          <View style={{marginTop:10}}>
-            <Unit popToSetting={()=>this.checkSex()} topColor="#151515" bgColor="#282828" txtCol="#999999" title="性别" rightTxt={this.state.sex}/>
-            <Unit topColor="#151515" popToSetting={()=>this.checkArea()} bgColor="#282828" txtCol="#999999" title="我的地址" />
+        <View style={styles.unit}> 
+          <TouchableOpacity onPress={()=>this.checkArea()} style={styles.left}>
+            <TextInput
+              placeholderTextColor="#cccccc"
+              editable={false}
+              placeholder="所在地区"
+              style={styles.inputStyle}
+              underlineColorAndroid="transparent"
+              onEndEditing={(event) => this.updateText(
+              'onEndEditing text: ' + event.nativeEvent.text
+              )}
+            />
+          </TouchableOpacity>
+          <View style={styles.right}>
+            <Icon name="angle-right" size={25} color="#b6b6b6" />
           </View>
-         
-        </ScrollView>
-        <ActionSheet
-            ref={o => this.ActionSheet = o}
-            options={options}
-            cancelButtonIndex={CANCEL_INDEX}
-            onPress={this.handlePress.bind(this)}
-          />
-         {this.renderPicker()}
+        </View>
+        {that.renderItem("十里铺街")}
+        {that.renderItem("商都路与中州大道交叉口建业五栋大...")}
+        {this.renderDefault()}
+        {this.renderPicker()}
       </View>
     );
   }
-  checkSex(){
-    this.ActionSheet.show()
+  renderDefault () {
+    return (
+      <View style={[styles.unit,{paddingLeft:10,height:50,marginTop:10}]}> 
+          <View style={styles.left}>
+            <Text style={{color:'#cccccc'}}>设为默认地址</Text>
+          </View>
+          <View style={styles.right}>
+            <Switch value={true} thumbTintColor="#ffffff"  onTintColor="#c9c9c9"/>
+          </View>
+        </View>
+      )
   }
-  checkArea () {
-    /*this.setState({
-      modalVisible:true
-    })*/
-    const {navigate} = this.props.navigation;
-    navigate('address');
-  }
-  cancelModal () {
-    this.setState({
-      modalVisible:false
-    })
+  renderItem(name){
+    return (
+      <View style={styles.unit}> 
+          <View style={styles.left}>
+            <TextInput
+              placeholderTextColor="#cccccc"
+              placeholder={name}
+              style={styles.inputStyle}
+              multiline={true}
+              underlineColorAndroid="transparent"
+              onEndEditing={(event) => this.updateText(
+              'onEndEditing text: ' + event.nativeEvent.text
+              )}
+            />
+          </View>
+          <View style={styles.right}>
+            <Icon name="angle-right" size={25} color="#b6b6b6" />
+          </View>
+        </View>
+      )
   }
   renderPicker () {
-    
     return (
        <Modal
           animationType={"slide"}
@@ -174,34 +174,42 @@ export default class PersonInfo extends Component {
         </Modal>
       )
   }
-  handlePress(i) {
-    if(i==0) return 
-    let str = options[i]
+  cancelModal () {
     this.setState({
-      sex: str
+      modalVisible:false
     })
-  }
-  toInfo () {
-    const {navigate} = this.props.navigation;
-    navigate('personInfo');
   }
 }
 
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#151515'
+    backgroundColor:'#151515',
   },
-  unitStyle:{
-    backgroundColor:'#fff',
+  unit:{
     flexDirection:'row',
-    alignItems :'center',
-    justifyContent :'space-between',
-    padding:10,
-    paddingTop:12,
-    paddingBottom:12,
-    borderBottomColor:'#e5e5e5',
-    borderBottomWidth:0.5
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingRight:8,
+    backgroundColor:'#282828',
+    borderBottomColor:'#151515',
+    borderBottomWidth:1
+  },
+  left:{
+
+  },
+  tj:{
+    justifyContent : 'center',
+    alignContent : 'center',
+    height:45,
+    width:width,
+    position:'absolute',
+    bottom:0,
+    backgroundColor:'rgba(174,131,0,0.9)'
+  },
+  inputStyle:{
+    width:width*0.9,
+    color:'#cccccc',
   },
   popmsg: {
     height:0.55*height,

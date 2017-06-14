@@ -19,7 +19,8 @@ import { fork } from 'redux-saga/effects';
 
 import { watchRequestNoticeList } from './notice';
 import { watchRequestArticleList } from './message';
+import { watchRequestBlackList } from './black';
 
 export default function* rootSaga() {
-  yield [fork(watchRequestNoticeList), fork(watchRequestArticleList)];
+  yield [fork(watchRequestNoticeList), fork(watchRequestArticleList), fork(watchRequestBlackList)];
 }

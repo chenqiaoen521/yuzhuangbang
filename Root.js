@@ -16,12 +16,22 @@ import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
 import HelpCenter  from './pages/HelpCenter';
 import HelpDetail  from './pages/HelpDetail';
+import BlackList  from './pages/blackList';
+import Feedback  from './pages/Feedback';
 import Message  from './pages/Message';
+import About  from './pages/About';
+import PasswordPage  from './pages/Password';
 import ForgetPassword  from './pages/ForgetPassword';
+
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
 import CreatShopSenda  from './pages/CreatShopSenda';
 /*import RNCarousel  from './Components/RNCarousel';*/
+
+import AddressPage  from './pages/address';
+import DetailAddr  from './pages/detailAddr';
+import MessageFriend  from './pages/messageFriend';
+
 
 import {
     StackNavigator,
@@ -54,54 +64,72 @@ const TabContainer = TabNavigator({
 });
 
 const Root = StackNavigator(
-    {   
-        /*RNCarousel:{
-            screen:RNCarousel
-        },*/
-        CreatShopSenda:{
+
+  {
+    Splash:{
+      screen:Splash
+    }, 
+    CreatShopSenda:{
             screen:CreatShopSenda
-        },
+    },
         CreatShop:{
             screen:CreatShop
         },
-        Index: {
-            screen: TabContainer,
-            navigationOptions: {
-                headerLeft: null
-            }
-        },
+    Index: {
+      screen: TabContainer,
+      navigationOptions: {
+        headerLeft: null
+      }
+    },
         WorkManage:{
             screen:WorkManage
         },
-        Splash:{
-            screen:Splash
-        },
-        
-        MainDetail:{
-            screen:MainDetail,
-        },
-        Message:{
-            screen:Message,
-        },
-        SearchPage:{
-            screen:SearchPage
-        },
-        Settings:{
-            screen:Settings
-        },
-        personInfo:{
-            screen:PersonInfo
-        },
-        HelpCenter:{
-            screen:HelpCenter
-        },
-        HelpDetail:{
-            screen:HelpDetail
-        },
-        ForgetPassword:{
-            screen:ForgetPassword
-        },
-        
+    MainDetail:{
+      screen:MainDetail,
+    },
+    Message:{
+      screen:Message,
+    },
+    detailAddr:{
+      screen:DetailAddr,
+    },
+    blackList:{
+      screen:BlackList,
+    },
+    Feedback:{
+      screen:Feedback,
+    },
+    messageFriend:{
+      screen:MessageFriend,
+    },
+    password:{
+      screen:PasswordPage,
+    },
+    address:{
+      screen:AddressPage,
+    },
+    About:{
+      screen:About,
+    },
+    SearchPage:{
+      screen:SearchPage
+    },
+    Settings:{
+      screen:Settings
+    },
+    personInfo:{
+      screen:PersonInfo
+    },
+    HelpCenter:{
+      screen:HelpCenter
+    },
+    HelpDetail:{
+      screen:HelpDetail
+    },
+    ForgetPassword:{
+      screen:ForgetPassword
+    }
+
 
     },
     {

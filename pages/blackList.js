@@ -22,14 +22,13 @@ import {
   ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Unit from '../Components/Unit';
-import ActionSheet from 'react-native-actionsheet';
 import LoadingView from '../Components/LoadingView';
-import * as listActionCreators from '../actions/list';
+import * as blackCreators from '../actions/black';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-class Message extends Component {
+var loadMoreTime = 0;
+var pages = 0;
+class BlackList extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -38,7 +37,7 @@ class Message extends Component {
     };
   }
   static navigationOptions = {
-    title:'我的消息',
+    title:'黑名单',
     headerRight: (
       <Icon.Button
         name="bell-o"
@@ -52,8 +51,9 @@ class Message extends Component {
     )
   }
   componentDidMount () {
-    const {listActions} = this.props;
-    listActions.requestArticleList(false,true,false)
+    const {blackActions} = this.props;
+    blackActions.requestBlackList(false,true,false)
+    pages = 1;
   }
   render() {
     return (
@@ -63,25 +63,25 @@ class Message extends Component {
     );
   }
   renderContent(){
-    if(this.props.list.loading){
+    if(this.props.black.loading){
       return (
         <LoadingView/>
         )
     }else{
       return (
         <ListView
-             dataSource={this.state.dataSource.cloneWithRows(this.props.list.articleList)}
+             dataSource={this.state.dataSource.cloneWithRows(this.props.black.articleList)}
              renderRow={(rowdata)=>this.renderRow(rowdata)}
              contentContainerStyle={styles.contentViewStyle}
              enableEmptySections={true}
              initialListSize ={1}
              onEndReached={() => this.onEndReached()}
-             onEndReachedThreshold ={100}
+             onEndReachedThreshold ={10}
              renderFooter={()=>this.renderFooter()}
              refreshControl={
                 <RefreshControl
                   style={styles.refreshControlBase}
-                  refreshing={this.props.list.isRefreshing}
+                  refreshing={this.props.black.isRefreshing}
                   onRefresh={() => this.onRefresh()}
                   title="Loading..."
                   colors={['#ffaa66cc']}
@@ -92,35 +92,40 @@ class Message extends Component {
       }
   }
   onEndReached(){
-    const {listActions} = this.props;
-    alert('Bottom')
-    listActions.requestArticleList(false,false,true);
+    const time = Date.parse(new Date()) / 1000;
+    if (time - loadMoreTime > 1) {
+      const {blackActions} = this.props;
+      pages = pages + 1 ;
+      blackActions.requestBlackList(false,false,true,pages);
+      loadMoreTime = Date.parse(new Date()) / 1000;
+    }
   }
   onRefresh(){
-    const {listActions} = this.props;
-    alert('刷')
-    listActions.requestArticleList(true,false,false);
+    const {blackActions} = this.props;
+    pages = 1;
+    blackActions.requestBlackList(true,false,false,pages);
   }
   renderRow(rowdata){
       return (
-        <TouchableOpacity style={styles.unit} onPress={()=>this.toDetail()}>
-          <View style={styles.item}>
-            <View style={styles.icon}>
-              <Icon name="bell-o"  style={{fontSize:14,color:'#fff'}}/>
-            </View>
-            <Text style={styles.date}>{rowdata.date}</Text>
+        <TouchableOpacity style={styles.unit} >
+          <View style={styles.up}>
+            <Image
+              style={styles.img}
+              source={rowdata.icon}
+            />
+            <Text style={[styles.nameStyle,{fontSize:16}]}>{rowdata.name}</Text>
           </View>
-          <Text style={styles.title}>{rowdata.title}</Text>
-          <Text style={styles.info}>{rowdata.info}</Text>
+          <View style={styles.down}>
+              <Text style={styles.reason}>
+                <Text style={[styles.nameStyle,{fontSize:11}]}>拉黑原因  :  </Text>
+                {rowdata.reason}
+              </Text>
+          </View>
         </TouchableOpacity>
       )
   }
-  toDetail(){
-    const {navigate} = this.props.navigation;
-    navigate('messageFriend');
-  }
   renderFooter(){
-    if(this.props.list.isLoadMore){
+    if(this.props.black.isLoadMore){
       return (
         <View style={styles.footerContainer}>
           <ActivityIndicator size="small" color="#ffb14c" />
@@ -139,20 +144,20 @@ class Message extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { list } = state;
+  const { black } = state;
   return {
-    list
+    black
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const listActions = bindActionCreators(listActionCreators, dispatch);
+  const blackActions = bindActionCreators(blackCreators, dispatch);
   return {
-    listActions
+    blackActions
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Message);
+export default connect(mapStateToProps, mapDispatchToProps)(BlackList);
 
 const styles = StyleSheet.create({
   container:{
@@ -160,17 +165,20 @@ const styles = StyleSheet.create({
     backgroundColor:'#151515',
   },
   unit:{
-    alignItems : 'flex-start',
-    backgroundColor:'#232121',
-    paddingLeft:10,
-    paddingRight:10,
-    marginBottom:6
+    flexDirection:'column',
+    backgroundColor:'#1b1b1b',
+    marginBottom:5,
   },
-  item:{
+  up:{
     flexDirection:'row',
-    justifyContent :'center',
-    alignItems:'center',
-    height:46
+    alignItems : 'center',
+    padding:8
+  },
+  down:{
+    marginLeft:56,
+    flexDirection:'row',
+    marginTop:-15,
+    paddingBottom:16
   },
   footerContainer: {
     flex: 1,
@@ -185,30 +193,18 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color:'#ffb14c'
   },
-  icon:{
-    backgroundColor:'#ae8300',
-    borderRadius:12,
-    width:24,
-    height:24,
-    alignItems:'center',
-    justifyContent :'center',
+  img:{
+    width:40,
+    height:40,
+    borderRadius:20,
     marginRight:10
   },
-  date:{
-    color:'#acacac',
-    fontSize:14,
+  nameStyle:{
+    color:'#cccccc'
   },
-  title:{
-    color:'#cccccc',
-    fontSize:17,
-    marginBottom:13
-  },
-  info:{
-    color:'#999999',
-    fontSize:15,
-    paddingBottom:15
-  },
-  refreshControlBase: {
-    backgroundColor: 'transparent'
-  },
+  reason:{
+    color:'#ae8300',
+    fontSize:11,
+    lineHeight:22
+  }
 });
