@@ -74,7 +74,7 @@ export default class Center extends Component {
   }
   toFav(){
     const {navigate} = this.props.navigation;
-    navigate('MainDetail',{page:'fav'});
+    navigate('MainDetail',{page:'fav',title:'我的收藏'});
   }
   toBlack(){
     const {navigate} = this.props.navigation;

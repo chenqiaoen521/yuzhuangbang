@@ -110,7 +110,7 @@
                 var myApp = new Framework7(); 
  
 var $$ = Dom7;
-$$('.tab-bar .item').click(function(){
+$$('.tab-bar .item').on('click',function(){
     if($$(this).hasClass('on')){
         $$(this).siblings().removeClass('on');
     }else{
