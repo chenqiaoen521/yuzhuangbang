@@ -18,10 +18,12 @@
 import { combineReducers } from 'redux';
 import notice from './notice';
 import list from './list';
+import black from './black';
 
 const rootReducer = combineReducers({
   notice,
-  list
+  list,
+  black
 });
 
 export default rootReducer;

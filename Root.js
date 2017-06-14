@@ -16,6 +16,7 @@ import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
 import HelpCenter  from './pages/HelpCenter';
 import HelpDetail  from './pages/HelpDetail';
+import BlackList  from './pages/blackList';
 import Feedback  from './pages/Feedback';
 import Message  from './pages/Message';
 import About  from './pages/About';
@@ -74,6 +75,9 @@ const Root = StackNavigator(
     },
     detailAddr:{
       screen:DetailAddr,
+    },
+    blackList:{
+      screen:BlackList,
     },
     Feedback:{
       screen:Feedback,

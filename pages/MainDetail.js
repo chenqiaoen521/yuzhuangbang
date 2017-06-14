@@ -39,13 +39,21 @@ export default class MainDetail extends Component {
   });
 
   render() {
+    const {state} = this.props.navigation;
+    let page = state.params.page;
+    let html = null;
+    if(page=='fav'){
+      html = require('../fw/my_fav.html')
+    }else{
+      html = require('../fw/index.html')
+    }
     return (
       <ScrollView contentContainerStyle={styles.container}>
         
         <WebView
             automaticallyAdjustContentInsets={false}
             style={styles.webView}
-          source={require('../fw/index.html')}
+          source={html}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           onMessage={this.receiveMessage.bind(this)}
