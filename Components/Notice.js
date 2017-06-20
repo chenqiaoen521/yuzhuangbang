@@ -11,14 +11,21 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
+
+const data = require('../data/notice.js')
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as noticeCreators from '../actions/notice';
-class Notice extends Component {
+export default class Notice extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      activePage:0
+    };
+  }
   static defaultProps = {
     iconText: '公告',
     title:'',
@@ -28,25 +35,83 @@ class Notice extends Component {
     titleColor:'#ffffff',
     rightBar:'#ffffff'
   }
-  render() {
-    return (
-      <View style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
-          <View style={styles.bounce}>
-            <Text style={[styles.titleStyle,{fontSize:9},{backgroundColor:'#ff3d2c'},{paddingLeft:2},{paddingRight:2}]}>{this.props.iconText}</Text>
-            <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:12},{marginLeft:10}]}>{this.props.notice.list}</Text>
-          </View>
-          <View style={styles.bounce}>
-            <Text style={{color:'#ae8300'}}>&bull;</Text>
-            <Text style={[styles.subFontStyle,{marginLeft:8}]}>{this.props.browserCount}人浏览</Text>
-            <Text style={[styles.subFontStyle,{marginLeft:20}]}>时间:{this.props.time}</Text>
-          </View>
-          <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
-      </View>
-    );
+   componentDidMount() {
+    this.startTimer()
   }
-  componentDidMount() {
-    const { noticeActions } = this.props;
-    noticeActions.requestTypeList();
+  componentWillUnMount(){
+    clearInterval(this.timer)
+  }
+  startTimer () {
+    let Scroll = this.refs.noticeScroll
+    this.timer = setInterval(() => {
+      let activePage = this.state.activePage;
+      if((this.state.activePage+1)>= data.data.length){
+        activePage = 0;
+      }else{
+        activePage = this.state.activePage+1 ;
+      }
+      this.setState({
+        activePage:activePage
+      })
+      Scroll.scrollTo({x:activePage*width,y:0,animated:true})
+    },5000)
+  }
+  render() {
+      return (
+        <ScrollView
+          ref="noticeScroll"
+          horizontal={true}
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator ={false}
+          contentContainerStyle={styles.scroll}
+          iosonScrollAnimationEnd ={(e) => this.onAnimationEnd(e)}
+          onScrollBeginDrag={(e)=>this.onScrollBeginDrag(e)}
+          onScrollEndDrag={()=>this.onScrollEndDrag()}
+        >
+          {this.renderBannerView()}
+        </ScrollView>
+      )
+  }
+  onScrollBeginDrag (e) {
+    //停止定时器
+    console.log('begin')
+    clearInterval(this.timer);
+    let offsetX = e.nativeEvent.contentOffset.x
+    let currentPage = Math.floor(offsetX / width)
+    this.setState({
+      activePage:currentPage
+    })
+  }
+  onScrollEndDrag () {
+    console.log('end')
+    this.startTimer();
+  }
+  onAnimationEnd (e) {
+    let offsetX = e.nativeEvent.contentOffset.x
+    let currentPage = Math.floor(offsetX / width)
+    this.setState({
+      activePage:currentPage
+    })
+  }
+  renderBannerView() {
+    let itemarr = [];
+    data.data.map((item,i)=>{
+      itemarr.push(
+          <View key={i} style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
+            <View style={styles.bounce}>
+              <Text style={[styles.titleStyle,{fontSize:9},{backgroundColor:'#ff3d2c'},{paddingLeft:2},{paddingRight:2}]}>{item.iconText}</Text>
+              <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:12},{marginLeft:10}]}>{item.title}</Text>
+            </View>
+            <View style={styles.bounce}>
+              <Text style={{color:'#ae8300'}}>&bull;</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:8}]}>{item.browserCount}人浏览</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:20}]}>时间:{item.time}</Text>
+            </View>
+            <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
+        </View>
+        )
+    })
+    return itemarr;
   }
 }
 
@@ -71,19 +136,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  const { notice } = state;
-  return {
-    notice
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  const noticeActions = bindActionCreators(noticeCreators, dispatch);
-  return {
-    noticeActions
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notice);
 

@@ -22,7 +22,7 @@ import IconDetail from '../Components/IconDetail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 export default class MainDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title,
+    headerTitle: navigation.state.params.title,
     tabBarIcon: ({ tintColor }) => (
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),

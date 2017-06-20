@@ -22,6 +22,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingView from '../Components/LoadingView';
 import * as blackCreators from '../actions/black';
 import { connect } from 'react-redux';
@@ -37,7 +38,7 @@ class BlackList extends Component {
     };
   }
   static navigationOptions = {
-    title:'黑名单',
+    headerTitle:'黑名单',
     headerRight: (
       <Icon.Button
         name="bell-o"

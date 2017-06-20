@@ -56,7 +56,7 @@ export default class PersonInfo extends Component {
     this.rowIndex2 = 0;
   }
   static navigationOptions = {
-    title:'个人资料',
+    headerTitle:'个人资料',
     headerRight: (
       <Icon.Button
         name="bell-o"

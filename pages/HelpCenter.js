@@ -24,7 +24,7 @@ import HelpListview from '../Components/HelpListview';
 
 export default class HelpCenter extends Component {
     static navigationOptions = {
-        title:'帮助中心',
+        headerTitle:'帮助中心',
         headerRight: (
             <Icon.Button
                 name="bell-o"

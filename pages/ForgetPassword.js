@@ -22,7 +22,7 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 export default class Center extends Component {
     static navigationOptions = {
-        title:'忘记密码',
+        headerTitle:'忘记密码',
     }
     render() {
         return (

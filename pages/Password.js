@@ -36,7 +36,7 @@ export default class PasswordPage extends Component {
 
   }
   static navigationOptions = {
-    title:'修改密码',
+    headerTitle:'修改密码',
     headerRight: (
       <Icon.Button
         name="bell-o"

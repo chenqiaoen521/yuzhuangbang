@@ -23,7 +23,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit'
 export default class Settings extends Component {
   static navigationOptions = {
-    title:'设置管理',
+    headerTitle:'设置管理',
     headerRight: (
       <Icon.Button
         name="bell-o"
