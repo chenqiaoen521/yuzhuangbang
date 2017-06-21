@@ -23,7 +23,7 @@ var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Notice from '../Components/Notice';
 
-export default class Center extends Component {
+export default class AddFriendDetail extends Component {
     static navigationOptions = {
         title:'好友详情',
         headerRight: (
@@ -70,7 +70,6 @@ export default class Center extends Component {
             </View>
         );
     }
-    //
     GoAdd (){
         const {navigate} = this.props.navigation;
         navigate('AddFriendRequest') 
@@ -121,6 +120,4 @@ const styles = StyleSheet.create({
         borderColor:'#eee',
 
     }
-    
-    
 });

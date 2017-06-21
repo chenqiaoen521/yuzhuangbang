@@ -50,6 +50,14 @@ export default class MainDetail extends Component {
       html = require('../fw/myHome.html')
     }else if(page=='custom'){
       html = require('../fw/Client.html')
+    }else if(page=='xq'){
+      html = require('../fw/ClientXQ.html')
+    }else if(page=='cadd'){
+      html = require('../fw/ClientAdd.html')
+    }else if(page=='hmd'){
+      html = require('../fw/ClientBlack.html')
+    }else if(page=='tjzp'){
+      html = require('../fw/MerchantBJ.html')
     }
     else{
       html = require('../fw/index.html')
@@ -74,6 +82,18 @@ export default class MainDetail extends Component {
     let message = e.nativeEvent.data
     if(message == 'aaa'){
       Alert.alert(message)
+    }else if(message == 'xq'){
+      const {navigate} = this.props.navigation;
+      navigate('MainDetail',{page:'xq',title:'客户详情'});
+    }else if(message == 'cadd'){
+      const {navigate} = this.props.navigation;
+      navigate('MainDetail',{page:'cadd',title:'客户详情'});
+    }else if(message == 'hmd'){
+      const {navigate} = this.props.navigation;
+      navigate('MainDetail',{page:'hmd',title:'加入黑名单'});
+    }else if(message == 'lhlist'){
+      const {navigate} = this.props.navigation;
+      navigate('blackList');
     }else{
       const {navigate} = this.props.navigation;
       navigate('SearchPage');

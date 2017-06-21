@@ -184,15 +184,15 @@ const Root = StackNavigator(
         headerMode: 'screen',
         swipeEnabled: true,
         navigationOptions: {
-           /* headerStyle:{
+            headerStyle:{
                 backgroundColor:'#151515',
                 height:56,
                 paddingTop:10,
                 justifyContent:'center'
-            },*/
-          headerStyle: {
+            },
+          /*headerStyle: {
             backgroundColor: '#151515'
-          },
+          },*/
           headerTitleStyle: {
             color: '#fff',
             fontSize: 15,

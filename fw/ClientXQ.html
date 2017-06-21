@@ -209,6 +209,12 @@ $$(window).on("touchmove",function(){
     $$(".droph").hide(); 
 })
 
+$$('.fixedbtn').on('click',function(){
+    window.postMessage('cadd');
+})
+$$('.movea').on('click',function(){
+    window.postMessage('hmd');
+})
 //查看更多
 $$(".dongtai .duo .bg1").on("click",function(){
     $$(this).hide().siblings(".bg2").show();

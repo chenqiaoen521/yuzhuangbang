@@ -6,83 +6,92 @@
 
 import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Dimensions,
-    TextInput,
-    TouchableOpacity,
-    Platform,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  TextInput,
+  Button,
+  Switch,
+  Alert,
+  Modal
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
-
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import AddFriendList from '../Components/AddFriendList';
-
-
-export default class Center extends Component {
-    static navigationOptions = {
-        title:'添加好友',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={() => {
-                    navigation.state.params.handleShare();
-                }}
-            />
-        )
-    }
-    render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.searchbox}>
-                    <Icon style={{width:0.1*width}} name="search" size={23} color='#888'  />
-                    <TextInput style={styles.rtext} placeholderTextColor="#bbb"  underlineColorAndroid="transparent" placeholder='输入对方账号进行查找' >
-                    </TextInput>
-                </View>
-                <AddFriendList  popToWatch={()=>this.Goknow()}  />
-            </View>
-        );
-    }
-    //跳转
-    Goknow() {
-        const {navigate} = this.props.navigation;
-        navigate('AddFriendDetail') 
-        
-    }
+import Ionicons from 'react-native-vector-icons/Ionicons';
+export default class AddFriend extends Component {
+  constructor(props) {
+    super(props);
   
+    this.state = {
+      
+    };
+  }
+  static navigationOptions = {
+    headerTitle:'添加好友'
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.renderSearch()}
+        {this.renderResult()}
+      </View>
+    );
+  }
+  renderSearch () {
+    return (
+      <View style={styles.search}>
+        <Ionicons 
+          name="ios-search" 
+          color='#666666'
+          size={25}
+          backgroundColor="transparent"
+          underlayColor="transparent"
+          activeOpacity={0.8}/>
+          <TextInput 
+            underlineColorAndroid="transparent" 
+            style={{color:'#cccccc',marginLeft:10,padding:0,width:200,textAlign:'left',fontSize:15,}} 
+            placeholder  = {'输入对方账号进行查找'}
+            placeholderTextColor = '#666666'
+          />
+      </View>
+      )
+  }
+
+  renderResult () {
+    return (
+      <TouchableOpacity onPress={this._abc.bind(this)} >
+        <View style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#151515'}}>
+          <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={require('../imgs/yihan.jpg')}/>
+          <Text style={{fontSize:12,color:'#cccccc'}}>{'艾若溪河(7558484939)'}</Text>
+        </View>
+      </TouchableOpacity>
+      )
+  }
+  _abc () {
+     const {navigate} = this.props.navigation;
+    navigate('addFriendDetail');
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor:'#151515',
-    },
-    searchbox: {
-        backgroundColor:'#1b1b1b',
-        paddingTop:6,
-        paddingRight:15,
-        paddingBottom:6,
-        paddingLeft:15,
-        borderTopWidth:1,
-        borderBottomWidth:1,
-        borderColor:'#333',
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-    },
-    rtext: {
-        width:0.9*width,
-        color:'#bbb',
-        paddingLeft:0,
-        height:36,
-    }
-    
-    
+  container:{
+    flex:1,
+    backgroundColor:'#151515',
+  },
+  search:{
+    flexDirection:'row',
+    alignItems:'center',
+    height:55,
+    paddingLeft:10,
+    backgroundColor:'#1b1b1b',
+    borderBottomWidth:1,
+    borderTopWidth:1,
+    borderBottomColor:'#262626',
+    borderTopColor:'#262626',
+    marginBottom :20
+  }
 });

@@ -272,7 +272,7 @@ $$(".drophide span").on("click",function(){
     $$(this).addClass("on").siblings("span").removeClass("on");
     $$(this).parent(".drophide").hide();
 })
-
+//
 //各种状态
 $$(".ke .ztai p").on("click",function(){
     $$(this).parents(".ztai").find(".droph").show();
@@ -288,7 +288,12 @@ $$(window).on("touchmove",function(){
     $$(".drophide").hide();
     $$(".droph").hide(); 
 })
-
+$$('.mation').on('click',function(){
+    window.postMessage('xq');
+})
+$$('.movea').on('click',function(){
+    window.postMessage('hmd');
+})
 //查看更多
 $$(".dongtai .duo .bg1").on("click",function(){
     $$(this).hide().siblings(".bg2").show();
