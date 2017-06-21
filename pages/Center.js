@@ -120,11 +120,11 @@ export default class Center extends Component {
     {'icons':require('../imgs/center_02.png'),myname:'我关心的',cont:52,id:1},
     {'icons':require('../imgs/center_04.png'),myname:'关心我的',cont:103,id:2},
     {'icons':require('../imgs/center_01.png'),myname:'我的好友',cont:152,id:3},
-    {'icons':require('../imgs/center_03.png'),myname:'我的客户',cont:11}]
+    {'icons':require('../imgs/center_03.png'),myname:'我的客户',cont:11,id:4}]
     itemData.map((item,i) => {
       arr.push(
         <View key={i}>
-          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{this.props.navigation.navigate('Icare',{title:item.myname,id:item.id});}}  style={styles.headerBottom}>
+          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{item.id==4? this.props.navigation.navigate('MainDetail',{page:'custom',title:item.myname}): this.props.navigation.navigate('Icare',{title:item.myname,id:item.id})}}  style={styles.headerBottom}>
             <Image resizeMode={Image.resizeMode.center} style={{width:width/4,height:20}} source={item.icons}/>
             <Text style={{color:'#ccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
             <Text style={{color:'#ccc',fontSize:12}}>{item.cont}</Text>

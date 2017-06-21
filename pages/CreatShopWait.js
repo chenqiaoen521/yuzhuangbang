@@ -20,7 +20,7 @@ var {width,height} = Dimensions.get('window');
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class Center extends Component {
+export default class CreatShopWait extends Component {
     static navigationOptions = {
         title:'我要开店',
         headerRight: (

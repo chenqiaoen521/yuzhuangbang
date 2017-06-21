@@ -48,6 +48,8 @@ export default class MainDetail extends Component {
       html = require('../fw/department.html')
     }else if(page=='myhome'){
       html = require('../fw/myHome.html')
+    }else if(page=='custom'){
+      html = require('../fw/Client.html')
     }
     else{
       html = require('../fw/index.html')

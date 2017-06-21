@@ -33,9 +33,9 @@ import CreatShop  from './pages/CreatShop';
 import CreatShopSenda  from './pages/CreatShopSenda';
 import CreatShopSendb  from './pages/CreatShopSendb';
 import CreatShopWait  from './pages/CreatShopWait';
-import AddFriend  from './pages/AddFriend';
+/*import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
-import AddFriendRequest  from './pages/AddFriendRequest';
+import AddFriendRequest  from './pages/AddFriendRequest';*/
 /*import RNCarousel  from './Components/RNCarousel';*/
 
 import AddressPage  from './pages/address';
@@ -77,6 +77,19 @@ const Root = StackNavigator(
 
   { 
     
+    
+    /*AddFriend:{
+        screen:AddFriend
+    },
+    AddFriendDetail:{
+        screen:AddFriendDetail
+    },  
+    AddFriendRequest:{
+        screen:AddFriendRequest
+    }, */
+    Splash:{
+        screen:Splash
+    },
     Index: {
         screen: TabContainer,
         /*navigationOptions: {
@@ -91,18 +104,6 @@ const Root = StackNavigator(
             }
         }*/
     },
-    AddFriend:{
-        screen:AddFriend
-    },
-    AddFriendDetail:{
-        screen:AddFriendDetail
-    },  
-    AddFriendRequest:{
-        screen:AddFriendRequest
-    }, 
-    Splash:{
-        screen:Splash
-    },
     CreatShop:{
         screen:CreatShop
     },
@@ -112,9 +113,6 @@ const Root = StackNavigator(
     CreatShopSendb:{
         screen:CreatShopSendb
     },  
-    CreatShopSenda:{
-        screen:CreatShopSenda
-    },
     WorkManage:{
         screen:WorkManage
     },

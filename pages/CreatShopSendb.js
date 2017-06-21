@@ -40,7 +40,7 @@ import Picker from 'react-native-roll-picker/lib/Picker2'
 import cityCode from '../Components/ChinaCityCode'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export default class Center extends Component {
+export default class CreatShopSendb extends Component {
     static navigationOptions = {
         title:'资料提交',
         headerRight: (
