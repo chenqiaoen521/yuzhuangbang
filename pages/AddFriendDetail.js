@@ -70,7 +70,6 @@ export default class AddFriendDetail extends Component {
             </View>
         );
     }
-    //
     GoAdd (){
         const {navigate} = this.props.navigation;
         navigate('AddFriendRequest') 
@@ -121,6 +120,4 @@ const styles = StyleSheet.create({
         borderColor:'#eee',
 
     }
-    
-    
 });
