@@ -22,10 +22,6 @@ import {
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Unit from '../Components/Unit';
-import ActionSheet from 'react-native-actionsheet';
-import cityCode from '../Components/ChinaCityCode';
-import Picker from 'react-native-roll-picker/lib/Picker';
 export default class AddFriend extends Component {
   constructor(props) {
     super(props);
