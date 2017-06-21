@@ -35,7 +35,7 @@ export default class Feedback extends Component {
 
   }
   static navigationOptions = {
-    title:'意见反馈',
+    headerTitle:'意见反馈',
     headerRight: (
       <Icon.Button
         name="bell-o"

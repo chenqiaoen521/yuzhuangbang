@@ -22,6 +22,11 @@ import Message  from './pages/Message';
 import About  from './pages/About';
 import PasswordPage  from './pages/Password';
 import ForgetPassword  from './pages/ForgetPassword';
+import Account  from './pages/account';
+import AccountAdd  from './pages/account-add';
+import Icare  from './pages/Icare';
+import AddFriend  from './pages/addFriend';
+import AddFriendDetail  from './pages/addFriendDetail';
 
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
@@ -87,11 +92,26 @@ const Root = StackNavigator(
     MainDetail:{
       screen:MainDetail,
     },
+    addFriend:{
+      screen:AddFriend,
+    },
+    addFriendDetail:{
+      screen:AddFriendDetail,
+    },
     Message:{
       screen:Message,
     },
+    account:{
+      screen:Account,
+    },
+    accountAdd:{
+      screen:AccountAdd,
+    },
     detailAddr:{
       screen:DetailAddr,
+    },
+    Icare:{
+      screen:Icare,
     },
     blackList:{
       screen:BlackList,
@@ -142,6 +162,7 @@ const Root = StackNavigator(
           headerTitleStyle: {
             color: '#fff',
             fontSize: 15,
+            alignSelf:'center'
           },
           headerTintColor: '#fff'
         }

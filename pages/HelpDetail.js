@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class HelpDetail extends Component {
     static navigationOptions = {
-        title:'帮助中心',
+        headerTitle:'帮助中心',
         headerRight: (
             <Icon.Button
                 name="bell-o"

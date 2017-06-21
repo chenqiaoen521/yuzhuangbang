@@ -22,6 +22,7 @@ import Notice from '../Components/Notice';
 import CenterItem from '../Components/CenterItem';
 export default class Center extends Component {
   static navigationOptions = {
+    headerTitle:'个人中心',
     title:'个人中心',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
@@ -48,14 +49,14 @@ export default class Center extends Component {
             {this.renderHeadBottom()}
           </View>
           <View style={{marginTop:15}}>
-            <Notice titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" browserCount="1001" title="变革的基因：移动互联网时代的组织能力创新"/>
+            <Notice titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
           </View>
           <View style={styles.middle}>
-            <CenterItem icon={require('../imgs/middle_01.png')} txt="我的主页"/>
+            <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
             <CenterItem icon={require('../imgs/middle_07.png')} txt="商品管理"/>
             <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
-            <CenterItem icon={require('../imgs/middle_03.png')} txt="部门管理"/>
-            <CenterItem icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
+            <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
+            <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
             <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}>
             </View>
             <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
@@ -71,6 +72,18 @@ export default class Center extends Component {
   toSetting(){
     const {navigate} = this.props.navigation;
     navigate('Settings');
+  }
+  tomyhome(){
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{page:'myhome',title:'我的主页'});
+  }
+  toSub(){
+    const {navigate} = this.props.navigation;
+    navigate('account');
+  }
+  toPartment () {
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{page:'part',title:'部门管理'});
   }
   toFav(){
     const {navigate} = this.props.navigation;
@@ -100,14 +113,14 @@ export default class Center extends Component {
   renderHeadBottom () {
     let arr = [];
     let itemData = [
-    {'icons':require('../imgs/center_02.png'),myname:'我关心的',cont:52},
-    {'icons':require('../imgs/center_04.png'),myname:'关心我的',cont:103},
-    {'icons':require('../imgs/center_01.png'),myname:'我的好友',cont:152},
+    {'icons':require('../imgs/center_02.png'),myname:'我关心的',cont:52,id:1},
+    {'icons':require('../imgs/center_04.png'),myname:'关心我的',cont:103,id:2},
+    {'icons':require('../imgs/center_01.png'),myname:'我的好友',cont:152,id:3},
     {'icons':require('../imgs/center_03.png'),myname:'我的客户',cont:11}]
     itemData.map((item,i) => {
       arr.push(
         <View key={i}>
-          <TouchableOpacity TouchableOpacity={0.5}  style={styles.headerBottom}>
+          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{this.props.navigation.navigate('Icare',{title:item.myname,id:item.id});}}  style={styles.headerBottom}>
             <Image resizeMode={Image.resizeMode.center} style={{width:width/4,height:20}} source={item.icons}/>
             <Text style={{color:'#cccccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
             <Text style={{color:'#cccccc',fontSize:12}}>{item.cont}</Text>

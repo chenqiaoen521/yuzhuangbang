@@ -37,7 +37,7 @@ export default class AddressPage extends Component {
     };
   }
   static navigationOptions = {
-    title:'我的地址',
+    headerTitle:'我的地址',
     headerRight: (
       <Icon.Button
         name="bell-o"

@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Wz';
 import DesignList from '../Components/DesignList';
 export default class FindLG extends Component {
   static navigationOptions = {
+    headerTitle:'找灵感',
     title:'找灵感',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="mindicon" size={26} color={tintColor} />

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <title>我的主页</title>
+        <!-- Path to Framework7 Library CSS-->
+        <link rel="stylesheet" href="css/framework7.ios.min.css">
+        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="css/my-app.css">
+        <link rel="stylesheet" href="./my_fav.css">
+        <style>
+          .header-shang{
+            background-color: #1b1b1b;
+              display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding:28px 8px;
+          }
+          .search {
+            background-color: #1b1b1b;
+              display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding:8px 16px;
+            margin: 10px 10px ;
+            border-radius: 18px;
+          }
+          .search  .txt{
+            color:#999999;
+            font-size: 12px;
+          }
+          .search .icon-sh{
+            display: block;
+            width:18px;height:18px; 
+            background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABaCAYAAABDjIPOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5ODg0RjRBODU2NEExMUU3QTU0MTgzNTYyMzVBRDEyOSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5ODg0RjRBOTU2NEExMUU3QTU0MTgzNTYyMzVBRDEyOSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk4ODRGNEE2NTY0QTExRTdBNTQxODM1NjIzNUFEMTI5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjk4ODRGNEE3NTY0QTExRTdBNTQxODM1NjIzNUFEMTI5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+nRI7qAAACQRJREFUeNrsXQuUTVUY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) no-repeat center;
+            background-size: 100%; 
+          }
+          .header-shang .left{
+
+              display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+          }
+          .header-shang .header-img{border-radius: 50%; width: 55px; height: 55px;}
+          .header-shang .ling {display: block;width:18px;height:18px; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGEAAABlCAYAAABdl421AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2REMxODU0MDU2MzUxMUU3QkY5Q0I4RjA4NTBENDkwOSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2REMxODU0MTU2MzUxMUU3QkY5Q0I4RjA4NTBENDkwOSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjZEQzE4NTNFNTYzNTExRTdCRjlDQjhGMDg1MEQ0OTA5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjZEQzE4NTNGNTYzNTExRTdCRjlDQjhGMDg1MEQ0OTA5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+2L0/hAAACGtJREFUeNrsXQ2QTWUY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) no-repeat center;background-size: 100%; }
+          .header-shang .left .txt{margin-left: 22px;}
+           .header-shang .left .title {color:#eee;font-size: 14px;}
+           .header-shang .left .desc {margin-left: 5px; color:#fff;font-size: 11px; padding:1px 8px;border-radius: 3px;  font-style: normal; background-color: #ae8300;}
+           .header-shang .left .nicheng{color:#999999;margin-top: 6px; font-size: 12px;}
+        </style>
+    </head>
+    <body>
+<div class="views">
+  <div class="view view-main">
+      <div class="pages">
+      <div class="page" style="background: transparent">
+      <div class="header-shang">
+        <div class="left">
+            <img src="./img/yihan.jpg" alt="" class="header-img">
+            <div class="txt">
+              <div><span class="title">东易力天</span><i class="desc">商户</i></div>
+              <div class="nicheng">昵称:一天收益金</div>
+            </div>
+        </div>
+        <i class="ling"></i>
+      </div>
+      <div class="search">
+        <span class='txt'>输入关键词查找</span><i class="icon-sh"></i>
+      </div>
+      <div class="page-content infinite-scroll" data-distance="0">
+  <div style="margin:0" class="list-block">
+    <ul class="main">
+      <li class="box">
+          <div class="pic">
+              <img src="../imgs/indeximg_05.jpg"/>
+              <div class="title">
+                  <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+              </div>
+              <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+              <div class="bottom">
+                  <i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>
+              </div>
+          </div>
+      </li>
+      <li class="box">
+          <div class="pic">
+              <img src="../imgs/indeximg_07.jpg"/>
+              <div class="title">
+                  <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+              </div>
+              <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+              <div class="bottom">
+                  <i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>
+              </div>
+          </div>
+      </li>
+      <li class="box">
+          <div class="pic">
+              <img src="../imgs/indeximg_07.jpg"/>
+              <div class="title">
+                  <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+              </div>
+              <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+              <div class="bottom">
+                  <i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>
+              </div>
+          </div>
+      </li>
+      <li class="box">
+          <div class="pic">
+              <img src="../imgs/indeximg_05.jpg"/>
+              <div class="title">
+                  <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+              </div>
+              <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+              <div class="bottom">
+                  <i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>
+              </div>
+          </div>
+      </li>
+      <li class="box">
+          <div class="pic">
+              <img src="../imgs/pro_02.png"/>
+              <div class="title">
+                  <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+              </div>
+              <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+              <div class="bottom">
+                  <i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>
+              </div>
+          </div>
+      </li>
+    </ul>
+  </div>
+  <!-- 加载提示符 -->
+  <div class="infinite-scroll-preloader" style="margin-top:-283px;margin-bottom:0px">
+    <div class="preloader"></div>
+  </div>
+</div> 
+          </div>
+      </div>
+    </div>
+</div>    
+   
+
+        <!-- Path to Framework7 Library JS-->
+        <script type="text/javascript" src="js/framework7.min.js"></script>
+        <!-- Path to your app js-->
+        <!-- swiper js -->
+        <script>
+                var myApp = new Framework7(); 
+ 
+var $$ = Dom7;
+$$('.tab-bar .item').on('click',function(){
+    if($$(this).hasClass('on')){
+        $$(this).siblings().removeClass('on');
+    }else{
+        $$(this).addClass('on').siblings().removeClass('on');
+    }
+})
+    waterfall();
+    function waterfall() {
+       //瀑布流js计算
+        var boxes = $$('.main .box');
+        var columns = 2;//列num
+        var boxesW = boxes[0].offsetWidth;//列num
+        var h_array = [] //存高
+        for(let i=0;i<boxes.length;i++){
+            if(i<columns){
+                h_array.push(boxes[i].offsetHeight);
+            }else{
+                let minH = Math.min.apply(null,h_array);
+                let minIndex= getMinHIndex(h_array,minH);
+                boxes[i].style.position = 'absolute';
+                boxes[i].style.top = minH+'px';
+                boxes[i].style.left = (boxesW*minIndex)+'px';
+                h_array[minIndex] = h_array[minIndex] + boxes[i].offsetHeight;
+            }
+        }
+        $$('.list-block')[0].style.height = (Math.max.apply(null,h_array)+280)+'px' ;
+    }
+    function getMinHIndex(array,value){
+        if(array[0]==value){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+// 加载flag
+var loading = false;
+ 
+// 上次加载的序号
+var lastIndex = $$('.list-block .box').length;
+ 
+// 最多可加载的条目
+var maxItems = 560;
+ 
+// 每次加载添加多少条目
+var itemsPerLoad = 20;
+ 
+// 注册'infinite'事件处理函数
+$$('.infinite-scroll').on('infinite', function () {
+ 
+  // 如果正在加载，则退出
+  if (loading) return;
+ 
+  // 设置flag
+  loading = true;
+ 
+  // 模拟1s的加载过程
+  setTimeout(function () {
+    // 重置加载flag
+    loading = false;
+ 
+    if (lastIndex >= maxItems) {
+      // 加载完毕，则注销无限加载事件，以防不必要的加载
+      myApp.detachInfiniteScroll($$('.infinite-scroll'));
+      // 删除加载提示符
+      $$('.infinite-scroll-preloader').remove();
+      return;
+    }
+ 
+    // 生成新条目的HTML
+    var html = '';
+    for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+        let srcimg = '5';
+        if(i%2==0){
+            srcimg = '7';
+        }else{
+          srcimg = '5';  
+        }
+      html += '<li class="box">'+
+          '<div class="pic">'+
+              '<img src="../imgs/indeximg_0'+srcimg+'.jpg"/>'+
+              '<div class="title">'+
+                  '<img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>'  +
+              '</div>'+
+              '<p class="desc">适XXXXXXXX薪家庭装饰风格，简约清新，温馨舒适</p>'+
+              '<div class="bottom">'+
+                  '<i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>'+
+              '</div>'+
+          '</div>'+
+      '</li>';
+    }
+ 
+    // 添加新条目
+    $$('.list-block ul').append(html);
+    waterfall();
+
+    // 更新最后加载的序号
+    lastIndex = $$('.list-block .box').length;
+  }, 1000);
+});          
+        </script>
+    </body>
+</html>

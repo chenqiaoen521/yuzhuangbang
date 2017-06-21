@@ -38,7 +38,7 @@ export default class DetailAddr extends Component {
     this.rowIndex2 = 0;
   }
   static navigationOptions = {
-    title:'地址详情',
+    headerTitle:'地址详情',
     headerRight: (
       <Icon.Button
         name="bell-o"

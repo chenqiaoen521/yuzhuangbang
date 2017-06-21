@@ -25,7 +25,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class WorkManage extends Component {
     static navigationOptions = {
-        title:'作品管理',
+        headerTitle:'作品管理',
         headerRight: (
             <Icon.Button
                 name="bell-o"
