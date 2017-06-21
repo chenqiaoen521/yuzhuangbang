@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Wz';
 import DesignList from '../Components/DesignList';
 export default class FindYP extends Component {
   static navigationOptions = {
+    headerTitle:'找优品',
     title:'找优品',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="goodicon" size={25} color={tintColor}  style={{marginTop:1.5}}/>

@@ -35,7 +35,7 @@ export default class About extends Component {
 
   }
   static navigationOptions = {
-    title:'关于我们',
+    headerTitle:'关于我们',
     headerRight: (
       <Icon.Button
         name="bell-o"

@@ -36,7 +36,7 @@ export default class MessageFriend extends Component {
 
   }
   static navigationOptions = {
-    title:'我的消息',
+    headerTitle:'我的消息',
     headerRight: (
       <Icon.Button
         name="bell-o"
