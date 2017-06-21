@@ -60,17 +60,19 @@ export default class Center extends Component {
                         </View>
                     </View>
                 </ScrollView>
-                <TouchableOpacity onPress={this.GoAdd.bind(this)()}>
+                {/*<TouchableOpacity onPress={this.GoAdd.bind(this)()}>
+                    <View style={styles.add}><Text style={styles.addt}>发送</Text></View>
+                </TouchableOpacity>*/}
+                <TouchableOpacity>
                     <View style={styles.add}><Text style={styles.addt}>发送</Text></View>
                 </TouchableOpacity>
-
             </View>
         );
     }
-    GoAdd (){
+    /*GoAdd (){
         const {navigate} = this.props.navigation;
         navigate('CreatShopWait') 
-    }
+    }*/
 
 }
 

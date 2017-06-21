@@ -88,13 +88,19 @@ export default class WorkManage extends Component {
                     </ScrollView>
                     
                 </ScrollableTabView>
+                <TouchableOpacity onPress={ ()=> this.Goadd() }>
                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingTop:10, paddingBottom:10,backgroundColor:'#ae8300',}}>
                     <Image style={{width:12,height:12,marginRight:5,}} source={require('./../imgs/addicon.png')}></Image>
                     <Text style={{ fontSize:14, color:'#fff',}}>添加作品</Text>
                 </View>
+                </TouchableOpacity>
             </View>
         );
-    }    
+    } 
+    Goadd() {
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{page:'tjzp',title:'添加作品'});
+    }   
 }
 
 const styles = StyleSheet.create({
