@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button';
 import {
     AppRegistry,
     StyleSheet,
@@ -41,7 +42,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class Center extends Component {
     static navigationOptions = {
-        headerTitle:'资料提交',
+        title:'资料提交',
         headerRight: (
             <Icon.Button
                 name="bell-o"
@@ -58,7 +59,8 @@ export default class Center extends Component {
         // 初始状态
         this.state = {
             isArea:false, //注册2选择地区
-            text:'请选择公司所在地区'
+            text:'',
+            textadr:'请选择公司所在地区'
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -75,6 +77,23 @@ export default class Center extends Component {
                     <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的名字' underlineColorAndroid="transparent"/>
                 </View>
                 <View style={styles.single}>
+                    <Text style={styles.lefttext}>手机号：</Text>
+                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
+                </View>
+                <View style={styles.single}>
+                    <Text style={styles.lefttext}>状态选择：</Text>
+                    <View style={styles.input}>
+                        <RadioGroup style={{width:width-30,flexDirection:'row'}} thickness={0} size={12} thickness={1} activeColor='#af8402' color='#fff' selectedIndex={0} onSelect = {(index, value) => this.onSelect(index, value)} >
+                            <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'设计公司'}> 
+                                <Text style={{fontSize:13,color:'#fff'}}>设计公司</Text> 
+                            </RadioButton>
+                            <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'自由设计师'} onPress={()=>alert(2)}> 
+                                <Text style={{fontSize:13,color:'#fff'}}>自由设计师</Text> 
+                            </RadioButton>
+                        </RadioGroup>
+                    </View>
+                </View>
+                <View style={styles.single}>
                     <Text style={styles.lefttext}>公司名称：</Text>
                     <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司名称' underlineColorAndroid="transparent"/>
                 </View>
@@ -82,7 +101,7 @@ export default class Center extends Component {
                     <Text style={styles.lefttext}>公司地址：</Text>
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                         <View style={[styles.input,styles.viewbg]}>
-                            <Text style={{color:'#888',fontSize:13}}>{this.state.text}</Text>
+                            <Text style={{color:'#888',fontSize:13}}>{this.state.textadr}</Text>
                             <Image style={{width:20,height:12}} resizeMode={'center'} source={require('../imgs/right01.png')}></Image>
                         </View>
                     </TouchableOpacity>
@@ -229,10 +248,17 @@ export default class Center extends Component {
         })
     }
     onSelect(index, value){
+        if(index==0)
+        {
+            // alert(1)
+        }
         this.setState({
             text: `Selected index: ${index} , value: ${value}`
         })
     }
+
+
+
     //打开登录框
     onRequestOpen() {    
         this.setState({

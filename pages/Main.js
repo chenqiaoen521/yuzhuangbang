@@ -30,7 +30,7 @@ import Icon from 'react-native-vector-icons/Wz';
 import RNCarousel from '../Components/RNCarousel';
 
 
-import Picker from 'react-native-roll-picker/lib/Picker'
+import Picker from 'react-native-roll-picker/lib/Picker2'
 import cityCode from '../Components/ChinaCityCode'
 
 var {width,height} = Dimensions.get('window');

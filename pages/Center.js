@@ -53,7 +53,7 @@ export default class Center extends Component {
           </View>
           <View style={styles.middle}>
             <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
-            <CenterItem icon={require('../imgs/middle_07.png')} txt="商品管理"/>
+            <CenterItem popToCenter={()=>this.towork()} icon={require('../imgs/middle_07.png')} txt="商品管理"/>
             <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
             <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
             <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
@@ -97,6 +97,10 @@ export default class Center extends Component {
     const {navigate} = this.props.navigation;
     navigate('Message');
   }
+  towork () {
+    const {navigate} = this.props.navigation;
+    navigate('WorkManage');
+  }
   renderHead(){
     return(
     <View style={{
@@ -122,8 +126,8 @@ export default class Center extends Component {
         <View key={i}>
           <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{this.props.navigation.navigate('Icare',{title:item.myname,id:item.id});}}  style={styles.headerBottom}>
             <Image resizeMode={Image.resizeMode.center} style={{width:width/4,height:20}} source={item.icons}/>
-            <Text style={{color:'#cccccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
-            <Text style={{color:'#cccccc',fontSize:12}}>{item.cont}</Text>
+            <Text style={{color:'#ccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
+            <Text style={{color:'#ccc',fontSize:12}}>{item.cont}</Text>
           </TouchableOpacity>
         </View>
         )
