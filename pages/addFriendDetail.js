@@ -122,5 +122,5 @@ const styles = StyleSheet.create({
 
     }
     
-    
+    //adasdadsd
 });
