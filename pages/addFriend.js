@@ -33,7 +33,6 @@ export default class AddFriend extends Component {
     this.state = {
       
     };
-//sadad
   }
   static navigationOptions = {
     headerTitle:'添加好友'

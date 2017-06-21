@@ -121,6 +121,4 @@ const styles = StyleSheet.create({
         borderColor:'#eee',
 
     }
-    
-    //adasdadsd
 });
