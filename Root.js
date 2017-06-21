@@ -25,17 +25,17 @@ import ForgetPassword  from './pages/ForgetPassword';
 import Account  from './pages/account';
 import AccountAdd  from './pages/account-add';
 import Icare  from './pages/Icare';
-import AddFriend  from './pages/addFriend';
-import AddFriendDetail  from './pages/addFriendDetail';
+import AddFriend  from './pages/AddFriend';
+import AddFriendDetail  from './pages/AddFriendDetail';
 
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
 import CreatShopSenda  from './pages/CreatShopSenda';
 import CreatShopSendb  from './pages/CreatShopSendb';
 import CreatShopWait  from './pages/CreatShopWait';
+import AddFriendRequest  from './pages/AddFriendRequest';
 /*import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
-import AddFriendRequest  from './pages/AddFriendRequest';*/
 /*import RNCarousel  from './Components/RNCarousel';*/
 
 import AddressPage  from './pages/address';
@@ -84,9 +84,7 @@ const Root = StackNavigator(
     AddFriendDetail:{
         screen:AddFriendDetail
     },  
-    AddFriendRequest:{
-        screen:AddFriendRequest
-    }, */
+    */
     Splash:{
         screen:Splash
     },
@@ -104,6 +102,9 @@ const Root = StackNavigator(
             }
         }*/
     },
+    AddFriendRequest:{
+        screen:AddFriendRequest
+    }, 
     CreatShop:{
         screen:CreatShop
     },

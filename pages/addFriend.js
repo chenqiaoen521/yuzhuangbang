@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   search:{
     flexDirection:'row',
     alignItems:'center',
-    height:65,
+    height:55,
     paddingLeft:10,
     backgroundColor:'#1b1b1b',
     borderBottomWidth:1,
