@@ -44,7 +44,12 @@ export default class MainDetail extends Component {
     let html = null;
     if(page=='fav'){
       html = require('../fw/my_fav.html')
-    }else{
+    }else if(page=='part'){
+      html = require('../fw/department.html')
+    }else if(page=='myhome'){
+      html = require('../fw/myHome.html')
+    }
+    else{
       html = require('../fw/index.html')
     }
     return (

@@ -52,10 +52,10 @@ export default class Center extends Component {
             <Notice titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
           </View>
           <View style={styles.middle}>
-            <CenterItem icon={require('../imgs/middle_01.png')} txt="我的主页"/>
+            <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
             <CenterItem icon={require('../imgs/middle_07.png')} txt="商品管理"/>
             <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
-            <CenterItem icon={require('../imgs/middle_03.png')} txt="部门管理"/>
+            <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
             <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
             <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}>
             </View>
@@ -73,9 +73,17 @@ export default class Center extends Component {
     const {navigate} = this.props.navigation;
     navigate('Settings');
   }
+  tomyhome(){
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{page:'myhome',title:'我的主页'});
+  }
   toSub(){
     const {navigate} = this.props.navigation;
     navigate('account');
+  }
+  toPartment () {
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{page:'part',title:'部门管理'});
   }
   toFav(){
     const {navigate} = this.props.navigation;

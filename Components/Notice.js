@@ -36,7 +36,7 @@ export default class Notice extends Component {
     rightBar:'#ffffff'
   }
    componentDidMount() {
-    this.startTimer()
+    //this.startTimer()
   }
   componentWillUnMount(){
     clearInterval(this.timer)

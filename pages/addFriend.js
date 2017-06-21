@@ -68,14 +68,16 @@ export default class AddFriend extends Component {
 
   renderResult () {
     return (
-      <TouchableOpacity onPress={this.gotoFriend()} style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#151515'}}>
-        <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={require('../imgs/yihan.jpg')}/>
-        <Text style={{fontSize:12,color:'#cccccc'}}>{'艾若溪河(7558484939)'}</Text>
+      <TouchableOpacity onPress={this._abc.bind(this)} >
+        <View style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#151515'}}>
+          <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={require('../imgs/yihan.jpg')}/>
+          <Text style={{fontSize:12,color:'#cccccc'}}>{'艾若溪河(7558484939)'}</Text>
+        </View>
       </TouchableOpacity>
       )
   }
-  gotoFriend () {
-    const {navigate} = this.props.navigation;
+  _abc () {
+     const {navigate} = this.props.navigation;
     navigate('addFriendDetail');
   }
 }
