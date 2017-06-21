@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>客户管理</title>
+<!-- Path to Framework7 Library CSS-->
+<link rel="stylesheet" href="css/framework7.ios.min.css">
+<link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+<!-- Path to your custom app styles-->
+<link rel="stylesheet" href="css/my-app.css">
+<link rel="stylesheet" href="./my_fav.css">
+</head>
+<body>
+
+<div class="views">
+<div class="view view-main">
+<div class="pages">
+<div class="page toolbar-fixed" style="background: transparent">
+    
+    <div class="page-content">
+        <div class="client">
+            <div class="sg">
+                <div class="ke">
+                    <a class="imga"><img src="img/i-f7-ios.png"></a>
+                    <a class="name"><span>王女士</span><i>13205487154</i></a>
+                    <div class="ztai">
+                        <p><span>接触中</span></p>
+                        <div class="droph">
+                            <span class="on">接触中</span>
+                            <span>已收定</span>
+                            <span>设计中</span>
+                            <span>施工中</span>
+                            <span>已竣工</span>
+                            <span>未装修</span>
+                            <span>售后</span>
+                        </div>
+                    </div>
+                    <a class="movea">移至黑名单</a>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="company">
+                    <div class="mation">
+                        <a class="imga"><img src="img/detailicon_14.png"></a>
+                        <div class="ming">
+                            <div class="zih"><span>东易力天装饰公司</span><i>商户</i></div>
+                            <div class="zip">业务员：王大锤</div>
+                        </div>
+                    </div>
+                    <div class="tip">接触时间：2017-05-05 10:10:10<br>地址：中州大道商都路建业五栋大楼B座701室</div>
+                    <div class="dongtai">
+                        <div class="btit"><span>动态信息</span></div>
+                        <div class="more">
+                            <div class="floor">
+                                <a class="imga"><img src="img/detailicon_14.png"></a>
+                                <div class="word">
+                                    <div class="wtop"><span>业务员王晓楠</span><i>刚刚更改了用户状态 并说</i></div>
+                                    <div class="wbot">
+                                        客户很满意我们公司的装饰效果图，说一定让这个做效果图的来为他们家做，并且对我们的要价没有什么太多的疑问，客户比较爽朗。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="floor">
+                                <a class="imga"><img src="img/detailicon_14.png"></a>
+                                <div class="word">
+                                    <div class="wtop"><span>业务员王晓楠</span><i>2017-03-08 10:10:10</i></div>
+                                    <div class="wbot">
+                                        客户很满意我们公司的装饰效果图，说一定让这个做效果图的来为他们家做，并且对我们的要价没有什么太多的疑问，客户比较爽朗。
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="floor">
+                                <a class="imga"><img src="img/detailicon_14.png"></a>
+                                <div class="word">
+                                    <div class="wtop"><span>业务员王晓楠</span><i>2017-03-08 10:10:10</i></div>
+                                    <div class="wbot">
+                                        客户很满意我们公司的装饰效果图，说一定让这个做效果图的来为他们家做，并且对我们的要价没有什么太多的疑问，客户比较爽朗。
+                                    </div>
+                                    <div class="tuji">
+                                        <a><img src="img/detialimg_03.jpg"></a>
+                                        <a><img src="img/detialimg_03.jpg"></a>
+                                        <a><img src="img/detialimg_04.jpg"></a>
+                                        <a><img src="img/detialimg_04.jpg"></a>
+                                        <a><img src="img/detialimg_04.jpg"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixedbtn toolbar">
+            <a><span class="bg1">我来说一句</span></a>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>    
+
+
+
+<style>
+.toolbar-fixed .page-content{ padding-bottom: 50px;}
+.pages{ background-color: #151515;}
+
+.shai{ position: relative; margin-bottom: 8px; }
+.shai .lan{ padding: 10px 12px;background-color: #1b1b1b; overflow: hidden;}
+.shai .lan span{ display: block; float: left; padding-left: 30px; background-repeat: no-repeat; background-size: 20px auto; background-image: url('img/filter.png'); background-position: left center; height: 30px; line-height: 30px; color: #999; font-size: 15px;  }
+.shai .lan i{ display: block; width:30px; height: 30px; float: right; background-repeat: no-repeat; background-size: 14px auto; background-image: url('img/dropla.png'); background-position: center center; }
+.shai .lan i.on{ background-image: url('img/dropla2.png');}
+.shai .drophide{ width: 100%; position: absolute; left: 0; top: 50px; display: none; z-index:5;}
+.shai .drophide span{ display:block; height:40px;line-height:40px;color:#fff;text-align:center; background-color: #535353; border-bottom:1px solid #5a5a5a; font-size:14px;}
+.shai .drophide span.on{ background-color: #ae8300; }
+.client{}
+.client .sg{ margin-bottom: 8px; background-color: #1b1b1b; }
+.client .ke{ padding: 12px 150px 12px 68px; border-bottom: 1px solid #333; position: relative;}
+.client .ke .imga{ display: block; width: 50px; height:50px; overflow: hidden; border-radius: 50%; position: absolute; left: 10px; top: 50%; margin-top: -25px; }
+.client .ke .imga img{ display: block; width: 50px; height:50px;}
+.client .ke .name{ display: block;}
+.client .ke .name span{ display: block; font-size: 15px; line-height: 30px; color: #ccc;}
+.client .ke .name i{ display: block; font-size: 14px; color: #999; height: 20px; font-style: normal; line-height: 20px;}
+.client .ke .ztai{display: block; position: absolute; width:60px; right: 85px; top: 50%; margin-top: -13px;}
+.client .ke .ztai p{ background-color: #ae8300; border-radius: 3px; color: #fff; text-align: center; height: 26px;line-height: 26px; margin: 0; font-size: 12px; }
+.client .ke .ztai p span{ display:inline-block; padding-right: 14px; background-position: right center; background-repeat: no-repeat; background-size: 10px auto; background-image: url('img/droplabai.png');}
+.client .ke .ztai p span.on{ background-image: url('img/dropla2bai.png');}
+.client .ke .ztai .droph{position: absolute; width: 100%; top: 26px; left: 0; background-color: #ae8300; z-index: 3; display: none; }
+.client .ke .ztai .droph span{ display: block; font-size: 12px; line-height: 30px; color: #fff; text-align:center;}
+.client .ke .movea{ display: block; float: right; font-size: 12px; color: #999; padding-top: 20px; background-size: 15px auto; background-repeat: no-repeat; background-position: top center; background-image: url('img/del_white.png'); position: absolute; width: 60px; top: 50%; margin-top: -18px; right: 10px;}
+.client .company{}
+.client .company .mation{ padding: 10px 12px 10px 70px; overflow: hidden; position: relative;}
+.client .company .mation .imga{ display: block; width: 50px; height:50px; overflow: hidden; border-radius: 50%; position: absolute; left: 12px; top: 50%; margin-top: -25px;}
+.client .company .mation .imga img{ display: block; width: 50px; height:50px; overflow: hidden; border-radius: 50%; } 
+.client .company .mation .ming{}
+.client .company .mation .ming .zih{ display: block; overflow: hidden; font-size: 15px; line-height: 30px; color: #999;}
+.client .company .mation .ming .zih span{ display: block; float: left; color: #ccc; }
+.client .company .mation .ming .zih i{ display: block; float: left; padding: 0 5px; height: 20px; background-color: #ae8300; color: #fff; margin: 3px 0 3px 5px; font-size: 12px; line-height: 20px; font-style: normal; margin-left: 6px; border-radius: 3px;}
+.client .company .mation .ming .zip{ font-size: 14px; color: #999; display: block; height: 20px; line-height: 20px; }
+.client .company .tip{ display: block; padding: 5px 15px; font-size: 14px; line-height: 26px; color: #999;}
+.client .company .dongtai{}
+.client .company .dongtai .btit{padding: 12px 15px; background-color: #1b1b1b; border-top:8px solid #151515;}
+.client .company .dongtai .btit span{ display: block; font-size: 15px; color: #fff; line-height: 20px; border-left: 4px solid #ae8300; padding-left: 10px;}
+.client .company .dongtai .more{ border:8px solid #151515;}
+.client .company .dongtai .more .floor{ padding: 12px 12px 12px 70px; overflow: hidden; border-bottom: 6px solid #151515; position: relative; }
+.client .company .dongtai .more .floor .imga{ display: block; width: 50px; height:50px; overflow: hidden; border-radius: 50%; position: absolute; left: 12px; top: 12px;}
+.client .company .dongtai .more .floor .imga  img{ display: block; width: 50px; height:50px; overflow: hidden; border-radius: 50%; } 
+.client .company .dongtai .more .floor .word{}
+.client .company .dongtai .more .floor .word .wtop{ display: block; font-size: 13px; line-height: 30px; color: #888; overflow: hidden; }
+.client .company .dongtai .more .floor .word .wtop span{ display: block; float: left; }
+.client .company .dongtai .more .floor .word .wtop i{ display: block; float: left; font-size: 12px; color: #777; font-style: normal; padding-left: 8px; }
+.client .company .dongtai .more .floor .word .wbot{ display: block; font-size: 13px; line-height: 24px; color: #ae8300; }
+.client .company .dongtai .more .floor .tuji{overflow: hidden; padding: 5px 0;}
+.client .company .dongtai .more .floor .tuji a{ display: block; width: 20%; overflow: hidden; float: left; padding:3px;-webkit-box-sizing: border-box;
+            box-sizing: border-box;}
+.client .company .dongtai .more .floor .tuji a img{ display: block; width: 100%; }
+.client .company .dongtai .more .floor .tuji a:nth-child(1){width: 50%;}
+.client .company .dongtai .more .floor .tuji a:nth-child(2){width: 50%;}
+.client .company .dongtai .duo{ text-align: center; }
+.client .company .dongtai .duo i{ display: block; font-style: normal;}
+.client .company .dongtai .duo i.bg1{ display: block;}
+.client .company .dongtai .duo i.bg2{ display: none;}
+.client .company .dongtai .duo i span{ display: inline-block; font-size: 14px; height: 40px; line-height: 40px; color: #666; padding-right: 18px; background-size: 12px auto; background-repeat: no-repeat; background-position: right center;  }
+.client .company .dongtai .duo i.bg1 span{ background-image: url('img/detailicon_17.png');}
+.client .company .dongtai .duo i.bg2 span{ background-image: url('img/detailicon_19.png');}
+
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px; width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 100%;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; padding-left: 30px; background-position: left center; background-repeat: no-repeat; background-size: 22px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/shuo_03.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+</style> 
+
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script>
+var myApp = new Framework7(); 
+var $$ = Dom7;
+
+//筛选
+$$(".lan").on("click",function(){
+    $$(this).siblings(".drophide").show();
+    return false;
+})
+$$(".drophide span").on("click",function(){
+    $$(this).addClass("on").siblings("span").removeClass("on");
+    $$(this).parent(".drophide").hide();
+})
+
+//各种状态
+$$(".ke .ztai p").on("click",function(){
+    $$(this).parents(".ztai").find(".droph").show();
+    return false;
+
+})
+$$(".droph span").on("click",function(){
+    var text = $$(this).text();
+    $$(".ke .ztai p span").text(text)
+    $$(this).parent(".droph").hide();
+})
+$$(window).on("touchmove",function(){
+    $$(".drophide").hide();
+    $$(".droph").hide(); 
+})
+
+//查看更多
+$$(".dongtai .duo .bg1").on("click",function(){
+    $$(this).hide().siblings(".bg2").show();
+    $$(this).parents(".dongtai").find(".more").show();
+})
+$$(".dongtai .duo .bg2").on("click",function(){
+    $$(this).hide().siblings(".bg1").show();
+    $$(this).parents(".dongtai").find(".more").hide();
+})
+
+</script>
+
+</body>
+</html>

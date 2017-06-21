@@ -26,13 +26,18 @@ import ForgetPassword  from './pages/ForgetPassword';
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
 import CreatShopSenda  from './pages/CreatShopSenda';
+import CreatShopSendb  from './pages/CreatShopSendb';
+import CreatShopWait  from './pages/CreatShopWait';
+import AddFriend  from './pages/AddFriend';
+import AddFriendDetail  from './pages/AddFriendDetail';
+import AddFriendRequest  from './pages/AddFriendRequest';
 /*import RNCarousel  from './Components/RNCarousel';*/
 
 import AddressPage  from './pages/address';
 import DetailAddr  from './pages/detailAddr';
 import MessageFriend  from './pages/messageFriend';
 
-
+import { Button, View, Text, } from 'react-native';
 import {
     StackNavigator,
     TabNavigator,
@@ -60,30 +65,54 @@ const TabContainer = TabNavigator({
         tabStyle: {
             padding: 0
         }
-    }
+    },
 });
 
 const Root = StackNavigator(
 
-  {
-    Splash:{
-      screen:Splash
-    }, 
-    CreatShopSenda:{
-            screen:CreatShopSenda
-    },
-        CreatShop:{
-            screen:CreatShop
-        },
+  { 
+    
     Index: {
-      screen: TabContainer,
-      navigationOptions: {
-        headerLeft: null
-      }
+        screen: TabContainer,
+        /*navigationOptions: {
+            headerLeft: null,
+            //
+            headerStyle:{
+                backgroundColor:'#151515',
+            },
+            headerTitleStyle: {
+                color:'#fff',
+                fontSize:16,
+            }
+        }*/
     },
-        WorkManage:{
-            screen:WorkManage
-        },
+    AddFriend:{
+        screen:AddFriend
+    },
+    AddFriendDetail:{
+        screen:AddFriendDetail
+    },  
+    AddFriendRequest:{
+        screen:AddFriendRequest
+    }, 
+    Splash:{
+        screen:Splash
+    },
+    CreatShop:{
+        screen:CreatShop
+    },
+    CreatShopWait:{
+        screen:CreatShopWait
+    },
+    CreatShopSendb:{
+        screen:CreatShopSendb
+    },  
+    CreatShopSenda:{
+        screen:CreatShopSenda
+    },
+    WorkManage:{
+        screen:WorkManage
+    },
     MainDetail:{
       screen:MainDetail,
     },
@@ -136,14 +165,25 @@ const Root = StackNavigator(
         headerMode: 'screen',
         swipeEnabled: true,
         navigationOptions: {
-          headerStyle: {
-            backgroundColor: '#151515'
-          },
-          headerTitleStyle: {
-            color: '#fff',
-            fontSize: 15,
-          },
-          headerTintColor: '#fff'
+            /*headerStyle: {
+                backgroundColor: '#151515'
+            },
+            headerTitleStyle: {
+                color: '#fff',
+                fontSize: 15,
+            },*/
+            headerTintColor: '#fff',
+            headerStyle:{
+                backgroundColor:'#151515',
+                height:56,
+                paddingTop:10,
+                justifyContent:'center'
+            },
+            headerTitleStyle: {
+                color:'#fff',
+                fontSize:16,
+                textAlign:'center'
+            }
         }
     }
 );

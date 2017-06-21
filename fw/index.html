@@ -1,234 +1,302 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <title>My App</title>
-        <!-- Path to Framework7 Library CSS-->
-        <link rel="stylesheet" href="css/framework7.ios.min.css">
-        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
-        <!-- Path to your custom app styles-->
-        <link rel="stylesheet" href="css/my-app.css">
-    </head>
-    <body>
-        
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+</head>
+<body>
+    
 
-        <!-- Views-->
-        <div class="views">
-            <!-- Your main view, should have "view-main" class-->
-            <div class="view view-main">
-                
-                <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
-                <div class="pages">
-                    <!-- Page, data-page contains page name-->
-                    <div data-page="index" class="page">
-                        <!-- Scrollable page content-->
-                        <div class="page-content">
-                            <div class="loadingbox">
-                                <div class="loadingtip">
-                                    <span class="preloader"></span>
-                                    <i>页面正在赶来的路上</i>
-                                </div>
-                            </div>
-                            <div class="mainload">
-                            <!-- Slider container -->
-                            <div class="swiper-container">
-                                <!-- Slides wrapper -->
-                                <div class="swiper-wrapper">
-                                    <!-- Slides -->
-                                    <div class="swiper-slide">
-                                        <a class="link" href="about.html">
-                                            <img src="img/ban.jpg">
-                                            <span><i>移动互联网时代的家装风格能力创新</i></span>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a class="link" href="about.html">
-                                            <img src="img/ban.jpg">
-                                            <span><i>移动互联网时代的家装风格能力创新</i></span>
-                                        </a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a class="link" href="about.html">
-                                            <img src="img/ban.jpg">
-                                            <span><i>移动互联网时代的家装风格能力创新</i></span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Pagination, if required -->
-                                <!-- <div class="swiper-pagination"></div> -->
-                            </div>
+<!-- Views-->
+<div class="views">
+<!-- Your main view, should have "view-main" class-->
+<div class="view view-main">
+    
+<!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+<div class="pages">
+    <!-- Page, data-page contains page name-->
+    <div data-page="index" class="page toolbar-fixed">
+        <!-- Scrollable page content-->
+        <div class="page-content">
+            <!-- <div class="loadingbox">
+                <div class="loadingtip">
+                    <span class="preloader"></span>
+                    <i>页面正在赶来的路上</i>
+                </div>
+            </div> -->
+            <div class="mainload">
+            <!-- Slider container -->
+            <div class="swiper-container">
+                <!-- Slides wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <a class="link" href="about.html">
+                            <img src="img/ban.jpg">
+                            <span><i>移动互联网时代的家装风格能力创新</i></span>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a class="link" href="about.html">
+                            <img src="img/ban.jpg">
+                            <span><i>移动互联网时代的家装风格能力创新</i></span>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a class="link" href="about.html">
+                            <img src="img/ban.jpg">
+                            <span><i>移动互联网时代的家装风格能力创新</i></span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Pagination, if required -->
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
 
-                            <!-- caozuo -->
-                            <div class="content-block">
-                                <div class="btna"><img src="img/indexpng_18.png"><span>转发</span></div>
-                                <div class="btna"><img src="img/indexpng_17.png"><span>收藏</span></div>
-                                <div class="btna"><img src="img/indexpng_15.png"><span>举报</span></div>
-                            </div>
-                            <!-- caozuo -->
-                            <div class="unit">
-                                <div class="biaoti">
-                                    <a class="namea"><img src="img/detailicon_14.png"><span>单位名称单位名称</span></a>
-                                    <a class="carea">+ 关注</a>
-                                </div>
-                                <div class="jstext">
-                                    <p>机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：“袁家山（袁可立别业）机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：“袁家山（袁可立别业）机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：</p>
-                                    <div class="mored"><span>查看更多</span></div>
-                                </div>
-                            </div>
-                            <div class="tuwen">
-                                <h2><span>图文详情</span></h2>
-                                <div class="texts">
-                                    <img src="img/detialimg_02.jpg">
-                                    <img src="img/detialimg_03.jpg">
-                                    <img src="img/detialimg_04.jpg">
-                                    <p>装修又称装潢或装饰。是指在一定区域和范围内进行的，包括水电施工、墙体、地板、天花板、景观等所实现的，依据一定设计理念和美观规则形成的 一整套施工方案和设计方案。小到家具摆放和门的朝向，大到房间配饰和灯具的定制处理，都是装修的体现。装修和装饰不同，装饰是对生活用品或生活环境进行艺术加工的手法。加强审美效果，并提高其功能、经济价值和社会效益，并以环保为设计理念。完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
-                                </div>
-                            </div>
-                            <div class="tuwen">
-                                <h2><span>产品推荐</span></h2>    
-                            </div>
-                            <div class="tuwen">
-                                <h2><span>留言板</span></h2>
-                                <div class="list">
-                                    <div class="sg">
-                                        <a class="namea">我是一个评论人11</a>
-                                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
-                                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span><i><img src="img/detailicon_49.png"></i></h6>
-                                    </div>
-                                    <div class="sg">
-                                        <a class="namea">我是一个评论人22</a>
-                                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
-                                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span><i><img src="img/detailicon_49.png"></i></h6>
-                                    </div>
-                                    <div class="sg">
-                                        <a class="namea">我是一个评论人33</a>
-                                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
-                                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span><i><img src="img/detailicon_49.png"></i></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fixedbtn">
-                                <a href="tel:0371-1122335"><span class="bg1">联系Ta</span></a>
-                                <a><span class="bg2">我要留言</span></a>
-                            </div>
-                            </div>
+            <!-- caozuo -->
+            <div class="content-block">
+                <div class="btna"><img src="img/indexpng_18.png"><span>转发</span></div>
+                <div class="btna"><img src="img/indexpng_17.png"><span>收藏</span></div>
+                <div class="btna"><img src="img/indexpng_15.png"><span>举报</span></div>
+            </div>
+            <!-- caozuo -->
+            <div class="unit">
+                <div class="biaoti">
+                    <a class="namea"><img src="img/detailicon_14.png"><span>单位名称单位名称</span></a>
+                    <a class="carea">+ 关注</a>
+                </div>
+                <div class="jstext">
+                    <p>机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：“袁家山（袁可立别业）机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：“袁家山（袁可立别业）机关、团体、事业单位、企业等非自然人的实体或其下属部门。1989年《睢县志·文化·古建筑》：</p>
+                    <div class="mored"><span>查看更多</span></div>
+                </div>
+            </div>
+            <div class="tuwen">
+                <h2><span>图文详情</span></h2>
+                <div class="texts">
+                    <img src="img/detialimg_02.jpg">
+                    <img src="img/detialimg_03.jpg">
+                    <img src="img/detialimg_04.jpg">
+                    <p>装修又称装潢或装饰。是指在一定区域和范围内进行的，包括水电施工、墙体、地板、天花板、景观等所实现的，依据一定设计理念和美观规则形成的 一整套施工方案和设计方案。小到家具摆放和门的朝向，大到房间配饰和灯具的定制处理，都是装修的体现。装修和装饰不同，装饰是对生活用品或生活环境进行艺术加工的手法。加强审美效果，并提高其功能、经济价值和社会效益，并以环保为设计理念。完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
+                </div>
+            </div>
+            <div class="tuwen">
+                <h2><span>游客</span></h2>  
+                <div class='yk'>
+                    <a><img src="img/detailicon_14.png"></a>
+                    <a><img src="img/detailicon_14.png"></a>
+                    <a><img src="img/detailicon_14.png"></a>
+                    <a><img src="img/detailicon_14.png"></a>
+                    <a><img src="img/detailicon_14.png"></a>
+                </div>  
+            </div>
+            <div class="tuwen">
+                <h2><span>留言板</span></h2>
+                <div class="list">
+                    <div class="sg">
+                        <a class="namea"><img src="img/detailicon_14.png"><i>我是一个评论人</i></a>
+                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
+                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span></h6>
+                        <div class='anniu'>
+                            <a class="huifu"><img src="img/detailicon_48.png"></a>
+                            <a class="shanchu"><img src="img/detailicon_49.png"></a>
+                        </div>
+                        <div class="backw">
+                            <div class='shuru'><input type="text" placeholder='回复一下吧' /><a>取消</a><a>确定</a></div>
+                        </div>
+                    </div>
+                    <div class="sg">
+                        <a class="namea"><img src="img/detailicon_14.png"><i>我是一个评论人</i></a>
+                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
+                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span></h6>
+                        <div class='anniu'>
+                            <a class="huifu"><img src="img/detailicon_48.png"></a>
+                            <a class="shanchu"><img src="img/detailicon_49.png"></a>
+                        </div>
+                        <div class="backw">
+                            <div class='shuru'><input type="text" placeholder='回复一下吧' /><a>取消</a><a>确定</a></div>
+                        </div>
+                    </div>
+                    <div class="sg">
+                        <a class="namea"><img src="img/detailicon_14.png"><i>我是一个评论人</i></a>
+                        <p>完美的装饰应与客体的功能紧密结合，适应制作工艺，发挥物质材料的性能，并具有良好的艺术效果。</p>
+                        <h6><span>2017-05-03&nbsp;&nbsp;&nbsp;10:10:10</span></h6>
+                        <div class='anniu'>
+                            <a class="huifu"><img src="img/detailicon_48.png"></a>
+                            <a class="shanchu"><img src="img/detailicon_49.png"></a>
+                        </div>
+                        <div class="backw">
+                            <div class='shuru'><input type="text" placeholder='回复一下吧' /><a>取消</a><a>确定</a></div>
+                            <div class='zhans'><i>回复：</i><p>谢谢您的支持，我们会更加努力的！</p></div>
                         </div>
                     </div>
                 </div>
-                
+                <div class='leave'>
+                    <textarea placeholder='写下你要留言的内容'></textarea>
+                    <a>取消</a><a>确定</a>
+                </div>
             </div>
-
-
-
+            <div class="fixedbtn toolbar">
+                <a href="tel:0371-1122335"><span class="bg1">联系Ta</span></a>
+                <a><span class="bg2">我要留言</span></a>
+            </div>
+            </div>
         </div>
+    </div>
+</div>
+  
+</div>
 
-        <!-- Path to Framework7 Library JS-->
-        <script type="text/javascript" src="js/framework7.min.js"></script>
-        <!-- Path to your app js-->
-        <script type="text/javascript" src="js/my-app.js"></script>
-        <!-- swiper js -->
-        <script>
-            //var myApp = new Framework7(); 
-      
-            var mySwiper = myApp.swiper('.swiper-container', {
-                pagination:'.swiper-pagination'
-            });
-        </script>
-        <style type="text/css">
-            body{ padding: 0; margin:0;}
-            .loadingbox{ background-color: #fff; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 5;}
-            .loadingbox .loadingtip span{ display: block; width: 50px; height: 50px; margin: 0 auto;}
-            .loadingbox .loadingtip i{ display: block; margin-top: 18px; font-size: 15px; color: #333; font-style: normal; line-height: 30px; text-align: center;}
-            .loadingbox .loadingtip{ width: 280px; margin: 0 auto; position: absolute; left: 50%; margin-left: -140px; top: 50%; margin-top: -100px; }
-            .views{ background-color: #151515;}
-            .view-main{ margin: 0 !important;}
-            .swiper-wrapper{ }
-            .swiper-container { width: 100%; }
-            .swiper-container img{ width: 100%;}
-            .swiper-slide { background:#fff;}
-            .swiper-slide a{ display: block; position: relative; background-color: #151515; padding: 0;}
-            .swiper-slide a span{ display:block; position: absolute; left:0; right: 0; bottom: 5px;  width:100%; height: 40px; line-height: 40px; background-color: rgba(0,0,0,0.4); text-align: right;}
-            .swiper-slide a span i{ display: block; width: 90%; margin: 0 auto; font-size: 0.26rem; color: #fff; font-style: normal;}
-            .content-block{ overflow: hidden; padding-top: 8px; padding-bottom: 8px; margin: 0; border-bottom: 1px solid #555; background-color: #1b1b1b;}
-            .content-block .btna{ float: left; margin-right: 18px; overflow: hidden;}
-            .content-block .btna img{ display:block; float: left; width: 16px; height: 16px; margin: 7px 5px 7px 0;}
-            .content-block .btna span{ display: block; float: left; font-size: 0.26rem; height: 30px; line-height: 30px; color: #888;}
+</div>
 
-            .unit{ padding:10px 16px; background-color: #1b1b1b;}
-            .unit .biaoti{ overflow: hidden; padding-bottom: 10px; }
-            .unit .biaoti .namea{ float: left; overflow: hidden; }
-            .unit .biaoti .namea img{ display: block; width: 46px; height: 46px; float: left; border-radius: 50%; overflow: hidden; margin-right: 8px;}
-            .unit .biaoti .namea span{ display: block; font-size: 0.3rem; height: 46px; line-height: 46px; color: #fff; float: left; }
-            .unit .biaoti .carea{ float: right; overflow: hidden; width: 80px; height: 26px; line-height: 26px; color: #fff; text-align: center; border-radius: 3px; background-color: #ae8300; font-size: 0.26rem; margin-top: 10px; }
-            .unit .biaoti .carea.on{ background-color: #999;}
-            .unit p{ font-size: 0.26rem; color: #999; line-height: 26px; height: 52px; overflow: hidden; margin: 0; transition:all 0.4s;}
-            .unit p.on{ height: auto;}
-            .unit .mored{ padding-top: 10px; text-align: center; }
-            .unit .mored span{ display: inline-block; padding-right: 20px; height: 30px; line-height: 30px; background-image: url('img/detailicon_17.png'); background-position: right center; background-repeat: no-repeat; background-size: 12px auto; color: #888; font-size: 15px; }
-            .unit .mored span.on{ background-image: url('img/detailicon_19.png');}
-            .tuwen{ background-color: #151515; margin:0; border-bottom: 8px solid #151515;}
-            .tuwen h2{ background-color:#1b1b1b; text-align: center; background-image: url('img/detailicon_23.png'); background-repeat: no-repeat; background-size: cover; height: 48px; line-height: 48px; padding: 0; margin: 0;  }
-            .tuwen h2 span{font-size: 0.32rem; display: block;  color: #fff;}
-            .tuwen .texts{ font-size: 0.26rem; list-style: 26px; color: #999; background-color: #151515;}
-            .tuwen .texts p{ padding:12px 16px; margin: 0;}
-            .tuwen .texts img{ display: block; width: 100%; }
-            .tuwen .list{}
-            .tuwen .list .sg{ background-color: #1b1b1b; border-bottom: 8px solid #151515; padding: 12px 15px;}
-            .tuwen .list .sg .namea{ display: block; font-size: 0.3rem; color: #888; list-style: 30px; }
-            .tuwen .list .sg p{ font-size: 0.26rem; line-height: 26px; color: #999;}
-            .tuwen .list .sg h6{ overflow: hidden; font-size: 0.24rem; line-height: 26px; color: #aaa; margin: 0; padding: 0;}
-            .tuwen .list .sg h6 span{ display: block; float: left; }
-            .tuwen .list .sg h6 i{display: block; float: right;}
-            .tuwen .list .sg h6 i img{ display: block; width: 16px; height: 16px; margin: 5px;}
-            .fixedbtn{/* position: fixed; left: 0; bottom: 0;*/ width:100%; overflow: hidden;}
-            .fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 50%; float: left;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
-            .fixedbtn a span{ display: inline-block; padding-left: 40px; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 0.30rem;}
-            .fixedbtn a span.bg1{ background-image: url('img/detailicon_53.png');}
-            .fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
-            .page-content{ }
-        </style>
-        <script type="text/javascript">
-        var $$ = Dom7;
-        $$(".mored span").on('click',function(){
-            $$(this).toggleClass("on")
-            $$(this).parents(".mored").siblings("p").toggleClass("on");
-        })
 
-        $$(".carea").on('click',function(){
-            $$(this).toggleClass("on");
-            if($$(this).hasClass("on")){
-                $$(this).text('已关注');
-                window.postMessage('aaa');
-            }else{
-                $$(this).text('+ 关注'); 
-                window.postMessage('bbb');
-            }
-            
-        })
-        $$('.sg h6 i').on('click', function () {
-            var thisdom = $$(this);
-            //alert(this)
-            myApp.confirm('你确定要将此条留言删除吗', '删除留言',
-                function () {
-                    thisdom.parents(".sg").remove();
-                    myApp.alert('留言已删除');
-                },
-                function () {
-                    
-                }
-            );
-        });
+<style type="text/css">
+
+.toolbar-fixed .page-content{ padding-bottom: 50px;}
+body{ padding: 0; margin:0;}
+.loadingbox{ background-color: #fff; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 5; display: none;}
+.loadingbox .loadingtip span{ display: block; width: 50px; height: 50px; margin: 0 auto;}
+.loadingbox .loadingtip i{ display: block; margin-top: 18px; font-size: 15px; color: #333; font-style: normal; line-height: 30px; text-align: center;}
+.loadingbox .loadingtip{ width: 280px; margin: 0 auto; position: absolute; left: 50%; margin-left: -140px; top: 50%; margin-top: -100px; }
+.views{ background-color: #151515;}
+.view-main{ margin: 0 !important;}
+.swiper-wrapper{ }
+.swiper-container { width: 100%; }
+.swiper-container img{ width: 100%;}
+.swiper-slide { background:#fff;}
+.swiper-slide a{ display: block; position: relative; background-color: #151515; padding: 0;}
+.swiper-slide a span{ display:block; position: absolute; left:0; right: 0; bottom: 5px;  width:100%; height: 40px; line-height: 40px; background-color: rgba(0,0,0,0.4); text-align: right;}
+.swiper-slide a span i{ display: block; width: 90%; margin: 0 auto; font-size: 13px; color: #fff; font-style: normal;}
+.content-block{ overflow: hidden; padding-top: 8px; padding-bottom: 8px; margin: 0; border-bottom: 1px solid #555; background-color: #1b1b1b;}
+.content-block .btna{ float: left; margin-right: 18px; overflow: hidden;}
+.content-block .btna img{ display:block; float: left; width: 16px; height: 16px; margin: 7px 5px 7px 0;}
+.content-block .btna span{ display: block; float: left; font-size: 13px; height: 30px; line-height: 30px; color: #888;}
+
+.unit{ padding:10px 16px; background-color: #1b1b1b;}
+.unit .biaoti{ overflow: hidden; padding-bottom: 10px; }
+.unit .biaoti .namea{ float: left; overflow: hidden; }
+.unit .biaoti .namea img{ display: block; width: 46px; height: 46px; float: left; border-radius: 50%; overflow: hidden; margin-right: 8px;}
+.unit .biaoti .namea span{ display: block; font-size: 15px; height: 46px; line-height: 46px; color: #fff; float: left; }
+.unit .biaoti .carea{ float: right; overflow: hidden; width: 80px; height: 26px; line-height: 26px; color: #fff; text-align: center; border-radius: 3px; background-color: #ae8300; font-size: 13px; margin-top: 10px; }
+.unit .biaoti .carea.on{ background-color: #999;}
+.unit p{ font-size: 13px;color: #999; line-height: 26px; height: 52px; overflow: hidden; margin: 0; transition:all 0.4s;}
+.unit p.on{ height: auto;}
+.unit .mored{ padding-top: 10px; text-align: center; }
+.unit .mored span{ display: inline-block; padding-right: 20px; height: 30px; line-height: 30px; background-image: url('img/detailicon_17.png'); background-position: right center; background-repeat: no-repeat; background-size: 12px auto; color: #888; font-size: 15px; }
+.unit .mored span.on{ background-image: url('img/detailicon_19.png');}
+.tuwen{ background-color: #151515; margin:0; border-bottom: 8px solid #151515;}
+.tuwen h2{ background-color:#1b1b1b; text-align: center; background-image: url('img/detailicon_23.png'); background-repeat: no-repeat; background-size: cover; height: 48px; line-height: 48px; padding: 0; margin: 0; margin-bottom: 8px;  }
+.tuwen h2 span{font-size: 16px; display: block;  color: #fff;}
+.tuwen .texts{ font-size: 13px; list-style: 26px; color: #999; background-color: #151515;}
+.tuwen .texts p{ padding:12px 16px; margin: 0; line-height: 23px;}
+.tuwen .texts img{ display: block; width: 100%; }
+.tuwen .yk{ padding: 12px 10px; overflow: hidden; background-color: #1b1b1b;}
+.tuwen .yk a{ display: block; width: 46px; height: 46px; border-radius: 50%; overflow: hidden; margin: 0 6px 10px 6px; float: left;}
+.tuwen .yk a img{ display: block; width: 50px; height: 50px; overflow: hidden;}
+.tuwen .list{}
+.tuwen .list .sg{ background-color: #1b1b1b; border-bottom: 8px solid #151515; padding: 12px 15px;}
+.tuwen .list .sg .namea{ display: block; font-size: 15px; color: #888; list-style: 30px; overflow: hidden; }
+.tuwen .list .sg .namea img{ display:block; width:40px; height: 40px; border-radius: 20px; float: left; margin-right: 10px;}
+.tuwen .list .sg .namea i{ display: block; float: left; font-style: normal; line-height: 40px;}
+.tuwen .list .sg>p{ font-size: 13px; line-height: 23px; color: #999; margin: 8px 0;}
+.tuwen .list .sg h6{ overflow: hidden; font-size: 13px; font-weight: normal; line-height: 26px; color: #aaa; margin: 0; margin-bottom: 5px; padding: 0;}
+.tuwen .list .sg h6 span{ display: block; float: left; }
+.tuwen .list .sg h6 i{display: block; float: right;}
+.tuwen .list .sg h6 i img{ display: block; width: 16px; height: 16px; margin: 5px;}
+.tuwen .list .sg .anniu{ overflow: hidden; padding: 5px 0;}
+.tuwen .list .sg .anniu a{ display: block; width: 18px; height: 18px; float: left; margin-right: 14px; cursor: pointer;}
+.tuwen .list .sg .anniu a img{ display: block; width: 18px; height: 18px;}
+.tuwen .list .sg .backw{}
+.tuwen .list .sg .backw .shuru{ border-radius: 2px; padding: 8px 0; display: none; font-size: 14px; line-height: 26px; overflow: hidden;}
+.tuwen .list .sg .backw .shuru input{ display: block; height: 30px; line-height: 30px; background-color: #2a2a2a; width: 100%; text-indent: 5px; float: left; border:none; font-size: 12px; padding: 0 0; color: #999;}
+.tuwen .list .sg .backw .shuru a{ display: block; width: 50px; height: 26px; line-height: 26px; color: #fff; background-color: #2a2a2a; text-align:center; border-radius: 3px; cursor: pointer; font-size: 12px;  float: left; margin-right: 15px; margin-top: 10px;}
+.tuwen .list .sg .backw .zhans{ overflow: hidden; padding: 5px 0; font-size: 13px; color: #999; line-height: 25px;}
+.tuwen .list .sg .backw .zhans i{ display: block; float: left; font-style: normal; }
+.tuwen .list .sg .backw .zhans p{ display: block; float: left; margin: 0; }
+.tuwen .leave{ background-color: #1b1b1b; border-bottom: 8px solid #151515; padding: 12px 15px; overflow: hidden;}
+.tuwen .leave textarea{ display: block; padding: 6px; overflow: hidden; width: 95%; font-size: 14px; line-height: 24px; color: #999; height: 100px; background-color: #2a2a2a; border-radius: 2px; border:none;}
+.tuwen .leave a{ display: block; width: 50px; height: 30px; line-height: 30px; color: #fff; background-color: #2a2a2a; text-align:center; border-radius: 3px; cursor: pointer; font-size: 13px;  float: left; margin-right: 15px; margin-top: 10px;}
+
+
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px; width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 50%; float: left;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; padding-left: 40px; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/detailicon_53.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+.page-content{ }  
+</style>
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="js/my-app.js"></script>
+<!-- swiper js -->
+<script>
+    //var myApp = new Framework7(); 
+    var mySwiper = myApp.swiper('.swiper-container', {
+        pagination:'.swiper-pagination'
+    });
+</script>
+
+<script type="text/javascript">
+var $$ = Dom7;
+
+//查看更多
+$$(".mored span").on('click',function(){
+    $$(this).toggleClass("on")
+    $$(this).parents(".mored").siblings("p").toggleClass("on");
+})
+
+//关注
+$$(".carea").on('click',function(){
+    $$(this).toggleClass("on");
+    if($$(this).hasClass("on")){
+        $$(this).text('已关注');
+        window.postMessage('aaa');
+    }else{
+        $$(this).text('+ 关注'); 
+        window.postMessage('bbb');
+    }
+})
+
+//删除留言
+$$('.sg .shanchu').on('click', function () {
+    var thisdom = $$(this);
+    //alert(this)
+    myApp.confirm('你确定要将此条留言删除吗', '删除留言',
+        function () {
+            thisdom.parents(".sg").remove();
+            myApp.alert('留言已删除');
+        },
+        function () {}
+    );
+});
+
+
+$$('.sg .huifu').on('click', function () {
+    $$(this).parents(".sg").find(".shuru").show();
+    $$('.sg .shuru a').on('click', function () {
+        var thisdom = $$(this);
+        thisdom.parents(".shuru").hide();      
+    });
         
-        setTimeout(function(){
-            $$(".loadingbox").hide();
-        },1000)
+});
 
 
 
+/*setTimeout(function(){
+    $$(".loadingbox").hide();
+},1000)*/
+</script>
 
-        </script>
-    </body>
+
+
+</body>
 </html>

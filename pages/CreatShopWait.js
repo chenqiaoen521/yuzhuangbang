@@ -49,18 +49,9 @@ export default class Center extends Component {
                         </Image>
                     </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> this.Gocreat(2)}>
-                    <View style={styles.circle}>
-                        <Image style={styles.bgtu}  source={require('./../imgs/openbg_06.png')}>
-                            <Image style={styles.bgtu}  source={require('./../imgs/opentbg_06.png')}>
-                                <View style={styles.center}>
-                                    <Text style={styles.text}>我是</Text>
-                                    <Text style={styles.text}>设计单位</Text>
-                                </View>
-                            </Image>
-                        </Image>
-                    </View>          
-                    </TouchableOpacity>
+                    <View style={{padding:15,alignItems:'center',tejustifyContent:'center'}}>
+                        <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>您提交的商户信息正在审核中…{'\n'}请您耐心等待</Text>
+                    </View>
                 </Image>
             </View>
         );
@@ -69,10 +60,12 @@ export default class Center extends Component {
     Gocreat(num) {
         const {navigate} = this.props.navigation;
         if(num===1){
-            navigate('CreatShopSenda')
+            alert(1)
         }else{
-            navigate('CreatShopSendb')
+            alert(2)
         }
+        
+        navigate('CreatShopSenda')
     }
   
 }

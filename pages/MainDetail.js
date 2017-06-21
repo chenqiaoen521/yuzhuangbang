@@ -60,7 +60,7 @@ export default class MainDetail extends Component {
           decelerationRate="normal"
           onNavigationStateChange={this.onNavigationStateChange}
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-          startInLoadingState={false}
+          startInLoadingState={true}
           scalesPageToFit={false} />
       </ScrollView>
     );

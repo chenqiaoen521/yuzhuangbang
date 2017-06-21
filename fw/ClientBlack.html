@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>客户管理</title>
+<!-- Path to Framework7 Library CSS-->
+<link rel="stylesheet" href="css/framework7.ios.min.css">
+<link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+<!-- Path to your custom app styles-->
+<link rel="stylesheet" href="css/my-app.css">
+<link rel="stylesheet" href="./my_fav.css">
+</head>
+<body>
+
+<div class="views">
+<div class="view view-main">
+<div class="pages">
+<div class="page toolbar-fixed" style="background: transparent">
+    
+    <div class="page-content">
+        <div class="black">
+            <div class="name"><span>王女士</span><i>13203921659</i></div>
+            <div class="jiedai">
+                业务员：王大锤<br>接触时间：2017-05-05  10:10:10<br>地址：中州大道商都路建业五栋大楼B座701室
+            </div>
+            <div class="shu">
+                <textarea placeholder='请输入拉黑原因'></textarea>
+            </div>
+            <div class="tip">
+                <span>温馨提示：</span>
+                <p>理由信息网络诽谤他人，同意诽谤信息被点击浏览超过5000以上，或者被转发500次以上的，应当认定为刑法第246条第一款规定的“情节严重”，可构成诽谤罪</p>
+            </div>
+        </div>
+        <div class="fixedbtn toolbar">
+            <a><span>提交拉黑</span></a>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>    
+
+
+
+<style>
+.toolbar-fixed .page-content{ padding-bottom: 50px;}
+.pages{ background-color: #151515;}
+
+.black{ }
+.black .name{padding: 10px 15px; border-bottom:1px solid #555; line-height: 30px; overflow: hidden; background-color: #1b1b1b;}
+.black .name span{ display: block; font-size: 17px; color: #ddd; line-height: 30px; float: left; }
+.black .name i{ display: block; font-size: 15px; color: #aaa; float: left; font-style: normal; margin-left: 20px;}
+.black .jiedai{ background-color: #1b1b1b; padding: 12px 15px; font-size: 14px; line-height: 28px; color: #888; border-bottom: 5px solid #151515;}
+.black .shu{ background-color: #1b1b1b;padding: 12px 15px;}
+.black .shu textarea{display: block; width: 100%; font-size: 14px; line-height: 24px; color: #aaa; height: 100px; background-color: transparent; border:none;}
+.black .tip{padding: 12px 15px; font-size: 14px; line-height: 26px; color: #aaa;}
+.black .tip span{ display: block; font-size: 15px; line-height: 30px; color: #888;}
+.black .tip p{margin: 5px 0; color: #555;}
+
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px; width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 100%;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; background-position: left center; background-repeat: no-repeat; background-size: 22px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/shuo_03.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+</style> 
+
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script>
+var myApp = new Framework7(); 
+var $$ = Dom7;
+
+
+</script>
+
+</body>
+</html>

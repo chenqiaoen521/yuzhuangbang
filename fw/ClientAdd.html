@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>客户管理</title>
+<!-- Path to Framework7 Library CSS-->
+<link rel="stylesheet" href="css/framework7.ios.min.css">
+<link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+<!-- Path to your custom app styles-->
+<link rel="stylesheet" href="css/my-app.css">
+<link rel="stylesheet" href="./my_fav.css">
+</head>
+<body>
+
+<div class="views">
+<div class="view view-main">
+<div class="pages">
+<div class="page toolbar-fixed" style="background: transparent">
+    
+    <div class="page-content">
+        <div class="dongtai">
+            <div class="sg">
+                <textarea placeholder='输入您想说的内容'></textarea>
+            </div>
+            <div class="sg">上传图片</div>
+            <div class="sg">
+                <div class="tu">
+                    <a><img src="img/i-f7-material.png" class="bga"><img src="img/sendzheng_14.png" class="del"></a>
+                    <a><img src="img/i-f7-material.png" class="bga"><img src="img/sendzheng_14.png" class="del"></a>
+                    <span><img src="img/sendzheng_17.png" class="bga"><input type="file"></span>
+                </div>
+            </div>
+        </div>
+        <div class="fixedbtn toolbar">
+            <a><span>提交</span></a>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>    
+
+
+
+<style>
+.toolbar-fixed .page-content{ padding-bottom: 50px;}
+.pages{ background-color: #151515;}
+
+.dongtai{ }
+.dongtai .sg{background-color: #1b1b1b; border-bottom: 8px solid #151515; padding: 12px; font-size: 16px; line-height: 25px; color: #ccc;}
+.dongtai textarea{display: block; padding: 0; font-size: 15px; line-height: 26px; color: #888; background-color: transparent; border:none; width: 100%;}
+.dongtai .tu{overflow: hidden; padding: 10px 0 30px 0;}
+.dongtai .tu a{display:block; width: 100px; height: 100px; position: relative; float: left;-webkit-box-sizing: border-box;
+            box-sizing: border-box; padding: 10px 10px 0 0;}
+.dongtai .tu .bga{display: block; width: 90px; height: 90px;}
+.dongtai .tu a .del{display: block; width: 16px; height: 16px; position: absolute; right: 5px; top: 2px;}
+.dongtai .tu a input{ display: block; position: absolute; left: 0px; top: 10px; width: 90px; height: 90px; z-index: 3; background-color: red;}
+
+.dongtai .tu span{display:block; width: 100px; height: 100px; position: relative; float: left;-webkit-box-sizing: border-box;
+            box-sizing: border-box; padding: 10px 10px 0 0;}
+.dongtai .tu span input{ display: block; position: absolute; left: 0px; top: 10px; width: 90px; height: 90px; z-index: 3; background-color: red; opacity: 0;}
+
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px; width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 100%;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; background-position: left center; background-repeat: no-repeat; background-size: 22px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/shuo_03.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+</style> 
+
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script>
+var myApp = new Framework7(); 
+var $$ = Dom7;
+
+
+//查看更多
+$$(".tu a .del").on("click",function(){
+    $$(this).parents("a").remove();
+})
+
+
+</script>
+
+</body>
+</html>

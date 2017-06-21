@@ -40,7 +40,7 @@ class Notice extends Component {
             <Text style={[styles.subFontStyle,{marginLeft:8}]}>{this.props.browserCount}人浏览</Text>
             <Text style={[styles.subFontStyle,{marginLeft:20}]}>时间:{this.props.time}</Text>
           </View>
-          <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
+          <Icon name="ios-arrow-dropright-outline" size={24} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
       </View>
     );
   }

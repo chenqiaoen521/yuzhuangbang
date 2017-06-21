@@ -18,12 +18,23 @@
 <div class="views">
     <div class="view view-main">
         <div class="pages">
-        <div class="page" style="background: transparent">
-            <div class="tab-bar">
-                <div class="item on">灵感收藏</div>
-                <div class="item">优品收藏</div>
-            </div>
+        <div class="page  toolbar-fixed" style="background: transparent">
+            
             <div class="page-content infinite-scroll" data-distance="50">
+                <div class="namepart">
+                    <a class="imga"><img src="img/detailicon_14.png"></a>
+                    <div class="ming">
+                        <p><span>东易力天</span><i>商户</i></p>
+                        <h3>昵称：我是大明星</h3>
+                    </div>
+                    <a class="ballimg"><img src="img/ball.png"><i>1</i></a>
+                </div>
+                <div class="findbox">
+                    <div class="find">
+                        <input type="text" placeholder='输入关键词查找'>
+                        <a class="souimg"><img src="img/sou.png"></a>
+                    </div>
+                </div>
                 <div style="margin:0" class="list-block">
                     <ul class="main">
                         <li class="box">
@@ -88,12 +99,44 @@
                 <div class="infinite-scroll-preloader">
                     <div class="preloader"></div>
                 </div>
+                <div class="fixedbtn toolbar">
+                    <a href="tel:0371-1122335"><span class="bg1">联系Ta</span></a>
+                </div>
             </div> 
         </div>
         </div>
     </div>
 </div>    
-   
+
+<style>
+.toolbar-fixed .page-content{ padding-bottom: 50px;}
+.pages{ background-color: #151515;}
+.namepart{ background-color: #1b1b1b; padding: 15px; overflow: hidden; }
+.namepart .imga{ display: block; width: 60px; height: 60px; border-radius: 50%; overflow: hidden; float: left;}
+.namepart .imga img{ display: block; width: 60px; height: 60px; border-radius: 50%;}
+.namepart .ming{ float: left; width: 70%; margin:5px 0 0 5%;}
+.namepart .ming p{ padding: 0; margin: 0; overflow: hidden; }
+.namepart .ming p span{ display: block; float: left; font-size: 16px; color: #fff; line-height: 30px;}
+.namepart .ming p i{ background-color: #ae8300; font-size: 12px; line-height: 20px; height: 20px; display: block; float: left; margin: 5px 0;font-style: normal; margin-left: 4px; color: #fff; border-radius: 3px; padding: 0 5px;}
+.namepart .ming h3{ font-size: 13px; line-height: 20px; color: #999; font-weight: normal; padding: 0; margin: 0;}
+.namepart .ballimg{ float: right; display: block; width: 28px; height: 24px; margin-top: 15px; position: relative; }
+.namepart .ballimg img{ display: block; width: 24px; height: 24px;}
+.namepart .ballimg i{ display: block; font-size: 12px; color: #fff; text-align: center; background-color: red; width: 16px; height: 16px; line-height: 16px; position: absolute; right: 0px; top: 0px;border-radius: 50%; font-style: normal;}
+.findbox{ padding: 10px 15px;}
+.findbox .find{ height: 36px; padding: 0 2% 0 4%; border-radius: 18px; overflow: hidden; background-color: #2a2a2a; overflow: hidden;}
+.findbox .find input{ display: block; width: 90%; border:none; background-color: transparent; font-size: 14px; color: #888; line-height: 36px; float: left;  padding: 0;}
+.findbox .find .souimg{ display: block; width: 10%; height: 36px; float: right;}
+.findbox .find .souimg img{ display: block; width: 20px; height: 20px; margin: 8px auto;}
+.main::before{ display: none !important;}
+.main::after{ display: none !important;}
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px;  width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 100%;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; padding-left: 40px; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/detailicon_53.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+</style> 
+
+
 <!-- Path to Framework7 Library JS-->
 <script type="text/javascript" src="js/framework7.min.js"></script>
 <!-- Path to your app js-->

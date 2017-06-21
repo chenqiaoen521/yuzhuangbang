@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+</head>
+<body>
+    
+
+<!-- Views-->
+<div class="views">
+<!-- Your main view, should have "view-main" class-->
+<div class="view view-main">
+    
+<!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+<div class="pages">
+    <!-- Page, data-page contains page name-->
+    <div data-page="index" class="page toolbar-fixed">
+        <!-- Scrollable page content-->
+        <div class="page-content">
+            <div class="mainload">
+            <!-- Slider container -->
+            <div class="swiper-container">
+                <!-- Slides wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide"><a class="link" href="about.html"><img src="img/lbimg_02.jpg"></a></div>
+                    <div class="swiper-slide"><a class="link" href="about.html"><img src="img/lbimg_02.jpg"></a></div>
+                    <div class="swiper-slide"><a class="link" href="about.html"><img src="img/lbimg_02.jpg"></a></div>
+                    <div class="swiper-slide"><a class="link" href="about.html"><img src="img/lbimg_02.jpg"></a></div>
+                    <div class="swiper-slide"><a class="link" href="about.html"><img src="img/lbimg_02.jpg"></a></div>
+                </div>
+                <!-- Pagination, if required -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="ming">
+                <div class="biao">
+                    <img src="img/i-f7-ios.png">
+                    <span>清新小户型一居室的室内设计</span>
+                </div>
+                <div class="jian">
+                    <a class="bg1">456</a>
+                    <a class="bg2">10086</a>
+                    <a class="bg3 del">删除</a>
+                    <a class="bg4" href="MerchantBJ.html">编辑</a>
+                </div>
+            </div>
+            <div class="fixedbtn toolbar">
+                <a><span>申请主页</span></a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+</div>
+
+</div>
+
+
+<style type="text/css">
+body{ padding: 0; margin:0;}
+.page{ background-color: #151515;}
+.view-main{ margin: 0 !important;}
+.swiper-wrapper{ }
+.swiper-container { width: 100%; }
+.swiper-container img{ width: 100%;}
+.swiper-slide { background:#fff;}
+.swiper-slide a{ display: block; position: relative; background-color: #151515; padding: 0;}
+.swiper-pagination-bullet{ width: 12px; height: 12px; background-color: #fff; opacity: 1;}
+.swiper-pagination-bullet-active{ background-color: #ae8300 !important;}
+
+.ming{ padding:20px 15px;}
+.ming .biao{ overflow: hidden;}
+.ming .biao img{ display:block; width: 20px; height: 20px; margin:5px 0; float: left;}
+.ming .biao span{ display: block; font-size: 16px; line-height: 30px; margin-left: 8px; color: #fff; float: left;}
+.ming .jian{ overflow: hidden; padding: 10px 0;}
+.ming .jian a{ display: block; padding-left: 22px; font-size: 14px; color: #999; float: left; margin-right: 15px; background-position: left center; background-repeat: no-repeat; background-size: 16px auto;}
+.ming .jian a.bg1{ background-image: url('img/bt_09.png');}
+.ming .jian a.bg2{ background-image: url('img/bt_12.png');}
+.ming .jian a.bg3{ background-image: url('img/bt_03.png');}
+.ming .jian a.bg4{ background-image: url('img/bt_06.png');}
+
+.fixedbtn{ position: fixed; left: 0; bottom: 0; height: 50px; width:100%; overflow: hidden;}
+.fixedbtn a{ display: block; height: 50px; line-height: 50px; text-align: center; width: 100%;  background-color: #ae8300; color: #fff; box-shadow: 0 0px 1px #fff inset; }
+.fixedbtn a span{ display: inline-block; background-position: left center; background-repeat: no-repeat; background-size: 28px auto; font-size: 15px;}
+.fixedbtn a span.bg1{ background-image: url('img/detailicon_53.png');}
+.fixedbtn a span.bg2{ background-image: url('img/detailicon_55.png');}
+.page-content{ }  
+</style>
+
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="js/my-app.js"></script>
+<!-- swiper js -->
+<script>
+    //var myApp = new Framework7(); 
+    var mySwiper = myApp.swiper('.swiper-container', {
+        pagination:'.swiper-pagination'
+    });
+</script>
+
+<script type="text/javascript">
+var $$ = Dom7;
+$$('.jian .del').on('click', function () {
+    var thisdom = $$(this);
+    //alert(this)
+    myApp.confirm('你确定要将该作品删除吗', '删除',
+        function () {
+            thisdom.parents(".tua").remove();
+            myApp.alert('已删除');
+        },
+        function () {
+            
+        }
+    );
+});
+</script>
+
+
+
+</body>
+</html>
