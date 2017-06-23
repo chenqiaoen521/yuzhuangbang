@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>我的收藏</title>
+<!-- Path to Framework7 Library CSS-->
+<link rel="stylesheet" href="css/framework7.ios.min.css">
+<link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+<!-- Path to your custom app styles-->
+<link rel="stylesheet" href="css/my-app.css">
+<link rel="stylesheet" href="./my_fav.css">
+</head>
+<body>
+
+<div class="views">
+    <div class="view view-main">
+        <div class="pages">
+        <div class="page" style="background: transparent">
+            <div class="page-content infinite-scroll" data-distance="50">
+                <div style="margin:0" class="list-block">
+                    <ul class="main">
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_05.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_07.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_05.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_07.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+            </div> 
+        </div>
+        </div>
+    </div>
+</div>    
+   
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script>
+var myApp = new Framework7(); 
+var $$ = Dom7;
+$$('.tab-bar .item').on('click',function(){
+    if($$(this).hasClass('on')){
+        $$(this).siblings().removeClass('on');
+    }else{
+        $$(this).addClass('on').siblings().removeClass('on');
+    }
+})
+waterfall();
+function waterfall() {
+   //瀑布流js计算
+    var boxes = $$('.main .box');
+    var columns = 2;//列num
+    var boxesW = boxes[0].offsetWidth;//列num
+    var h_array = [] //存高
+    for(let i=0;i<boxes.length;i++){
+        if(i<columns){
+            h_array.push(boxes[i].offsetHeight);
+        }else{
+            let minH = Math.min.apply(null,h_array);
+            let minIndex= getMinHIndex(h_array,minH);
+            boxes[i].style.position = 'absolute';
+            boxes[i].style.top = minH+'px';
+            boxes[i].style.left = (boxesW*minIndex)+'px';
+            h_array[minIndex] = h_array[minIndex] + boxes[i].offsetHeight;
+        }
+    }
+    $$('.list-block')[0].style.height = (Math.max.apply(null,h_array))+'px';
+}
+function getMinHIndex(array,value){
+    if(array[0]==value){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
+// 加载flag
+var loading = false;
+ 
+// 上次加载的序号
+var lastIndex = $$('.list-block .box').length;
+ 
+// 最多可加载的条目
+var maxItems = 560;
+ 
+// 每次加载添加多少条目
+var itemsPerLoad = 20;
+ 
+// 注册'infinite'事件处理函数
+$$('.infinite-scroll').on('infinite', function () {
+ 
+    // 如果正在加载，则退出
+    if (loading) return;
+ 
+    // 设置flag
+    loading = true;
+ 
+    // 模拟1s的加载过程
+    setTimeout(function () {
+        // 重置加载flag
+        loading = false;
+ 
+        if (lastIndex >= maxItems) {
+            // 加载完毕，则注销无限加载事件，以防不必要的加载
+            myApp.detachInfiniteScroll($$('.infinite-scroll'));
+            // 删除加载提示符
+            $$('.infinite-scroll-preloader').remove();
+            return;
+        }
+ 
+        // 生成新条目的HTML
+        var html = '';
+        for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+            let srcimg = '5';
+            if(i%2==0){
+                srcimg = '7';
+            }else{
+              srcimg = '5';  
+            }
+            html += '<li class="box">'+
+              '<div class="pic">'+
+                  '<img src="../imgs/indeximg_0'+srcimg+'.jpg"/>'+
+                  '<div class="title">'+
+                      '<img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>'  +
+                  '</div>'+
+                  '<p class="desc">适XXXXXXXX薪家庭装饰风格，简约清新，温馨舒适</p>'+
+                  '<div class="bottom">'+
+                      '<i class="bottom_icon share"></i><span class="num">10086</span>&nbsp;&nbsp;&nbsp;<i class="bottom_icon star"></i><span class="num">10086</span>'+
+                  '</div>'+
+              '</div>'+
+          '</li>';
+        }
+ 
+        // 添加新条目
+        $$('.list-block ul').append(html);
+        waterfall();
+
+        // 更新最后加载的序号
+        lastIndex = $$('.list-block .box').length;
+    }, 1000);
+});          
+</script>
+
+</body>
+</html>

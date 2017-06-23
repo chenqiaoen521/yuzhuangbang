@@ -18,7 +18,8 @@ import {
     Modal,
     TouchableOpacity,
     TextInput,
-    Platform
+    Platform,
+    WebView
 } from 'react-native';
 import Search from '../Components/Search';
 import Slider from '../Components/Slider';
@@ -61,7 +62,9 @@ export default class Main extends Component {
         //单选框
         this.onSelect = this.onSelect.bind(this)
     }
-    
+    receiveMessage (e) {
+        let message = e.nativeEvent.data
+    }
     render() {      
         return (
             <View style={styles.container}>
@@ -77,17 +80,29 @@ export default class Main extends Component {
                     <View style={{marginTop:5}}>
                         <Slider/>
                     </View>
+                {/*
+
                     <View style={{marginTop:5}}>
                         <RNCarousel/>
                     </View>
+                */}
+                    
                     <View style={{marginTop:5}}>
                         <Notice/>
                     </View>
                     <HomeTitle/>
-                    <View>
-                        <DesignList popToHome={(data)=>this.toDesignView(data)}/>
-                    </View>
+                     <WebView
+                              automaticallyAdjustContentInsets={false}
+                              style={styles.webView}
+                              source={require('../fw/main.html')}
+                              javaScriptEnabled={true}
+                              domStorageEnabled={true}
+                              onMessage={this.receiveMessage.bind(this)}
+                              decelerationRate="normal"
+                              startInLoadingState={false}
+                              scalesPageToFit={false} />
                 </ScrollView>
+               
                 <Modal  
                     animationType='slide'          // 从底部滑入
                     transparent={true}             // 不透明
@@ -413,6 +428,9 @@ const styles = StyleSheet.create({
         height:0.55*height,
         backgroundColor:'white',
         borderRadius:10,
+    },
+    webView:{
+        height:655
     },
     biao: {
         justifyContent:'center',
