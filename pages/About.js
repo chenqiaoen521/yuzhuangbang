@@ -51,7 +51,7 @@ export default class About extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{alignItems : 'center',marginTop:20,marginBottom:20}}>
+        <View style={{alignItems : 'center',marginTop:20,marginBottom:20, paddingLeft:12, paddingRight:12,}}>
           <Image 
            source={require('../imgs/yu.png')}
            style={styles.img}/>
@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
   title:{
     color:'#ae8300',
     textAlign:'center',
-    fontSize:18
+    fontSize:18 ,
+    paddingLeft:12, 
+    paddingRight:12,
   },
   bg:{
     position:'absolute',
@@ -88,13 +90,15 @@ const styles = StyleSheet.create({
   },
   img:{
     width:130,
-    height:135
+    height:135,
   },
   introduce:{
     color:'#636363',
     textAlign : 'center',
     fontSize:12,
     lineHeight :22,
-    marginTop :20
+    marginTop :20 ,
+    paddingLeft:12, 
+    paddingRight:12,
   }
 });

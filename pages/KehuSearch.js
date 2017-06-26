@@ -35,7 +35,7 @@ export default class Center extends Component {
                     <Icons.Button name="md-search" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8} 
                         style={{padding:0}} />
                 </View>
-                <TextInput placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='请输入关键字' clearButtonMode ={true}
+                <TextInput placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='请输入关键字'
                     style={{ width:width-95, color:'#777', fontSize:15, textAlign:'left', padding:0, }} />
             </View>   
         )

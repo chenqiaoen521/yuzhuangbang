@@ -28,8 +28,8 @@ export default class Center extends Component {
         return (
           <View style={styles.container}>
                 <Image style={{ width:width, height:height,}} resizeMode="stretch" source={require('./../imgs/indexforget.jpg')}>
-                <View style={{paddingTop:50,paddingBottom:30,alignItems:'center',justifyContent:'center'}}>
-                    <Image style={{ width:202, height:53,}} source={require('./../imgs/loginpng_03.png')}></Image>
+                <View style={{paddingTop:30,paddingBottom:10,alignItems:'center',justifyContent:'center'}}>
+                    <Image style={{ width:100, height:110,}} source={require('./../imgs/yu.png')}></Image>
                 </View>
                 <View style={styles.fillFill}>
                     <View style={styles.sgFill}>
@@ -38,8 +38,6 @@ export default class Center extends Component {
                     </View>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon014.png')}></Image></View>
-
-
 
                         <TextInput style={[styles.shuruFill,styles.small]}  placeholderTextColor="#888" placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
 
@@ -59,7 +57,6 @@ export default class Center extends Component {
                         <TextInput style={styles.shuruFill} placeholderTextColor="#888" placeholder='请再次输入新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                     </View>
 
-                   
                     <View style={{paddingTop:30,alignItems:'center',justifyContent:'center'}}>
                         <TouchableOpacity>
                             {/*登录按钮*/}
@@ -102,7 +99,7 @@ const styles = StyleSheet.create({
     },
     fillbtn: {
         width: width-30,
-        height: 40,
+        height: 36,
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop:0,
@@ -126,10 +123,10 @@ const styles = StyleSheet.create({
     },
     shuruFill: {
         width:0.9*(width-30),
-        height:30,
+        height:38,
         color:'#999',
         fontSize:12,
-        marginTop: Platform.OS === 'ios' ? 4: 8,
+        //marginTop: Platform.OS === 'ios' ? 4: 8,
     },
     small: {
         width:0.7*(width-30),

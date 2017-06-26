@@ -143,7 +143,7 @@ export default class WorkManageOne  extends Component {
     Godel() {
         Alert.alert(
             '删除',
-            '确认删除该按钮吗',
+            '确认删除该作品吗',
             [
                // {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
                 {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},

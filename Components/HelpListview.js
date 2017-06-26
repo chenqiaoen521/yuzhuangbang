@@ -34,7 +34,7 @@ export default class HelpListview  extends Component {
             <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}  >
             <View style={styles.sg}>
                 <Text style={styles.sgName} numberOfLines={1}>{rowData.title}</Text>
-                <Icon style={styles.icn} name="angle-right" size={25} color="#636363" />
+                <Icon style={styles.icn} name="angle-right" size={23} color="#636363" />
             </View>
             </TouchableOpacity>
         )
@@ -68,27 +68,26 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop:8,
         paddingBottom:8,
-        paddingLeft:15,
-        paddingRight:15,
+        paddingLeft:10,
+        paddingRight:10,
         flexDirection:'row',
         backgroundColor:'#1b1b1b',
         borderBottomWidth:1,
         borderColor:'#151515',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        alignItems:'center',
     },  
     sgName: {
-        fontSize:18,
         fontFamily:'Helvetica Neue',
         fontWeight:'300',
         color:'#999',
-        width:width*0.8,
+        width:(width-20)*0.9,
         overflow:'hidden',
-        fontSize:15,
-        alignItems:'center',
-        justifyContent:'center'
+        fontSize:13,
+        justifyContent:'center',
     },
     icn: {
-        marginLeft:width*0.03,
+        
     }
 });
 

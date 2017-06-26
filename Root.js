@@ -37,6 +37,7 @@ import AddFriendRequest  from './pages/AddFriendRequest';
 import Kehu  from './pages/Kehu';
 import KehuAdd  from './pages/KehuAdd';
 import KehuSearch  from './pages/KehuSearch';
+import ChangePhone  from './pages/ChangePhone';
 /*import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
 /*import RNCarousel  from './Components/RNCarousel';*/
@@ -117,6 +118,9 @@ const Root = StackNavigator(
     },
     KehuSearch:{
         screen:KehuSearch
+    },
+    ChangePhone:{
+        screen:ChangePhone
     },
     CreatShop:{
         screen:CreatShop

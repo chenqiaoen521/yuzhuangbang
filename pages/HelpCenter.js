@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
     },
     biao: {
         color:'#999',
-        fontSize:20
+        fontSize:16
     }
 });

@@ -53,7 +53,7 @@ export default class MessageFriend extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.title}>
-          <Text style={{color:'#cccccc',fontSize:24}}>好友申请</Text>
+          <Text style={{color:'#cccccc',fontSize:16}}>好友申请</Text>
         </View>
         <View style={styles.unit}>
           <Image source={require('../imgs/yihan.jpg')} style={styles.left}/>
@@ -62,7 +62,7 @@ export default class MessageFriend extends Component {
             <Text style={{color:'#999999',fontSize:13,marginTop:4}}>业务员：王大锤</Text>
           </View>
           <TouchableOpacity style={styles.right}>
-            <Text style={{color:'#292929',fontSize:13,backgroundColor:'#ae8300',padding:3,width:66,borderRadius:4,textAlign:'center'}}>查看</Text>
+            <Text style={{color:'#292929',fontSize:13,backgroundColor:'#ae8300',padding:3, color:'#fff',width:66,borderRadius:4,textAlign:'center'}}>查看</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.introduce}>
@@ -105,12 +105,13 @@ const styles = StyleSheet.create({
 
   },
   title:{
-    height:50,
     alignItems:'flex-start',
-    paddingLeft:10,
-    marginTop:15,
+    paddingLeft:12,
+    paddingRight:12,
+    paddingTop:10,
+    paddingBottom:10,
     borderBottomWidth:1,
-    borderBottomColor:'#292929'
+    borderBottomColor:'#292929',
   },
   unit:{
     flexDirection:'row',

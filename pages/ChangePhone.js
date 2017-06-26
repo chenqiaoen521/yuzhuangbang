@@ -26,7 +26,7 @@ import Unit from '../Components/Unit';
 import ActionSheet from 'react-native-actionsheet';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
-export default class PasswordPage extends Component {
+export default class ChangePhone extends Component {
     constructor(props) {
         super(props);
       
@@ -36,7 +36,7 @@ export default class PasswordPage extends Component {
 
     }
     static navigationOptions = {
-        headerTitle:'修改密码',
+        headerTitle:'更换手机号',
         headerRight: (
             <Icon.Button
               name="bell-o"
@@ -53,7 +53,7 @@ export default class PasswordPage extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.tipContain}>
-                    <Text style={styles.tipStyle}>通过你绑定的手机号更改密码</Text>
+                    <Text style={styles.tipStyle}>更改绑定的手机号</Text>
                 </View>
                 <View style={styles.group}>
                     <Text style={styles.txt}>手机号</Text>
@@ -69,19 +69,6 @@ export default class PasswordPage extends Component {
                             <Text style={styles.ytext}>获取验证码</Text>
                         </View>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.tipContain}>
-                    <Text style={styles.tipStyle}>设置新密码</Text>
-                </View>
-                <View style={styles.group}>
-                    <Text style={styles.txt}>新密码</Text>
-                    <TextInput style={styles.inputStyle} underlineColorAndroid="transparent" placeholder="请输入验证码"
-                      placeholderTextColor="#666666" />
-                </View>
-                <View style={styles.group}>
-                    <Text style={styles.txt}>确认密码</Text>
-                    <TextInput style={styles.inputStyle} underlineColorAndroid="transparent" placeholder="请输入验证码"
-                      placeholderTextColor="#666666" />
                 </View>
                 <TouchableOpacity style={styles.tj}>
                     <Text style={{color:'#fff',width:width,textAlign:'center'}}>提交</Text>

@@ -39,6 +39,7 @@ export default class Unit extends Component {
     txtCol:'#333333',
     icon:null,
     topColor:'#e5e5e5',
+    edit:true
   }
   render () {
     return (
@@ -75,7 +76,7 @@ export default class Unit extends Component {
     if(this.props.rightInput){
       return (
         <View style={styles.rightBarStyle}>
-          <TextInput underlineColorAndroid="transparent" style={{color:'#cccccc',marginRight:20,padding:0,width:100,textAlign:'right'}} defaultValue ={this.props.rightInput}/>
+          <TextInput underlineColorAndroid="transparent" style={{color:'#cccccc',marginRight:20,padding:0,width:100,textAlign:'right'}} editable ={this.props.edit} defaultValue ={this.props.rightInput}/>
           <Icon name="angle-right" size={25} color="#b6b6b6" />
         </View>
         )
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
     paddingRight:10,
     height:50,
-    borderTopWidth:0.5
+    borderTopWidth:0.5,
+    backgroundColor:'red'
   }
 });

@@ -94,7 +94,7 @@ export default class Main extends Component {
                         <Notice/>
                     </View>
                     <HomeTitle/>
-                     <WebView
+                    <WebView
                           automaticallyAdjustContentInsets={false}
                           style={styles.webView}
                           source={require('../fw/main.html')}

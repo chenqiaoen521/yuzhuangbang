@@ -70,6 +70,12 @@ export default class MainDetail extends Component {
         }else if(message == 'xq'){
             const {navigate} = this.props.navigation;
             navigate('Kehu',{page:'xq',title:'客户详情'});
+        }else if(message == 'cadd'){
+            const {navigate} = this.props.navigation;
+            navigate('MainDetail',{page:'cadd',title:'我来说一句'});
+        }else if(message == 'hmd'){
+            const {navigate} = this.props.navigation;
+            navigate('MainDetail',{page:'hmd',title:'加入黑名单'});
         }else{
             const {navigate} = this.props.navigation;
             navigate('SearchPage');
