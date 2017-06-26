@@ -100,7 +100,7 @@
                     <div class="preloader"></div>
                 </div>
                 <div class="fixedbtn toolbar">
-                    <a href="tel:0371-1122335"><span class="bg1">联系Ta</span></a>
+                    <a class="bg1"><span class="bg1">联系Ta</span></a>
                 </div>
             </div> 
         </div>
@@ -108,10 +108,51 @@
     </div>
 </div>    
 
-<style>
+
+<div class="popbg"></div>
+<div class="popbox popmsg">
+    <h2>您要找？<img class="close" src="img/close2.png"></h2>
+    <div class="chose">
+        <span>居住空间设计</span>
+        <span>商用空间设计</span>
+    </div>
+</div>
+<div class="popbox popfillone" style=" margin-top:-120px; ">
+    <h2>信息填写<img class="close" src="img/close2.png"></h2>
+    <div class="fill">
+        <dl><dt>您的称呼：</dt><dd><input type="text"></dd></dl>
+        <dl><dt>小区名称：</dt><dd><input type="text"></dd></dl>
+        <dl><dt>详细地址：</dt><dd><input type="text"></dd></dl>
+    </div>
+    <a class="sua">提交</a>
+</div>
+<div class="popbox popfilltwo" style=" margin-top:-120px; ">
+    <h2>信息填写<img class="close" src="img/close2.png"></h2>
+    <div class="fill">
+        <dl><dt>您的称呼：</dt><dd><input type="text"></dd></dl>
+        <dl><dt>项目类别：</dt><dd><input type="text" placeholder='如：酒店、餐饮、酒吧等'></dd></dl>
+        <dl><dt>详细地址：</dt><dd><input type="text"></dd></dl>
+    </div>
+    <a class="sua">提交</a>
+</div>
+
+<style type="text/css">
+.popbg{ width: 100%; height: 100%; position: fixed; left: 0; top: 0; background-color: rgba(0,0,0,0.4); z-index: 13000; display:none;}
+.popbox{ width: 290px; position: fixed; left: 50%; margin-left: -145px; top: 50%; margin-top: -75px; z-index: 13500; background-color: #fff; border-radius: 6px; overflow: hidden; display:none; }
+.popbox h2{ height: 46px; margin: 0; line-height: 46px; position: relative; color: #222; background-color: #f2f2f2; text-align: center; font-size: 16px; font-weight: normal;}
+.popbox h2 img{ display: block; width: 22px; height: 22px; position: absolute; right: 10px; top: 50%; margin-top: -11px;}
+.popbox .chose{}
+.popbox .chose span{ display: block; font-size: 15px; line-height: 43px; border-top: 1px solid #eee; text-align: center; color: #777;}
+.popbox .fill{ overflow: hidden; padding: 7px 7px 0 7px;}
+.popbox .fill dl{ overflow: hidden; margin: 0; padding:4px 3px; border-bottom: 1px solid #eee;}
+.popbox .fill dl dt{ width: 70px; height: 36px; margin: 0; line-height: 36px; font-size: 14px; color: #666; float: left;}
+.popbox .fill dl dd{ width: 200px; float: left; margin: 0; }
+.popbox .fill dl dd input{ display: block; background-color: transparent; border:none; line-height: 36px; height: 36px; font-size: 14px; color: #555; width: 100%; padding: 0;}
+.popbox .sua{ display: block; height: 46px; line-height: 46px; color: #ae8300; text-align: center; font-size: 16px;}
+
 
 .pages{ background-color: #151515;}
-.namepart{ background-color: #1b1b1b; padding: 15px; overflow: hidden; }
+.namepart{ background-color: #1b1b1b; padding:10px 15px; overflow: hidden; }
 .namepart .imga{ display: block; width: 60px; height: 60px; border-radius: 50%; overflow: hidden; float: left;}
 .namepart .imga img{ display: block; width: 60px; height: 60px; border-radius: 50%;}
 .namepart .ming{ float: left; margin:5px 0 0 5%;}
@@ -140,9 +181,46 @@
 <!-- Path to Framework7 Library JS-->
 <script type="text/javascript" src="js/framework7.min.js"></script>
 <!-- Path to your app js-->
+<script type="text/javascript" src="js/my-app.js"></script>
 <script>
 var myApp = new Framework7(); 
 var $$ = Dom7;
+
+//弹窗
+$$('.fixedbtn .bg1').on('click', function () {
+    alert(1)
+    $$(".popbg").show();
+    $$(".popmsg").show();
+});
+//关闭
+$$('.popbox .close').on('click', function () {
+    $$(".popbg").hide();
+    $$(".popbox").hide();
+});
+$$('.popbox .sua').on('click', function () {
+    $$(".popbg").hide();
+    $$(".popbox").hide();
+});
+$$('.popbg').on('click', function () {
+    $$(".popbg").hide();
+    $$(".popbox").hide();
+});
+
+$$('.popmsg .chose span').on('click', function () {
+    $$(".popmsg").hide();
+    var n = $$(this).index();
+    if(n==0){
+        $$(".popfillone").show();
+    }else{
+        $$(".popfilltwo").show();
+    }
+});
+</script>
+
+<script>
+var myApp = new Framework7(); 
+var $$ = Dom7;
+
 $$('.tab-bar .item').click(function(){
     if($$(this).hasClass('on')){
         $$(this).siblings().removeClass('on');

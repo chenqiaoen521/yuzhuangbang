@@ -34,6 +34,9 @@ import CreatShopSenda  from './pages/CreatShopSenda';
 import CreatShopSendb  from './pages/CreatShopSendb';
 import CreatShopWait  from './pages/CreatShopWait';
 import AddFriendRequest  from './pages/AddFriendRequest';
+import Kehu  from './pages/Kehu';
+import KehuAdd  from './pages/KehuAdd';
+import KehuSearch  from './pages/KehuSearch';
 /*import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
 /*import RNCarousel  from './Components/RNCarousel';*/
@@ -84,7 +87,8 @@ const Root = StackNavigator(
     AddFriendDetail:{
         screen:AddFriendDetail
     },  
-    */
+    */ 
+    
     Splash:{
         screen:Splash
     },
@@ -105,11 +109,23 @@ const Root = StackNavigator(
     AddFriendRequest:{
         screen:AddFriendRequest
     }, 
+    Kehu:{
+        screen:Kehu
+    },
+    KehuAdd:{
+        screen:KehuAdd
+    },
+    KehuSearch:{
+        screen:KehuSearch
+    },
     CreatShop:{
         screen:CreatShop
     },
     CreatShopWait:{
         screen:CreatShopWait
+    },
+    CreatShopSenda:{
+        screen:CreatShopSenda
     },
     CreatShopSendb:{
         screen:CreatShopSendb

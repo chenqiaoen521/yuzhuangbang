@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, ListView, Text, Image, View, StyleSheet, TouchableOpacity, Dimensions,
   RefreshControl,
-  ActivityIndicator } from 'react-native';
+  ActivityIndicator, Alert } from 'react-native';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -86,26 +86,26 @@ export default class WorkManageOne  extends Component {
 
     renderMovieList(rowData) {
         return (
-            <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}  >
+            <TouchableOpacity  >
             <View style={styles.sin2}>
-                <TouchableOpacity>
+                <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}>
                     <Image style={{width:width*0.2,height:width*0.2,}} source={rowData.img}></Image>
                 </TouchableOpacity>
                 <View style={styles.sinmid}>
-                    <TouchableOpacity>
+                    <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}>
                         <View style={styles.sinText}>
                             <Image style={{width:14, height:14,marginRight:4,marginTop:3,alignSelf:'flex-start'}} source={rowData.smallImg}></Image>
                             <Text style={{fontSize:12,width:width*0.5-18,color:'#fff'}} numberOfLines={2}>{rowData.title}</Text>
                         </View>
                     </TouchableOpacity>
                     <View style={styles.sinbtn}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={ ()=> this.Goadd() }>
                             <View style={styles.sbtn}>
                                 <Icon size={12} color="#898989" name="edit"></Icon>
                                 <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>编辑</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.Godel()}>
                             <View style={styles.sbtn}>
                                 <Icon size={11} color="#898989" name="trash-o"></Icon>
                                 <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>删除</Text>
@@ -133,11 +133,31 @@ export default class WorkManageOne  extends Component {
             </View>
         );
     }
+    //自定义方法
     popToHome () {
         if(this.props.popToWatch){
             this.props.popToWatch()
         }
     }
+    // 删除按钮
+    Godel() {
+        Alert.alert(
+            '删除',
+            '确认删除该按钮吗',
+            [
+               // {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+        )
+    }
+    Goadd() {
+        if(this.props.popToBJ){
+            this.props.popToBJ()
+        }
+    }  
+
     onEndReached(){
         /*const {listActions} = this.props;
         listActions.requestArticleList(false,false,true);*/

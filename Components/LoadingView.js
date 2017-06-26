@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'rgba(0,0,0,0.9)'
   },
   loadingText: {
     marginTop: 10,
+    color:'#fff',
     textAlign: 'center'
   }
 });

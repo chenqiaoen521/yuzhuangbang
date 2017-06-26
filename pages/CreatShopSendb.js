@@ -60,6 +60,7 @@ export default class CreatShopSendb extends Component {
         this.state = {
             isArea:false, //注册2选择地区
             text:'',
+            index:0,
             textadr:'请选择公司所在地区'
         };
         //三级联动
@@ -72,6 +73,7 @@ export default class CreatShopSendb extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView >
+                {/*
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>姓名：</Text>
                     <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的名字' underlineColorAndroid="transparent"/>
@@ -79,7 +81,7 @@ export default class CreatShopSendb extends Component {
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>手机号：</Text>
                     <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
-                </View>
+                </View>*/}
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>状态选择：</Text>
                     <View style={styles.input}>
@@ -93,6 +95,9 @@ export default class CreatShopSendb extends Component {
                         </RadioGroup>
                     </View>
                 </View>
+                {
+                    this.state.index === 0 ? 
+                <View>
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>公司名称：</Text>
                     <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司名称' underlineColorAndroid="transparent"/>
@@ -137,8 +142,20 @@ export default class CreatShopSendb extends Component {
                         </View>
                     </View>
                 </View>
+                </View>
+                :
+                <View>
+                <View style={styles.single}>
+                    <Text style={styles.lefttext}>姓名：</Text>
+                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的名字' underlineColorAndroid="transparent"/>
+                </View>
+                <View style={styles.single}>
+                    <Text style={styles.lefttext}>手机号：</Text>
+                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
+                </View></View>
+                }
                 <View style={styles.single3}>
-                    <Text style={styles.midtext}>上传产品图片</Text>
+                    <Text style={styles.midtext}>上传作品图片</Text>
                     <View style={styles.sendpro}>
                         <TouchableOpacity onPress={()=> alert(1) }>
                         <View style={styles.cpbox}>
@@ -250,12 +267,17 @@ export default class CreatShopSendb extends Component {
     onSelect(index, value){
         if(index==0)
         {
-            // alert(1)
+            
         }
+        
         this.setState({
+            index:index,
             text: `Selected index: ${index} , value: ${value}`
         })
     }
+
+
+    
 
 
 

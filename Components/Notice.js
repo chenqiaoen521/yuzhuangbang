@@ -115,13 +115,13 @@ export default class Notice extends Component {
       itemarr.push(
           <View key={i} style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
             <View style={styles.bounce}>
-              <Text style={[styles.titleStyle,{fontSize:9},{backgroundColor:'#ff3d2c'},{paddingLeft:2},{paddingRight:2}]}>{item.iconText}</Text>
-              <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:12},{marginLeft:10}]}>{item.title}</Text>
+              <Text style={[styles.titleStyle,{fontSize:12},{backgroundColor:'#ff3d2c'},{paddingLeft:4},{paddingRight:4}]}>{item.iconText}</Text>
+              <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:14},{marginLeft:10}]}>{item.title}</Text>
             </View>
             <View style={styles.bounce}>
               <Text style={{color:'#ae8300'}}>&bull;</Text>
-              <Text style={[styles.subFontStyle,{marginLeft:8}]}>{item.browserCount}人浏览</Text>
-              <Text style={[styles.subFontStyle,{marginLeft:20}]}>时间:{item.time}</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:8},{fontSize:13}]}>{item.browserCount}人浏览</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:20},{fontSize:13}]}>时间:{item.time}</Text>
             </View>
             <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
         </View>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
   },
   bounce:{
     width:width-16,
+    paddingTop:2,
     flexDirection : 'row',
     alignItems : 'center',
     justifyContent :'flex-start',

@@ -40,7 +40,7 @@ export default class WorkManage extends Component {
         return (
             <View style={styles.container}>
                 <ScrollableTabView
-                    initialPage={1}
+                    initialPage={0}
                     renderTabBar={() => <FacebookTabBar />}
                 >
                     <ScrollView tabLabel="ios-paper" style={styles.tabView}>
@@ -78,13 +78,13 @@ export default class WorkManage extends Component {
                             </TouchableOpacity>
                         </View>
                         </TouchableOpacity>*/}
-                        <WorkManageOne />
+                        <WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }  />
                     </ScrollView>
                     <ScrollView tabLabel="ios-people" style={styles.tabView}>
-                        <WorkManageOne />
+                        <WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }  />
                     </ScrollView>
                     <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-                        <WorkManageOne />
+                        <WorkManageOne popToWatch={ ()=> this.Gojump()} popToBJ={ ()=> this.Goadd() } />
                     </ScrollView>
                     
                 </ScrollableTabView>
@@ -100,7 +100,12 @@ export default class WorkManage extends Component {
     Goadd() {
         const {navigate} = this.props.navigation;
         navigate('MainDetail',{page:'tjzp',title:'添加作品'});
-    }   
+    }  
+    Gojump() {
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{title:'这是作品详情页'})
+    } 
+
 }
 
 const styles = StyleSheet.create({
