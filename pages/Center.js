@@ -123,8 +123,8 @@ export default class Center extends Component {
     itemData.map((item,i) => {
       arr.push(
         <View key={i}>
-          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{item.id==4? this.props.navigation.navigate('Kehu',{page:'custom',title:item.myname}): this.props.navigation.navigate('Icare',{title:item.myname,id:item.id})}}  style={styles.headerBottom}>
-            <Image resizeMode={Image.resizeMode.center} style={{width:width/4,height:20}} source={item.icons}/>
+          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{item.id==4? this.props.navigation.navigate('MainDetail',{page:'custom',title:item.myname}): this.props.navigation.navigate('Icare',{title:item.myname,id:item.id})}}  style={styles.headerBottom}>
+            <Image style={{width:26,height:22}} source={item.icons}/>
             <Text style={{color:'#ccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
             <Text style={{color:'#ccc',fontSize:12}}>{item.cont}</Text>
           </TouchableOpacity>
