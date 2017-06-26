@@ -89,8 +89,10 @@ export default class PersonInfo extends Component {
             <Unit popToSetting={()=>this.checkSex()} topColor="#151515" bgColor="#282828" txtCol="#999999" title="性别" rightTxt={this.state.sex}/>
             <Unit topColor="#151515" popToSetting={()=>this.checkArea()} bgColor="#282828" txtCol="#999999" title="我的地址" />
           </View>
-         
         </ScrollView>
+        <TouchableOpacity style={styles.baocun}>
+          <Text style={{color:'#fff',fontSize:15}}>保存</Text>
+        </TouchableOpacity>
         <ActionSheet
             ref={o => this.ActionSheet = o}
             options={options}
@@ -202,6 +204,12 @@ const styles = StyleSheet.create({
     paddingBottom:12,
     borderBottomColor:'#e5e5e5',
     borderBottomWidth:0.5
+  },
+  baocun:{
+    backgroundColor:'#ae8300',
+    height:45,
+    alignItems : 'center',
+    justifyContent:'center'
   },
   popmsg: {
     height:0.55*height,

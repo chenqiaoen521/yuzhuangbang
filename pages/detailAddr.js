@@ -30,7 +30,8 @@ export default class DetailAddr extends Component {
     super(props);
   
     this.state = {
-      modalVisible:false
+      modalVisible:false,
+      trueSwitchIsOn:false
     };
     //三级联动
     this.rowIndex0 = 0;
@@ -68,9 +69,6 @@ export default class DetailAddr extends Component {
               placeholder="所在地区"
               style={styles.inputStyle}
               underlineColorAndroid="transparent"
-              onEndEditing={(event) => this.updateText(
-              'onEndEditing text: ' + event.nativeEvent.text
-              )}
             />
           </TouchableOpacity>
           <View style={styles.right}>
@@ -91,7 +89,7 @@ export default class DetailAddr extends Component {
             <Text style={{color:'#cccccc'}}>设为默认地址</Text>
           </View>
           <View style={styles.right}>
-            <Switch value={true} thumbTintColor="#ffffff"  onTintColor="#c9c9c9"/>
+            <Switch value={this.state.trueSwitchIsOn} thumbTintColor="#ffffff"  onValueChange={(value) => this.setState({trueSwitchIsOn: value})} onTintColor="#c9c9c9"/>
           </View>
         </View>
       )
@@ -106,9 +104,7 @@ export default class DetailAddr extends Component {
               style={styles.inputStyle}
               multiline={true}
               underlineColorAndroid="transparent"
-              onEndEditing={(event) => this.updateText(
-              'onEndEditing text: ' + event.nativeEvent.text
-              )}
+              onEndEditing={(event) => {event.nativeEvent.text}}
             />
           </View>
           <View style={styles.right}>

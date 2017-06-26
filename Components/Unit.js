@@ -22,6 +22,13 @@ var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Unit extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      trueSwitchIsOn:false
+    };
+  }
   static defaultProps = {
     title: '',
     rightTxt:'',
@@ -91,7 +98,7 @@ export default class Unit extends Component {
     if(this.props.rightBtn){
       return (
         <View style={styles.rightBarStyle}>
-          <Switch value={true} thumbTintColor="#fff"  onTintColor="#ae8300"/>
+          <Switch value={this.state.trueSwitchIsOn} onValueChange={(value) => this.setState({trueSwitchIsOn: value})} thumbTintColor="#fff"  onTintColor="#ae8300"/>
         </View>
         )
     }else{

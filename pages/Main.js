@@ -92,15 +92,15 @@ export default class Main extends Component {
                     </View>
                     <HomeTitle/>
                      <WebView
-                              automaticallyAdjustContentInsets={false}
-                              style={styles.webView}
-                              source={require('../fw/main.html')}
-                              javaScriptEnabled={true}
-                              domStorageEnabled={true}
-                              onMessage={this.receiveMessage.bind(this)}
-                              decelerationRate="normal"
-                              startInLoadingState={false}
-                              scalesPageToFit={false} />
+                          automaticallyAdjustContentInsets={false}
+                          style={styles.webView}
+                          source={require('../fw/main.html')}
+                          javaScriptEnabled={true}
+                          domStorageEnabled={true}
+                          onMessage={this.receiveMessage.bind(this)}
+                          decelerationRate="normal"
+                          startInLoadingState={false}
+                          scalesPageToFit={false} />
                 </ScrollView>
                
                 <Modal  
