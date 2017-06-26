@@ -28,15 +28,8 @@ export default class Center extends Component {
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),
     headerRight: (
-      <Ionicons.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
+      <Ionicons.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
+        onPress={() => { navigation.state.params.handleShare(); }} />
     )
   }
   render() {
@@ -62,6 +55,7 @@ export default class Center extends Component {
             <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
             <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/middle_05.png')} txt="我的收藏"/>
             <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
+            <CenterItem popToCenter={()=>this.toOpen()} icon={require('../imgs/middle_06.png')} txt="我要开店"/>
             <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}>
             </View>
           </View>
@@ -101,6 +95,11 @@ export default class Center extends Component {
     const {navigate} = this.props.navigation;
     navigate('WorkManage');
   }
+  toOpen () {
+    const {navigate} = this.props.navigation;
+    navigate('CreatShop');
+  }
+  
   renderHead(){
     return(
     <View style={{
@@ -124,7 +123,7 @@ export default class Center extends Component {
     itemData.map((item,i) => {
       arr.push(
         <View key={i}>
-          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{item.id==4? this.props.navigation.navigate('MainDetail',{page:'custom',title:item.myname}): this.props.navigation.navigate('Icare',{title:item.myname,id:item.id})}}  style={styles.headerBottom}>
+          <TouchableOpacity TouchableOpacity={0.5} onPress={()=>{item.id==4? this.props.navigation.navigate('Kehu',{page:'custom',title:item.myname}): this.props.navigation.navigate('Icare',{title:item.myname,id:item.id})}}  style={styles.headerBottom}>
             <Image resizeMode={Image.resizeMode.center} style={{width:width/4,height:20}} source={item.icons}/>
             <Text style={{color:'#ccc',fontSize:14,marginTop:6,marginBottom:6}}>{item.myname}</Text>
             <Text style={{color:'#ccc',fontSize:12}}>{item.cont}</Text>

@@ -27,14 +27,8 @@ export default class MainDetail extends Component {
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),
     headerRight: (
-      <Ionicons.Button
-        name="md-share"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }} />
+      <Ionicons.Button name="md-share" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
+        onPress={ () => { navigation.state.params.handleShare(); } } />
     )
   });
 
