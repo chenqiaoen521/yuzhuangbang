@@ -96,7 +96,7 @@ export default class Main extends Component {
                     <HomeTitle/>
                     <WebView
                           automaticallyAdjustContentInsets={false}
-                          style={styles.webView}
+                          style={{height:650}}
                           source={require('../fw/main.html')}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}

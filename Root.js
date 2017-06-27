@@ -65,7 +65,7 @@ const TabContainer = TabNavigator({
         activeTintColor: '#ae8300',
         inactiveTintColor: '#ffffff',
         showIcon: true,
-        style: {
+        style: 
             backgroundColor: '#2a2a2a'
         },
         indicatorStyle: {
