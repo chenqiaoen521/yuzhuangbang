@@ -20,6 +20,7 @@
     "react-native-radio-buttons": "^0.14.0",
     "react-native-roll-picker": "^1.0.2",
     "react-native-scrollable-tab-view": "^0.6.6",
+    "react-native-simple-store": "^1.3.0",
     "react-native-swipeout": "^2.1.1",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.9",

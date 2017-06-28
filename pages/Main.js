@@ -5,7 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button';
+
+
+//import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button';
 import {
     AppRegistry,
     StyleSheet,
@@ -30,11 +32,17 @@ import SharePage from '../Components/SharePage';
 
 import Icon from 'react-native-vector-icons/Wz';
 
+//ios轮播图
 import RNCarousel from '../Components/RNCarousel';
+//调整键盘
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-
+//存储登录信息
+import store from 'react-native-simple-store';
+//三级联动
 import Picker from 'react-native-roll-picker/lib/Picker2'
 import cityCode from '../Components/ChinaCityCode'
+//获取公共域名
+var url = require('../config.json').url
 
 var {width,height} = Dimensions.get('window');
 export default class Main extends Component {
@@ -48,6 +56,11 @@ export default class Main extends Component {
     // 构造
     constructor(props) {
         super(props);
+        var that = this;
+        //const url = require('../config.json')
+        /*that.setState({
+            url:url.url
+        });*/
         // 初始状态
         this.state = {
             isModal:false, //登录框是否显示
@@ -56,13 +69,30 @@ export default class Main extends Component {
             isArea:false, //注册2选择地区
             isFill:false, //注册3填写信息
             isFinish:false, //注册成功
+            token:false,
+            popNum:1,
+            //url:url.url,
         };
         //三级联动
         this.rowIndex0 = 0;
         this.rowIndex1 = 0;
         this.rowIndex2 = 0;
+
         //单选框
-        this.onSelect = this.onSelect.bind(this)
+        //this.onSelect = this.onSelect.bind(this)
+    }
+    componentDidMount() {
+        store.get('user').then(function(data){
+            if(data.token){
+                that.setState({
+                    token:true,
+                });
+            }else{
+                that.setState({
+                    token:false,
+                });
+            }
+        })
     }
     receiveMessage (e) {
         let message = e.nativeEvent.data
@@ -70,13 +100,21 @@ export default class Main extends Component {
     render() {      
         return (
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView onScroll={()=>this.GoPop()}>
                     <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
-                        <TouchableOpacity style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} onPress={()=>this.onRequestOpen()}>
-                            {/*<Image style={{width:26, height:26}} source={require('./../imgs/loginpng_10.png')}></Image>*/}
-                            <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
-                        </TouchableOpacity>
+                        <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
+                            { this.state.token ==='' ?    
+                            <TouchableOpacity onPress={()=>this.onRequestOpen()}>
+                                <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={()=>this.onRequestOpen()}>
+                                <Image style={{width:22, height:22}} source={require('./../imgs/yonghu.png')}></Image>
+                            </TouchableOpacity>
+                            }
+                        </View>
+                        
                     </View>
                     
                     <View style={{marginTop:5}}>
@@ -126,11 +164,11 @@ export default class Main extends Component {
                                     <TextInput style={styles.shuru} placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={[styles.sg , styles.noneb]} >
-                                    <TouchableOpacity onPress={() => this.Gozhuce()}><Text style={styles.link}>注册账号</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.GoArea()}><Text style={styles.link}>注册账号</Text></TouchableOpacity>
                                     <TouchableOpacity onPress={() => this.Goreset()}><Text style={styles.link}>忘记密码？</Text></TouchableOpacity>
                                 </View>
                                 <View style={[styles.sg , styles.noneba]}>
-                                    <TouchableOpacity onPress={()=>{alert('点击登录')}}>
+                                    <TouchableOpacity onPress={()=>this.GoLogin() }>
                                        
                                         <View style={styles.textLoginViewStyle}>
                                             <Text style={styles.textLoginStyle}>登录</Text>
@@ -143,7 +181,7 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>  
                 </Modal>   
-                <Modal animationType='slide' transparent={true} visible={this.state.isZhuce} onRequestClose={() => {this.onRequestClose()}}  >
+                {/*<Modal animationType='slide' transparent={true} visible={this.state.isZhuce} onRequestClose={() => {this.onRequestClose()}}  >
                     <View style={styles.modalpage}>
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsg}>
@@ -173,10 +211,9 @@ export default class Main extends Component {
                                     </RadioButton>
 
                                 </RadioGroup>
-                                {/*<Text style={styles.text}>{this.state.text}</Text>*/}
+                                {/*<Text style={styles.text}>{this.state.text}</Text>
                                 <View style={styles.allWidth}>
                                     <TouchableOpacity onPress={()=>this.GoArea()}>
-                                        {/*登录按钮*/}
                                         <View style={styles.anniu}><Text style={styles.anniutip}>下一步</Text></View>
                                     </TouchableOpacity>
                                 </View>
@@ -184,7 +221,7 @@ export default class Main extends Component {
                         </View>
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
-                </Modal>  
+                </Modal>*/}  
                 <Modal animationType='slide' transparent={true} visible={this.state.isArea} onRequestClose={() => {this.onRequestClose()}} >
                     <View style={styles.modalpage}>
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
@@ -196,7 +233,7 @@ export default class Main extends Component {
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>市/区</Text></View>
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>区县</Text></View>
                                 </View>
-                                <View style = {{/*height: height*0.55-144,*/ height:165, flexDirection: 'row'}}>
+                                <View style = {{/*height: height*0.55-144,*/ height:153, flexDirection: 'row'}}>
                                     
                                     <View style = {{flex: 1}}>
                                         <Picker 
@@ -234,14 +271,12 @@ export default class Main extends Component {
 
                                 <View style={styles.allWidth}>
                                     <TouchableOpacity>
-                                        {/*登录按钮*/}
                                         <View style={[styles.jun,styles.jtu]}>
                                             <Text style={styles.jtext}>一键获取</Text>
                                             <Image style={{width:16, height:16,marginLeft:5}} source={require('./../imgs/dlweizhi.png')}></Image>
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={()=>this.Gofill()}>
-                                        {/*登录按钮*/}
                                         <View style={[styles.jun,styles.jright]}><Text style={styles.jtext}>下一步</Text></View>
                                     </TouchableOpacity>
                                 </View>
@@ -265,7 +300,7 @@ export default class Main extends Component {
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
                                     <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={()=>this.GoSendNum()}>
                                         {/*验证码按钮*/}
                                         <View style={styles.yanzheng}>
                                             <Text style={styles.ytext}>获取验证码</Text>
@@ -303,13 +338,13 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsg}>
                             <View style={styles.biao}><Text style={styles.biaoti}>注册成功</Text></View>
-                            <View style={{ height:height*0.55-94,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
-                                 <Image style={{width:26, height:26,marginRight:10,}} source={require('./../imgs/dlok.png')}></Image>
-                                <Text style={{color:'#777',fontSize:16}}>恭喜您注册成功</Text>
+                            <View style={{ height:height*0.55-106,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
+                                 <Image style={{width:30, height:30,marginRight:10,}} source={require('./../imgs/dlok.png')}></Image>
+                                <Text style={{color:'#777',fontSize:18}}>恭喜您注册成功</Text>
                             </View>
                             <View>
                                 <TouchableOpacity onPress={()=>this.onRequestOpen()}>
-                                    <View style={{height:40, borderBottomLeftRadius:10, borderBottomRightRadius:10,alignItems:'center',justifyContent:'center',backgroundColor:'#b08400'}}>
+                                    <View style={{height:40, /*borderBottomLeftRadius:10, borderBottomRightRadius:10,*/alignItems:'center',justifyContent:'center',backgroundColor:'#b08400'}}>
                                         <Text style={{color:'#fff',fontSize:16}}>立即登录</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -321,6 +356,119 @@ export default class Main extends Component {
             </View>
         );
     }
+    //滚动事件
+    GoPop() {
+        if(this.state.token==''&&this.state.popNum==1){
+            //打开登录弹窗
+            this.setState({
+                isModal:true,
+                isArea:false,
+                isFill:false,
+                isFinish:false,
+                popNum:0
+            });
+        }
+    }
+    //登录按钮
+    GoLogin() {
+        let data = this.DoLogin();
+        data.then(
+            (result)=>{
+                console.log(result.token)
+                
+                //存储
+                store.save('user', { token: result.token })
+                
+            }
+        )    
+    }
+    async DoLogin() {
+        var that = this
+        try {
+            // 注意这里的await语句，其所在的函数必须有async关键字声明
+            //let response = await fetch(`${url}/App/User/login/`,{
+            let response = await fetch(`${url}/App/User/login`,{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                /*body:JSON.stringify({
+                    phone:'13838370175',
+                    password:'123456',
+                    type:1
+                })*/
+                body:'phone=13838370175&password=123456&type=1'
+            });
+            let responseJson = await response.json();
+            //console.log(responseJson)
+            return responseJson.data;
+            
+            that.setState({
+                token:result.token,
+            });
+
+        } catch(error) {
+            console.error(error);
+        }
+    }
+    /*store
+        .save('user', {
+            token: true
+        })
+        .then(() => store.get('coffee'))
+        .then(coffee => {
+            console.assert(coffee.isAwesome === true);
+        })
+        .then(() => store.update('coffee', {
+            isNotEssential: false
+        }))
+        .then(() => store.get('coffee'))
+        .then(coffee => {
+            console.assert(coffee.isNotEssential === false);
+            console.assert(coffee.isAwesome === true);
+            return store.delete('coffee');
+        })
+        .then(() => store.get('coffee'))
+        .then(coffee => {
+            console.assert(coffee === null);
+        })
+        .catch(error => {
+            console.error(error.message);
+        });*/
+
+
+
+    //注册-发送验证码
+    GoSendNum() {
+        let dataNum = this.DoSendNum();
+        dataNum.then(
+            (result)=>{
+                console.log(result)
+            }
+        )    
+    }
+    async DoSendNum() {
+        try {
+            let response = await fetch(`${url}/App/User/send_code`,{
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body:'phone=18237155623&type=1'
+            });
+            let responseJson = await response.json();
+            console.log(1)
+            console.log(responseJson)
+            return responseJson.data;
+        } catch(error) {
+            console.log(2)
+            console.error(error);
+        }
+    }
+
+
+
+
     //去详情页
     toDesignView (data) {
         this.onRequestClose();
@@ -347,7 +495,7 @@ export default class Main extends Component {
     onRequestOpen() {    
         this.setState({
             isModal:true,
-            isZhuce:false,
+            //isZhuce:false,
             isArea:false,
             isFill:false,
             isFinish:false,
@@ -357,7 +505,7 @@ export default class Main extends Component {
     onRequestClose() {
         this.setState({
             isModal:false,
-            isZhuce:false,
+            //isZhuce:false,
             isArea:false,
             isFill:false,
             isFinish:false,
@@ -367,17 +515,19 @@ export default class Main extends Component {
     Gozhuce () {
         this.setState({
             isModal:false,
-            isZhuce:true,
+            //isZhuce:true,
+            isArea:true,
         });  
     }
     //注册页面02-选择地址
     GoArea () {
         this.setState({
             isModal:false,
-            isZhuce:false,
+            //isZhuce:false,
             isArea:true,
         });      
     }
+    //弃用 选择身份
     onSelect(index, value){
         this.setState({
             text: `Selected index: ${index} , value: ${value}`
@@ -386,19 +536,35 @@ export default class Main extends Component {
     Gofill() {
         this.setState({
             isModal:false,
-            isZhuce:false,
+            //isZhuce:false,
             isArea:false,
             isFill:true,
         });     
     }
+    //完成注册
     GoFinish() {
-        this.setState({
+        /*this.setState({
             isModal:false,
-            isZhuce:false,
+            //isZhuce:false,
             isArea:false,
             isFill:false,
             isFinish:true,
-        });   
+        }); */ 
+        let data = this.DoSendNum();
+        data.then(
+            (result)=>{
+                console.log(result)
+            }
+        )  
+    }
+    async DoSendNum() {
+        try {
+            let response = await fetch(`${url}/App/Center/register?phone=13838370175&password=123456&name=李飞&code=1234`,'POST');
+            let responseJson = await response.json();
+            return responseJson.data;
+        } catch(error) {
+            console.error(error);
+        }
     }
 }
 
@@ -439,7 +605,7 @@ const styles = StyleSheet.create({
     jtu: { flexDirection:'row', },
     modalViewStyleFill: { height:0.4*height, },
     popmsgFill: { height:0.6*height, backgroundColor:'white', borderRadius:10, },
-    sgFill: { flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingTop:3, paddingBottom:3, borderBottomWidth:1,
+    sgFill: { flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingTop:0, paddingBottom:0, borderBottomWidth:1,
         borderBottomColor:'#eee', width:width-30, },
     fillbtn: { width: width-30, height: 40, justifyContent: 'center', alignItems: 'center',  paddingTop:0, paddingBottom:0, marginTop:-8, },
     //登录Text文本样式
@@ -447,8 +613,8 @@ const styles = StyleSheet.create({
     nonebaFill: { borderBottomWidth:0, paddingTop:8, paddingBottom:0, },
     fillFill: { alignItems:'center', paddingTop:5, },
     shuruFill: { width:0.9*(width-30), height:38, color:'#999', fontSize:12, },
-    small: { width:0.7*(width-30), },
-    yanzheng: { width:0.2*(width-30), backgroundColor:'#eee', borderRadius:4, justifyContent:'center', alignItems:'center', height:26},
+    small: { width:0.68*(width-30), },
+    yanzheng: { width:0.22*(width-30), backgroundColor:'#eee', borderRadius:4, justifyContent:'center', alignItems:'center', height:26},
     ytext: { color:'#888', fontSize:10, },
     modalpage: { backgroundColor:'rgba(0,0,0,0.6)' }
 });
