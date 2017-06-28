@@ -14,7 +14,8 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-
+var url = require('../config.json').url;
+var token = "19_117_1_1_36";
 const data = require('../data/notice.js')
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +24,8 @@ export default class Notice extends Component {
     super(props);
   
     this.state = {
-      activePage:0
+      activePage:0,
+      data:null
     };
   }
   static defaultProps = {
@@ -35,8 +37,22 @@ export default class Notice extends Component {
     titleColor:'#ffffff',
     rightBar:'#ffffff'
   }
-   componentDidMount() {
-    //this.startTimer()
+   componentWillMount() {
+    let data = this.getData();
+    data.then((result)=>{
+      this.setState({
+        data:result
+      })
+    })
+  }
+  async getData() {
+    try {   
+      let response = await fetch(`${url}/App/Index/notice?token=${token}`);
+      let responseJson = await response.json();
+      return responseJson.data;
+    } catch(error) {
+      console.error(error);
+    }
   }
   componentWillUnMount(){
     clearInterval(this.timer)
@@ -84,7 +100,7 @@ export default class Notice extends Component {
           onScrollBeginDrag={(e)=>this.onScrollBeginDrag(e)}
           onScrollEndDrag={()=>this.onScrollEndDrag()}
         >
-          {this.renderBannerView()}
+          {this.renderBannerView.bind(this)()}
         </ScrollView>
       )
   }
@@ -110,24 +126,28 @@ export default class Notice extends Component {
     })
   }
   renderBannerView() {
+    
     let itemarr = [];
-    data.data.map((item,i)=>{
+    if(this.state.data){
+      this.state.data.map((item,i)=>{
       itemarr.push(
           <View key={i} style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
             <View style={styles.bounce}>
-              <Text style={[styles.titleStyle,{fontSize:12},{backgroundColor:'#ff3d2c'},{paddingLeft:4},{paddingRight:4}]}>{item.iconText}</Text>
+              <Text style={[styles.titleStyle,{fontSize:12},{backgroundColor:'#ff3d2c'},{paddingLeft:4},{paddingRight:4}]}>{'公告'}</Text>
               <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:14},{marginLeft:10}]}>{item.title}</Text>
             </View>
             <View style={styles.bounce}>
               <Text style={{color:'#ae8300'}}>&bull;</Text>
-              <Text style={[styles.subFontStyle,{marginLeft:8},{fontSize:13}]}>{item.browserCount}人浏览</Text>
-              <Text style={[styles.subFontStyle,{marginLeft:20},{fontSize:13}]}>时间:{item.time}</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:8},{fontSize:13}]}>{item.view}人浏览</Text>
+              <Text style={[styles.subFontStyle,{marginLeft:20},{fontSize:13}]}>时间:{item.c_time}</Text>
             </View>
             <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
         </View>
         )
     })
     return itemarr;
+    }
+    
   }
 }
 

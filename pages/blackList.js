@@ -27,7 +27,7 @@ import LoadingView from '../Components/LoadingView';
 import * as blackCreators from '../actions/black';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+var url = require('../config.json').url;
 var loadMoreTime = 0;
 var pages = 0;
 class BlackList extends Component {
@@ -99,8 +99,8 @@ class BlackList extends Component {
         return (
             <TouchableOpacity style={styles.unit} >
                 <View style={styles.up}>
-                    <Image style={styles.img} source={rowdata.icon} />
-                    <Text style={[styles.nameStyle,{fontSize:16}]}>{rowdata.name}</Text>
+                    <Image style={styles.img} source={{uri:`${url}/${rowdata.avatar}`}} />
+                    <Text style={[styles.nameStyle,{fontSize:16}]}>{rowdata.contact_name}</Text>
                 </View>
                 <View style={styles.down}>
                     <Text style={styles.reason}>

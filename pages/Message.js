@@ -68,6 +68,13 @@ class Message extends Component {
         <LoadingView/>
         )
     }else{
+      if(this.props.list.articleList.length == 0 ){
+        return (
+          <View style={{flexDirection:'row',height:250,justifyContent:'center',alignItems : 'center'}}>
+            <Text style={{color:"#fff"}}>  暂无数据</Text>
+          </View>
+          )
+      }else{
       return (
         <ListView
              dataSource={this.state.dataSource.cloneWithRows(this.props.list.articleList)}
@@ -90,15 +97,14 @@ class Message extends Component {
           />
         )
       }
+    }
   }
   onEndReached(){
     const {listActions} = this.props;
-    alert('Bottom')
     listActions.requestArticleList(false,false,true);
   }
   onRefresh(){
     const {listActions} = this.props;
-    alert('刷')
     listActions.requestArticleList(true,false,false);
   }
   renderRow(rowdata){

@@ -94,7 +94,7 @@ export default class Main extends Component {
                         <Notice/>
                     </View>
                     <HomeTitle/>
-                    <WebView
+                    {/*<WebView
                           automaticallyAdjustContentInsets={false}
                           style={{height:650}}
                           source={require('../fw/main.html')}
@@ -103,7 +103,7 @@ export default class Main extends Component {
                           onMessage={this.receiveMessage.bind(this)}
                           decelerationRate="normal"
                           startInLoadingState={false}
-                          scalesPageToFit={false} />
+                          scalesPageToFit={false} />*/}
                 </ScrollView>
                
                 <Modal  

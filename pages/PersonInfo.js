@@ -42,12 +42,21 @@ import Unit from '../Components/Unit';
 import ActionSheet from 'react-native-actionsheet';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
+var url = require('../config.json').url;
+var token = "19_117_1_1_36";
 export default class PersonInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             sex: '男',
-            modalVisible: false
+            modalVisible: false,
+            avatar:null,
+            name:null,
+            nickname:null,
+            phone:null,
+            province:null,
+            city:null,
+            area:null
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -61,25 +70,79 @@ export default class PersonInfo extends Component {
               activeOpacity={0.8} onPress={() => {  navigation.state.params.handleShare(); }}  />
         )
     }
+    uploadImage(uri){  
+        let formData = new FormData();  
+        let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
+  
+        formData.append("image",file);  
+        fetch(`${url}/App/User/upload_image`,{  
+            method:'POST',  
+            headers:{  
+                'Content-Type':'multipart/form-data',  
+            },  
+            body:formData,  
+        })  
+        .then((response) => response.text() )  
+        .then((responseData)=>{  
+        console.log('responseData',responseData);  
+        })  
+        .catch((error)=>{console.error('error',error)});  
+  
+        }  
+
+    componentWillMount () {
+        let data = this.getData();
+        data.then((result)=>{
+            this.setState({
+                sex: result.user_info.sex,
+                avatar:result.user_info.avatar,
+                name:result.user_info.name,
+                nickname:result.user_info.nickname,
+                phone:result.user_info.phone,
+                province:result.user_info.province,
+                city:result.user_info.city,
+                area:result.user_info.area
+            })
+        })
+    }
+    async getData() {
+    try {   
+      let response = await fetch(`${url}/App/Center/get_user_info?token=${token}`);
+      let responseJson = await response.json();
+      return responseJson.data;
+    } catch(error) {
+      console.error(error);
+    }
+  }
     chooseImg () {
+        let that = this;
         ImagePicker.showImagePicker(photoOptions,(response) =>{
-            console.log('response'+response);
-            if (response.didCancel){
-                return
-            }
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+          }
+          else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          }
+          else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+          }
+          else {
+            that.uploadImage(response.uri);
+          }
         })
     }
     render() {
+        let iconUrl = `${url}${this.state.avatar}`;
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <Unit popToSetting={()=>this.chooseImg()} topColor="#151515" bgColor="#282828" txtCol="#999999" icon={require('../imgs/yihan.jpg')} title="头像"/>
-                    <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="姓名" rightInput="刘德华"/>
-                    <Unit topColor="#151515" bgColor="#282828" txtCol="#999999" title="昵称" rightInput="北七"/>
-                    <Unit popToSetting={()=>this.GoPhone()} edit={false} topColor="#151515" bgColor="#282828" txtCol="#999999" title="手机号" rightInput="158****2135"/>
+                    <Unit popToSetting={()=>this.chooseImg.bind(this)()} topColor="#151515" bgColor="#282828" txtCol="#999999" icon={{uri:iconUrl}} title="头像"/>
+                    <Unit popToSetting={(text)=>this.changeName(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="姓名" rightInput={this.state.name}/>
+                    <Unit popToSetting={(text)=>this.changeNick(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="昵称" rightInput={this.state.nickname}/>
+                    <Unit popToSetting={()=>this.GoPhone()} edit={false} topColor="#151515" bgColor="#282828" txtCol="#999999" title="手机号" rightInput={this.state.phone}/>
                     <View style={{marginTop:10}}>
                         <Unit popToSetting={()=>this.checkSex()} topColor="#151515" bgColor="#282828" txtCol="#999999" title="性别" rightTxt={this.state.sex}/>
-                        <Unit topColor="#151515" popToSetting={()=>this.checkArea()} bgColor="#282828" txtCol="#999999" title="我的地址" />
+                        <Unit topColor="#151515" popToSetting={()=>this.checkArea()} bgColor="#282828" txtCol="#999999" title="我的地址" rightTxt={`省${this.state.province}市${this.state.city}区${this.state.area}`}/>
                     </View>
                 </ScrollView>
                 <TouchableOpacity style={styles.baocun}>
@@ -90,6 +153,16 @@ export default class PersonInfo extends Component {
                  {this.renderPicker()}
             </View>
         );
+    }
+    changeName (text) {
+        this.setState({
+            name:text
+        })
+    }
+    changeNick (text) {
+        this.setState({
+            nickname:text
+        })
     }
     checkSex(){
         this.ActionSheet.show()

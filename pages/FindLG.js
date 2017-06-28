@@ -29,7 +29,7 @@ export default class FindLG extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <WebView
+        {/*<WebView
             automaticallyAdjustContentInsets={false}
             style={styles.webView}
             source={require('../fw/main.html')}
@@ -38,7 +38,7 @@ export default class FindLG extends Component {
             onMessage={this.receiveMessage.bind(this)}
             decelerationRate="normal"
             startInLoadingState={false}
-            scalesPageToFit={false} />
+            scalesPageToFit={false} />*/}
       </View>
     );
   }
