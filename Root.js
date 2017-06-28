@@ -90,9 +90,7 @@ const Root = StackNavigator(
     },  
     */ 
     
-    Splash:{
-        screen:Splash
-    },
+    
     Index: {
         screen: TabContainer,
         /*navigationOptions: {
@@ -106,6 +104,9 @@ const Root = StackNavigator(
                 fontSize:16,
             }
         }*/
+    },
+    Splash:{
+        screen:Splash
     },
     AddFriendRequest:{
         screen:AddFriendRequest
