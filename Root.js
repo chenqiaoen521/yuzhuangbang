@@ -205,6 +205,12 @@ const Root = StackNavigator(
     },
     ForgetPassword:{
       screen:ForgetPassword
+    },
+    Center:{
+      screen:Center
+    },
+    CenterPT:{
+      screen:CenterPT
     }
 
 

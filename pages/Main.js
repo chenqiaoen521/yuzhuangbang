@@ -59,10 +59,6 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         var that = this;
-        //const url = require('../config.json')
-        /*that.setState({
-            url:url.url
-        });*/
         // 初始状态
         this.state = {
             isModal:false, //登录框是否显示
@@ -101,7 +97,7 @@ export default class Main extends Component {
     }
     componentDidMount() {
         store.get('user').then(function(data){
-            /*if(data.token){
+            if(data.token){
                 that.setState({
                     token:true,
                 });
@@ -109,7 +105,7 @@ export default class Main extends Component {
                 that.setState({
                     token:false,
                 });
-            }*/
+            }
         })
     }
     receiveMessage (e) {
@@ -127,7 +123,7 @@ export default class Main extends Component {
                                 <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity onPress={()=>this.onRequestOpen()}>
+                            <TouchableOpacity onPress={()=>this.Gocenter()}>
                                 <Image style={{width:22, height:22}} source={require('./../imgs/yonghu.png')}></Image>
                             </TouchableOpacity>
                             }
@@ -138,14 +134,6 @@ export default class Main extends Component {
                     <View style={{marginTop:5}}>
                         <Slider/>
                     </View>
-
-                    {/*<View style={{marginTop:5}}>
-                        <SharePage/>
-                    </View>*/}
-                    {/*<View style={{marginTop:5}}>
-                        <RNCarousel/>
-                    </View>*/}
-
                     <View style={{marginTop:5}}>
                         <Notice/>
                     </View>
@@ -161,14 +149,12 @@ export default class Main extends Component {
                           startInLoadingState={false}
                           scalesPageToFit={false} />*/}
                 </ScrollView>
-                
                 <TouchableOpacity onPress={()=>this.GoFind() }>                                      
                     <View style={{width:width, height:48, justifyContent:'center', alignItems:'center',backgroundColor:'#2a2a2a'}}>
                         <Icon name={ this.state.mode ? 'mindicon':'goodicon'}  size={22} color={'#fff'} />
                         <Text style={{fontSize:14,color:'#fff'}}>{this.state.mode ? '找灵感':'找优品'}</Text>
                     </View>
                 </TouchableOpacity>
-
                 <Modal  
                     animationType='slide'          // 从底部滑入
                     transparent={true}             // 不透明
@@ -206,47 +192,6 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>  
                 </Modal>   
-                {/*<Modal animationType='slide' transparent={true} visible={this.state.isZhuce} onRequestClose={() => {this.onRequestClose()}}  >
-                    <View style={styles.modalpage}>
-                        <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                        <View style={styles.popmsg}>
-                            <View style={styles.biao}><Text style={styles.biaoti}>身份选择</Text></View>
-                            <View style={styles.mid}>
-                                <RadioGroup style={{width:width-30}} thickness={0} size={14} thickness={1} activeColor='#af8402' color='#ddd' 
-                                    highlightColor='#fff' selectedIndex={0} onSelect = {(index, value) => this.onSelect(index, value)} >
-
-                                    <RadioButton style={styles.Rbutton} value={'业主'}> 
-                                        <Text style={{fontSize:14}}>业主</Text> 
-                                    </RadioButton>
-
-                                    <RadioButton style={styles.Rbutton} value={'超管'}> 
-                                        <Text style={{fontSize:14}}>超管</Text> 
-                                    </RadioButton>
-
-                                    <RadioButton style={styles.Rbutton} value={'商户'}> 
-                                        <Text style={{fontSize:14}}>商户</Text> 
-                                    </RadioButton>
-
-                                    <RadioButton style={styles.Rbutton} value={'施工方'}> 
-                                        <Text style={{fontSize:14}}>施工方</Text> 
-                                    </RadioButton>
-
-                                    <RadioButton style={styles.Rbutton} value={'设计师'}> 
-                                        <Text style={{fontSize:14}}>设计师</Text> 
-                                    </RadioButton>
-
-                                </RadioGroup>
-                                {/*<Text style={styles.text}>{this.state.text}</Text>
-                                <View style={styles.allWidth}>
-                                    <TouchableOpacity onPress={()=>this.GoArea()}>
-                                        <View style={styles.anniu}><Text style={styles.anniutip}>下一步</Text></View>
-                                    </TouchableOpacity>
-                                </View>
-                             </View>
-                        </View>
-                        <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                    </View>
-                </Modal>*/}
                 <Modal animationType='slide' transparent={true} visible={this.state.isArea} onRequestClose={() => {this.onRequestClose()}} >
                     <View style={styles.modalpage}>
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
@@ -358,27 +303,6 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
                 </Modal>  
-                {/*<Modal animationType='slide' transparent={true} visible={this.state.isFinish} onRequestClose={() => {this.onRequestClose()}}  >
-                    <View style={styles.modalpage}>
-                        <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                        <View style={styles.popmsg}>
-                            <View style={styles.biao}><Text style={styles.biaoti}>注册成功</Text></View>
-                            <View style={{ height:height*0.55-106,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
-                                 <Image style={{width:30, height:30,marginRight:10,}} source={require('./../imgs/dlok.png')}></Image>
-                                <Text style={{color:'#777',fontSize:18}}>恭喜您注册成功</Text>
-                            </View>
-                            <View>
-                                <TouchableOpacity onPress={()=>this.onRequestOpen()}>
-                                    <View style={{height:40,alignItems:'center',justifyContent:'center',backgroundColor:'#b08400'}}>
-                                        <Text style={{color:'#fff',fontSize:16}}>立即登录</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                    </View>
-                </Modal>   
-                */}
             </View>
         );
     }
@@ -400,9 +324,10 @@ export default class Main extends Component {
         let data = this.DoLogin();
         data.then(
             (result)=>{
-                console.log(result.token)   
+                console.log(result.token) 
+                console.log(result.type)   
                 //存储
-                store.save('user', { token: result.token })   
+                store.save('user', { token: result.token /*, type:result.type*/ })   
             }
         )    
     }
@@ -414,19 +339,12 @@ export default class Main extends Component {
             ToastUtil.showShort('验证码不能为空',true)
         }else{
             try {
-                // 注意这里的await语句，其所在的函数必须有async关键字声明
-                //let response = await fetch(`${url}/App/User/login/`,{
                 let response = await fetch(`${url}/App/User/login`,{
                     method:'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    /*body:JSON.stringify({
-                        phone:'13838370175',
-                        password:'123456',
-                        type:1
-                    })*/
-                    body:'phone='+that.state.LoginNum+/*13838370175*/'&password='+that.state.LoginWord/*123456*/
+                    body:'phone='+that.state.LoginNum+'&password='+that.state.LoginWord
                 });
                 let responseJson = await response.json();
                 //console.error(responseJson);
@@ -524,7 +442,6 @@ export default class Main extends Component {
     onRequestOpen() {    
         this.setState({
             isModal:true,
-            //isZhuce:false,
             isArea:false,
             isFill:false,
             isFinish:false,
@@ -534,34 +451,20 @@ export default class Main extends Component {
     onRequestClose() {
         this.setState({
             isModal:false,
-            //isZhuce:false,
             isArea:false,
             isFill:false,
             isFinish:false,
         });
     }
-    //关闭登录去注册01
-    /*Gozhuce () {
-        this.setState({
-            isModal:false,
-            //isZhuce:true,
-            isArea:true,
-        });  
-    }*/
+
     //注册页面02-选择地址
     GoArea () {
         this.setState({
             isModal:false,
-            //isZhuce:false,
             isArea:true,
         });      
     }
-    //弃用 选择身份
-    /*onSelect(index, value){
-        this.setState({
-            text: `Selected index: ${index} , value: ${value}`
-        })
-    }*/
+
 
     //去填注册表
     Gofill() {
@@ -583,13 +486,6 @@ export default class Main extends Component {
 
     //完成注册
     GoFinish() {
-        /*this.setState({
-            isModal:false,
-            //isZhuce:false,
-            isArea:false,
-            isFill:false,
-            isFinish:true,
-        }); */ 
         let data = this.DoZhuce();
         data.then(
             (result)=>{
@@ -644,12 +540,22 @@ export default class Main extends Component {
     }
 
     Gocenter() {
+        /*var that = this
         store.get('user').then(function(data){
             that.setState({
                 lingToken:data.token,
                 lingType:data.type,
             });  
-        })
+        })*/
+        
+      // console.log(that.state.lingType)
+        /*if(that.state.lingType===1){*/
+            const {navigate} = this.props.navigation;
+            navigate('CenterPT')
+        /*}else if(that.state.lingType===2){
+            const {navigate} = this.props.navigation;
+            navigate('Center')
+        }*/
         
     }
     
