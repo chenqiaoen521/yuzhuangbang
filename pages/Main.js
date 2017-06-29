@@ -59,10 +59,6 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         var that = this;
-        //const url = require('../config.json')
-        /*that.setState({
-            url:url.url
-        });*/
         // 初始状态
         this.state = {
             isModal:false, //登录框是否显示
@@ -331,7 +327,9 @@ export default class Main extends Component {
                 console.log(result.token) 
                 console.log(result.type)   
                 //存储
-                store.save('user', { token: result.token , type:result.type })   
+
+                store.save('user', { token: result.token /*, type:result.type*/ })   
+
             }
         )    
     }
@@ -343,19 +341,12 @@ export default class Main extends Component {
             ToastUtil.showShort('验证码不能为空',true)
         }else{
             try {
-                // 注意这里的await语句，其所在的函数必须有async关键字声明
-                //let response = await fetch(`${url}/App/User/login/`,{
                 let response = await fetch(`${url}/App/User/login`,{
                     method:'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    /*body:JSON.stringify({
-                        phone:'13838370175',
-                        password:'123456',
-                        type:1
-                    })*/
-                    body:'phone='+that.state.LoginNum+/*13838370175*/'&password='+that.state.LoginWord/*123456*/
+                    body:'phone='+that.state.LoginNum+'&password='+that.state.LoginWord
                 });
                 let responseJson = await response.json();
                 //console.error(responseJson);
