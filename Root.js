@@ -40,9 +40,6 @@ import KehuAdd  from './pages/KehuAdd';
 import KehuSearch  from './pages/KehuSearch';
 import ChangePhone  from './pages/ChangePhone';
 import MyBlack  from './pages/myblack';
-/*import AddFriend  from './pages/AddFriend';
-import AddFriendDetail  from './pages/AddFriendDetail';
-/*import RNCarousel  from './Components/RNCarousel';*/
 
 import AddressPage  from './pages/address';
 import DetailAddr  from './pages/detailAddr';
@@ -54,59 +51,9 @@ import {
     TabNavigator,
 } from 'react-navigation';
 
-// const TabContainer = TabNavigator({
-//     Main: { screen: Main},
-//     FindLG: { screen: FindLG },
-//     FindYP: { screen: FindYP },
-//     Center: { screen: Center }
-// },{
-//     animationEnabled: true, 
-//     swipeEnabled: true, 
-//     tabBarPosition: 'bottom',
-//     tabBarOptions: {
-//         activeTintColor: '#ae8300',
-//         inactiveTintColor: '#ffffff',
-//         showIcon: true,
-//         style: 
-//            { backgroundColor: '#2a2a2a'
-//         },
-//         indicatorStyle: {
-//             opacity: 0
-//         },
-//         tabStyle: {
-//             padding: 0
-//         }
-//     },
-// });
 
 const Root = StackNavigator(
-
   { 
-    
-    
-    /*AddFriend:{
-        screen:AddFriend
-    },
-    AddFriendDetail:{
-        screen:AddFriendDetail
-    },  
-    */ 
-    
-    
-    /*Index: {
-        screen: TabContainer,
-        navigationOptions: {
-            headerLeft: null,
-            //
-            headerStyle:{
-                backgroundColor:'#151515',
-            },
-            headerTitleStyle: {
-                color:'#fff',
-                fontSize:16,
-            }
-        }
-    },*/
     Main:{
         screen: Main 
     },
@@ -205,6 +152,12 @@ const Root = StackNavigator(
     },
     ForgetPassword:{
       screen:ForgetPassword
+    },
+    Center:{
+      screen:Center
+    },
+    CenterPT:{
+      screen:CenterPT
     }
 
 
@@ -219,15 +172,12 @@ const Root = StackNavigator(
                 paddingTop:10,
                 justifyContent:'center',
             },
-          /*headerStyle: {
-            backgroundColor: '#151515'
-          },*/
-          headerTitleStyle: {
-            color: '#fff',
-            fontSize: 15,
-            alignSelf:'center',
-          },
-          headerTintColor: '#fff'
+            headerTitleStyle: {
+                color: '#fff',
+                fontSize: 15,
+                alignSelf:'center',
+            },
+            headerTintColor: '#fff'
 
         }
     }
