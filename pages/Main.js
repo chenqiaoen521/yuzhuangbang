@@ -43,6 +43,8 @@ import Picker from 'react-native-roll-picker/lib/Picker2'
 import cityCode from '../Components/ChinaCityCode'
 //获取公共域名
 var url = require('../config.json').url
+//弹窗信息
+import ToastUtil from '../utils/ToastUtil'
 
 var {width,height} = Dimensions.get('window');
 export default class Main extends Component {
@@ -71,7 +73,23 @@ export default class Main extends Component {
             isFinish:false, //注册成功
             token:false,
             popNum:1,
-            //url:url.url,
+            mode:false, //灵感还是优品
+            //登录的表单
+            LoginNum:'',
+            LoginWord:'',
+            //注册的表单
+            ZhuNum:'',
+            ZhuMa:'',
+            ZhuWord:'',
+            ZhuWordYZ:'',
+            zhuNc:'',
+            //三级联动
+            province:'',
+            city:'',
+            area:'',
+            lingToken:'',
+            lingType:''
+
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -83,7 +101,7 @@ export default class Main extends Component {
     }
     componentDidMount() {
         store.get('user').then(function(data){
-            if(data.token){
+            /*if(data.token){
                 that.setState({
                     token:true,
                 });
@@ -91,7 +109,7 @@ export default class Main extends Component {
                 that.setState({
                     token:false,
                 });
-            }
+            }*/
         })
     }
     receiveMessage (e) {
@@ -104,7 +122,7 @@ export default class Main extends Component {
                     <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
                         <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
-                            { this.state.token ==='' ?    
+                            { this.state.token === false ?    
                             <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                                 <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
                             </TouchableOpacity>
@@ -143,7 +161,14 @@ export default class Main extends Component {
                           startInLoadingState={false}
                           scalesPageToFit={false} />*/}
                 </ScrollView>
-               
+                
+                <TouchableOpacity onPress={()=>this.GoFind() }>                                      
+                    <View style={{width:width, height:48, justifyContent:'center', alignItems:'center',backgroundColor:'#2a2a2a'}}>
+                        <Icon name={ this.state.mode ? 'mindicon':'goodicon'}  size={22} color={'#fff'} />
+                        <Text style={{fontSize:14,color:'#fff'}}>{this.state.mode ? '找灵感':'找优品'}</Text>
+                    </View>
+                </TouchableOpacity>
+
                 <Modal  
                     animationType='slide'          // 从底部滑入
                     transparent={true}             // 不透明
@@ -157,11 +182,11 @@ export default class Main extends Component {
                             <View style={styles.fill}>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image></View>
-                                    <TextInput style={styles.shuru} placeholder='手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({LoginNum:text}) } placeholder='手机号' keyboardType={'numeric'} maxLength={11} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuru} placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({LoginWord:text}) } placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={[styles.sg , styles.noneb]} >
                                     <TouchableOpacity onPress={() => this.GoArea()}><Text style={styles.link}>注册账号</Text></TouchableOpacity>
@@ -221,7 +246,7 @@ export default class Main extends Component {
                         </View>
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
-                </Modal>*/}  
+                </Modal>*/}
                 <Modal animationType='slide' transparent={true} visible={this.state.isArea} onRequestClose={() => {this.onRequestClose()}} >
                     <View style={styles.modalpage}>
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
@@ -295,11 +320,11 @@ export default class Main extends Component {
                                     <View style={styles.imgb}>
                                         <Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image>
                                     </View>
-                                    <TextInput style={styles.shuruFill} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
-                                    <TextInput style={[styles.shuruFill,styles.small]} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
+                                    <TextInput style={[styles.shuruFill,styles.small]} onChangeText={(text) => this.setState({ZhuMa:text})} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
                                     <TouchableOpacity onPress={()=>this.GoSendNum()}>
                                         {/*验证码按钮*/}
                                         <View style={styles.yanzheng}>
@@ -309,15 +334,15 @@ export default class Main extends Component {
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} placeholder='请设置您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWord:text})} placeholder='请设置您的密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} placeholder='请再次输入密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWordYZ:text})} placeholder='请确认您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon05.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
                                 </View>
                                 
                                 <View style={[styles.sgFill , styles.nonebaFill]}>
@@ -333,7 +358,7 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
                 </Modal>  
-                <Modal animationType='slide' transparent={true} visible={this.state.isFinish} onRequestClose={() => {this.onRequestClose()}}  >
+                {/*<Modal animationType='slide' transparent={true} visible={this.state.isFinish} onRequestClose={() => {this.onRequestClose()}}  >
                     <View style={styles.modalpage}>
                         <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsg}>
@@ -344,7 +369,7 @@ export default class Main extends Component {
                             </View>
                             <View>
                                 <TouchableOpacity onPress={()=>this.onRequestOpen()}>
-                                    <View style={{height:40, /*borderBottomLeftRadius:10, borderBottomRightRadius:10,*/alignItems:'center',justifyContent:'center',backgroundColor:'#b08400'}}>
+                                    <View style={{height:40,alignItems:'center',justifyContent:'center',backgroundColor:'#b08400'}}>
                                         <Text style={{color:'#fff',fontSize:16}}>立即登录</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -353,12 +378,13 @@ export default class Main extends Component {
                         <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
                 </Modal>   
+                */}
             </View>
         );
     }
     //滚动事件
     GoPop() {
-        if(this.state.token==''&&this.state.popNum==1){
+        if( this.state.token && this.state.popNum==1){
             //打开登录弹窗
             this.setState({
                 isModal:true,
@@ -374,100 +400,103 @@ export default class Main extends Component {
         let data = this.DoLogin();
         data.then(
             (result)=>{
-                console.log(result.token)
-                
+                console.log(result.token)   
                 //存储
-                store.save('user', { token: result.token })
-                
+                store.save('user', { token: result.token })   
             }
         )    
     }
     async DoLogin() {
         var that = this
-        try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            //let response = await fetch(`${url}/App/User/login/`,{
-            let response = await fetch(`${url}/App/User/login`,{
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                /*body:JSON.stringify({
-                    phone:'13838370175',
-                    password:'123456',
-                    type:1
-                })*/
-                body:'phone=13838370175&password=123456&type=1'
-            });
-            let responseJson = await response.json();
-            //console.log(responseJson)
-            return responseJson.data;
-            
-            that.setState({
-                token:result.token,
-            });
-
-        } catch(error) {
-            console.error(error);
+        if(that.state.LoginNum===''){
+            ToastUtil.showShort('手机号不能为空',true)
+        }else if(that.state.LoginWord===''){
+            ToastUtil.showShort('验证码不能为空',true)
+        }else{
+            try {
+                // 注意这里的await语句，其所在的函数必须有async关键字声明
+                //let response = await fetch(`${url}/App/User/login/`,{
+                let response = await fetch(`${url}/App/User/login`,{
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    /*body:JSON.stringify({
+                        phone:'13838370175',
+                        password:'123456',
+                        type:1
+                    })*/
+                    body:'phone='+that.state.LoginNum+/*13838370175*/'&password='+that.state.LoginWord/*123456*/
+                });
+                let responseJson = await response.json();
+                //console.error(responseJson);
+                if(responseJson.errorCode === 0){
+                    ToastUtil.showShort('登录成功')
+                    that.setState({
+                        token:true,
+                        isModal:false
+                    });
+                    return responseJson.data;
+                }else{
+                    ToastUtil.showShort(responseJson.errorMsg)
+                }    
+            } catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error)
+            }
         }
     }
-    /*store
-        .save('user', {
-            token: true
-        })
-        .then(() => store.get('coffee'))
-        .then(coffee => {
-            console.assert(coffee.isAwesome === true);
-        })
-        .then(() => store.update('coffee', {
-            isNotEssential: false
-        }))
-        .then(() => store.get('coffee'))
-        .then(coffee => {
-            console.assert(coffee.isNotEssential === false);
-            console.assert(coffee.isAwesome === true);
-            return store.delete('coffee');
-        })
-        .then(() => store.get('coffee'))
-        .then(coffee => {
-            console.assert(coffee === null);
-        })
-        .catch(error => {
-            console.error(error.message);
-        });*/
-
 
 
     //注册-发送验证码
     GoSendNum() {
-        let dataNum = this.DoSendNum();
-        dataNum.then(
+        let datanum = this.DoSendnum();
+        datanum.then(
             (result)=>{
-                console.log(result)
+                console.log(result) 
             }
         )    
     }
-    async DoSendNum() {
-        try {
-            let response = await fetch(`${url}/App/User/send_code`,{
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body:'phone=18237155623&type=1'
-            });
-            let responseJson = await response.json();
-            console.log(1)
-            console.log(responseJson)
-            return responseJson.data;
-        } catch(error) {
-            console.log(2)
-            console.error(error);
+    async DoSendnum() {
+        var that = this
+        store.get('user').then(
+            function(data){
+                that.setState({
+                    type:data.type,
+                });           
+            })
+        if(that.state.ZhuNum===''){
+            ToastUtil.showShort('请先输入手机号',true)
+        }else{
+            try {
+                let response = await fetch(`${url}/App/User/send_code?phone=${that.state.ZhuNum}&type=1`,{
+                    method:'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                });
+                let responseJson = await response.json();
+                if(responseJson.errorCode===0){
+                    ToastUtil.showShort('验证码发送成功')
+                    return responseJson;
+                }else{
+                    console.log(responseJson)
+                    ToastUtil.showShort(responseJson.errorMsg)
+                }
+            } catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error)
+            }
         }
     }
 
 
-
+    //调取列表
+    GoFind() {
+       this.setState({
+            mode: !this.state.mode,
+        });
+    }
 
     //去详情页
     toDesignView (data) {
@@ -512,13 +541,13 @@ export default class Main extends Component {
         });
     }
     //关闭登录去注册01
-    Gozhuce () {
+    /*Gozhuce () {
         this.setState({
             isModal:false,
             //isZhuce:true,
             isArea:true,
         });  
-    }
+    }*/
     //注册页面02-选择地址
     GoArea () {
         this.setState({
@@ -528,12 +557,22 @@ export default class Main extends Component {
         });      
     }
     //弃用 选择身份
-    onSelect(index, value){
+    /*onSelect(index, value){
         this.setState({
             text: `Selected index: ${index} , value: ${value}`
         })
-    }
+    }*/
+
+    //去填注册表
     Gofill() {
+        let p = cityCode.CityZoneCode.China.Province[this.rowIndex0].name;
+        let c = cityCode.CityZoneCode.China.Province[this.rowIndex0].City[this.rowIndex1].name;
+        let a = cityCode.CityZoneCode.China.Province[this.rowIndex0].City[this.rowIndex1].Area[this.rowIndex2].name;
+        this.setState({
+            province:p,
+            city:c,
+            area:a,
+        })
         this.setState({
             isModal:false,
             //isZhuce:false,
@@ -541,6 +580,7 @@ export default class Main extends Component {
             isFill:true,
         });     
     }
+
     //完成注册
     GoFinish() {
         /*this.setState({
@@ -550,22 +590,69 @@ export default class Main extends Component {
             isFill:false,
             isFinish:true,
         }); */ 
-        let data = this.DoSendNum();
+        let data = this.DoZhuce();
         data.then(
             (result)=>{
                 console.log(result)
+                //存储
+                store.save('user', { token: result.token, type:result.token.type })   
             }
         )  
     }
-    async DoSendNum() {
-        try {
-            let response = await fetch(`${url}/App/Center/register?phone=13838370175&password=123456&name=李飞&code=1234`,'POST');
-            let responseJson = await response.json();
-            return responseJson.data;
-        } catch(error) {
-            console.error(error);
+    async DoZhuce() {
+        var that = this
+        if(that.state.ZhuNum===''){
+            ToastUtil.showShort('手机号不能为空')
+        }else if(that.state.ZhuMa===''){
+            ToastUtil.showShort('验证码不能为空')
+        }else if(that.state.ZhuWord===''){
+            ToastUtil.showShort('密码不能为空')
+        }else if(that.state.ZhuWordYZ===''){
+            ToastUtil.showShort('确认密码不能为空')
+        }else if(that.state.zhuNc===''){
+            ToastUtil.showShort('昵称不能为空')
+        }else{
+            try {
+                let response = await fetch(`${url}/App/User/register`,{
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body:'phone='+that.state.ZhuNum+'&password='+that.state.ZhuWord+'&password_again='+that.state.ZhuWordYZ+'&name='+that.state.zhuNc+'&code='+that.state.ZhuMa+'&province='+that.state.province+'&city='+that.state.city+'&area='+that.state.area
+                });
+                let responseJson = await response.json();
+                //return responseJson.data;
+                if(responseJson.errorCode === 0){
+                    ToastUtil.showShort("注册成功")
+                    that.setState({
+                        token:true,
+                        isModal:false,
+                        //isZhuce:false,
+                        isArea:false,
+                        isFill:false,
+                        //isFinish:true,
+                    });
+                    return responseJson.data      
+                }else{
+                    ToastUtil.showShort(responseJson.errorMsg)
+                }    
+            }catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error)
+            }
         }
     }
+
+    Gocenter() {
+        store.get('user').then(function(data){
+            that.setState({
+                lingToken:data.token,
+                lingType:data.type,
+            });  
+        })
+        
+    }
+    
 }
 
 const styles = StyleSheet.create({

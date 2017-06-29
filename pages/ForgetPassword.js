@@ -17,12 +17,32 @@ import {
     Platform,
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
+//图标插件
 import Icon from 'react-native-vector-icons/Wz';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
+//存储登录信息
+import store from 'react-native-simple-store';
+//获取公共域名
+var url = require('../config.json').url
+//弹窗信息
+import ToastUtil from '../utils/ToastUtil'
 
 export default class Center extends Component {
     static navigationOptions = {
-        headerTitle:'忘记密码',
+        headerTitle:'找回密码',
+    }
+    // 构造
+    constructor(props) {
+        super(props);
+        var that = this;
+        // 初始状态
+        this.state = {
+            userphone:'',
+            useryan:'',
+            usermi:'',
+            usermit:'',
+        };
+        
     }
     render() {
         return (
@@ -34,14 +54,14 @@ export default class Center extends Component {
                 <View style={styles.fillFill}>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon012.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholder='请填写您的手机号' placeholderTextColor="#888" keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                        <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({userphone:text})} placeholder='请填写您的手机号' placeholderTextColor="#888" keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon014.png')}></Image></View>
 
-                        <TextInput style={[styles.shuruFill,styles.small]}  placeholderTextColor="#888" placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
+                        <TextInput style={[styles.shuruFill,styles.small]} onChangeText={(text) => this.setState({useryan:text})}  placeholderTextColor="#888" placeholder='请输入验证码' keyboardType="number-pad" underlineColorAndroid="transparent"/>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.GoSendNum()}>
                             {/*验证码按钮*/}
                             <View style={styles.yanzheng}>
                                 <Text style={styles.ytext}>获取验证码</Text>
@@ -50,15 +70,15 @@ export default class Center extends Component {
                     </View>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon013.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholderTextColor="#888" placeholder='请设置新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                        <TextInput style={styles.shuruFill} onChangeText={ (text) => this.setState({usermi:text})} placeholderTextColor="#888" placeholder='请设置新密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.sgFill}>
                         <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon013.png')}></Image></View>
-                        <TextInput style={styles.shuruFill} placeholderTextColor="#888" placeholder='请再次输入新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                        <TextInput style={styles.shuruFill} onChangeText={ (text) => this.setState({usermit:text})} placeholderTextColor="#888" placeholder='请确认新密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                     </View>
 
                     <View style={{paddingTop:30,alignItems:'center',justifyContent:'center'}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.submit()}>
                             {/*登录按钮*/}
                             <View style={styles.fillbtn}>
                                 <Text style={styles.filltext}>提交修改</Text>
@@ -70,7 +90,92 @@ export default class Center extends Component {
           </View>
         );
     }
-  
+
+    //注册-发送验证码
+    GoSendNum() {
+        let datanum = this.DoSendnum();
+        datanum.then(
+            (result)=>{
+                if(result===undefined){}
+                else{
+                    console.log(result) 
+                }
+            }
+        )    
+    }
+    async DoSendnum() {
+        var that = this
+        //console.log('type:'+that.state.type)
+        if(that.state.userphone===''){
+            ToastUtil.showShort('请先输入手机号')
+        }else{
+            try {
+                let response = await fetch(`${url}/App/User/send_code?phone=${that.state.userphone}&type=2`,{
+                    method:'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                });
+                let responseJson = await response.json();
+                if(responseJson.errorCode===0){
+                    ToastUtil.showShort('验证码发送成功')
+                    return responseJson;
+                }else{
+                    console.log(responseJson)
+                    ToastUtil.showShort(responseJson.errorMsg)
+                }
+            } catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error)
+            }
+        }
+    }
+
+    //提交修改
+    submit() {
+        let data = this.DoReset();
+        data.then(
+            (result)=>{
+                console.log(result)
+                //存储
+                //store.save('user', { token: result.token, type:result.token.type })   
+            }
+        )  
+    }
+    async DoReset() {
+        var that = this
+        if(that.state.userphone===''){
+            ToastUtil.showShort('手机号不能为空')
+        }else if(that.state.useryan===''){
+            ToastUtil.showShort('验证码不能为空')
+        }else if(that.state.usermi===''){
+            ToastUtil.showShort('密码不能为空')
+        }else if(that.state.usermit===''){
+            ToastUtil.showShort('确认密码不能为空')
+        }else{
+            try {
+                let response = await fetch(`${url}/App/User/update_password`,{
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body:'phone='+that.state.userphone+'&password_one='+that.state.usermi+'&password_two='+that.state.usermit+'&code='+that.state.useryan
+                });
+                let responseJson = await response.json();
+                //return responseJson.data;
+                if(responseJson.errorCode === 0){
+                    ToastUtil.showShort("修改密码成功")
+                    return responseJson.data      
+                }else{
+                    ToastUtil.showShort(responseJson.errorMsg)
+                }    
+            }catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error)
+            }
+        }
+    }
+
 }
 
 const styles = StyleSheet.create({

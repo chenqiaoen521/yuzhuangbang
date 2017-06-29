@@ -54,30 +54,30 @@ import {
     TabNavigator,
 } from 'react-navigation';
 
-const TabContainer = TabNavigator({
-    Main: { screen: Main},
-    FindLG: { screen: FindLG },
-    FindYP: { screen: FindYP },
-    Center: { screen: Center }
-},{
-    animationEnabled: true, 
-    swipeEnabled: true, 
-    tabBarPosition: 'bottom',
-    tabBarOptions: {
-        activeTintColor: '#ae8300',
-        inactiveTintColor: '#ffffff',
-        showIcon: true,
-        style: 
-           { backgroundColor: '#2a2a2a'
-        },
-        indicatorStyle: {
-            opacity: 0
-        },
-        tabStyle: {
-            padding: 0
-        }
-    },
-});
+// const TabContainer = TabNavigator({
+//     Main: { screen: Main},
+//     FindLG: { screen: FindLG },
+//     FindYP: { screen: FindYP },
+//     Center: { screen: Center }
+// },{
+//     animationEnabled: true, 
+//     swipeEnabled: true, 
+//     tabBarPosition: 'bottom',
+//     tabBarOptions: {
+//         activeTintColor: '#ae8300',
+//         inactiveTintColor: '#ffffff',
+//         showIcon: true,
+//         style: 
+//            { backgroundColor: '#2a2a2a'
+//         },
+//         indicatorStyle: {
+//             opacity: 0
+//         },
+//         tabStyle: {
+//             padding: 0
+//         }
+//     },
+// });
 
 const Root = StackNavigator(
 
@@ -93,9 +93,9 @@ const Root = StackNavigator(
     */ 
     
     
-    Index: {
+    /*Index: {
         screen: TabContainer,
-        /*navigationOptions: {
+        navigationOptions: {
             headerLeft: null,
             //
             headerStyle:{
@@ -105,7 +105,10 @@ const Root = StackNavigator(
                 color:'#fff',
                 fontSize:16,
             }
-        }*/
+        }
+    },*/
+    Main:{
+        screen: Main 
     },
     Splash:{
         screen:Splash
