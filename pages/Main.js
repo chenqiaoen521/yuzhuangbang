@@ -327,7 +327,9 @@ export default class Main extends Component {
                 console.log(result.token) 
                 console.log(result.type)   
                 //存储
+
                 store.save('user', { token: result.token /*, type:result.type*/ })   
+
             }
         )    
     }
