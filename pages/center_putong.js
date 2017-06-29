@@ -120,7 +120,7 @@ export default class CenterPT extends Component {
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={require('../imgs/yihan.jpg')}/>
+      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:this.state.avatar}}/>
       <View style={{flexDirection : 'column',alignItems:'center'}}>
         <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
         <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>
