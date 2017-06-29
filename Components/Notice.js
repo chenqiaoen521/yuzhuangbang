@@ -14,8 +14,8 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-var url = require('../config.json').url;
-var token = "19_117_1_1_36";
+const host = require('../config.json').url;
+const token = require('../config.json').token;
 const data = require('../data/notice.js')
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -47,7 +47,7 @@ export default class Notice extends Component {
   }
   async getData() {
     try {   
-      let response = await fetch(`${url}/App/Index/notice?token=${token}`);
+      let response = await fetch(`${host}/App/Index/notice?token=${token}`);
       let responseJson = await response.json();
       return responseJson.data;
     } catch(error) {

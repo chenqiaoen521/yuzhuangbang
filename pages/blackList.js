@@ -47,7 +47,9 @@ class BlackList extends Component {
     }
     componentDidMount () {
         const {blackActions} = this.props;
-        blackActions.requestBlackList(false,true,false)
+        const {state} = this.props.navigation;
+        console.log(state.params.url);
+        blackActions.requestBlackList(false,true,false,state.params.url);
         pages = 1;
     }
     render() {

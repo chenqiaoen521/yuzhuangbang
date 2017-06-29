@@ -3,13 +3,13 @@ import { put, take, call, fork } from 'redux-saga/effects';
 import * as types from '../constants/ActionTypes';
 import { request } from '../utils/RequestUtil';
 import { fetchArticleList, receiveArticleList } from '../actions/list';
-var url = require('../config.json').url;
-var token = "19_117_1_1_36";
+const host = require('../config.json').url;
+const token = require('../config.json').token;
 export function* requestArticleList(isRefreshing,loading,isLoadMore) {
   try {
     yield put(fetchArticleList(isRefreshing,loading,isLoadMore));
     const data = yield call(request,
-       `${url}/App/Center/user_msg?token=${token}`,
+       `${host}/App/Center/user_msg?token=${token}`,
       'get'
       );
     yield put(
