@@ -1,11 +1,12 @@
 import * as types from '../constants/ActionTypes';
 
-export function requestBlackList(isRefreshing,loading,isLoadMore,page=1) {
+export function requestBlackList(isRefreshing,loading,isLoadMore,url,page=1) {
   return {
     type: types.REQUEST_BLACK_LIST,
     isRefreshing,
     loading,
     isLoadMore,
+    url,
     page
   };
 }

@@ -9,6 +9,7 @@ import Main  from './pages/Main';
 import FindLG  from './pages/FindLG';
 import FindYP  from './pages/FindYP';
 import Center  from './pages/Center';
+import CenterPT  from './pages/center_putong';
 import Splash from './pages/Splash';
 import SearchPage from './pages/SearchPage';
 import MainDetail  from './pages/MainDetail';
@@ -38,6 +39,7 @@ import Kehu  from './pages/Kehu';
 import KehuAdd  from './pages/KehuAdd';
 import KehuSearch  from './pages/KehuSearch';
 import ChangePhone  from './pages/ChangePhone';
+import MyBlack  from './pages/myblack';
 /*import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
 /*import RNCarousel  from './Components/RNCarousel';*/
@@ -110,6 +112,9 @@ const Root = StackNavigator(
     },
     AddFriendRequest:{
         screen:AddFriendRequest
+    },
+    myBlack:{
+        screen:MyBlack
     }, 
     Kehu:{
         screen:Kehu
@@ -209,7 +214,7 @@ const Root = StackNavigator(
                 backgroundColor:'#151515',
                 height:56,
                 paddingTop:10,
-                justifyContent:'center'
+                justifyContent:'center',
             },
           /*headerStyle: {
             backgroundColor: '#151515'
@@ -217,7 +222,7 @@ const Root = StackNavigator(
           headerTitleStyle: {
             color: '#fff',
             fontSize: 15,
-            alignSelf:'center'
+            alignSelf:'center',
           },
           headerTintColor: '#fff'
 
