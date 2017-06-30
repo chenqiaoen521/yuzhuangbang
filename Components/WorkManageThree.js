@@ -22,7 +22,7 @@ import store from 'react-native-simple-store';
 
 
 var {width,height} = Dimensions.get('window');
-export default class WorkManageOne  extends Component {
+export default class WorkManageThree  extends Component {
     // 初始化模拟数据
     constructor(props) {
         super(props);
@@ -50,12 +50,10 @@ export default class WorkManageOne  extends Component {
                 that.GetData(data.token);
             })    
     }
-    
     async GetData(token) {
         var that = this
-        //return
         try {
-            let response = await fetch(`${url}/App/Role/no_published_works?token=${token}`, {
+            let response = await fetch(`${url}/App/Role/check_works?token=${token}`, {
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -113,16 +111,17 @@ export default class WorkManageOne  extends Component {
                     </View>  
                 </View>
                 <View style={styles.sinTai}>
-                    <TouchableOpacity>
-                        <View style={styles.bgbtn}>
-                            <Text style={styles.bgbtntext}>已下架</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>this.GoHide(rowData.id)}>
+                    { rowData.is_recommend == 2 ?
+                    (<View style={styles.sinTai}>
+                        <Text style={styles.bgbtntext}>待审核</Text>
+                    </View>)
+                    :
+                    (<TouchableOpacity>
                         <View style={[styles.bgbtn,{backgroundColor:'#ae8300'}]}>
-                            <Text style={[styles.bgbtntext,{color:'#fff'}]}>发布</Text>
+                            <Text style={[styles.bgbtntext,{color:'#fff'}]}>审核未通过</Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>)
+                    }
                 </View>
             </View>
             </TouchableOpacity>
@@ -132,9 +131,9 @@ export default class WorkManageOne  extends Component {
     render() {
         return (
             <View style={styles.sglist}>
-                { this.state.empty == 0 ? 
+
+                { this.state.empty === 0 ? 
                 <View style={{ padding:20, alignItems:'center', paddingTop:50,justifyContent:'center'}}>
-                    {/*<Image style={{ width:50, height:50, marginBottom:5, marginTop:30}} source={require('./../imgs/none.png')}></Image>*/}
                     <Text style={{ fontSize:16, color:'#888'}}>暂无数据</Text>
                 </View>
                 : 
@@ -178,43 +177,7 @@ export default class WorkManageOne  extends Component {
         }
     }  
 
-
-    //申请首页显示
-    GoHide(id) {
-        var that = this
-        store.get('user')
-        .then(
-            function(data){
-                that.setState({
-                    lingToken:data.token,
-                });  
-                that.Dogohide(data.token,id);
-            })   
-    }
-    async Dogohide(token,id) {
-        var that = this
-        console.log('入口的：'+token+'和'+id)
-        try {
-            let response = await fetch(`${url}/App/Role/work_up_down?token=${token}&id=${id}`, {
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            });
-            let responseJson = await response.json();
-            if(responseJson.errorCode===0){ 
-                ToastUtil.showShort('已上架',true) 
-                return responseJson;   
-            }else{
-                ToastUtil.showShort(responseJson,true)
-            }
-        } catch(error) {
-            console.error(error);
-            ToastUtil.showShort(error,true)
-        } 
-    }
-
-    
+   
 }
 
 
@@ -283,12 +246,12 @@ const styles = StyleSheet.create({
         borderRadius:13,
         justifyContent:'center',
         alignItems:'center',
-        width:width*0.2,
+        width:width*0.22,
         padding:0,
 
     },
     bgbtntext: {
-        fontSize:10,
+        fontSize:11,
         color:'#999'
     }
 });

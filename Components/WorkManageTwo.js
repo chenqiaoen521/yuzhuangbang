@@ -12,7 +12,6 @@ import ActionSheet from 'react-native-actionsheet';
 import LoadingView from './LoadingView';
 import * as listActionCreators from '../actions/list';
 
-
 //获取公共域名
 var url = require('../config.json').url
 //弹窗信息
@@ -22,7 +21,7 @@ import store from 'react-native-simple-store';
 
 
 var {width,height} = Dimensions.get('window');
-export default class WorkManageOne  extends Component {
+export default class WorkManageTwo  extends Component {
     // 初始化模拟数据
     constructor(props) {
         super(props);
@@ -48,14 +47,12 @@ export default class WorkManageOne  extends Component {
                     lingToken:data.token,
                 });  
                 that.GetData(data.token);
-            })    
+            })   
     }
-    
     async GetData(token) {
         var that = this
-        //return
         try {
-            let response = await fetch(`${url}/App/Role/no_published_works?token=${token}`, {
+            let response = await fetch(`${url}/App/Role/published_works?token=${token}`, {
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -78,8 +75,7 @@ export default class WorkManageOne  extends Component {
         } catch(error) {
             console.error(error);
             ToastUtil.showShort(error,true)
-        }
-        
+        } 
     }
 
     renderMovieList(rowData) {
@@ -112,18 +108,36 @@ export default class WorkManageOne  extends Component {
                         </TouchableOpacity>
                     </View>  
                 </View>
+                <View>
+                {/*{ rowData.is_down == 1 ?
+                (*/}
                 <View style={styles.sinTai}>
-                    <TouchableOpacity>
-                        <View style={styles.bgbtn}>
-                            <Text style={styles.bgbtntext}>已下架</Text>
-                        </View>
-                    </TouchableOpacity>
                     <TouchableOpacity onPress={()=>this.GoHide(rowData.id)}>
-                        <View style={[styles.bgbtn,{backgroundColor:'#ae8300'}]}>
-                            <Text style={[styles.bgbtntext,{color:'#fff'}]}>发布</Text>
+                        <View style={styles.bgbtn}>
+                            <Text style={styles.bgbtntext}>下架</Text>
                         </View>
                     </TouchableOpacity>
+                    { rowData.is_recommend == 1 ?
+                    (<TouchableOpacity>
+                        <View style={[styles.bgbtn,{backgroundColor:'#ae8300'}]}>
+                            <Text style={[styles.bgbtntext,{color:'#fff'}]}>主页显示中</Text>
+                        </View>
+                    </TouchableOpacity>)
+                    :    
+                    (<TouchableOpacity onPress={()=>this.GoShow(rowData.id)}>
+                        <View style={styles.bgbtn}>
+                            <Text style={styles.bgbtntext}>申请首页展示</Text>
+                        </View>
+                    </TouchableOpacity>)
+                    }
+                </View>{/*)
+                :
+                (<View style={styles.sinTai}>
+                    <Text style={{fontSize:10,color:'#999999'}}>已下架</Text>
+                </View>)
+                }*/}
                 </View>
+                
             </View>
             </TouchableOpacity>
         )
@@ -132,9 +146,8 @@ export default class WorkManageOne  extends Component {
     render() {
         return (
             <View style={styles.sglist}>
-                { this.state.empty == 0 ? 
+                { this.state.empty === 0 ? 
                 <View style={{ padding:20, alignItems:'center', paddingTop:50,justifyContent:'center'}}>
-                    {/*<Image style={{ width:50, height:50, marginBottom:5, marginTop:30}} source={require('./../imgs/none.png')}></Image>*/}
                     <Text style={{ fontSize:16, color:'#888'}}>暂无数据</Text>
                 </View>
                 : 
@@ -152,15 +165,16 @@ export default class WorkManageOne  extends Component {
             this.props.popToWatch()
         }
     }
+
     // 删除按钮
-    Godel(id) {
-        var that = this
+    Godel() {
         Alert.alert(
             '删除',
             '确认删除该作品吗',
             [
+               // {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
                 {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: '确定', onPress: () => that.del(id) },
+                {text: '确定', onPress: () => this.del()},
             ],
             { cancelable: false }
         )
@@ -170,14 +184,47 @@ export default class WorkManageOne  extends Component {
             this.props.Goshanchu(id)
         }
     }
-
-
+    
     Goadd(id,name,desc,image) {
         if(this.props.popToBJ){
             this.props.popToBJ(id,name,desc,image)
         }
     }  
 
+    //申请首页显示
+    GoShow(id) {
+        var that = this
+        store.get('user')
+        .then(
+            function(data){
+                that.setState({
+                    lingToken:data.token,
+                });  
+                that.Dogoshow(data.token,id);
+            })   
+    }
+    async Dogoshow(token,id) {
+        var that = this
+        console.log('入口的：'+token+'和'+id)
+        try {
+            let response = await fetch(`${url}/App/Role/apply_work_shouye?token=${token}&id=${id}`, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){ 
+                ToastUtil.showShort('申请成功,请等待审核结果',true) 
+                return responseJson;   
+            }else{
+                ToastUtil.showShort(responseJson,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        } 
+    }
 
     //申请首页显示
     GoHide(id) {
@@ -203,7 +250,7 @@ export default class WorkManageOne  extends Component {
             });
             let responseJson = await response.json();
             if(responseJson.errorCode===0){ 
-                ToastUtil.showShort('已上架',true) 
+                ToastUtil.showShort('已下架',true) 
                 return responseJson;   
             }else{
                 ToastUtil.showShort(responseJson,true)
@@ -213,7 +260,6 @@ export default class WorkManageOne  extends Component {
             ToastUtil.showShort(error,true)
         } 
     }
-
     
 }
 
@@ -283,7 +329,7 @@ const styles = StyleSheet.create({
         borderRadius:13,
         justifyContent:'center',
         alignItems:'center',
-        width:width*0.2,
+        width:width*0.22,
         padding:0,
 
     },
