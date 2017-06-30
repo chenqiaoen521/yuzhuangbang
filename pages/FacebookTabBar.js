@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 var {width,height} = Dimensions.get('window');
 const FacebookTabBar = React.createClass({
   tabIcons: [],
-  tabTexts: ['全部','发布','审核',],
+  tabTexts: ['未发布','发布','审核',],
   propTypes: {
     goToPage: React.PropTypes.func,
     activeTab: React.PropTypes.number,

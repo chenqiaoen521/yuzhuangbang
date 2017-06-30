@@ -96,6 +96,7 @@ export default class Main extends Component {
         //this.onSelect = this.onSelect.bind(this)
     }
     componentDidMount() {
+        var that = this
         store.get('user').then(function(data){
             if(data.token){
                 that.setState({
@@ -324,22 +325,26 @@ export default class Main extends Component {
         let data = this.DoLogin();
         data.then(
             (result)=>{
-                console.log(result.token) 
-                console.log(result.type)   
+                //console.log(result.token) 
+                //console.log(result.type)   
                 //存储
-
-                store.save('user', { token: result.token /*, type:result.type*/ })   
+                if(result){
+                    console.log(result) 
+                    store.save('user', { token: result.token, type:result.type } )   
+                }else{
+                    console.log('登录无返回')
+                }
 
             }
         )    
     }
     async DoLogin() {
         var that = this
-        if(that.state.LoginNum===''){
+        /*if(that.state.LoginNum===''){
             ToastUtil.showShort('手机号不能为空',true)
         }else if(that.state.LoginWord===''){
             ToastUtil.showShort('验证码不能为空',true)
-        }else{
+        }else{*/
             try {
                 let response = await fetch(`${url}/App/User/login`,{
                     method:'POST',
@@ -358,13 +363,15 @@ export default class Main extends Component {
                     });
                     return responseJson.data;
                 }else{
-                    ToastUtil.showShort(responseJson.errorMsg)
+                    ToastUtil.showShort(responseJson.errorMsg,true)
                 }    
+
+                console.error(responseJson);
             } catch(error) {
                 console.error(error);
-                ToastUtil.showShort(error)
+                ToastUtil.showShort(error,true)
             }
-        }
+        /*}*/
     }
 
 
@@ -401,11 +408,11 @@ export default class Main extends Component {
                     return responseJson;
                 }else{
                     console.log(responseJson)
-                    ToastUtil.showShort(responseJson.errorMsg)
+                    ToastUtil.showShort(responseJson.errorMsg,true)
                 }
             } catch(error) {
                 console.error(error);
-                ToastUtil.showShort(error)
+                ToastUtil.showShort(error,true)
             }
         }
     }
@@ -491,9 +498,13 @@ export default class Main extends Component {
         let data = this.DoZhuce();
         data.then(
             (result)=>{
-                console.log(result)
-                //存储
-                store.save('user', { token: result.token, type:result.token.type })   
+                if(result){
+                    //存储
+                    console.log(result)
+                    store.save('user', { token: result.token, type:result.type })   
+                }else{
+                    console.log('注册无返回')
+                }
             }
         )  
     }
@@ -525,40 +536,38 @@ export default class Main extends Component {
                     that.setState({
                         token:true,
                         isModal:false,
-                        //isZhuce:false,
                         isArea:false,
                         isFill:false,
-                        //isFinish:true,
                     });
                     return responseJson.data      
                 }else{
-                    ToastUtil.showShort(responseJson.errorMsg)
+                    ToastUtil.showShort(responseJson.errorMsg,true)
                 }    
             }catch(error) {
                 console.error(error);
-                ToastUtil.showShort(error)
+                ToastUtil.showShort(error,true)
             }
         }
     }
 
     Gocenter() {
-        /*var that = this
+        var that = this
         store.get('user').then(function(data){
+            //console.log(data.token+'和'+data.type)
             that.setState({
                 lingToken:data.token,
                 lingType:data.type,
             });  
-        })*/
-        
-      // console.log(that.state.lingType)
-        /*if(that.state.lingType===1){*/
-            const {navigate} = this.props.navigation;
-            navigate('CenterPT')
-        /*}else if(that.state.lingType===2){
-            const {navigate} = this.props.navigation;
-            navigate('Center')
-        }*/
-        
+            //console.log(that.state.lingType===1)
+            if(that.state.lingType===1){
+                const {navigate} = that.props.navigation;
+                navigate('Center')
+            }else if(that.state.lingType===2){
+                const {navigate} = that.props.navigation;
+                navigate('Center')
+            }
+        })
+   
     }
     
 }

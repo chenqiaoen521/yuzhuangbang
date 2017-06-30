@@ -36,7 +36,7 @@ export default class Center extends Component {
         super(props);
         var that = this;
         // 初始状态
-        this.state = {
+        that.state = {
             userphone:'',
             useryan:'',
             usermi:'',
@@ -93,13 +93,11 @@ export default class Center extends Component {
 
     //注册-发送验证码
     GoSendNum() {
+        var that = this;
         let datanum = this.DoSendnum();
         datanum.then(
             (result)=>{
-                if(result===undefined){}
-                else{
-                    console.log(result) 
-                }
+                console.log(result)
             }
         )    
     }
@@ -133,17 +131,15 @@ export default class Center extends Component {
 
     //提交修改
     submit() {
-        let data = this.DoReset();
+        var that = this;
+        let data = that.DoReset();
         data.then(
-            (result)=>{
-                console.log(result)
-                //存储
-                //store.save('user', { token: result.token, type:result.token.type })   
-            }
+            ()=>{ }
         )  
     }
+
     async DoReset() {
-        var that = this
+        var that = this;
         if(that.state.userphone===''){
             ToastUtil.showShort('手机号不能为空')
         }else if(that.state.useryan===''){
@@ -165,7 +161,9 @@ export default class Center extends Component {
                 //return responseJson.data;
                 if(responseJson.errorCode === 0){
                     ToastUtil.showShort("修改密码成功")
-                    return responseJson.data      
+                    const {navigate} = this.props.navigation;
+                    navigate('Main')
+                    return responseJson     
                 }else{
                     ToastUtil.showShort(responseJson.errorMsg)
                 }    

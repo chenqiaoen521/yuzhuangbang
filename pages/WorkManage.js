@@ -18,7 +18,15 @@ import {
 import FacebookTabBar from './FacebookTabBar';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import WorkManageOne from '../Components/WorkManageOne'
+import WorkManageTwo from '../Components/WorkManageTwo'
+import WorkManageThree from '../Components/WorkManageThree'
 
+//获取公共域名
+var url = require('../config.json').url
+//弹窗信息
+import ToastUtil from '../utils/ToastUtil'
+//存储登录信息
+import store from 'react-native-simple-store';
 
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -39,72 +47,96 @@ export default class WorkManage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollableTabView
-                    initialPage={0}
-                    renderTabBar={() => <FacebookTabBar />}
-                >
+                <ScrollableTabView initialPage={0} renderTabBar={() => <FacebookTabBar/>} onChangeTab={ (obj) => {console.log('index:'+obj.i)} } >
                     <ScrollView tabLabel="ios-paper" style={styles.tabView}>
-                        {/*<TouchableOpacity >
-                        <View style={styles.sin}>
-                            <TouchableOpacity>
-                                <Image style={{width:width*0.2, height:width*0.2}} source={require('./../imgs/indeximg_07.jpg')}></Image>
-                            </TouchableOpacity>
-                            <View style={styles.sinmid}>
-                                <TouchableOpacity>
-                                    <View style={styles.sinText}>
-                                        <Image style={{width:14, height:14,marginRight:4,marginTop:3,alignSelf:'flex-start'}} source={require('./../imgs/detailicon_36.png')}></Image>
-                                        <Text style={{fontSize:13,width:width*0.5-18,color:'#fff'}} numberOfLines={2}>简约清新小户型一居室的好房子啊</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={styles.sinbtn}>
-                                    <TouchableOpacity>
-                                        <View style={styles.sbtn}>
-                                            <Icon size={14} color="#898989" name="edit"></Icon>
-                                            <Text style={{fontSize:11,color:'#898989',marginLeft:2}}>编辑</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity>
-                                        <View style={styles.sbtn}>
-                                            <Icon size={14} color="#898989" name="trash-o"></Icon>
-                                            <Text style={{fontSize:11,color:'#898989',marginLeft:2}}>删除</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>  
-                            </View>
-                            <TouchableOpacity>
-                                <View style={styles.sinTai}>
-                                    <Text style={{fontSize:12,color:'#999999'}}>未发布</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        </TouchableOpacity>*/}
                         <WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }  />
                     </ScrollView>
                     <ScrollView tabLabel="ios-people" style={styles.tabView}>
-                        <WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }  />
+                        <WorkManageTwo popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }   />
                     </ScrollView>
                     <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-                        <WorkManageOne popToWatch={ ()=> this.Gojump()} popToBJ={ ()=> this.Goadd() } />
-                    </ScrollView>
-                    
+                        <WorkManageThree popToWatch={ ()=> this.Gojump()} popToBJ={ ()=> this.Goadd() } />
+                    </ScrollView>    
                 </ScrollableTabView>
+
                 <TouchableOpacity onPress={ ()=> this.Goadd() }>
                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingTop:10, paddingBottom:10,backgroundColor:'#ae8300',}}>
                     <Image style={{width:12,height:12,marginRight:5,}} source={require('./../imgs/addicon.png')}></Image>
                     <Text style={{ fontSize:14, color:'#fff',}}>添加作品</Text>
                 </View>
                 </TouchableOpacity>
+
             </View>
         );
     } 
     Goadd() {
-        const {navigate} = this.props.navigation;
-        navigate('MainDetail',{page:'tjzp',title:'添加作品'});
-    }  
+        //console.log(id+'和\n'+name+'和\n'+desc+'和\n'+image)
+        /*const {navigate} = this.props.navigation;
+        navigate('MainDetail',{page:'tjzp',title:'添加作品'});*/
+    }
+
+
     Gojump() {
         const {navigate} = this.props.navigation;
         navigate('MainDetail',{title:'这是作品详情页'})
     } 
+
+    async Findxq(token,id) {
+        var that = this
+        try {
+            let response = await fetch(`${url}/App/Role/work_up_down?token=${token}&id=${id}`, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){
+                return responseJson.data;   
+            }else{
+                ToastUtil.showShort(responseJson,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        } 
+    }
+
+    Shanchu(id) {
+        var that = this
+        console.log(id)
+        store.get('user')
+        .then(
+            function(data){
+                that.setState({
+                    lingToken:data.token,
+                });  
+                that.Doshan(data.token,id);
+            })
+    }
+    async Doshan(token,id) {
+        var that = this
+        console.log(token+'和'+id)
+        try {
+            let response = await fetch(`${url}/App/Role/del_work_img?token=${token}&id=${id}`, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){ 
+                ToastUtil.showShort('删除成功',true) 
+                console.log(responseJson)
+                return responseJson;   
+            }else{
+                ToastUtil.showShort(responseJson.errorMsg,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        }
+    }
 
 }
 
