@@ -71,8 +71,8 @@ export default class Main extends Component {
             popNum:1,
             mode:false, //灵感还是优品
             //登录的表单
-            LoginNum:'',
-            LoginWord:'',
+            LoginNum:'13838370175',
+            LoginWord:'123456',
             //注册的表单
             ZhuNum:'',
             ZhuMa:'',
