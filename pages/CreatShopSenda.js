@@ -20,7 +20,9 @@ import {
     ListView
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
-
+const host = require('../config.json').url;
+const token = require('../config.json').token;
+import ToastUtil from '../utils/ToastUtil';
 import  ImagePicker from 'react-native-image-picker'; //第三方相机
 const photoOptions = {
     //底部弹出框选项
@@ -73,7 +75,12 @@ export default class CreatShopSenda extends Component {
             province:'请选择',
             city:'公司所',
             area:'在地区',
-            tupian:[require('../imgs/sendzheng_24.png'),require('../imgs/sendzheng_20.png')]
+            desc:'',
+            yezz:require('../imgs/sendzheng_03.png'),
+            sfzz:require('../imgs/sendzheng_07.png'),
+            sfzf:require('../imgs/sendzheng_09.png'),
+            tupian:[],
+            images:[]
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -94,6 +101,10 @@ export default class CreatShopSenda extends Component {
                     <TextInput style={styles.input} onChangeText={(text) => this.setState({company:text}) }  selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司名称' underlineColorAndroid="transparent"/>
                 </View>
                 <View style={styles.single}>
+                    <Text style={styles.lefttext}>公司描述：</Text>
+                    <TextInput multiline={true} style={styles.input} onChangeText={(text) => this.setState({desc:text}) }  selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司简介' underlineColorAndroid="transparent"/>
+                </View>
+                <View style={styles.single}>
                     <Text style={styles.lefttext}>公司地址：</Text>
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                         <View style={[styles.input,styles.viewbg]}>
@@ -109,8 +120,8 @@ export default class CreatShopSenda extends Component {
                     <Text style={styles.midtext}>上传营业执照</Text>
                     <View style={styles.sendV}>
                         <View style={styles.sendview}>
-                            <TouchableOpacity  onPress={() => this.chooseImg()}>
-                                <Image style={styles.img1} source={require('../imgs/sendzheng_03.png')}></Image>
+                            <TouchableOpacity  onPress={() => this.chooseImg(1)}>
+                                <Image style={styles.img1} source={this.state.yezz}></Image>
                                 <View style={styles.fixtext}><Text style={styles.ftext}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -120,14 +131,14 @@ export default class CreatShopSenda extends Component {
                     <Text style={styles.midtext}>上传法人身份证正反面照</Text>
                     <View style={styles.sendV}>
                         <View style={styles.sendview2}>
-                            <TouchableOpacity onPress={()=> this.chooseImg() }>
-                                <Image style={styles.img2} source={require('../imgs/sendzheng_07.png')}></Image>                            
+                            <TouchableOpacity onPress={()=> this.chooseImg(2) }>
+                                <Image style={styles.img2} source={this.state.sfzz}></Image>                            
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.sendview2}>
-                            <TouchableOpacity onPress={()=> this.chooseImg() }>
-                                <Image style={styles.img2} source={require('../imgs/sendzheng_09.png')}></Image>
+                            <TouchableOpacity onPress={()=> this.chooseImg(3) }>
+                                <Image style={styles.img2} source={this.state.sfzf}></Image>
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -138,7 +149,7 @@ export default class CreatShopSenda extends Component {
                     <ListView 
                     contentContainerStyle={styles.sendpro}
                     dataSource={this.state.dataSource.cloneWithRows(this.state.tupian)}
-                    renderRow={(rowdata)=>this.renderRow(rowdata)}
+                    renderRow={(rowdata, sectionID, rowID)=>this.renderRow(rowdata,sectionID,rowID)}
                     initialListSize ={1}
                     renderFooter = {()=>this.renderFooter()}
                     />
@@ -249,33 +260,82 @@ export default class CreatShopSenda extends Component {
     }
     renderFooter () {
         return (
-            <TouchableOpacity onPress={()=> this.chooseImg() }>
+            <TouchableOpacity onPress={()=> this.chooseImg(4) }>
                 <View style={styles.cpbox}>
                     <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_17.png')}></Image>
                 </View>
             </TouchableOpacity>   
             )
     }
-    renderRow (row) {
+    renderRow (row,a,b) {
+
         return (
-            <TouchableOpacity onPress={()=> alert(1) }>
+            <TouchableOpacity onPress={()=>this.delImage(b)}>
                 <View style={styles.cpbox}>
                     <Image style={styles.cptu} resizeMode={'center'} source={row}></Image>
                     <Image style={styles.cpbg} resizeMode={'center'}  source={require('../imgs/sendzheng_14.png')}></Image>
                 </View>
             </TouchableOpacity>
         )
+
+    }
+    delImage(b) {
+        let arr = this.state.tupian;
+        let arr2 = this.state.images;
+        arr.splice(b,b+1);
+        arr2.splice(b,b+1);
+        this.setState({
+            tupian:arr,
+            images:arr2
+        });
+        ToastUtil.showShort('图片已删除', false);
     }
     //跳转
     GoWait() {
-        /*const {navigate} = this.props.navigation;
-        navigate('CreatShopWait')*/
-        console.log(this.state.name);
-        console.log(this.state.company);
-        console.log(this.state.address);
-        console.log(this.state.detail_address);
+        const {navigate} = this.props.navigation;
+        
+        let a = this.state.name
+        let b= this.state.company
+        let c= this.state.address
+        let d= this.state.detail_address
+        let e= this.state.zhizhao
+        let f= this.state.ID_back
+        let g= this.state.ID_front
+        let h= this.state.images
+        let i= this.state.desc
+        let formData = new FormData();    
+        formData.append("name",a);
+        formData.append("company",b); 
+        formData.append("company_address",c+','+d);
+        formData.append("zhizhao",e); 
+        formData.append("ID_back",f);
+        formData.append("ID_front",g); 
+        for(let i=0;i<h.length;i++){
+            formData.append("image[]",h[i]); 
+        }
+        formData.append("desc",i); 
+        formData.append("token",token); 
+        
+        this.submitUrl(formData).then((data)=>{
+            ToastUtil.showShort(data, false);
+            navigate('CreatShopWait');
+        })
     }
-    chooseImg () {
+    async submitUrl(formData) {
+        try {
+          // 注意这里的await语句，其所在的函数必须有async关键字声明
+          let response = await fetch(`${host}/App/Auth/add_seller`,{
+            method:'POST',
+            body:formData
+          });
+          let responseJson = await response.json(); 
+          return responseJson.errorMsg;
+        } catch(error) {
+            ToastUtil.showShort(error, false);
+          console.error(error);
+        }
+    }
+    chooseImg (flag) {
         let that = this;
         ImagePicker.showImagePicker(photoOptions,(response) =>{
             if (response.didCancel) {
@@ -288,14 +348,14 @@ export default class CreatShopSenda extends Component {
             console.log('User tapped custom button: ', response.customButton);
           }
           else {
-            that.uploadImage(response.uri);
+            that.uploadImage(response.uri,flag);
           }
         })
     }
-    uploadImage(uri){  
+    uploadImage(uri,flag){  
         let formData = new FormData();  
         let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
-  
+        let that = this;
         formData.append("image",file);  
         fetch(`${host}/App/User/upload_image`,{  
             method:'POST',  
@@ -304,9 +364,37 @@ export default class CreatShopSenda extends Component {
             },  
             body:formData,  
         })  
-        .then((response) => response.text() )  
+        .then((response) => response.json() )  
         .then((responseData)=>{  
-        console.log('responseData',responseData);  
+            if(flag==1){
+                this.setState({
+                yezz:{uri:`${host}${responseData.data.image}`},
+                zhizhao:responseData.data.image
+                })
+            }
+            if(flag==2){
+                this.setState({
+                sfzz:{uri:`${host}${responseData.data.image}`},
+                ID_front:responseData.data.image
+                })
+            }
+            if(flag==3){
+                this.setState({
+                sfzf:{uri:`${host}${responseData.data.image}`},
+                ID_back:responseData.data.image
+                })
+            }
+            if(flag==4){
+                let arr = this.state.tupian;
+                let images = this.state.images;
+                arr.push({uri:`${host}${responseData.data.image}`});
+                images.push(responseData.data.image);
+                this.setState({
+                    tupian:arr,
+                    images:images
+                })
+            }
+            
         })  
         .catch((error)=>{console.error('error',error)});  
   
@@ -480,7 +568,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     cpbox: {
-        paddingRight:12,
+        paddingRight:10,
         paddingTop:12,
         position:'relative',
     },

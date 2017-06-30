@@ -82,9 +82,11 @@ export default class PersonInfo extends Component {
             },  
             body:formData,  
         })  
-        .then((response) => response.text() )  
+        .then((response) => response.json() )  
         .then((responseData)=>{  
-        console.log('responseData',responseData);  
+            this.setState({
+               avatar: responseData.data.image
+            })
         })  
         .catch((error)=>{console.error('error',error)});  
   
@@ -165,8 +167,39 @@ export default class PersonInfo extends Component {
         })
     }
     submit () {
-        ToastUtil.showShort('没有更多数据了',true);
+            let a =this.state.sex
+            let b =this.state.avatar
+            let c =this.state.name
+            let d =this.state.nickname
+            let f =this.state.province
+            let g =this.state.city
+            let h =this.state.area
+        let formData = new FormData();    
+        formData.append("sex",a);  
+        formData.append("token",token);  
+        formData.append("avatar",b);  
+        formData.append("name",c);  
+        formData.append("nickname",d);  
+        formData.append("province",f);  
+        formData.append("city",g);  
+        formData.append("area",h);  
+        this.submitUrl(formData).then((data)=>{
+            ToastUtil.showShort(data, false);
+        })
     }
+    async submitUrl(formData) {
+    try {
+      // 注意这里的await语句，其所在的函数必须有async关键字声明
+      let response = await fetch(`${host}/App/Center/set_user_info`,{
+        method:'POST',
+         body:formData
+      });
+      let responseJson = await response.json(); 
+      return responseJson.errorMsg;
+    } catch(error) {
+      console.error(error);
+    }
+  }
     checkSex(){
         this.ActionSheet.show()
     }

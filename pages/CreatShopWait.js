@@ -59,13 +59,7 @@ export default class CreatShopWait extends Component {
     //跳转
     Gocreat(num) {
         const {navigate} = this.props.navigation;
-        if(num===1){
-            alert(1)
-        }else{
-            alert(2)
-        }
-        
-        navigate('CreatShopSenda')
+        navigate('CenterPT')
     }
   
 }

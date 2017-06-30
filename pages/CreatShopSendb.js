@@ -17,10 +17,13 @@ import {
     TouchableOpacity,
     Platform,
     ScrollView,
-    Modal
+    Modal,
+    ListView
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
-
+const host = require('../config.json').url;
+const token = require('../config.json').token;
+import ToastUtil from '../utils/ToastUtil';
 import  ImagePicker from 'react-native-image-picker'; //第三方相机
 const photoOptions = {
     //底部弹出框选项
@@ -56,12 +59,32 @@ export default class CreatShopSendb extends Component {
     // 构造
     constructor(props) {
         super(props);
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         // 初始状态
         this.state = {
             isArea:false, //注册2选择地区
+            dataSource: ds,
             text:'',
             index:0,
-            textadr:'请选择公司所在地区'
+            textadr:'请选择公司所在地区',
+            is_company:1,
+            name:'',
+            tel:'',
+            company:'',
+            address:'',
+            detail_address:'',
+            zhizhao:'',
+            ID_back:'',
+            ID_front:'',
+            images:[],
+            province:'请选择',
+            city:'公司所',
+            area:'在地区',
+            yezz:require('../imgs/sendzheng_03.png'),
+            sfzz:require('../imgs/sendzheng_07.png'),
+            sfzf:require('../imgs/sendzheng_09.png'),
+            tupian:[],
+            phone:''
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -100,26 +123,30 @@ export default class CreatShopSendb extends Component {
                 <View>
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>公司名称：</Text>
-                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司名称' underlineColorAndroid="transparent"/>
+                    <TextInput style={styles.input} selectionColor="#fff" onChangeText={(text) => this.setState({company:text}) } placeholderTextColor="#888" placeholder='请输入您的公司名称' underlineColorAndroid="transparent"/>
+                </View>
+                <View style={styles.single}>
+                    <Text style={styles.lefttext}>描述：</Text>
+                    <TextInput multiline={true} style={styles.input} onChangeText={(text) => this.setState({desc:text}) }  selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的公司简介' underlineColorAndroid="transparent"/>
                 </View>
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>公司地址：</Text>
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                         <View style={[styles.input,styles.viewbg]}>
-                            <Text style={{color:'#888',fontSize:13}}>{this.state.textadr}</Text>
+                            <Text style={{color:'#888',fontSize:13}}>{`${this.state.province}${this.state.city}${this.state.area}`}</Text>
                             <Image style={{width:20,height:12}} resizeMode={'center'} source={require('../imgs/right01.png')}></Image>
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.single}>
-                    <TextInput style={styles.textinput} selectionColor="#fff" multiline={true} placeholderTextColor="#888" placeholder='请输入您公司的详细地址' underlineColorAndroid="transparent"/>
+                    <TextInput style={styles.textinput} onChangeText={(text) => this.setState({detail_address:text}) }  selectionColor="#fff" multiline={true} placeholderTextColor="#888" placeholder='请输入您公司的详细地址' underlineColorAndroid="transparent"/>
                 </View>
                 <View style={styles.single2}>
                     <Text style={styles.midtext}>上传营业执照</Text>
                     <View style={styles.sendV}>
                         <View style={styles.sendview}>
-                            <TouchableOpacity  onPress={() => this.chooseImg()}>
-                                <Image style={styles.img1} source={require('../imgs/sendzheng_03.png')}></Image>
+                            <TouchableOpacity  onPress={() => this.chooseImg(1)}>
+                                <Image style={styles.img1} source={this.state.yezz}></Image>
                                 <View style={styles.fixtext}><Text style={styles.ftext}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -129,14 +156,14 @@ export default class CreatShopSendb extends Component {
                     <Text style={styles.midtext}>上传法人身份证正反面照</Text>
                     <View style={styles.sendV}>
                         <View style={styles.sendview2}>
-                            <TouchableOpacity onPress={()=> this.chooseImg() }>
-                                <Image style={styles.img2} source={require('../imgs/sendzheng_07.png')}></Image>                            
+                            <TouchableOpacity onPress={()=> this.chooseImg(2) }>
+                                <Image style={styles.img2} source={this.state.sfzz}></Image>                            
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.sendview2}>
-                            <TouchableOpacity onPress={()=> this.chooseImg() }>
-                                <Image style={styles.img2} source={require('../imgs/sendzheng_09.png')}></Image>
+                            <TouchableOpacity onPress={()=> this.chooseImg(3) }>
+                                <Image style={styles.img2} source={this.state.sfzf}></Image>
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -147,34 +174,22 @@ export default class CreatShopSendb extends Component {
                 <View>
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>姓名：</Text>
-                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的名字' underlineColorAndroid="transparent"/>
+                    <TextInput style={styles.input} onChangeText={(text) => this.setState({name:text}) } selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的名字' underlineColorAndroid="transparent"/>
                 </View>
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>手机号：</Text>
-                    <TextInput style={styles.input} selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
+                    <TextInput style={styles.input} onChangeText={(text) => this.setState({phone:text}) } selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
                 </View></View>
                 }
                 <View style={styles.single3}>
                     <Text style={styles.midtext}>上传作品图片</Text>
-                    <View style={styles.sendpro}>
-                        <TouchableOpacity onPress={()=> alert(1) }>
-                        <View style={styles.cpbox}>
-                            <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_20.png')}></Image>
-                            <Image style={styles.cpbg} resizeMode={'center'}  source={require('../imgs/sendzheng_14.png')}></Image>
-                        </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> alert(1) }>
-                        <View style={styles.cpbox}>
-                            <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_24.png')}></Image>
-                            <Image style={styles.cpbg} resizeMode={'center'}  source={require('../imgs/sendzheng_14.png')}></Image>
-                        </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.chooseImg() }>
-                        <View style={styles.cpbox}>
-                            <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_17.png')}></Image>
-                        </View>
-                        </TouchableOpacity>    
-                    </View>
+                    <ListView 
+                    contentContainerStyle={styles.sendpro}
+                    dataSource={this.state.dataSource.cloneWithRows(this.state.tupian)}
+                    renderRow={(rowdata, sectionID, rowID)=>this.renderRow(rowdata,sectionID,rowID)}
+                    initialListSize ={1}
+                    renderFooter = {()=>this.renderFooter()}
+                    />
                 </View>
                 <View style={{ paddingTop:6,paddingRight:15, paddingBottom:6, paddingLeft:15}}>
                     <Text style={styles.smalltip}>温馨提示：您需要提供八张以上产品图片以待审核，提供的图片越好越有助于更好的审核通过呦~~</Text>                   
@@ -238,7 +253,7 @@ export default class CreatShopSendb extends Component {
                                         <Text style={{ fontSize:13,color:'#888'}}>取消</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => this.onRequestClose()}>
+                                <TouchableOpacity onPress={() => this.sureModal()}>
                                     {/*登录按钮*/}
                                     <View style={{width:width*0.5,alignItems:'center',justifyContent:'center',backgroundColor:'#ae8300',height:36,}}>
                                         <Text style={{ fontSize:13,color:'#fff'}}>确认</Text>
@@ -254,32 +269,181 @@ export default class CreatShopSendb extends Component {
     //跳转
     GoWait() {
         const {navigate} = this.props.navigation;
-        navigate('CreatShopWait')
-    }
-    chooseImg () {
-        ImagePicker.showImagePicker(photoOptions,(response) =>{
-            console.log('response'+response);
-            if (response.didCancel){
-                return
-            }
+        
+        let a = this.state.name
+        let b= this.state.company
+        let c= this.state.address
+        let d= this.state.detail_address
+        let e= this.state.zhizhao
+        let f= this.state.ID_back
+        let g= this.state.ID_front
+        let h= this.state.images
+        let i= this.state.desc
+        let j= this.state.phone
+        let k= this.state.is_company
+
+        let formData = new FormData();    
+        formData.append("name",a);
+        formData.append("tel",j);
+        formData.append("company",b); 
+        formData.append("company_address",c+','+d);
+        formData.append("zhizhao",e); 
+        formData.append("ID_back",f);
+        formData.append("ID_front",g); 
+        formData.append("is_company",k); 
+        for(let i=0;i<h.length;i++){
+            formData.append("image[]",h[i]); 
+        }
+        formData.append("desc",i); 
+        formData.append("token",token); 
+        console.log(formData)
+        this.submitUrl(formData).then((data)=>{
+            
+            ToastUtil.showShort(data, false);
+            navigate('CreatShopWait');
         })
+    }
+    async submitUrl(formData) {
+        try {
+          // 注意这里的await语句，其所在的函数必须有async关键字声明
+          let response = await fetch(`${host}/App/Auth/add_designer`,{
+            method:'POST',
+            body:formData
+          });
+          let responseJson = await response.json(); 
+          return responseJson.errorMsg;
+        } catch(error) {
+            alert(error);
+            ToastUtil.showShort(error, false);
+          console.error(error);
+        }
+    }
+    sureModal () {
+        let p = cityCode.CityZoneCode.China.Province[this.rowIndex0].name;
+        let c = cityCode.CityZoneCode.China.Province[this.rowIndex0].City[this.rowIndex1].name;
+        let a = cityCode.CityZoneCode.China.Province[this.rowIndex0].City[this.rowIndex1].Area[this.rowIndex2].name;
+        this.setState({
+            isArea:false,
+            province:p,
+            city:c,
+            area:a,
+            address:p+c+a
+        })
+    }
+    renderFooter () {
+        return (
+            <TouchableOpacity onPress={()=> this.chooseImg(4) }>
+                <View style={styles.cpbox}>
+                    <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_17.png')}></Image>
+                </View>
+            </TouchableOpacity>   
+            )
+    }
+    renderRow (row,a,b) {
+
+        return (
+            <TouchableOpacity onPress={()=>this.delImage(b)}>
+                <View style={styles.cpbox}>
+                    <Image style={styles.cptu} resizeMode={'center'} source={row}></Image>
+                    <Image style={styles.cpbg} resizeMode={'center'}  source={require('../imgs/sendzheng_14.png')}></Image>
+                </View>
+            </TouchableOpacity>
+        )
+
     }
     onSelect(index, value){
         if(index==0)
         {
-            
+            this.setState({
+                is_company:1,
+            })
+        }else if (index==1) {
+            this.setState({
+                is_company:0
+            })
         }
-        
         this.setState({
             index:index,
-            text: `Selected index: ${index} , value: ${value}`
+            text: `Selected index: ${index} , value: ${value}`,
+        })
+    }
+    chooseImg (flag) {
+        let that = this;
+        ImagePicker.showImagePicker(photoOptions,(response) =>{
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+          }
+          else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          }
+          else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+          }
+          else {
+            that.uploadImage(response.uri,flag);
+          }
         })
     }
 
+    uploadImage(uri,flag){  
+        let formData = new FormData();  
+        let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
+        let that = this;
+        formData.append("image",file);  
+        fetch(`${host}/App/User/upload_image`,{  
+            method:'POST',  
+            headers:{  
+                'Content-Type':'multipart/form-data',  
+            },  
+            body:formData,  
+        })  
+        .then((response) => response.json() )  
+        .then((responseData)=>{  
+            if(flag==1){
+                this.setState({
+                yezz:{uri:`${host}${responseData.data.image}`},
+                zhizhao:responseData.data.image
+                })
+            }
+            if(flag==2){
+                this.setState({
+                sfzz:{uri:`${host}${responseData.data.image}`},
+                ID_front:responseData.data.image
+                })
+            }
+            if(flag==3){
+                this.setState({
+                sfzf:{uri:`${host}${responseData.data.image}`},
+                ID_back:responseData.data.image
+                })
+            }
+            if(flag==4){
+                let arr = this.state.tupian;
+                let images = this.state.images;
+                arr.push({uri:`${host}${responseData.data.image}`});
+                images.push(responseData.data.image);
+                this.setState({
+                    tupian:arr,
+                    images:images
+                })
+            }
+            
+        })  
+        .catch((error)=>{console.error('error',error)});  
+  
+    } 
 
-    
-
-
+    delImage(b) {
+        let arr = this.state.tupian;
+        let arr2 = this.state.images;
+        arr.splice(b,b+1);
+        arr2.splice(b,b+1);
+        this.setState({
+            tupian:arr,
+            images:arr2
+        });
+        ToastUtil.showShort('图片已删除', false);
+    }
 
     //打开登录框
     onRequestOpen() {    

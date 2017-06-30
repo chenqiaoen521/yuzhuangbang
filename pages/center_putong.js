@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/Wz';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Notice from '../Components/Notice';
 import CenterItem from '../Components/CenterItem';
+import store from 'react-native-simple-store';
 const host = require('../config.json').url;
 const token = require('../config.json').token;
 export default class CenterPT extends Component {
@@ -37,7 +38,7 @@ export default class CenterPT extends Component {
       area:null
     };
   }
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle:'个人中心',
     title:'个人中心',
     tabBarIcon: ({ tintColor }) => (
@@ -47,7 +48,7 @@ export default class CenterPT extends Component {
       <Ionicons.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
         onPress={() => { navigation.state.params.handleShare(); }} />
     )
-  }
+  });
   render() {
     return (
       <View style={styles.container}>
@@ -91,6 +92,12 @@ export default class CenterPT extends Component {
     const {navigate} = this.props.navigation;
     navigate('CreatShop');
   }
+  componentDidMount() {
+    this.props.navigation.setParams({ handleShare: this.onActionSelected });
+  }
+  onActionSelected () {
+    alert();
+  }
   componentWillMount () {
     let data = this.getData();
     data.then((result)=>{
@@ -120,7 +127,7 @@ export default class CenterPT extends Component {
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:this.state.avatar}}/>
+      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${this.state.avatar}`}}/>
       <View style={{flexDirection : 'column',alignItems:'center'}}>
         <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
         <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>
