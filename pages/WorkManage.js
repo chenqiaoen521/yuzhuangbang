@@ -47,15 +47,16 @@ export default class WorkManage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollableTabView initialPage={0} renderTabBar={() => <FacebookTabBar/>} onChangeTab={ (obj) => {console.log('index:'+obj.i)} } >
+                <ScrollableTabView initialPage={0} renderTabBar={() => <FacebookTabBar/>} onChangeTab={ (obj) => this.shuaxin(obj.i) } >
                     <ScrollView tabLabel="ios-paper" style={styles.tabView}>
-                        <WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }  />
+                        {/*<WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } Goshanchu={ (id)=> this.Shanchu(id) }  />*/}
+                        <WorkManageOne ref='zujianOne' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
                     </ScrollView>
                     <ScrollView tabLabel="ios-people" style={styles.tabView}>
-                        <WorkManageTwo popToWatch={ ()=> this.Gojump() } popToBJ={ ()=> this.Goadd() }   />
+                        <WorkManageTwo ref='zujianTwo' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
                     </ScrollView>
                     <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-                        <WorkManageThree popToWatch={ ()=> this.Gojump()} popToBJ={ ()=> this.Goadd() } />
+                        <WorkManageThree ref='zujianThree' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
                     </ScrollView>    
                 </ScrollableTabView>
 
@@ -69,22 +70,60 @@ export default class WorkManage extends Component {
             </View>
         );
     } 
+
+    //添加作品
     Goadd() {
         //console.log(id+'和\n'+name+'和\n'+desc+'和\n'+image)
-        /*const {navigate} = this.props.navigation;
-        navigate('MainDetail',{page:'tjzp',title:'添加作品'});*/
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{page:'tjzp',title:'添加作品'});
     }
-
-
+    //跳转详情页
     Gojump() {
         const {navigate} = this.props.navigation;
         navigate('MainDetail',{title:'这是作品详情页'})
+    }
+
+    //刷新
+    shuaxin(i) {
+        //console.log(i)
+        if(i==0){
+            this.refs.zujianOne.Goget()
+        }else if(i==1){
+            this.refs.zujianTwo.Goget()
+        }else if(i==2){
+            this.refs.zujianThree.Goget()
+        }
     } 
 
+    //作品编辑
+    Gobianji(id,name,desc,image) {
+        var that = this
+        store.get('user')
+        .then(
+            function(data){  
+                //that.Findxq(data.token,id);
+                let find = that.Findxq(data.token,id);
+                find.then(
+                    (result)=>{
+                        if(result){
+                            //存储
+                            console.log(result)
+                            /*const {navigate} = this.props.navigation;
+                            navigate('MainDetail',{title:'这是作品详情页'})
+                            let bianji = that.findbj(data.token,id,name,desc,image,result)*/    
+                        }else{
+                            console.log('无返回')
+                        }
+                    }
+                )  
+            })
+    }
+
+    //先进详情页
     async Findxq(token,id) {
         var that = this
         try {
-            let response = await fetch(`${url}/App/Role/work_up_down?token=${token}&id=${id}`, {
+            let response = await fetch(`${url}/App/Role/work_detail?token=${token}&id=${id}`, {
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -92,7 +131,7 @@ export default class WorkManage extends Component {
             });
             let responseJson = await response.json();
             if(responseJson.errorCode===0){
-                return responseJson.data;   
+                return responseJson.data.album;   
             }else{
                 ToastUtil.showShort(responseJson,true)
             }
@@ -101,16 +140,37 @@ export default class WorkManage extends Component {
             ToastUtil.showShort(error,true)
         } 
     }
+    //再去编辑页
+    /*async findbj(token,id) {
+        var that = this
+        try {
+            let response = await fetch(`${url}/App/Role/add_edit_goods`, {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body:`token=${token}&id=${id}`
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){
+                return responseJson.data.album;   
+            }else{
+                ToastUtil.showShort(responseJson,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        } 
+    }*/
 
+
+    //删除作品
     Shanchu(id) {
         var that = this
         console.log(id)
         store.get('user')
         .then(
             function(data){
-                that.setState({
-                    lingToken:data.token,
-                });  
                 that.Doshan(data.token,id);
             })
     }
@@ -118,7 +178,7 @@ export default class WorkManage extends Component {
         var that = this
         console.log(token+'和'+id)
         try {
-            let response = await fetch(`${url}/App/Role/del_work_img?token=${token}&id=${id}`, {
+            let response = await fetch(`${url}/App/Role/del_work?token=${token}&id=${id}`, {
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -126,7 +186,7 @@ export default class WorkManage extends Component {
             });
             let responseJson = await response.json();
             if(responseJson.errorCode===0){ 
-                ToastUtil.showShort('删除成功',true) 
+                ToastUtil.showShort('删除成功') 
                 console.log(responseJson)
                 return responseJson;   
             }else{

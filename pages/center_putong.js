@@ -35,7 +35,8 @@ export default class CenterPT extends Component {
       phone:null,
       province:null,
       city:null,
-      area:null
+      area:null,
+      shenhe:null,
     };
   }
   static navigationOptions = ({ navigation }) => ({
@@ -89,8 +90,21 @@ export default class CenterPT extends Component {
     navigate('Message');
   }
   toOpen () {
-    const {navigate} = this.props.navigation;
-    navigate('CreatShop');
+    console.log(this.state.shenhe)
+    if(this.state.shenhe==1){
+        //没提交
+        const {navigate} = this.props.navigation;
+        navigate('CreatShop');
+    }/*else if(this.state.shenhe==2 || this.state.shenhe==3 ){
+        const {navigate} = this.props.navigation;
+        navigate('CreatShopWait');
+    }*/else{
+        const {navigate} = this.props.navigation;
+        navigate('CreatShopWait');
+    }
+
+    /*const {navigate} = this.props.navigation;
+    navigate('CreatShop');*/
   }
   componentDidMount() {
     this.props.navigation.setParams({ handleShare: this.onActionSelected });
@@ -109,8 +123,13 @@ export default class CenterPT extends Component {
             phone:result.user_info.phone,
             province:result.user_info.province,
             city:result.user_info.city,
-            area:result.user_info.area
+            area:result.user_info.area,
         })
+        if(result.user_info.agree){
+            this.setState({
+              shenhe:result.user_info.agree,
+            })
+        }
     })
     }
     async getData() {
@@ -127,7 +146,7 @@ export default class CenterPT extends Component {
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${this.state.avatar}`}}/>
+      <Image style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={{uri:`${host}${this.state.avatar}`}}/>
       <View style={{flexDirection : 'column',alignItems:'center'}}>
         <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
         <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>

@@ -105,7 +105,7 @@ export default class Center extends Component {
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={require('../imgs/yihan.jpg')}/>
+      <Image style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={require('../imgs/yihan.jpg')}/>
       <View style={{flexDirection : 'row',alignItems:'center'}}>
         <Text style={{color:'#cccccc',fontSize:16}}>东易力天装饰公司</Text>
         <Text style={{marginLeft:10,width:36,borderRadius:2,padding:1, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>商户</Text>

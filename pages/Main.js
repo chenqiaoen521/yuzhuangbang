@@ -561,7 +561,7 @@ export default class Main extends Component {
             //console.log(that.state.lingType===1)
             if(that.state.lingType===1){
                 const {navigate} = that.props.navigation;
-                navigate('Center')
+                navigate('CenterPT')
             }else if(that.state.lingType===2){
                 const {navigate} = that.props.navigation;
                 navigate('Center')

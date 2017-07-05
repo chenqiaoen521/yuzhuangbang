@@ -41,6 +41,10 @@ export default class WorkManageThree  extends Component {
  
     componentDidMount() {
         var that = this
+        that.Goget()
+    }
+    Goget() {
+        var that = this
         store.get('user')
         .then(
             function(data){
@@ -96,7 +100,7 @@ export default class WorkManageThree  extends Component {
                     </TouchableOpacity>
                     <View style={styles.sinbtn}>
                         {/*<TouchableOpacity onPress={ ()=> this.Goadd(rowData.id,rowData.name,rowData.desc,rowData.image)}>*/}
-                        <TouchableOpacity onPress={ ()=> this.Goadd()}>
+                        <TouchableOpacity onPress={ ()=> this.Goadd(rowData.id,rowData.name,rowData.desc,rowData.image)}>
                             <View style={styles.sbtn}>
                                 <Icon size={12} color="#898989" name="edit"></Icon>
                                 <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>编辑</Text>
@@ -164,9 +168,42 @@ export default class WorkManageThree  extends Component {
             { cancelable: false }
         )
     }
+
+    //删除作品
     del(id) {
-        if(this.props.Goshanchu){
+        /*if(this.props.Goshanchu){
             this.props.Goshanchu(id)
+        }*/
+        var that = this
+        console.log(id)
+        store.get('user')
+        .then(
+            function(data){
+                that.Doshan(data.token,id);
+            })
+    }
+    async Doshan(token,id) {
+        var that = this
+        console.log(token+'和33和'+id)
+        try {
+            let response = await fetch(`${url}/App/Role/del_work?token=${token}&id=${id}`, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){ 
+                ToastUtil.showShort('删除成功') 
+                that.Goget()
+                //console.log(responseJson)
+                //return responseJson;   
+            }else{
+                ToastUtil.showShort(responseJson.errorMsg,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
         }
     }
 
