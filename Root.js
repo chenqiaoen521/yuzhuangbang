@@ -35,6 +35,7 @@ import CreatShopSenda  from './pages/CreatShopSenda';
 import CreatShopSendb  from './pages/CreatShopSendb';
 import CreatShopWait  from './pages/CreatShopWait';
 import AddFriendRequest  from './pages/AddFriendRequest';
+import AddFriendAlready  from './pages/addFriendAlready';
 import Kehu  from './pages/Kehu';
 import KehuAdd  from './pages/KehuAdd';
 import KehuSearch  from './pages/KehuSearch';
@@ -71,6 +72,9 @@ const Root = StackNavigator(
     },
     KehuAdd:{
         screen:KehuAdd
+    },
+    AddFriendAlready:{
+        screen:AddFriendAlready
     },
     KehuSearch:{
         screen:KehuSearch

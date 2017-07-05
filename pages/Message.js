@@ -28,32 +28,46 @@ import LoadingView from '../Components/LoadingView';
 import * as listActionCreators from '../actions/list';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import store from 'react-native-simple-store';
 class Message extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds
+      dataSource: ds,
+      token:''
     };
   }
-  static navigationOptions = {
+static navigationOptions = ({ navigation }) => ({
     headerTitle:'我的消息',
-    headerRight: (
-      <Icon.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
+    headerRight:null
+ });
+
+  componentWillMount () {
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          }); 
+          that.__init(data.token);          
+    })
   }
-  componentDidMount () {
+  __init (token) {
     const {listActions} = this.props;
-    listActions.requestArticleList(false,true,false)
+    listActions.requestArticleList(false,true,false,token)
+  }
+  componentWillReceiveProps(nextProps) {
+    const { list } = this.props;
+    if (
+      list.isLoadMore &&
+      !nextProps.list.isLoadMore &&
+      !nextProps.list.isRefreshing
+    ) {
+      if (nextProps.list.noMore) {
+        ToastUtil.showShort('没有更多数据了');
+      }
+    }
   }
   render() {
     return (
@@ -75,7 +89,7 @@ class Message extends Component {
           </View>
           )
       }else{
-      return (
+      return this.props.list.articleList.length==0?(<View style={{justifyContent:'center',alignItems:'center'}}><Text style={{color:'#fff',fontSize:17}}>暂无数据</Text></View>): (
         <ListView
              dataSource={this.state.dataSource.cloneWithRows(this.props.list.articleList)}
              renderRow={(rowdata)=>this.renderRow(rowdata)}
@@ -101,15 +115,17 @@ class Message extends Component {
   }
   onEndReached(){
     const {listActions} = this.props;
-    listActions.requestArticleList(false,false,true);
+    let token = this.state.token;
+    listActions.requestArticleList(false,false,true,token);
   }
   onRefresh(){
     const {listActions} = this.props;
-    listActions.requestArticleList(true,false,false);
+    let token = this.state.token;
+    listActions.requestArticleList(true,false,false,token);
   }
   renderRow(rowdata){
       return (
-        <TouchableOpacity style={styles.unit} onPress={()=>this.toDetail()}>
+        <TouchableOpacity style={styles.unit} onPress={()=>this.toDetail(rowdata.fans_user_id,rowdata.fans_type)}>
           <View style={styles.item}>
             <View style={styles.icon}>
               <Icon name="bell-o"  style={{fontSize:14,color:'#fff'}}/>
@@ -121,9 +137,13 @@ class Message extends Component {
         </TouchableOpacity>
       )
   }
-  toDetail(){
+  toDetail(id,type){
     const {navigate} = this.props.navigation;
-    navigate('messageFriend');
+    if(parseInt(id)>0){
+      navigate('messageFriend',{fans_user_id:id,fans_type:type});
+    }else{
+      navigate('');
+    }
   }
   renderFooter(){
     if(this.props.list.isLoadMore){

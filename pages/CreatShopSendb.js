@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 const host = require('../config.json').url;
-const token = require('../config.json').token;
+import store from 'react-native-simple-store';
 import ToastUtil from '../utils/ToastUtil';
 import  ImagePicker from 'react-native-image-picker'; //第三方相机
 const photoOptions = {
@@ -269,7 +269,7 @@ export default class CreatShopSendb extends Component {
     //跳转
     GoWait() {
         const {navigate} = this.props.navigation;
-        
+        let token = this.state.token
         let a = this.state.name
         let b= this.state.company
         let c= this.state.address
@@ -281,26 +281,40 @@ export default class CreatShopSendb extends Component {
         let i= this.state.desc
         let j= this.state.phone
         let k= this.state.is_company
-
         let formData = new FormData();    
-        formData.append("name",a);
-        formData.append("tel",j);
-        formData.append("company",b); 
-        formData.append("company_address",c+','+d);
-        formData.append("zhizhao",e); 
-        formData.append("ID_back",f);
-        formData.append("ID_front",g); 
+        if(k == 0){
+            if(!a) {ToastUtil.showShort('姓名不能为空', false);return;}
+            if(!j) {ToastUtil.showShort('电话不能为空', false);return;}
+            formData.append("name",a);
+            formData.append("tel",j);
+        }else if (k==1){
+            if(!b) {ToastUtil.showShort('姓名不能为空', false);return;}
+            if(!c) {ToastUtil.showShort('区域不能为空', false);return;}
+            if(!e) {ToastUtil.showShort('营业执照不能为空', false);return;}
+            if(!f) {ToastUtil.showShort('身份证不能为空', false);return;}
+            if(!g) {ToastUtil.showShort('身份证不能为空', false);return;}
+            formData.append("company",b); 
+            formData.append("company_address",c+','+d);
+            formData.append("zhizhao",e); 
+            formData.append("ID_back",f);
+            formData.append("ID_front",g); 
+        } 
+        
+        
         formData.append("is_company",k); 
         for(let i=0;i<h.length;i++){
             formData.append("image[]",h[i]); 
         }
+        if(!i) {ToastUtil.showShort('描述不能为空', false);return;}
         formData.append("desc",i); 
         formData.append("token",token); 
-        console.log(formData)
         this.submitUrl(formData).then((data)=>{
-            
-            ToastUtil.showShort(data, false);
-            navigate('CreatShopWait');
+            if(data== 'success'){
+              ToastUtil.showShort('提交成功', false);
+                navigate('CreatShopWait',{idcard:'设计师'});  
+            }else{
+                ToastUtil.showShort('提交失败请稍后再试', false);
+            }
         })
     }
     async submitUrl(formData) {
@@ -313,9 +327,7 @@ export default class CreatShopSendb extends Component {
           let responseJson = await response.json(); 
           return responseJson.errorMsg;
         } catch(error) {
-            alert(error);
             ToastUtil.showShort(error, false);
-          console.error(error);
         }
     }
     sureModal () {
@@ -350,6 +362,15 @@ export default class CreatShopSendb extends Component {
             </TouchableOpacity>
         )
 
+    }
+    componentWillMount () {
+        let that = this;
+        store.get('user').then(
+          function(data){
+              that.setState({
+                  token:data.token,
+              });           
+        })
     }
     onSelect(index, value){
         if(index==0)
@@ -485,7 +506,6 @@ const styles = StyleSheet.create({
         textAlign:'center'
     },
     input: {
-        textAlign :'left',
         color:'#888',
         fontSize:13,
         width:(width-20)*0.72,

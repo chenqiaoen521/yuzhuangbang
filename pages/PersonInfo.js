@@ -44,7 +44,7 @@ import ActionSheet from 'react-native-actionsheet';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
 const host = require('../config.json').url;
-const token = require('../config.json').token;
+import store from 'react-native-simple-store';
 export default class PersonInfo extends Component {
     constructor(props) {
         super(props);
@@ -58,19 +58,27 @@ export default class PersonInfo extends Component {
             province:null,
             city:null,
             area:null,
+            token:''
         };
         //三级联动
         this.rowIndex0 = 0;
         this.rowIndex1 = 0;
         this.rowIndex2 = 0;
     }
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         headerTitle:'个人资料',
         headerRight: (
             <Icon.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent"
               activeOpacity={0.8} onPress={() => {  navigation.state.params.handleShare(); }}  />
         )
-    }
+    });
+    componentDidMount() {
+    this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+  }
+  onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
+  }
     uploadImage(uri){  
         let formData = new FormData();  
         let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
@@ -93,7 +101,18 @@ export default class PersonInfo extends Component {
     }  
 
     componentWillMount () {
-        let data = this.getData();
+        let that = this;
+        store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          }); 
+          that.__init(data.token)          
+    })
+        
+    }
+    __init(token){
+        let data = this.getData(token);
         data.then((result)=>{
             this.setState({
                 sex: result.user_info.sex,
@@ -107,7 +126,7 @@ export default class PersonInfo extends Component {
             })
         })
     }
-    async getData() {
+    async getData(token) {
         try {   
           let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
           let responseJson = await response.json();
@@ -167,6 +186,7 @@ export default class PersonInfo extends Component {
         })
     }
     submit () {
+        let token = this.state.token;
             let a =this.state.sex
             let b =this.state.avatar
             let c =this.state.name
@@ -184,7 +204,13 @@ export default class PersonInfo extends Component {
         formData.append("city",g);  
         formData.append("area",h);  
         this.submitUrl(formData).then((data)=>{
-            ToastUtil.showShort(data, false);
+            if(data=="success"){
+                ToastUtil.showShort('保存成功', false);
+                const {goBack} = this.props.navigation;
+                goBack(null);
+            }else{
+                ToastUtil.showShort(data, false);
+            }
         })
     }
     async submitUrl(formData) {

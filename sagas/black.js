@@ -3,18 +3,17 @@ import { request } from '../utils/RequestUtil';
 import * as types from '../constants/ActionTypes';
 import { fetchBlackList, receiveBlackList } from '../actions/black';
 const host = require('../config.json').url;
-const token = require('../config.json').token;
 
-export function* requestArticleList(isRefreshing,loading,isLoadMore,url,page) {
+export function* requestArticleList(isRefreshing,loading,isLoadMore,url,token,page) {
   try {
     yield put(fetchBlackList(isRefreshing,loading,isLoadMore));
-    const data = yield call(request,
-       `${host}${url}?token=${token}`,
-      'get'
+      const res = yield call(request,
+         `${host}${url}?token=${token}`,
+        'get'
+        );
+      yield put(
+        receiveBlackList(res.data)
       );
-    yield put(
-      receiveBlackList(data.data)
-    );
   } catch (error) {
     yield put(receiveBlackList([]));
   }
@@ -22,7 +21,7 @@ export function* requestArticleList(isRefreshing,loading,isLoadMore,url,page) {
 
 export function* watchRequestBlackList() {
   while (true) {
-    const { isRefreshing, loading, isLoadMore,url,page} = yield take(
+    const { isRefreshing, loading, isLoadMore,url,token,page} = yield take(
       types.REQUEST_BLACK_LIST
     );
     yield fork(
@@ -31,6 +30,7 @@ export function* watchRequestBlackList() {
       loading,
       isLoadMore,
       url,
+      token,
       page
     );
   }

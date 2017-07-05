@@ -35,8 +35,44 @@ const showLong = (content, isAlert) => {
     ToastAndroid.show(content.toString(), ToastAndroid.LONG);
   }
 };
+const getUserType = (index) => {
+  let x = '';
 
+    switch(index)
+    {
+    case "1":
+      x = '普通会员';
+      break;
+    case "2":
+      x = '设计师'
+      break;
+    case "3":
+      x = '商家'
+      break;
+    }
+  return x;
+}
+
+const friendType = (index) => {
+  let x = '';
+
+    switch(index)
+    {
+    case "1":
+      x = '同意';
+      break;
+    case "2":
+      x = '已拒绝'
+      break;
+    case "3":
+      x = '已拉黑'
+      break;
+    }
+  return x;
+}
 export default {
   showShort,
-  showLong
+  showLong,
+  getUserType,
+  friendType
 };

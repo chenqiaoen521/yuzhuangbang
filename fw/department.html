@@ -30,8 +30,14 @@
             align-items: center;
 
           }
+          .bianji{align-items: flex-start;margin-left:10px; position: relative;top:3px;  display: inline-block;width: 5px;height: 8px; background-size: 100%;background-position: center; background-repeat: no-repeat; background-image: url(./img/bianji.png);padding:5px; }
+          .dept_employee.start{ height: 44px;}
           .dept_employee .close{  display: inline-block;width: 14px;height: 14px; background-size: 100%;background-position: center; background-repeat: no-repeat; background-image: url(./img/close.png); }
+          .dept_employee .add-left {flex:0 0 50px;}
+          .dept_employee .delete{ display: inline-block;width: 12px;height: 16px; background-size: 100%;background-position: center; background-repeat: no-repeat; background-image: url(./img/detailicon_49.png);padding:5px; }
           .dept_employee .employee_name{color:#fff;font-size: 16px;}
+          .dept_employee .input{flex:1;  background-color: #1b1b1b;border-radius: 6px;color:#ff2d55;}
+          .dept_employee .input .text{color:#4d4d4d;font-size: 15px;margin-left: 20px;}
           .dept_employee .unlock{color:#535353;}
           .list-block .item-inner:after{width:0;}
         </style>
@@ -75,12 +81,20 @@
             <span class="employee_name unlock">黄光裕  (未激活)</span>
             <i class="close"></i>
           </div>
+          <div class="dept_employee start">
+            <div class="add-left">
+              <i class="delete"></i>
+            </div>
+            <div class="input hook-del">
+              删除此部门
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li class="accordion-item"><a href="#" class="item-content item-link">
         <div class="item-inner">
-          <div class="item-title">装修一部</div>
+          <div class="item-title">装修一部</div> 
         </div></a>
       <div class="accordion-item-content">
         <div class="content-block">
@@ -104,6 +118,14 @@
           <div class="dept_employee">
             <span class="employee_name">马化腾</span>
             <i class="close"></i>
+          </div>
+          <div class="dept_employee start">
+            <div class="add-left">
+              <i class="delete"></i>
+            </div>
+            <div class="input">
+              删除此部门
+            </div>
           </div>
         </div>
       </div>
@@ -135,6 +157,14 @@
             <span class="employee_name">马化腾</span>
             <i class="close"></i>
           </div>
+          <div class="dept_employee start">
+            <div class="add-left">
+              <i class="delete"></i>
+            </div>
+            <div class="input">
+              删除此部门
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -165,6 +195,14 @@
             <span class="employee_name">马化腾</span>
             <i class="close"></i>
           </div>
+          <div class="dept_employee start">
+            <div class="add-left">
+              <i class="delete"></i>
+            </div>
+            <div class="input">
+              删除此部门
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -187,6 +225,29 @@
           var myApp = new Framework7(); 
  
           var $$ = Dom7;
+
+$$('.delete,.hook-del').on('click', function () {
+    myApp.confirm('你确定要删除此部门吗', '删除部门',
+                function () {
+                    myApp.alert('已删除');
+                },
+                function () {
+                    
+                }
+            );  
+});
+
+$$('.item-title').on('click', function () {
+  let that = this;
+  $$(that).append('<i class="bianji"></i>');
+  $$(that).css({'background-color':'#333333','padding':'3px 7px'});
+    myApp.prompt('请输入新的部门名称', '部门编辑', function (value) {
+      $$(that).empty();
+        $$(that).text(value);
+    });
+});
+
+
           $$('.close').on('click', function (e) {
           var target = this;
            myApp.confirm('你确定要删除吗', '删除员工',
