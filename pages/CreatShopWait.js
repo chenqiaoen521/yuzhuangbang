@@ -177,7 +177,7 @@ export default class CreatShopWait extends Component {
         } catch(error) {
             console.error(error);
         }
-
+    }
     //跳转
     Gocreat(num) {
         const {goBack} = this.props.navigation;

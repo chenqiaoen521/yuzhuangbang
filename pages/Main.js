@@ -553,7 +553,6 @@ export default class Main extends Component {
     Gocenter() {
         var that = this
         store.get('user').then(function(data){
-            //console.log(data.token+'和'+data.type)
             that.setState({
                 lingToken:data.token,
                 lingType:data.type,
@@ -562,9 +561,9 @@ export default class Main extends Component {
             if(that.state.lingType===1){
                 const {navigate} = that.props.navigation;
                 navigate('CenterPT')
-            }else if(that.state.lingType===2){
+            }else{
                 const {navigate} = that.props.navigation;
-                navigate('CenterPT')
+                navigate('Center')
             }
         })
    

@@ -106,12 +106,13 @@ export default class CenterPT extends Component {
     }
 
     const {navigate} = this.props.navigation;
-    navigate('CreatShop');
-    if(agree&&agree=="3"){
+    console.log(role_type+'和'+agree)
+    /*navigate('CreatShop');*/
+    if(agree&&agree=="1"){
       navigate('CreatShop');
-    }else if (agree&&agree=="2"){
+    }else if (agree&&agree=="2"||agree&&agree=="3"){
       navigate('CreatShopWait',{idcard:role_type});
-    }else if (agree&&agree=="1"){
+    }else if(!agree){
       Alert.alert('提示','开店申请已同意,请退出重新登录')
     }
     

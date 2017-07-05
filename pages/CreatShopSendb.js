@@ -179,7 +179,13 @@ export default class CreatShopSendb extends Component {
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>手机号：</Text>
                     <TextInput style={styles.input} onChangeText={(text) => this.setState({phone:text}) } selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的手机号' underlineColorAndroid="transparent"/>
-                </View></View>
+                </View>
+                <View style={styles.single}>
+                    <Text style={styles.lefttext}>描述：</Text>
+                    <TextInput multiline={true} style={styles.input} onChangeText={(text) => this.setState({desc:text}) }  selectionColor="#fff" placeholderTextColor="#888" placeholder='请输入您的简介' underlineColorAndroid="transparent"/>
+                </View>
+                </View>
+
                 }
                 <View style={styles.single3}>
                     <Text style={styles.midtext}>上传作品图片</Text>
