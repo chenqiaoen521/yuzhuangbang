@@ -21,8 +21,8 @@ import {
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 const host = require('../config.json').url;
-const token = require('../config.json').token;
 import ToastUtil from '../utils/ToastUtil';
+import store from 'react-native-simple-store';
 import  ImagePicker from 'react-native-image-picker'; //第三方相机
 const photoOptions = {
     //底部弹出框选项
@@ -64,13 +64,13 @@ export default class CreatShopSenda extends Component {
             dataSource: ds,
             isArea:false, //注册2选择地区
             text:'',
-            name:null,
-            company:null,
-            address:null,
-            detail_address:null,
-            zhizhao:null,
-            ID_back:null,
-            ID_front:null,
+            name:'',
+            company:'',
+            address:'',
+            detail_address:'',
+            zhizhao:'',
+            ID_back:'',
+            ID_front:'',
             image:null,
             province:'请选择',
             city:'公司所',
@@ -80,7 +80,8 @@ export default class CreatShopSenda extends Component {
             sfzz:require('../imgs/sendzheng_07.png'),
             sfzf:require('../imgs/sendzheng_09.png'),
             tupian:[],
-            images:[]
+            images:[],
+            token:''
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -107,7 +108,7 @@ export default class CreatShopSenda extends Component {
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>公司地址：</Text>
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
-                        <View style={[styles.input,styles.viewbg]}>
+                        <View style={[styles.TextView,styles.viewbg]}>
                             <Text style={{color:'#888',fontSize:13}}>{`${this.state.province}${this.state.city}${this.state.area}`}</Text>
                             <Image style={{width:20,height:12}} resizeMode={'center'} source={require('../imgs/right01.png')}></Image>
                         </View>
@@ -258,6 +259,15 @@ export default class CreatShopSenda extends Component {
             address:p+c+a
         })
     }
+    componentWillMount () {
+        let that =this;
+      store.get('user').then(
+        function(data){
+          that.setState({
+              token:data.token,
+          });           
+        })
+    }
     renderFooter () {
         return (
             <TouchableOpacity onPress={()=> this.chooseImg(4) }>
@@ -293,16 +303,24 @@ export default class CreatShopSenda extends Component {
     //跳转
     GoWait() {
         const {navigate} = this.props.navigation;
-        
+        let token = this.state.token
         let a = this.state.name
+        if(!a) {ToastUtil.showShort('姓名不能为空', false);return;}
         let b= this.state.company
+         if(!b) {ToastUtil.showShort('公司名称不能为空', false);return;}
         let c= this.state.address
+         if(!c) {ToastUtil.showShort('区域不能为空', false);return;}
         let d= this.state.detail_address
+         if(!d) {ToastUtil.showShort('地址不能为空', false);return;}
         let e= this.state.zhizhao
+         if(!e) {ToastUtil.showShort('营业执照不能为空', false);return;}
         let f= this.state.ID_back
+         if(!f) {ToastUtil.showShort('身份证不能为空', false);return;}
         let g= this.state.ID_front
+         if(!g) {ToastUtil.showShort('身份证不能为空', false);return;}
         let h= this.state.images
         let i= this.state.desc
+        if(!i) {ToastUtil.showShort('描述不能为空', false);return;}
         let formData = new FormData();    
         formData.append("name",a);
         formData.append("company",b); 
@@ -317,8 +335,13 @@ export default class CreatShopSenda extends Component {
         formData.append("token",token); 
         
         this.submitUrl(formData).then((data)=>{
-            ToastUtil.showShort(data, false);
-            navigate('CreatShopWait');
+            if(data== 'success'){
+              ToastUtil.showShort('提交成功', false);
+                navigate('CreatShopWait',{idcard:'商户'});  
+            }else{
+                ToastUtil.showShort('提交失败请稍后再试', false);
+            }
+            
         })
     }
     async submitUrl(formData) {
@@ -332,7 +355,6 @@ export default class CreatShopSenda extends Component {
           return responseJson.errorMsg;
         } catch(error) {
             ToastUtil.showShort(error, false);
-          console.error(error);
         }
     }
     chooseImg (flag) {
@@ -442,6 +464,13 @@ const styles = StyleSheet.create({
         color:'#ccc',
         width:width-20,
         //textAlign:'center'
+    },
+    TextView: {
+        //textAlign :'left',
+        //fontSize:13,
+        width:(width-20)*0.72,
+        height:34,
+        paddingLeft:5,
     },
     input: {
         //textAlign :'left',

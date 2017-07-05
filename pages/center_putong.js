@@ -13,20 +13,21 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Alert,
   ScrollView
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
+
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Notice from '../Components/Notice';
 import CenterItem from '../Components/CenterItem';
 import store from 'react-native-simple-store';
+import ToastUtil from '../utils/ToastUtil';
 const host = require('../config.json').url;
-const token = require('../config.json').token;
 export default class CenterPT extends Component {
   constructor(props) {
     super(props);
-  
     this.state = {
       sex:null,
       avatar:null,
@@ -35,7 +36,10 @@ export default class CenterPT extends Component {
       phone:null,
       province:null,
       city:null,
-      area:null
+      area:null,
+      role_type:'',
+      agree:'',
+      token:''
     };
   }
   static navigationOptions = ({ navigation }) => ({
@@ -89,39 +93,75 @@ export default class CenterPT extends Component {
     navigate('Message');
   }
   toOpen () {
+    let agree = this.state.agree;
+    let role_type = this.state.role_type;
+    if(role_type=="2"){
+      role_type = "设计师"
+    }
+    if(role_type=="3"){
+      role_type = "商家"
+    }
+
     const {navigate} = this.props.navigation;
     navigate('CreatShop');
+    if(agree&&agree=="3"){
+      navigate('CreatShop');
+    }else if (agree&&agree=="2"){
+      navigate('CreatShopWait',{idcard:role_type});
+    }else if (agree&&agree=="1"){
+      Alert.alert('提示','开店申请已同意,请退出重新登录')
+    }
+    
   }
   componentDidMount() {
-    this.props.navigation.setParams({ handleShare: this.onActionSelected });
+    this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
   }
   onActionSelected () {
-    alert();
+    const {navigate} = this.props.navigation;
+    navigate('Message');
   }
   componentWillMount () {
-    let data = this.getData();
+    
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          });
+          that.__init(data.token)    
+      });
+  }
+  __init (token) {
+    let data = this.getData(token);
     data.then((result)=>{
-        this.setState({
-            sex: result.user_info.sex,
-            avatar:result.user_info.avatar,
-            name:result.user_info.name,
-            nickname:result.user_info.nickname,
-            phone:result.user_info.phone,
-            province:result.user_info.province,
-            city:result.user_info.city,
-            area:result.user_info.area
-        })
+      this.setState({
+          sex: result.user_info.sex,
+          avatar:result.user_info.avatar,
+          name:result.user_info.name,
+          nickname:result.user_info.nickname,
+          phone:result.user_info.phone,
+          province:result.user_info.province,
+          city:result.user_info.city,
+          area:result.user_info.area,
+          role_type:result.user_info.role_type,
+          agree:result.user_info.agree,
+      })
     })
-    }
-    async getData() {
-        try {   
-          let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
-          let responseJson = await response.json();
-          return responseJson.data;
-        } catch(error) {
-            console.error(error);
+  }
+  async getData(token) {
+      try {   
+        let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
+        let responseJson = await response.json();
+        if(responseJson.errorCode==4000){
+          ToastUtil.showShort('您的角色已经重置请重新登陆', true);
+          store.save('user',{token:null,type:null})
+          this.props.navigation.navigate('Main')
         }
-    }
+        return responseJson.data;
+      } catch(error) {
+          console.error(error);
+      }
+  }
   renderHead(){
     return(
     <View style={{

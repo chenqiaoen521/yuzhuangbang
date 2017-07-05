@@ -22,7 +22,7 @@ var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit'
 export default class MyBlack extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle:'我的黑名单',
     headerRight: (
       <Icon.Button
@@ -35,6 +35,13 @@ export default class MyBlack extends Component {
         }}
       />
     )
+  });
+  componentDidMount() {
+    this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+  }
+  onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
   }
   render() {
     return (

@@ -4,7 +4,8 @@ const initialState = {
   isRefreshing:false,
   loading:false,
   isLoadMore:false,
-  articleList:[]
+  articleList:[],
+  noMore: false
 };
 
 export default function black(state = initialState, action) {
@@ -19,6 +20,7 @@ export default function black(state = initialState, action) {
       return Object.assign({}, state, {
         isRefreshing: false,
         loading:false,
+        noMore: action.articleList.length === 0,
         articleList:state.isLoadMore ? loadMore(state, action):combine(state,action)
       });
     default:

@@ -541,7 +541,7 @@ export default class Main extends Component {
                     });
                     return responseJson.data      
                 }else{
-                    ToastUtil.showShort(responseJson.errorMsg,true)
+                    ToastUtil.showShort(responseJson.errorMsg,false)
                 }    
             }catch(error) {
                 console.error(error);
@@ -561,10 +561,10 @@ export default class Main extends Component {
             //console.log(that.state.lingType===1)
             if(that.state.lingType===1){
                 const {navigate} = that.props.navigation;
-                navigate('Center')
+                navigate('CenterPT')
             }else if(that.state.lingType===2){
                 const {navigate} = that.props.navigation;
-                navigate('Center')
+                navigate('CenterPT')
             }
         })
    
