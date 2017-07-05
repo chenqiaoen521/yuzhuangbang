@@ -21,10 +21,12 @@ import {
   RefreshControl,
   ActivityIndicator
 } from 'react-native';
-
+const host = require('../config.json').url;
+import ToastUtil from '../utils/ToastUtil';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Ionicons';
+import store from 'react-native-simple-store';
 import ModalDropdown from 'react-native-modal-dropdown';
 export default class Icare extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -67,31 +69,89 @@ export default class Icare extends Component {
       />
     )
    });
+  componentWillMount () {
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          });
+          that.__init(data.token);         
+    })
+  }
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds
+      dataSource: ds,
+      data:[],
+      token:''
     };
   }
-  componentDidMount () {
-    const data = require('../data/friend.js')
-    this.setState({
-      dataSource:this.state.dataSource.cloneWithRows(data.data)
+  onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
+  }
+  __init (token) {
+    //const data = require('../data/friend.js')
+    const {navigation} = this.props;
+    navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+    let id = navigation.state.params.id;
+    let that = this;
+    this.getData(id,token).then(function (data) {
+      if(data.length == 0){
+        ToastUtil.showShort('您还没有好友', false);
+      }
+      that.setState({
+        data:data
+      })
     })
-    
+  }
+  async getData(id,token) {
+    let formData = new FormData();
+    formData.append('token',token);
+    let url = '';
+    if(id==1){
+      url = `${host}/App/Role/my_guanZhu`;
+    }else if (id==2) {
+      url = `${host}/App/Role/my_fans`;
+    }else if (id==3) {
+      url = `${host}/App/Role/get_follow_my_request`;
+    }
+    try {   
+        let response = await fetch(url,{
+          method:'POST',
+          body:formData
+        });
+        let responseJson = await response.json();
+        return responseJson.data;
+      } catch(error) {
+          console.error(error);
+      }
   }
   renderOptionRow (rowData, rowID, highlighted) {
     return (
-      <View style={{flexDirection:'row',alignItems: 'center',height:40, justifyContent : 'center',backgroundColor:highlighted ? '#ae8300':'#333333'}}>
+      <TouchableOpacity style={{flexDirection:'row',alignItems: 'center',height:40, justifyContent : 'center',backgroundColor:highlighted ? '#ae8300':'#333333'}}>
         <Text style={{color:'#fff',fontSize:14}}>{rowData}</Text>
-      </View>
+      </TouchableOpacity>
       )
   } 
   renderSeparator(){
     return (
       <View style={{width:width,height:1,backgroundColor:'#555555'}}></View>
       )
+  }
+  onSelect(e){
+    let arr = [];
+    let data = this.state.data;
+    for(let i=0;i<data.length;i++){
+      if(data[i].fans_type == e){
+        arr.push(data[i])
+      }
+    }
+    this.setState({
+      data:arr
+    })
   }
   render() {
     return (
@@ -102,6 +162,7 @@ export default class Icare extends Component {
           dropdownStyle={styles.dropdownd}
           defaultIndex={-1}
           options={['客户', '设计师','商户']}
+          onSelect= {(e)=>this.onSelect(e)}
           renderSeparator={()=>this.renderSeparator()}
           renderRow={(rowData, rowID, highlighted)=>this.renderOptionRow(rowData, rowID, highlighted)}
           >
@@ -116,7 +177,7 @@ export default class Icare extends Component {
             </View>
           </ModalDropdown>
           <ListView
-               dataSource={this.state.dataSource}
+               dataSource={this.state.dataSource.cloneWithRows(this.state.data)}
                renderRow={(rowdata)=>this.renderRow(rowdata)}
                contentContainerStyle={styles.contentViewStyle}
                enableEmptySections={true}
@@ -127,11 +188,21 @@ export default class Icare extends Component {
   }
   renderRow(rowdata) {
     return (
-      <View style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#1b1b1b'}}>
-        <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={rowdata.icon}/>
-        <Text style={{fontSize:12,color:'#cccccc'}}>{rowdata.name}</Text>
-      </View>
+      <TouchableOpacity onPress={()=>this.toDetail(rowdata.fans_user_id,rowdata.fans_type)} style={{flexDirection:"row",alignItems:'center',padding:5,marginBottom:1,backgroundColor:'#1b1b1b'}}>
+        <Image style={{width:36,height:36,borderRadius:18,marginRight:10}} source={{uri:`${host}${rowdata.avatar}`}}/>
+        <Text style={{fontSize:12,color:'#cccccc'}}>{rowdata.user_name}</Text>
+      </TouchableOpacity>
       )
+  }
+  toDetail (id,type){
+    const {navigate} = this.props.navigation;
+    const {navigation} = this.props;
+    let friendid = navigation.state.params.id;
+    if(friendid == 3){
+      navigate('AddFriendAlready',{user_id:id,type:type}); 
+    }else{
+      navigate('addFriendDetail',{user_id:id,type:type});
+    }
   }
 }
 

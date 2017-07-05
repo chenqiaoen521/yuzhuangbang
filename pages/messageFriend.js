@@ -23,15 +23,30 @@ import {
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit';
+import store from 'react-native-simple-store';
 import ActionSheet from 'react-native-actionsheet';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
+const host = require('../config.json').url;
+var {width,height} = Dimensions.get('window');
+import ToastUtil from '../utils/ToastUtil';
 export default class MessageFriend extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      
+      id: null,
+      follow_user_id: null,
+      fans_user_id: null,
+      follow_type: null,
+      fans_type: null,
+      created_at: null,
+      status: null,
+      content: null,
+      remark: null,
+      fans_name: null,
+      avatar: null,
+      token:''
     };
 
   }
@@ -49,6 +64,51 @@ export default class MessageFriend extends Component {
       />
     )
   }
+  componentWillMount () {
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          });   
+      that.__init(data.token);        
+    })
+  }
+  __init (token) {
+        let that = this;
+        let {fans_user_id,fans_type} = this.props.navigation.state.params;
+        this.getData(fans_user_id,fans_type,token).then(function(data){
+            that.setState({
+              id: data.id,
+              follow_user_id: data.follow_user_id,
+              fans_user_id: data.fans_user_id,
+              follow_type: data.follow_type,
+              fans_type: data.fans_type,
+              created_at: data.created_at,
+              status: data.status,
+              content: data.content,
+              remark: data.remark,
+              fans_name: data.fans_name,
+              avatar: data.avatar
+            })
+        })
+    }
+  async getData(user_id,type,token) {
+      let formData = new FormData(); 
+      formData.append('token',token);   
+      formData.append('fans_user_id',user_id);   
+      formData.append('fans_type',type);   
+      try {   
+        let response = await fetch(`${host}/App/Role/follow_msg_info`,{
+          method:'POST',
+          body:formData
+        });
+        let responseJson = await response.json();
+        return responseJson.data;
+      } catch(error) {
+          console.error(error);
+      }
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -56,27 +116,68 @@ export default class MessageFriend extends Component {
           <Text style={{color:'#cccccc',fontSize:16}}>好友申请</Text>
         </View>
         <View style={styles.unit}>
-          <Image source={require('../imgs/yihan.jpg')} style={styles.left}/>
+          <Image source={{uri:`${host}${this.state.avatar}`}} style={styles.left}/>
           <View style={styles.middle}> 
-            <Text style={{color:'#cccccc',fontSize:15}}>东易力天装饰公司</Text>
-            <Text style={{color:'#999999',fontSize:13,marginTop:4}}>业务员：王大锤</Text>
+            <Text style={{color:'#cccccc',fontSize:15}}>{this.state.fans_name}</Text>
+            <Text style={{color:'#999999',fontSize:13,marginTop:4,width:100}}>来自：好友请求</Text>
           </View>
-          <TouchableOpacity style={styles.right}>
+          <TouchableOpacity style={styles.right} onPress={()=>this.chkn()}>
             <Text style={{color:'#292929',fontSize:13,backgroundColor:'#ae8300',padding:3, color:'#fff',width:66,borderRadius:4,textAlign:'center'}}>查看</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.introduce}>
           <Text style={{color:'#999999',fontSize:14}}>请求加您为好友 :</Text>
-          <Text style={{color:'#999999',fontSize:14,marginTop:5}}>我是东易力天装饰的业务员,我叫王大水。</Text>
+          <Text style={{color:'#666666',fontSize:12,marginTop:5,marginLeft:10}}>{this.state.content}</Text>
+          <Text style={{color:'#666666',fontSize:12,marginTop:5,marginLeft:10}}>{this.state.remark}</Text>
         </View>
+        {
+          this.state.status == 0 ?
         <View style={styles.btns}>
-          <TouchableOpacity style={styles.btn}t><Text style={[styles.btnTxt,{marginBottom:14, backgroundColor:'#1b1b1b',color:'#999999'}]}>拒绝</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.btn}><Text style={styles.btnTxt}>同意</Text></TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.submit(0)} style={styles.btn}><Text style={[styles.btnTxt,{marginBottom:14, backgroundColor:'#1b1b1b',color:'#999999'}]}>拒绝</Text></TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.submit(1)} style={styles.btn}><Text style={styles.btnTxt}>同意</Text></TouchableOpacity>
         </View>
+        :
+         <View style={styles.btns}>
+          <View onPress={()=>this.submit(1)} style={styles.btn}><Text style={styles.btnTxt}>{ToastUtil.friendType(this.state.status)}</Text></View>
+        </View> 
+        }
       </View>
     );
   }
-
+  chkn (){
+    const {navigate} = this.props.navigation;
+    navigate('addFriendDetail',{user_id:this.state.fans_user_id,type:this.state.fans_type});
+  }
+  submit (index){
+    let token = this.state.token;
+    let formData = new FormData(); 
+    formData.append('token',token);   
+    formData.append('id',this.state.id);   
+    if(index == 1) {
+      formData.append('status',1); 
+    }else{
+      formData.append('status',2); 
+    }
+    this.submitData(formData).then((data)=>{
+      if(data == 'success'){
+        ToastUtil.showShort('操作成功', false);
+        this.props.navigation.goBack(null);
+      }
+    })
+  }
+  async submitData(formData) {
+      
+    try {   
+      let response = await fetch(`${host}/App/Role/edit_follow`,{
+        method:'POST',
+        body:formData
+      });
+      let responseJson = await response.json();
+      return responseJson.errorMsg;
+    } catch(error) {
+        console.error(error);
+    }
+  }
 }
 
 const styles = StyleSheet.create({

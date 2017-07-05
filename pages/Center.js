@@ -19,9 +19,27 @@ var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Notice from '../Components/Notice';
+const host = require('../config.json').url;
+import store from 'react-native-simple-store';
 import CenterItem from '../Components/CenterItem';
+import ToastUtil from '../utils/ToastUtil';
 export default class Center extends Component {
-  static navigationOptions = {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sex:null,
+      avatar:null,
+      name:null,
+      nickname:null,
+      phone:null,
+      province:null,
+      city:null,
+      area:null,
+      type:'',
+      store:''
+    };
+  }
+  static navigationOptions = ({ navigation }) => ({
     headerTitle:'个人中心',
     title:'个人中心',
     tabBarIcon: ({ tintColor }) => (
@@ -31,12 +49,20 @@ export default class Center extends Component {
       <Ionicons.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
         onPress={() => { navigation.state.params.handleShare(); }} />
     )
+  });
+  
+  componentDidMount() {
+    this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+  }
+  onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
   }
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
-          {this.renderHead()}
+          {this.renderHead(this)}
           <View style={{flexDirection:'row',alignItems : 'center',justifyContent : 'center',
           marginTop:15}}>
             {this.renderHeadBottom()}
@@ -99,16 +125,52 @@ export default class Center extends Component {
     const {navigate} = this.props.navigation;
     navigate('CreatShop');
   }
-  
-  renderHead(){
+  componentWillMount () {
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token
+          });  
+          that.__init(data.token)         
+    })
+  }
+  __init (token) {
+    let data = this.getData(token);
+    data.then((result)=>{
+        this.setState({
+            sex: result.user_info.sex,
+            avatar:result.user_info.avatar,
+            name:result.user_info.name,
+            nickname:result.user_info.nickname,
+            phone:result.user_info.phone,
+            province:result.user_info.province,
+            city:result.user_info.city,
+            area:result.user_info.area,
+            type:result.user_info.type,
+        })
+    })
+  }
+  async getData(token) {
+      try {   
+        let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+      } catch(error) {
+          console.error(error);
+      }
+  }
+  renderHead(obj){
     return(
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={require('../imgs/yihan.jpg')}/>
+
+      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
+
       <View style={{flexDirection : 'row',alignItems:'center'}}>
-        <Text style={{color:'#cccccc',fontSize:16}}>东易力天装饰公司</Text>
-        <Text style={{marginLeft:10,width:36,borderRadius:2,padding:1, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>商户</Text>
+        <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
+        <Text style={{marginLeft:10,borderRadius:2,padding:1, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>{ToastUtil.getUserType(obj.state.type)}</Text>
       </View>
     </View>
     )

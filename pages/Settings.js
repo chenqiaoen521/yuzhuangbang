@@ -27,7 +27,7 @@ import Unit from '../Components/Unit'
 import store from 'react-native-simple-store';
 
 export default class Settings extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle:'设置管理',
     headerRight: (
       <Icon.Button
@@ -40,6 +40,13 @@ export default class Settings extends Component {
         }}
       />
     )
+  });
+  componentDidMount() {
+    this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+  }
+  onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
   }
   render() {
     return (

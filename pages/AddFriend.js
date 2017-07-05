@@ -17,63 +17,97 @@ import {
   Button,
   Switch,
   Alert,
-  Modal
+  Modal,
+  ListView
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+const host = require('../config.json').url;
+import store from 'react-native-simple-store';
+import ToastUtil from '../utils/ToastUtil';
 export default class AddFriend extends Component {
   constructor(props) {
     super(props);
-  
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      
+      cont:'',
+      dataSource: ds,
+      contList:[],
     };
   }
   static navigationOptions = {
     headerTitle:'添加好友'
   }
+
   render() {
     return (
       <View style={styles.container}>
         {this.renderSearch()}
-        {this.renderResult()}
+        <ListView 
+          contentContainerStyle={styles.sendpro}
+          dataSource={this.state.dataSource.cloneWithRows(this.state.contList)}
+          renderRow={(rowdata, sectionID, rowID)=>this.renderRow(rowdata,sectionID,rowID)}
+          initialListSize ={1}
+        />
       </View>
     );
   }
   renderSearch () {
     return (
       <View style={styles.search}>
-        <Ionicons 
+        <Ionicons.Button
           name="ios-search" 
           color='#666666'
           size={25}
           backgroundColor="transparent"
           underlayColor="transparent"
+          onPress={() => {
+            this.search();
+          }}
           activeOpacity={0.8}/>
           <TextInput 
             underlineColorAndroid="transparent" 
             style={{color:'#cccccc',marginLeft:10,padding:0,width:200,textAlign:'left',fontSize:15,}} 
             placeholder  = {'输入对方账号进行查找'}
+            onChangeText={(text) => this.setState({cont:text}) }
             placeholderTextColor = '#666666'
           />
       </View>
       )
   }
-
-  renderResult () {
+  search () {
+    let a = this.state.cont
+    if(!a) {ToastUtil.showShort('请输入搜索内容', false);return;}
+    this.getData().then((data)=>{
+      this.setState({
+        contList:data
+      })
+    })
+  }
+  async getData() {
+    let key = this.state.cont;
+      try {   
+        let response = await fetch(`${host}/App/User/search_user?key=${key}`);
+        let responseJson = await response.json();
+        return responseJson.data;
+      } catch(error) {
+          console.error(error);
+      }
+  }
+  renderRow (rowdata,sectionID,rowID) {
     return (
-      <TouchableOpacity onPress={this._abc.bind(this)} >
-        <View style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#151515'}}>
-          <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={require('../imgs/yihan.jpg')}/>
-          <Text style={{fontSize:12,color:'#cccccc'}}>{'艾若溪河(7558484939)'}</Text>
-        </View>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>this.go(rowdata.id,rowdata.role_type) } >
+          <View style={{flexDirection:"row",alignItems:'center',padding:10,marginBottom:1,backgroundColor:'#151515'}}>
+            <Image style={{width:44,height:44,borderRadius:22,marginRight:10}} source={{uri:`${host}${rowdata.avatar}`}}/>
+            <Text style={{fontSize:12,color:'#cccccc'}}>{rowdata.nickname}</Text>
+          </View>
+        </TouchableOpacity>
       )
   }
-  _abc () {
-     const {navigate} = this.props.navigation;
-    navigate('addFriendDetail');
+
+  go (id,type) {
+     this.props.navigation.navigate('addFriendDetail',{user_id:id,type:type});
   }
 }
 

@@ -72,7 +72,7 @@ export default class CreatShopWait extends Component {
                             <Image style={styles.bgtu}  source={require('./../imgs/opentbg_03.png')}>
                                 <View style={styles.center}>
                                     <Text style={styles.text}>我是</Text>
-                                    <Text style={styles.text}>商户</Text>
+                                    <Text style={[styles.text]}>{this.props.navigation.state.params.idcard}</Text>
                                 </View>
                             </Image>
                         </Image>
@@ -82,7 +82,7 @@ export default class CreatShopWait extends Component {
 
                     { this.state.shenhe==2 ? 
                     <View style={{padding:15,alignItems:'center',tejustifyContent:'center'}}>
-                        <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>您提交的商户信息正在审核中…{'\n'}请您耐心等待</Text>
+                        <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>您提交的{this.props.navigation.state.params.idcard}信息正在审核中…{'\n'}请您耐心等待</Text>
                     </View>
                     : null }
 
@@ -117,6 +117,7 @@ export default class CreatShopWait extends Component {
             </View>
         );
     }
+
 
     //重新申请
     Goagain() {
@@ -176,6 +177,12 @@ export default class CreatShopWait extends Component {
         } catch(error) {
             console.error(error);
         }
+
+    //跳转
+    Gocreat(num) {
+        const {goBack} = this.props.navigation;
+        goBack(null);
+
     }
   
 }

@@ -27,7 +27,8 @@ import LoadingView from '../Components/LoadingView';
 import * as blackCreators from '../actions/black';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-var url = require('../config.json').url;
+const host = require('../config.json').url;
+import store from 'react-native-simple-store';
 var loadMoreTime = 0;
 var pages = 0;
 class BlackList extends Component {
@@ -35,23 +36,50 @@ class BlackList extends Component {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds
+            dataSource: ds,
+            token:''
         };
     }
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         headerTitle:'黑名单',
         headerRight: (
             <Icon.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
               onPress={() => { navigation.state.params.handleShare(); }} />
         )
+    });
+    componentWillReceiveProps(nextProps) {
+    const { black } = this.props;
+    if (
+      black.isLoadMore &&
+      !nextProps.black.isLoadMore &&
+      !nextProps.black.isRefreshing
+    ) {
+      if (nextProps.black.noMore) {
+        ToastUtil.showShort('没有更多数据了');
+      }
     }
-    componentDidMount () {
+  }
+  componentWillMount () {
+    let that= this ;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          });
+          that.__init(data.token)       
+    })
+  }
+    __init (token) {
         const {blackActions} = this.props;
-        const {state} = this.props.navigation;
-        console.log(state.params.url);
-        blackActions.requestBlackList(false,true,false,state.params.url);
+        this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+        const url = this.props.navigation.state.params.url;
+        blackActions.requestBlackList(false,true,false,url,token);
         pages = 1;
     }
+    onActionSelected () {
+    const {navigate} = this.props.navigation;
+    navigate('Message');
+  }
     render() {
         return (
             <View style={styles.container}>
@@ -65,7 +93,7 @@ class BlackList extends Component {
                 <LoadingView/>
             )
         }else{
-            return (
+            return this.props.black.articleList.length==0?(<View style={{justifyContent:'center',alignItems:'center'}}><Text style={{color:'#fff',fontSize:17}}>暂无数据</Text></View>): (
                 <ListView
                     dataSource={this.state.dataSource.cloneWithRows(this.props.black.articleList)}
                     renderRow={(rowdata)=>this.renderRow(rowdata)}
@@ -88,20 +116,24 @@ class BlackList extends Component {
         if (time - loadMoreTime > 1) {
             const {blackActions} = this.props;
             pages = pages + 1 ;
-            blackActions.requestBlackList(false,false,true,pages);
+            let token = this.state.token;
+            const url = this.props.navigation.state.params.url;
+            blackActions.requestBlackList(false,false,true,url,token,pages);
             loadMoreTime = Date.parse(new Date()) / 1000;
         }
     }
     onRefresh(){
         const {blackActions} = this.props;
         pages = 1;
-        blackActions.requestBlackList(true,false,false,pages);
+        let token = this.state.token;
+        const url = this.props.navigation.state.params.url;
+        blackActions.requestBlackList(true,false,false,url,token,pages);
     }
     renderRow(rowdata){
         return (
             <TouchableOpacity style={styles.unit} >
                 <View style={styles.up}>
-                    <Image style={styles.img} source={{uri:`${url}/${rowdata.avatar}`}} />
+                    <Image style={styles.img} source={{uri:`${host}/${rowdata.avatar}`}} />
                     <Text style={[styles.nameStyle,{fontSize:16}]}>{rowdata.contact_name}</Text>
                 </View>
                 <View style={styles.down}>

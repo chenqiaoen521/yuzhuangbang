@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import ToastUtil from '../utils/ToastUtil';
 import {
   StyleSheet,
   Text,
@@ -23,14 +24,17 @@ var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit';
 import ActionSheet from 'react-native-actionsheet';
+import store from 'react-native-simple-store';
 import cityCode from '../Components/ChinaCityCode';
 import Picker from 'react-native-roll-picker/lib/Picker';
+const host = require('../config.json').url;
 export default class Feedback extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      
+      content:'',
+      token:''
     };
 
   }
@@ -51,27 +55,60 @@ export default class Feedback extends Component {
   render() {
     return (
       <View style={styles.container}>
-
           <TextInput
             placeholderTextColor="#515151"
             placeholder="请输入您的反馈内容"
+            onChangeText={(text) => this.setState({content:text}) }
             multiline={true}
             style={styles.inputStyle}
              numberOfLines = {10}
             underlineColorAndroid="transparent"
-            onEndEditing={(event) => this.updateText(
-              'onEndEditing text: ' + event.nativeEvent.text
-            )}
         />
 
         <Text style={styles.textStyle}>请详细描述您遇到的问题，有助于我们快速定位并解决问题</Text>
-        <TouchableOpacity style={styles.tj}>
+        <TouchableOpacity onPress={()=>{this.submit()}} style={styles.tj}>
           <Text style={{color:'#fff',width:width,textAlign:'center'}}>提交</Text>
         </TouchableOpacity>
       </View>
     );
   }
-
+  componentWillMount () {
+    let that = this;
+    store.get('user').then(
+      function(data){
+          that.setState({
+              token:data.token,
+          });           
+    })
+  }
+  submit () {
+    let content = this.state.content;
+    this.postData(content).then((data)=>{
+      if(data.errorMsg=='success'){
+        ToastUtil.showShort('您的意见已经提交成功', false);return;
+        this.props.navigation.goBack(null);
+      }else{
+        ToastUtil.showShort('提交失败请稍后再试', false);return;
+      }
+    })
+  }
+  async postData(content) {
+    let token = this.state.token;
+    let formData = new FormData();
+    formData.append('token',token);
+    formData.append('content',content);
+    let url = `${host}/App/Role/suggest`;
+    try {   
+        let response = await fetch(url,{
+          method:'POST',
+          body:formData
+        });
+        let responseJson = await response.json();
+        return responseJson;
+      } catch(error) {
+          console.error(error);
+      }
+  }
 }
 
 const styles = StyleSheet.create({

@@ -1,11 +1,12 @@
 import * as types from '../constants/ActionTypes';
 
-export function requestArticleList(isRefreshing,loading,isLoadMore) {
+export function requestArticleList(isRefreshing,loading,isLoadMore,token) {
   return {
     type: types.REQUEST_ARTICLE_LIST,
     isRefreshing,
     loading,
-    isLoadMore
+    isLoadMore,
+    token
   };
 }
 
