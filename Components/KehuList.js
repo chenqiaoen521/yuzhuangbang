@@ -6,6 +6,13 @@ import { AppRegistry, ListView, Text, Image, View, StyleSheet, TouchableOpacity,
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+//获取公共域名
+var url = require('../config.json').url
+//弹窗信息
+import ToastUtil from '../utils/ToastUtil'
+//存储登录信息
+import store from 'react-native-simple-store';
+
 var {width,height} = Dimensions.get('window');
 export default class KehuList  extends Component {
     // 初始化模拟数据
@@ -14,7 +21,8 @@ export default class KehuList  extends Component {
         //对比数据
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows([
+            dataSource: ds
+            /*.cloneWithRows([
                 {"name":'王女士 ','img':require('../imgs/detailicon_14.png'),'number':13253421545,'tip':'接触中'},
                 {"name":'陈先生 ','img':require('../imgs/friend_05.png'),'number':12353426987,'tip':'已收定'},
                 {"name":'马先生 ','img':require('../imgs/goods_04.jpg'),'number':12354642578,'tip':'设计中'},
@@ -29,10 +37,13 @@ export default class KehuList  extends Component {
                 {"name":'宇文先生 ','img':require('../imgs/dlicon01.png'),'number':15468793245,'tip':'已竣工'},
                 {"name":'王女士 ','img':require('../imgs/detailicon_14.png'),'number':13253421545,'tip':'未装修'},
                 {"name":'陈先生 ','img':require('../imgs/friend_05.png'),'number':12353426987,'tip':'售后'},
-            ]),           
+            ])*/,           
             onoff: true,
+            empty:0,
+            //word:this.props.name
         };
     }
+    
     static defaultProps = {
         popToWatch: null,
     }
@@ -41,35 +52,88 @@ export default class KehuList  extends Component {
         return (
             <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}  >
             <View style={styles.sg}>
-                <Image style={styles.sgimg} source={rowData.img}></Image>
+                <Image style={styles.sgimg} source={rowData.img}  source={{uri:`${url}${rowData.avatar}`}}></Image>
                 <Text style={styles.sgName} numberOfLines={1}>
-                    {rowData.name}
-                    <Text style={{color:'#666'}}>{rowData.number}</Text>
+                    {rowData.contact_name}
+                    <Text style={{color:'#666'}}>{rowData.phone}</Text>
                 </Text>
-                <Text style={styles.sgtip}>{rowData.tip}</Text>
+                {/*<Text style={styles.sgtip}>{rowData.tip}</Text>*/}
             </View>
             </TouchableOpacity>
         )
     }
 
+    
+
     render() {
         return (
-            <View style={styles.sglist}>
-                {/*{
-                    this.state.onoff ? */}
+            /*<View style={styles.sglist}>
+                
                     <ListView
                         dataSource={this.state.dataSource}
                         renderRow={this.renderMovieList.bind(this)}
                     />
-                    {/*: <Text>false</Text>}*/}
-
+            </View>*/
+            <View style={styles.sglist}>
+                { this.state.empty == 0 ? 
+                <View style={{ padding:20, alignItems:'center', paddingTop:50,justifyContent:'center'}}>
+                    {/*<Image style={{ width:50, height:50, marginBottom:5, marginTop:30}} source={require('./../imgs/none.png')}></Image>*/}
+                    <Text style={{ fontSize:16, color:'#888'}}>暂无此类结果</Text>
+                </View>
+                : 
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderMovieList.bind(this)}
+                />
+                }
+                
             </View>
-            
         );
     }
     popToHome () {
         if(this.props.popToWatch){
             this.props.popToWatch()
+        }
+    }
+
+    Dofind( word ) {
+        alert(word)
+        var that = this
+        store.get('user').then(
+            function(data){
+                that.refs.jieguo.dofind(data.token,word)        
+            })
+    }
+
+    async dofind(token,name){
+        var that = this
+        try {
+            let response = await fetch(`${url}/App/Role/search_contact?token=${token}&name=${name}`,{
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){
+                if(responseJson.data.length==0){
+                    that.setState({
+                        empty:0
+                    }); 
+                }else{
+                    that.setState({
+                        dataSource:that.state.dataSource.cloneWithRows(responseJson.data)
+                    }); 
+                }   
+                console.log(responseJson)
+                return responseJson;
+            }else{
+                console.log(responseJson)
+                ToastUtil.showShort(responseJson.errorMsg,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
         }
     }
 }

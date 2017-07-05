@@ -37,9 +37,11 @@ export default class CenterPT extends Component {
       province:null,
       city:null,
       area:null,
+
       role_type:'',
       agree:'',
       token:''
+
     };
   }
   static navigationOptions = ({ navigation }) => ({
@@ -93,6 +95,7 @@ export default class CenterPT extends Component {
     navigate('Message');
   }
   toOpen () {
+
     let agree = this.state.agree;
     let role_type = this.state.role_type;
     if(role_type=="2"){
@@ -134,6 +137,7 @@ export default class CenterPT extends Component {
   __init (token) {
     let data = this.getData(token);
     data.then((result)=>{
+
       this.setState({
           sex: result.user_info.sex,
           avatar:result.user_info.avatar,
@@ -146,6 +150,7 @@ export default class CenterPT extends Component {
           role_type:result.user_info.role_type,
           agree:result.user_info.agree,
       })
+
     })
   }
   async getData(token) {
@@ -167,7 +172,7 @@ export default class CenterPT extends Component {
     <View style={{
       alignItems:'center',
     }}>
-      <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${this.state.avatar}`}}/>
+      <Image style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={{uri:`${host}${this.state.avatar}`}}/>
       <View style={{flexDirection : 'column',alignItems:'center'}}>
         <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
         <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>
