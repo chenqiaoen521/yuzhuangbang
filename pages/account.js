@@ -50,18 +50,7 @@ export default class Account extends Component {
     };
   }
   static navigationOptions = ({ navigation }) => ({
-    headerTitle:'子账号管理',
-    headerRight: (
-      <Icon.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
+    headerTitle:'子账号添加'
   });
   componentDidMount () {
     let that = this;

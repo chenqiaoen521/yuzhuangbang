@@ -41,11 +41,7 @@ class BlackList extends Component {
         };
     }
     static navigationOptions = ({ navigation }) => ({
-        headerTitle:'黑名单',
-        headerRight: (
-            <Icon.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
-              onPress={() => { navigation.state.params.handleShare(); }} />
-        )
+        headerTitle:'黑名单'
     });
     componentWillReceiveProps(nextProps) {
     const { black } = this.props;

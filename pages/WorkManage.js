@@ -33,16 +33,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class WorkManage extends Component {
     static navigationOptions = {
-        headerTitle:'作品管理',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        headerTitle:'作品管理'
     }
     render() {
         return (

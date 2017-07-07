@@ -118,7 +118,7 @@ export default class WorkDetail extends Component {
         }else if(tt2>0){
             //去主页 
             console.log('去主页吧')
-            navigate('MyHomeOther',{url:message})
+            navigate('MyHomeOther',{title:'设计师主页',url:message})
         }
     }
     renderSpinner() {
