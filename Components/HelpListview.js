@@ -24,7 +24,7 @@ export default class HelpListview  extends Component {
 
     renderMovieList(rowData) {
         return (
-            <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}  >
+            <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome(rowData.id)}  >
             <View style={styles.sg}>
                 <Text style={styles.sgName} numberOfLines={1}>{rowData.title}</Text>
                 <Icon style={styles.icn} name="angle-right" size={23} color="#636363" />
@@ -43,9 +43,9 @@ export default class HelpListview  extends Component {
             </View>
         );
     }
-    popToHome () {
+    popToHome (id) {
         if(this.props.popToWatch){
-            this.props.popToWatch()
+            this.props.popToWatch(id)
         }
     }
 }
