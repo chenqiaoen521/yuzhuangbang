@@ -40,6 +40,7 @@
           .dept_employee .input .text{color:#4d4d4d;font-size: 15px;margin-left: 20px;}
           .dept_employee .unlock{color:#535353;}
           .list-block .item-inner:after{width:0;}
+          .add-dept{background-color: #ae8300;color:#fff;text-align: center;line-height: 50px;position: absolute;bottom:0;left: 0;right:0;}
         </style>
     </head>
     <body>
@@ -210,7 +211,7 @@
 </div>
 
   
-
+        <div class="add-dept">添加部门</div>
         </div>
       </div>
   </div>
@@ -238,7 +239,7 @@ $$('.delete,.hook-del').on('click', function () {
 });
 
 $$('.item-title').on('click', function () {
-  let that = this;
+  var that = this;
   $$(that).append('<i class="bianji"></i>');
   $$(that).css({'background-color':'#333333','padding':'3px 7px'});
     myApp.prompt('请输入新的部门名称', '部门编辑', function (value) {
@@ -246,7 +247,11 @@ $$('.item-title').on('click', function () {
         $$(that).text(value);
     });
 });
-
+          $$('.add-dept').on('click', function () {
+                myApp.prompt('请输入新的部门名称', '部门添加', function (value) {
+      
+            });
+          })
 
           $$('.close').on('click', function (e) {
           var target = this;
