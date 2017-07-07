@@ -122,15 +122,15 @@ export default class WorkDetail extends Component {
         }
     }
     renderSpinner() {
-    const { params } = this.props.navigation.state;
-    return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          this.setState({
-            isShareModal: false
-          });
-        }}
-      >
+      const { params } = this.props.navigation.state;
+      return (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            this.setState({
+              isShareModal: false
+            });
+          }}
+        >
         <View key={'spinner'} style={styles.spinner}>
           <View style={styles.spinnerContent}>
             <Text

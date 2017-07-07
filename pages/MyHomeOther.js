@@ -14,14 +14,20 @@ import {
     Image,
     Dimensions,
     WebView,
-    Alert
+    Alert,
+    TouchableOpacity,
+    Modal,
+    TouchableWithoutFeedback
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
 import IconDetail from '../Components/IconDetail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import * as WeChat from 'react-native-wechat';
+import LoadingView from '../Components/LoadingView';
 //获取公共域名
+const shareIconWechat = require('../imgs/share_icon_wechat.png');
+const shareIconMoments = require('../imgs/share_icon_moments.png');
 var url = require('../config.json').url
 //弹窗信息
 import ToastUtil from '../utils/ToastUtil'
@@ -48,6 +54,7 @@ export default class MyHomeOther extends Component {
         // 初始状态
         this.state = {
             htmlsrc:'https://m.facebook.com',
+            isShareModal:false
         };
 
     }
@@ -56,8 +63,9 @@ export default class MyHomeOther extends Component {
         this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
     }
     onActionSelected () {
-        const {navigate} = this.props.navigation;
-        navigate('Message');
+         this.setState({
+            isShareModal: true
+        });
     }
 
     render() {
@@ -66,6 +74,18 @@ export default class MyHomeOther extends Component {
         console.log(`${url}${page}`)
         return (
             <ScrollView contentContainerStyle={styles.container}>
+                <Modal
+                  animationType="fade"
+                  visible={this.state.isShareModal}
+                  transparent
+                  onRequestClose={() => {
+                    this.setState({
+                      isShareModal: false
+                    });
+                  }}
+                >
+                {this.renderSpinner()}
+                </Modal>
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
@@ -86,6 +106,83 @@ export default class MyHomeOther extends Component {
         const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})
     }
+    renderSpinner() {
+      const { params } = this.props.navigation.state;
+      return (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            this.setState({
+              isShareModal: false
+            });
+          }}
+        >
+        <View key={'spinner'} style={styles.spinner}>
+          <View style={styles.spinnerContent}>
+            <Text
+              style={[styles.spinnerTitle, { fontSize: 20, color: 'black' }]}
+            >
+              分享到
+            </Text>
+            <View style={styles.shareParent}>
+              <TouchableOpacity
+                style={styles.base}
+                onPress={() => {
+                  WeChat.isWXAppInstalled().then((isInstalled) => {
+                    if (isInstalled) {
+                      WeChat.shareToSession({
+                        title:'分享自：预装帮',
+                        description: '分享自：预装帮',
+                        thumbImage: null,
+                        type: 'news',
+                        webpageUrl: `${url}${page}`
+                      }).catch((error) => {
+                        ToastUtil.showShort(error.message, true);
+                      });
+                    } else {
+                      ToastUtil.showShort('没有安装微信软件，请您安装微信之后再试', true);
+                    }
+                  });
+                }}
+              >
+                <View style={styles.shareContent}>
+                  <Image style={styles.shareIcon} source={shareIconWechat} />
+                  <Text style={styles.spinnerTitle}>
+                    微信
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.base}
+                onPress={() => {
+                  WeChat.isWXAppInstalled().then((isInstalled) => {
+                    if (isInstalled) {
+                      WeChat.shareToTimeline({
+                        title:`[@iReading]预装帮`,
+                        thumbImage: '',
+                        type: 'news',
+                        webpageUrl: `${url}${page}`
+                      }).catch((error) => {
+                        ToastUtil.showShort(error.message, true);
+                      });
+                    } else {
+                      ToastUtil.showShort('没有安装微信软件，请您安装微信之后再试', true);
+                    }
+                  });
+                }}
+              >
+                <View style={styles.shareContent}>
+                  <Image style={styles.shareIcon} source={shareIconMoments} />
+                  <Text style={styles.spinnerTitle}>
+                    朋友圈
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
