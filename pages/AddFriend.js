@@ -68,6 +68,7 @@ export default class AddFriend extends Component {
           activeOpacity={0.8}/>
           <TextInput 
             underlineColorAndroid="transparent" 
+            onSubmitEditing={()=>this.search()}
             style={{color:'#cccccc',marginLeft:10,padding:0,width:200,textAlign:'left',fontSize:15,}} 
             placeholder  = {'输入对方账号进行查找'}
             onChangeText={(text) => this.setState({cont:text}) }

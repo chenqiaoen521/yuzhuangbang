@@ -14,19 +14,12 @@ export default class HelpListview  extends Component {
         //对比数据
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows([
-                {"title":'世界上有三种东西是掩盖不了的,咳嗽,贫穷和爱情'},
-                {"title":'天下没有免费的午餐，你别想得太好了'},
-                {"title":'开什么玩笑，任何事情都是有代价的'},
-                {"title":'我的生活就像是在白夜里行走'},
-                {"title":'愿有人与你共黄昏，有人问你粥可温'},
-                {"title":'你站在桥上看风景，看风景的人在楼上看你'},
-                {"title":'世上有两样东西不可直视，一是太阳，二是人心。'},       
-            ])
+            dataSource:ds
         };
     }
     static defaultProps = {
-        popToWatch: null
+        popToWatch: null,
+        data:[]
     }
 
     renderMovieList(rowData) {
@@ -44,7 +37,7 @@ export default class HelpListview  extends Component {
         return (
             <View style={styles.sglist}>
                 <ListView
-                    dataSource={this.state.dataSource}
+                    dataSource={this.state.dataSource.cloneWithRows(this.props.data)}
                     renderRow={this.renderMovieList.bind(this)}
                 />
             </View>
