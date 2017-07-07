@@ -78,6 +78,7 @@ export default class AccountAdd extends Component {
         <View style={styles.container}>
           <View style={styles.unit}>
             <Text style={styles.txt}>姓名</Text>
+
             <TextInput
              onChangeText={(text) => this.setState({user_name:text}) }
              underlineColorAndroid="transparent" 
@@ -85,6 +86,7 @@ export default class AccountAdd extends Component {
              placeholder={'请输入姓名'} 
              defaultValue={this.state.user_name} 
              style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+
           </View>
           {this.renderPhone.bind(this)()}
           {this.renderBottom.bind(this)()}
@@ -124,7 +126,9 @@ export default class AccountAdd extends Component {
         <View style={styles.phone}>
             <View style={{flexDirection:'row',alignItems : 'center'}}>
               <Text style={styles.txt}>手机号</Text>
+
               <TextInput onChangeText={(text) => this.setState({phone:text}) }  underlineColorAndroid="transparent" placeholderTextColor ='#888888'  placeholder={'请输入手机号'} style={{color:'#888888',fontSize:13,  marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+
             </View>
             <View style={{flexDirection:'row',alignItems : 'center'}}>
               <TouchableOpacity onPress={()=>this.getCode()}>
@@ -137,12 +141,14 @@ export default class AccountAdd extends Component {
         return (
           <View style={styles.unit}>
             <Text style={styles.txt}>手机号</Text>
+
             <TextInput underlineColorAndroid="transparent" 
              placeholderTextColor ='#888888'  
              placeholder={'请输入手机号'} 
              defaultValue={this.state.phone} 
              onChangeText={(text) => this.setState({phone:text}) }
              style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+
           </View>
         )
      }
@@ -154,12 +160,14 @@ export default class AccountAdd extends Component {
       return (
         <View style={styles.unit}>
             <Text style={styles.txt}>验证码</Text>
+
             <TextInput 
             onChangeText={(text) => this.setState({code:text}) }  
             underlineColorAndroid="transparent" 
             placeholderTextColor ='#888888'  
             placeholder={'请输入验证码'} 
             style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+
           </View>
         )
      }else{

@@ -35,36 +35,32 @@ import ToastUtil from '../utils/ToastUtil'
 import store from 'react-native-simple-store';
 
 export default class Center extends Component {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         headerRight: (
-            <View style={{ 
-                    width:width-80, 
-                    borderBottomWidth:1, 
-                    borderBottomColor:'#ae8300', 
-                    flexDirection:'row', 
-                    justifyContent:'space-between',
-                    alignItems:'center', 
-                    height:40, 
-                    marginRight:10, paddingLeft:5, paddingRight:5, }} >
+            <View style={{ width:width-80, borderBottomWidth:1, borderBottomColor:'#ae8300', flexDirection:'row', justifyContent:'space-between',
+                    alignItems:'center', height:40, marginRight:10, paddingLeft:5, paddingRight:5, }} >
 
-                <TouchableOpacity>
-                <View style={{ width:30, height:24, borderRadius:3, marginTop:3, paddingLeft:5, justifyContent:'center',alignItems:'center'}}>
-                    <Icons.Button name="md-search" backgroundColor="transparent" underlayColor="transparent" 
-                        activeOpacity={0.8} style={{padding:0}} />
-                    {/*<Text style={{color:'#fff', fontSize:13, textAlign:'center',}}>搜索</Text>*/}
+                <TextInput placeholderTextColor="#777" onChangeText={(text) => { navigation.state.params.Goset(text) }} 
+                    placeholder='输入关键字' underlineColorAndroid="transparent" 
+                    style={{ width:width-125, color:'#777', fontSize:15, textAlign:'left', padding:0, }} />
+
+                <TouchableOpacity onPress={ ()=> { navigation.state.params.Gosou(); }}>
+                <View style={{ width:40, height:24, borderRadius:3, marginTop:3, paddingLeft:5, justifyContent:'center',alignItems:'center'}}>
+                    {/*<Icons.Button name="md-search" backgroundColor="transparent" underlayColor="transparent" 
+                        activeOpacity={0.8} style={{padding:0}} />*/}
+                    <Text style={{color:'#fff', fontSize:13, textAlign:'center',}}>搜索</Text>
                 </View>
-                </TouchableOpacity>
 
-                <TextInput 
-                    placeholderTextColor="#777"  
-                    //onChangeText={(text) => this.setState({word:text})} 
-                    underlineColorAndroid="transparent" placeholder='易烊千玺'
-                    style={{ width:width-115, color:'#777', fontSize:15, textAlign:'left', padding:0, }} />
+                </TouchableOpacity>
 
             </View>   
             
         )
-    }
+    })
+
+
+    
+
     // 构造
     constructor(props) {
         super(props);
@@ -72,7 +68,7 @@ export default class Center extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             IsResult: false,      //单选内容
-            word:'王三',
+            word:null,
             onoff: true,
         };
         
@@ -83,18 +79,16 @@ export default class Center extends Component {
             <View style={styles.container}>
                 <ScrollView>
                     {
-                        that.state.IsResult == false ? 
-                        <TouchableOpacity onPress={ ()=> that.Gofind() }>
-                        <View style={{width:width}}>
-                            <Image resizeMode={'center'} style={[styles.bmid,{ width:width},{ marginTop:80}]} source={require('./../imgs/bgtext_03.png')}>
-                                <Text style={styles.etext}>输入搜索指定客户以及信息</Text>
-                            </Image>
-                        </View>
-                        </TouchableOpacity>
-                        :
-                        <KehuList ref='jieguo' popToWatch={ ()=> that.Goxq() } />
-                    }
-                    {/*<KehuList ref='jieguo' popToWatch={ ()=> that.Goxq() } />*/}
+                    that.state.IsResult == false ?
+                    <TouchableOpacity /*onPress={ ()=> this.Gofind(this.state.word) }*/>
+                    <View style={{width:width}}>
+                        <Image resizeMode={'center'} style={[styles.bmid,{ width:width},{ marginTop:80}]} source={require('./../imgs/bgtext_03.png')}>
+                            <Text style={styles.etext}>输入搜索指定客户以及信息</Text>
+                        </Image>
+                    </View>
+                    </TouchableOpacity>
+                    : null }
+                    <KehuList ref='zujian' popToWatch={ ()=> that.Goxq() } />
                 </ScrollView>    
             </View>
         );
@@ -104,11 +98,26 @@ export default class Center extends Component {
         navigate('Kehu',{page:'xq',title:'客户详情'});
     }
 
+    componentDidMount() {
+        this.props.navigation.setParams({ 
+            Gosou: ()=>this.Gofind() ,
+            Goset: (text)=>this.Gokey(text)
+        });
+    }
+
     Gofind() {
+        this.setState({ IsResult:true }); 
         var that = this
-        that.setState({
-            IsResult:true
-        })
+        that.refs.zujian.Dofinds(that.state.word)    
+    }
+
+    Gokey(text) {
+        /*if(!text){
+            ToastUtil.showShort('关键字不能为空')
+        }
+        else{*/
+            this.setState({ word:text }); 
+        /*} */
     }
 
     

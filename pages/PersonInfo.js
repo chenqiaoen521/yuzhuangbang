@@ -160,7 +160,7 @@ export default class PersonInfo extends Component {
                     <Unit popToSetting={()=>this.chooseImg.bind(this)()} topColor="#151515" bgColor="#282828" txtCol="#999999" icon={{uri:iconUrl}} title="头像"/>
                     <Unit popToSetting={(text)=>this.changeName(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="姓名" rightInput={this.state.name}/>
                     <Unit popToSetting={(text)=>this.changeNick(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="昵称" rightInput={this.state.nickname}/>
-                    <Unit popToSetting={()=>this.GoPhone()} edit={false} topColor="#151515" bgColor="#282828" txtCol="#999999" title="手机号" rightInput={this.state.phone}/>
+                    <Unit popToSetting={()=>this.GoPhone()} edit={false} topColor="#151515" bgColor="#282828" txtCol="#999999" editable={false} title="手机号" rightInput={this.state.phone}/>
                     <View style={{marginTop:10}}>
                         <Unit popToSetting={()=>this.checkSex()} topColor="#151515" bgColor="#282828" txtCol="#999999" title="性别" rightTxt={this.state.sex}/>
                         <Unit topColor="#151515" popToSetting={()=>this.checkArea()} bgColor="#282828" txtCol="#999999" title="我的地址" rightTxt={`${this.state.province}${this.state.city}${this.state.area}`}/>
@@ -236,8 +236,8 @@ export default class PersonInfo extends Component {
     }
     //去换手机号
     GoPhone(){
-        const {navigate} = this.props.navigation;
-        navigate('ChangePhone');
+        /*const {navigate} = this.props.navigation;
+        navigate('ChangePhone');*/
     }
     sureModal () {
         let p = cityCode.CityZoneCode.China.Province[this.rowIndex0].name;

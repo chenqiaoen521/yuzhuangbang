@@ -70,7 +70,8 @@ export default class Center extends Component {
             pershename:'',
             perxiang:'',
             flag:1,
-            token:''
+            token:'',
+            jump:false,
         };
         
         //单选框
@@ -233,8 +234,7 @@ export default class Center extends Component {
             function(data){
                 /*that.setState({
                     token:data.token,
-                }); */ 
-                   
+                }); */                
                 that.Doadd(
                     data.token,
                     that.state.pername,
@@ -263,9 +263,12 @@ export default class Center extends Component {
                 });
                 let responseJson = await response.json();
                 if(responseJson.errorCode===0){
-                    ToastUtil.showShort('添加成功')
                     console.log(responseJson)
+                    ToastUtil.showShort('添加成功')
+                    that.setState({ jump:true, });
+                    that.Gojump();
                     return responseJson;
+
                 }else{
                     console.log(responseJson)
                     ToastUtil.showShort(responseJson.errorMsg,true)
@@ -297,6 +300,12 @@ export default class Center extends Component {
                 console.error(error);
                 ToastUtil.showShort(error,true)
             }
+        }
+    }
+    Gojump() {
+        if( this.state.jump){
+            const {navigate} = this.props.navigation;
+            navigate('Center')
         }
     }
 

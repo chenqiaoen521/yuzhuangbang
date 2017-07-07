@@ -40,7 +40,6 @@ export default class KehuList  extends Component {
             ])*/,           
             onoff: true,
             empty:0,
-            //word:this.props.name
         };
     }
     
@@ -52,10 +51,12 @@ export default class KehuList  extends Component {
         return (
             <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome()}  >
             <View style={styles.sg}>
-                <Image style={styles.sgimg} source={rowData.img}  source={{uri:`${url}${rowData.avatar}`}}></Image>
+                <View style={styles.sgimgb}>
+                    <Image style={styles.sgimg} source={rowData.img}  source={{uri:`${url}${rowData.avatar}`}}></Image>
+                </View>
                 <Text style={styles.sgName} numberOfLines={1}>
                     {rowData.contact_name}
-                    <Text style={{color:'#666'}}>{rowData.phone}</Text>
+                    <Text style={{color:'#666',paddingLeft:6}}>{rowData.phone}</Text>
                 </Text>
                 {/*<Text style={styles.sgtip}>{rowData.tip}</Text>*/}
             </View>
@@ -67,26 +68,19 @@ export default class KehuList  extends Component {
 
     render() {
         return (
-            /*<View style={styles.sglist}>
-                
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={this.renderMovieList.bind(this)}
-                    />
-            </View>*/
             <View style={styles.sglist}>
-                { this.state.empty == 0 ? 
+                { this.state.empty == -1 ? 
                 <View style={{ padding:20, alignItems:'center', paddingTop:50,justifyContent:'center'}}>
                     {/*<Image style={{ width:50, height:50, marginBottom:5, marginTop:30}} source={require('./../imgs/none.png')}></Image>*/}
                     <Text style={{ fontSize:16, color:'#888'}}>暂无此类结果</Text>
                 </View>
-                : 
+                : null }
+                { this.state.empty == 1 ? 
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderMovieList.bind(this)}
                 />
-                }
-                
+                : null }
             </View>
         );
     }
@@ -96,44 +90,46 @@ export default class KehuList  extends Component {
         }
     }
 
-    Dofind( word ) {
-        alert(word)
+    Dofinds(word) {
         var that = this
         store.get('user').then(
             function(data){
-                that.refs.jieguo.dofind(data.token,word)        
+                that.dfinds(data.token,word)        
             })
     }
-
-    async dofind(token,name){
+    async dfinds(token,name){
         var that = this
-        try {
-            let response = await fetch(`${url}/App/Role/search_contact?token=${token}&name=${name}`,{
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            });
-            let responseJson = await response.json();
-            if(responseJson.errorCode===0){
-                if(responseJson.data.length==0){
-                    that.setState({
-                        empty:0
-                    }); 
+        if(!name){
+            ToastUtil.showShort('关键字不能为空')
+        }
+        else{
+            try {
+                let response = await fetch(`${url}/App/Role/search_contact?token=${token}&name=${name}`,{
+                    method:'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                });
+                let responseJson = await response.json();
+                if(responseJson.errorCode===0){
+                    if(responseJson.data.length==0){
+                        that.setState({ empty:-1 }); 
+                    }else{
+                        that.setState({
+                            empty:1,
+                            dataSource:that.state.dataSource.cloneWithRows(responseJson.data)
+                        }); 
+                    }   
+                    console.log(responseJson)
+                    return responseJson;
                 }else{
-                    that.setState({
-                        dataSource:that.state.dataSource.cloneWithRows(responseJson.data)
-                    }); 
-                }   
-                console.log(responseJson)
-                return responseJson;
-            }else{
-                console.log(responseJson)
-                ToastUtil.showShort(responseJson.errorMsg,true)
+                    console.log(responseJson)
+                    ToastUtil.showShort(responseJson.errorMsg,true)
+                }
+            } catch(error) {
+                console.error(error);
+                ToastUtil.showShort(error,true)
             }
-        } catch(error) {
-            console.error(error);
-            ToastUtil.showShort(error,true)
         }
     }
 }
@@ -164,17 +160,24 @@ const styles = StyleSheet.create({
         fontFamily:'Helvetica Neue',
         fontWeight:'300',
         color:'#aaa',
-        width:(width-74)*0.8,
+        width:(width-74),
         overflow:'hidden',
         fontSize:14,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     sgimg: {
         width:36,
         height:36,
-        borderRadius:20,
+        backgroundColor:'#fff',
+    },
+    sgimgb: {
+        width:36,
+        height:36,
+        backgroundColor:'#fff',
+        borderRadius:18,
         marginRight:14,
+        overflow:'hidden'
     },
     sgtip: {
         width:(width-74)*0.2,
