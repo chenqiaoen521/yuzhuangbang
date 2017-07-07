@@ -13,7 +13,6 @@ import CenterPT  from './pages/center_putong';
 import Splash from './pages/Splash';
 import SearchPage from './pages/SearchPage';
 import MainDetail  from './pages/MainDetail';
-import MyFav  from './pages/myFav';
 import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
 import HelpCenter  from './pages/HelpCenter';
@@ -100,9 +99,6 @@ const Root = StackNavigator(
     },
     MainDetail:{
       screen:MainDetail,
-    },
-    MyFav:{
-      screen:MyFav,
     },
     addFriend:{
       screen:AddFriend,
