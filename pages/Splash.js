@@ -88,7 +88,7 @@ export default class Splash extends Component {
   }
   toIndex () {
     const {navigate} = this.props.navigation;
-    navigate('Index')
+    navigate('Main')
   }
   renderIndicator () {
     let indicatorArr = [];
