@@ -77,9 +77,6 @@ export default class KehuNews extends Component {
             </ScrollView>
         );
     }
-
-    
-
 }
 
 const styles = StyleSheet.create({
