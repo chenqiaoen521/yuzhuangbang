@@ -88,10 +88,10 @@ export default class CenterPT extends Component {
         const {navigate} = this.props.navigation;
         navigate('MyCollect',{title:'我的收藏'});
     }
-     popToparent(id){
-    const {navigate} = this.props.navigation;
-    navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
-  }
+    popToparent(id){
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{id:id,title:'公告详情',page:'/App/Index/article_detail'});
+    }
 
 
     toMessage () {

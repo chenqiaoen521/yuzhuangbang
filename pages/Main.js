@@ -326,7 +326,7 @@ export default class Main extends Component {
     }
     popToparent(id){
         const {navigate} = this.props.navigation;
-        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
+        navigate('MainDetail',{id:id,title:'公告详情',page:'/App/Index/article_detail'});
     }
     //登录按钮
     GoLogin() {
@@ -616,9 +616,9 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
     container: { paddingTop:15, flex: 1, backgroundColor: '#151515', },
-    modalViewStyle: { height:0.45*height },
+    modalViewStyle: { height:0.2*height },
     popmsg: { height:0.55*height, backgroundColor:'white', borderRadius:10, },
-    modalViewBStyle: { height:0*height, },
+    modalViewBStyle: { height:0.25*height, },
     biao: { justifyContent:'center', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#eee', paddingTop:16, paddingBottom:16, width:width, },
     biaoti: { fontSize:16, color:'#666', },
     fill: { alignItems:'center', paddingTop:10, },

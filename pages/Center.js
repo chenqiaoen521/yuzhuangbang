@@ -88,7 +88,7 @@ export default class Center extends Component {
     }
     popToparent(id){
         const {navigate} = this.props.navigation;
-        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
+        navigate('MainDetail',{id:id,title:'公告详情',page:'/App/Index/article_detail'});
     }
     toSetting(){
         const {navigate} = this.props.navigation;
