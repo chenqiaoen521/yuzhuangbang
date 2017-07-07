@@ -39,6 +39,7 @@ import MyBranch  from './pages/MyBranch';
 import MyClient  from './pages/MyClient';
 import KehuNews  from './pages/KehuNews';
 /**H5**/
+import AccountEdit  from './pages/AccountEdit';
 
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
@@ -110,6 +111,7 @@ const Root = StackNavigator(
         MyBranch:{ screen:MyBranch },
         MyClient:{ screen:MyClient },
         KehuNews:{ screen:KehuNews },
+        AccountEdit:{ screen:AccountEdit },
 
     },
     {

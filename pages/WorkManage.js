@@ -78,8 +78,8 @@ export default class WorkManage extends Component {
     }
     //跳转详情页
     Gojump() {
-        const {navigate} = this.props.navigation;
-        navigate('MainDetail',{title:'这是作品详情页'})
+        /*const {navigate} = this.props.navigation;
+        navigate('WorkDetail',{title:'作品详情'})*/
     }
 
     //刷新

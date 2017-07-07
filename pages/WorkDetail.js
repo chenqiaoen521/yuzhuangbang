@@ -78,10 +78,23 @@ export default class WorkDetail extends Component {
         );
     }
     receiveMessage (e) {
-        let message = e.nativeEvent.data
-        console.log(message)
+        let message = e.nativeEvent.data;
+        console.log(message);
         const {navigate} = this.props.navigation;
         navigate('MyHomeOther',{url:message})
+        var str = 'login';
+        var str2 = 'home_page';
+        var tt = message.indexOf(str);
+        var tt2 = message.indexOf(str2);
+        if( tt > 0){
+            //去登录吧
+            ToastUtil.showShort('请先登录！')
+            navigate('Main')
+        }else if(tt2>0){
+            //去主页 
+            console.log('去主页吧')
+            navigate('MyHomeOther',{url:message})
+        }
     }
 
 }

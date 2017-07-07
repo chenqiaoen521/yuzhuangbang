@@ -123,7 +123,7 @@ export default class Center extends Component {
                             <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'男'}> 
                                 <Text style={{fontSize:13,color:'#777'}}>男</Text> 
                             </RadioButton>
-                            <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'女'} onPress={()=>alert(2)}> 
+                            <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'女'}> 
                                 <Text style={{fontSize:13,color:'#777'}}>女</Text> 
                             </RadioButton>
                         </RadioGroup>

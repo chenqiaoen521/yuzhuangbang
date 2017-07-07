@@ -36,7 +36,8 @@ export default class Center extends Component {
             city:null,
             area:null,
             type:'',
-            store:''
+            store:'',
+            numdata:[]
         };
     }
     static navigationOptions = ({ navigation }) => ({
@@ -74,7 +75,7 @@ export default class Center extends Component {
                         <CenterItem popToCenter={()=>this.towork()} icon={require('../imgs/middle_07.png')} txt="商品管理"/>
                         <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
                         <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
-                        <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号管理"/>
+                        <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号添加"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
                         <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/middle_05.png')} txt="我的收藏"/>
@@ -99,12 +100,10 @@ export default class Center extends Component {
     }
     toPartment () {
         const {navigate} = this.props.navigation;
-        //navigate('MainDetail',{page:'part',title:'部门管理'});
         navigate('MyBranch',{title:'部门管理'});
     }
     toFav(){
         const {navigate} = this.props.navigation;
-        //navigate('MainDetail',{page:'fav',title:'我的收藏'});
         navigate('MyCollect',{title:'我的收藏'});
     }
     toBlack(){
@@ -122,11 +121,12 @@ export default class Center extends Component {
     componentWillMount () {
         let that = this;
         store.get('user').then(
-          function(data){
-              that.setState({
-                  token:data.token
-              });  
-              that.__init(data.token)         
+            function(data){
+                that.setState({
+                    token:data.token
+                });  
+                that.__init(data.token)     
+                that.Getnum(data.token)        
         })
     }
     __init (token) {
@@ -147,32 +147,58 @@ export default class Center extends Component {
     }
     async getData(token) {
         try {   
-          let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
-          let responseJson = await response.json();
-          console.log(responseJson.data)
-          return responseJson.data;
+            let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
+            let responseJson = await response.json();
+            console.log(responseJson.data)
+            return responseJson.data;
         } catch(error) {
             console.error(error);
         }
     }
+
+    Getnum(token) {
+        var that = this
+        let data = this.Donum(token);
+        data.then((result)=>{
+            this.setState({
+                numdata: result,
+            })
+        })
+    }
+    async Donum(token) {
+        try {   
+            let response = await fetch(`${host}/App/Center/get_count?token=${token}`);
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){
+                console.log(responseJson.data)
+                return responseJson.data;
+            }else {
+                console.log(errorMsg);
+            }
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
     renderHead(obj){
         return(
             <View style={{ alignItems:'center', }}>
-              <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
-              <View style={{flexDirection : 'row',alignItems:'center'}}>
-                  <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
-                  <Text style={{marginLeft:10,borderRadius:2,padding:1, paddingLeft:3, paddingRight:3, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>{ToastUtil.getUserType(obj.state.type)}</Text>
-              </View>
+                <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
+                <View style={{flexDirection : 'row',alignItems:'center'}}>
+                    <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
+                    <Text style={{marginLeft:10,borderRadius:2,padding:1, paddingLeft:3, paddingRight:3, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>{ToastUtil.getUserType(obj.state.type)}</Text>
+                </View>
             </View>
         )
     }
     renderHeadBottom () {
+        var that = this;
         let arr = [];
         let itemData = [
-        {'icons':require('../imgs/center_02.png'),myname:'我关心的',cont:52,id:1},
-        {'icons':require('../imgs/center_04.png'),myname:'关心我的',cont:103,id:2},
-        {'icons':require('../imgs/center_01.png'),myname:'我的好友',cont:152,id:3},
-        {'icons':require('../imgs/center_03.png'),myname:'我的客户',cont:11,id:4}]
+        {'icons':require('../imgs/center_02.png'),myname:'我关心的',cont:that.state.numdata.my_follow,id:1},
+        {'icons':require('../imgs/center_04.png'),myname:'关心我的',cont:that.state.numdata.follow_my,id:2},
+        {'icons':require('../imgs/center_01.png'),myname:'我的好友',cont:that.state.numdata.my_friend,id:3},
+        {'icons':require('../imgs/center_03.png'),myname:'我的客户',cont:that.state.numdata.my_contact,id:4}]
         itemData.map((item,i) => {
             arr.push(
                 <View key={i}>
@@ -188,9 +214,6 @@ export default class Center extends Component {
         })
         return arr
     }
-
-
-
 }
 
 const styles = StyleSheet.create({

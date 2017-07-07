@@ -69,7 +69,7 @@ export default class MyBranch extends Component {
         })
     }
     onActionSelected () {
-        const {navigate} = this.props.navigation;
+        const {navigate} = this.props.navigation; 
         navigate('Message');
     }
 
@@ -93,6 +93,10 @@ export default class MyBranch extends Component {
     receiveMessage (e) {
         let message = e.nativeEvent.data
         console.log(message)
+        if(message.indexOf('child_info')>0){
+            const {navigate} = this.props.navigation;
+            navigate('AccountEdit',{url:message,title:'子账号修改'})
+        }
         /*const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})*/
     }
