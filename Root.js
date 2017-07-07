@@ -29,6 +29,17 @@ import Icare  from './pages/Icare';
 import AddFriend  from './pages/AddFriend';
 import AddFriendDetail  from './pages/AddFriendDetail';
 
+/**H5**/
+import WorkDetail  from './pages/WorkDetail';
+import WorkAdd  from './pages/WorkAdd';
+import MyHome  from './pages/MyHome';
+import MyHomeOther  from './pages/MyHomeOther';
+import MyCollect  from './pages/MyCollect';
+import MyBranch  from './pages/MyBranch';
+import MyClient  from './pages/MyClient';
+import KehuNews  from './pages/KehuNews';
+/**H5**/
+
 import WorkManage  from './pages/WorkManage';
 import CreatShop  from './pages/CreatShop';
 import CreatShopSenda  from './pages/CreatShopSenda';
@@ -54,116 +65,51 @@ import {
 
 
 const Root = StackNavigator(
-  { 
-    Main:{
-        screen: Main 
-    },
-    Splash:{
-        screen:Splash
-    },
-    AddFriendRequest:{
-        screen:AddFriendRequest
-    },
-    myBlack:{
-        screen:MyBlack
-    }, 
-    Kehu:{
-        screen:Kehu
-    },
-    KehuAdd:{
-        screen:KehuAdd
-    },
-    AddFriendAlready:{
-        screen:AddFriendAlready
-    },
-    KehuSearch:{
-        screen:KehuSearch
-    },
-    ChangePhone:{
-        screen:ChangePhone
-    },
-    CreatShop:{
-        screen:CreatShop
-    },
-    CreatShopWait:{
-        screen:CreatShopWait
-    },
-    CreatShopSenda:{
-        screen:CreatShopSenda
-    },
-    CreatShopSendb:{
-        screen:CreatShopSendb
-    },  
-    WorkManage:{
-        screen:WorkManage
-    },
-    MainDetail:{
-      screen:MainDetail,
-    },
-    addFriend:{
-      screen:AddFriend,
-    },
-    addFriendDetail:{
-      screen:AddFriendDetail,
-    },
-    Message:{
-      screen:Message,
-    },
-    account:{
-      screen:Account,
-    },
-    accountAdd:{
-      screen:AccountAdd,
-    },
-    detailAddr:{
-      screen:DetailAddr,
-    },
-    Icare:{
-      screen:Icare,
-    },
-    blackList:{
-      screen:BlackList,
-    },
-    Feedback:{
-      screen:Feedback,
-    },
-    messageFriend:{
-      screen:MessageFriend,
-    },
-    password:{
-      screen:PasswordPage,
-    },
-    address:{
-      screen:AddressPage,
-    },
-    About:{
-      screen:About,
-    },
-    SearchPage:{
-      screen:SearchPage
-    },
-    Settings:{
-      screen:Settings
-    },
-    personInfo:{
-      screen:PersonInfo
-    },
-    HelpCenter:{
-      screen:HelpCenter
-    },
-    HelpDetail:{
-      screen:HelpDetail
-    },
-    ForgetPassword:{
-      screen:ForgetPassword
-    },
-    Center:{
-      screen:Center
-    },
-    CenterPT:{
-      screen:CenterPT
-    }
-
+    { 
+        Main:{ screen: Main },
+        Splash:{screen:Splash },
+        AddFriendRequest:{ screen:AddFriendRequest },
+        myBlack:{ screen:MyBlack }, 
+        Kehu:{ screen:Kehu },
+        KehuAdd:{ screen:KehuAdd },
+        AddFriendAlready:{ screen:AddFriendAlready },
+        KehuSearch:{ screen:KehuSearch },
+        ChangePhone:{ screen:ChangePhone },
+        CreatShop:{ screen:CreatShop },
+        CreatShopWait:{ screen:CreatShopWait },
+        CreatShopSenda:{ screen:CreatShopSenda },
+        CreatShopSendb:{ screen:CreatShopSendb },  
+        WorkManage:{ screen:WorkManage },
+        MainDetail:{ screen:MainDetail },
+        addFriend:{ screen:AddFriend },
+        addFriendDetail:{screen:AddFriendDetail },
+        Message:{ screen:Message },
+        account:{ screen:Account },
+        accountAdd:{ screen:AccountAdd },
+        detailAddr:{ screen:DetailAddr },
+        Icare:{ screen:Icare },
+        blackList:{ screen:BlackList },
+        Feedback:{ screen:Feedback },
+        messageFriend:{ screen:MessageFriend },
+        password:{ screen:PasswordPage },
+        address:{ screen:AddressPage },
+        About:{ screen:About },
+        SearchPage:{ screen:SearchPage },
+        Settings:{ screen:Settings },
+        personInfo:{ screen:PersonInfo },
+        HelpCenter:{ screen:HelpCenter },
+        HelpDetail:{ screen:HelpDetail },
+        ForgetPassword:{ screen:ForgetPassword },
+        Center:{ screen:Center },
+        CenterPT:{ screen:CenterPT },
+        WorkDetail:{ screen:WorkDetail },
+        WorkAdd:{ screen:WorkAdd },
+        MyHome:{ screen:MyHome },
+        MyCollect:{ screen:MyCollect },
+        MyHomeOther:{ screen:MyHomeOther },
+        MyBranch:{ screen:MyBranch },
+        MyClient:{ screen:MyClient },
+        KehuNews:{ screen:KehuNews },
 
     },
     {

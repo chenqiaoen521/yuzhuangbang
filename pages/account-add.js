@@ -48,7 +48,8 @@ export default class AccountAdd extends Component {
         <View style={styles.container}>
           <View style={styles.unit}>
             <Text style={styles.txt}>姓名</Text>
-            <TextInput  underlineColorAndroid="transparent" defaultValue={'请输入姓名'} style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+            <TextInput  underlineColorAndroid="transparent" placeholder='请输入姓名' placeholderTextColor={'#888'} 
+            style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
           </View>
           {this.renderPhone.bind(this)()}
           {this.renderBottom.bind(this)()}
@@ -64,7 +65,8 @@ export default class AccountAdd extends Component {
         <View style={styles.phone}>
             <View style={{flexDirection:'row',alignItems : 'center'}}>
               <Text style={styles.txt}>手机号</Text>
-              <TextInput  underlineColorAndroid="transparent" defaultValue={'请输入手机号'} style={{color:'#888888',fontSize:13,  marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+              <TextInput  underlineColorAndroid="transparent" placeholder='请输入手机号' placeholderTextColor={'#888'}  
+                  style={{color:'#888888',fontSize:13, marginLeft:20,padding:0,width:100,textAlign:'left'}}/>
             </View>
             <View style={{flexDirection:'row',alignItems : 'center'}}>
               <TouchableOpacity>
@@ -77,7 +79,8 @@ export default class AccountAdd extends Component {
         return (
           <View style={styles.unit}>
             <Text style={styles.txt}>手机号</Text>
-            <TextInput  underlineColorAndroid="transparent" defaultValue={'请输入手机号'} style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+            <TextInput  underlineColorAndroid="transparent" placeholder='请输入手机号' placeholderTextColor={'#888'}  
+                style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
           </View>
         )
      }
@@ -89,7 +92,8 @@ export default class AccountAdd extends Component {
       return (
         <View style={styles.unit}>
             <Text style={styles.txt}>验证码</Text>
-            <TextInput  underlineColorAndroid="transparent" defaultValue={'请输入验证码'} style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
+            <TextInput  underlineColorAndroid="transparent" placeholder='请输入验证码' placeholderTextColor={'#888'}  
+                style={{color:'#888888',fontSize:13,marginRight:20,padding:0,width:100,textAlign:'right'}}/>
           </View>
         )
      }else{

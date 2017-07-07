@@ -73,9 +73,8 @@ export default class WorkManage extends Component {
 
     //添加作品
     Goadd() {
-        //console.log(id+'和\n'+name+'和\n'+desc+'和\n'+image)
         const {navigate} = this.props.navigation;
-        navigate('MainDetail',{page:'tjzp',title:'添加作品'});
+        navigate('WorkAdd',{title:'添加作品'});
     }
     //跳转详情页
     Gojump() {

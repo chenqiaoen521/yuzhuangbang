@@ -107,7 +107,7 @@ export default class CreatShopSendb extends Component {
                 </View>*/}
                 <View style={styles.single}>
                     <Text style={styles.lefttext}>状态选择：</Text>
-                    <View style={styles.input}>
+                    <View style={styles.input2}>
                         <RadioGroup style={{width:width-30,flexDirection:'row'}} thickness={0} size={12} thickness={1} activeColor='#af8402' color='#fff' selectedIndex={0} onSelect = {(index, value) => this.onSelect(index, value)} >
                             <RadioButton style={{ alignItems:'center', paddingLeft:0 }} value={'设计公司'}> 
                                 <Text style={{fontSize:13,color:'#fff'}}>设计公司</Text> 
@@ -514,6 +514,11 @@ const styles = StyleSheet.create({
     input: {
         color:'#888',
         fontSize:13,
+        width:(width-20)*0.72,
+        height:34,
+        paddingLeft:5,
+    },
+    input2: {
         width:(width-20)*0.72,
         height:34,
         paddingLeft:5,

@@ -81,7 +81,7 @@ export default class CreatShopWait extends Component {
                     }
 
                     { this.state.shenhe==2 ? 
-                    <View style={{padding:15,alignItems:'center',tejustifyContent:'center'}}>
+                    <View style={{padding:15,alignItems:'center',justifyContent:'center'}}>
                         <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>您提交的{this.props.navigation.state.params.idcard}信息正在审核中…{'\n'}请您耐心等待</Text>
                     </View>
                     : null }
@@ -89,11 +89,11 @@ export default class CreatShopWait extends Component {
                     { this.state.shenhe==3 ? 
                     
                       <View>
-                      <View style={{padding:15,alignItems:'center',tejustifyContent:'center', marginBottom:10}}>
+                      <View style={{padding:15,alignItems:'center',justifyContent:'center', marginBottom:10}}>
                           <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>很遗憾！{'\n'}您提交的开店申请已被拒绝</Text>
                       </View>
                       <TouchableOpacity onPress={ () => this.Goagain() }>
-                      <View style={{alignItems:'center', padding:8, marginLeft: width*0.2, borderRadius:25, width:width*0.6,tejustifyContent:'center',backgroundColor:'#ae8300'}}>
+                      <View style={{alignItems:'center', padding:8, marginLeft: width*0.2, borderRadius:25, width:width*0.6,justifyContent:'center',backgroundColor:'#ae8300'}}>
                           <Text style={{fontSize:15, color:'#fff', textAlign:'center'}}>重新申请</Text>
                       </View>
                       </TouchableOpacity>
@@ -102,11 +102,11 @@ export default class CreatShopWait extends Component {
 
                     { this.state.shenhe==-1 ? 
                       <View>
-                      <View style={{padding:15,alignItems:'center',tejustifyContent:'center', marginBottom:10}}>
+                      <View style={{padding:15,alignItems:'center',justifyContent:'center', marginBottom:10}}>
                           <Text style={{fontSize:15, color:'#fff', textAlign:'center',lineHeight:30}}>恭喜！您提交的开店申请已通过</Text>
                       </View>
                       <TouchableOpacity onPress={ () => this.Gonew() }>
-                      <View style={{alignItems:'center', padding:8, marginLeft: width*0.2, borderRadius:25, width:width*0.6,tejustifyContent:'center',backgroundColor:'#ae8300'}}>
+                      <View style={{alignItems:'center', padding:8, marginLeft: width*0.2, borderRadius:25, width:width*0.6,justifyContent:'center',backgroundColor:'#ae8300'}}>
                           <Text style={{fontSize:15, color:'#fff', textAlign:'center'}}>{this.state.text}</Text>
                       </View>
                       </TouchableOpacity>
@@ -137,7 +137,6 @@ export default class CreatShopWait extends Component {
     }
 
     Goget() {
-        console.log(1)
         var that = this
         store.get('user')
         .then(
@@ -146,7 +145,6 @@ export default class CreatShopWait extends Component {
             })  
     }
     async getData(token) {
-        console.log(3)
         try {   
             let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
             let responseJson = await response.json();

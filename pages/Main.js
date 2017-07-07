@@ -69,7 +69,7 @@ export default class Main extends Component {
             isFinish:false, //注册成功
             token:false,
             popNum:1,
-            mode:false, //灵感还是优品
+            mode:false, //灵感
             //登录的表单
             LoginNum:'13838370175',
             LoginWord:'123456',
@@ -84,7 +84,9 @@ export default class Main extends Component {
             city:'',
             area:'',
             lingToken:'',
-            lingType:''
+            lingType:'',
+            htmlsrc:'https://m.facebook.com',
+            datatype:2,
 
         };
         //三级联动
@@ -138,17 +140,17 @@ export default class Main extends Component {
                     <View style={{marginTop:5}}>
                         <Notice/>
                     </View>
-                    <HomeTitle/>
-                    {/*<WebView
+                    <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
+                    <WebView
                           automaticallyAdjustContentInsets={false}
                           style={{height:650}}
-                          source={require('../fw/main.html')}
+                          source={{uri:this.state.htmlsrc}}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}
                           onMessage={this.receiveMessage.bind(this)}
                           decelerationRate="normal"
                           startInLoadingState={false}
-                          scalesPageToFit={false} />*/}
+                          scalesPageToFit={false} />
                 </ScrollView>
                 <TouchableOpacity onPress={()=>this.GoFind() }>                                      
                     <View style={{width:width, height:48, justifyContent:'center', alignItems:'center',backgroundColor:'#2a2a2a'}}>
@@ -309,7 +311,7 @@ export default class Main extends Component {
     }
     //滚动事件
     GoPop() {
-        if( this.state.token && this.state.popNum==1){
+        if( this.state.token==false && this.state.popNum==1){
             //打开登录弹窗
             this.setState({
                 isModal:true,
@@ -366,7 +368,7 @@ export default class Main extends Component {
                     ToastUtil.showShort(responseJson.errorMsg,true)
                 }    
 
-                console.error(responseJson);
+                //console.error(responseJson);
             } catch(error) {
                 console.error(error);
                 ToastUtil.showShort(error,true)
@@ -417,12 +419,40 @@ export default class Main extends Component {
         }
     }
 
+    componentWillMount () {
+        var that = this
+        that.Goread()
+    }
+    Goread() {
+        var that = this
+        store.get('user').then(function(data){
+            if(data.token){
+                //console.log(`${url}/App/Index/work_list?token=${data.token}&type=${that.state.datatype}`)
+                that.setState({
+                    htmlsrc:`${url}/App/Index/work_list?token=${data.token}&type=${that.state.datatype}`,
+                }); 
+            }else{
+                //console.log(`${url}/App/Index/work_list?type=${that.state.datatype}`)
+                that.setState({
+                    htmlsrc:`${url}/App/Index/work_list?type=${that.state.datatype}`,
+                }); 
+            }
+            console.log(that.state.htmlsrc)
+        })
+    }
 
     //调取列表
     GoFind() {
-       this.setState({
+        var that = this;
+        this.setState({
             mode: !this.state.mode,
         });
+        if(that.state.datatype==2){
+            that.setState({ datatype:3 });
+        }else if(that.state.datatype==3){
+            that.setState({ datatype:2 });
+        }
+        that.Goread()
     }
 
     //去详情页
@@ -567,6 +597,13 @@ export default class Main extends Component {
             }
         })
    
+    }
+
+    receiveMessage (e) {
+        let message = e.nativeEvent.data
+        console.log(message)
+        const {navigate} = this.props.navigation;
+        navigate('WorkDetail',{url:message})
     }
     
 }

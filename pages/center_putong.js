@@ -107,6 +107,7 @@ export default class CenterPT extends Component {
 
     const {navigate} = this.props.navigation;
     console.log(role_type+'和'+agree)
+    console.log('条件：'+agree)
     /*navigate('CreatShop');*/
     if(agree&&agree=="1"){
       navigate('CreatShop');
@@ -138,7 +139,7 @@ export default class CenterPT extends Component {
   __init (token) {
     let data = this.getData(token);
     data.then((result)=>{
-
+      console.log(result)
       this.setState({
           sex: result.user_info.sex,
           avatar:result.user_info.avatar,
@@ -163,8 +164,11 @@ export default class CenterPT extends Component {
           store.save('user',{token:null,type:null})
           this.props.navigation.navigate('Main')
         }
+
+        //console.log(responseJson.data)
         return responseJson.data;
       } catch(error) {
+        console.log(responseJson.data)
           console.error(error);
       }
   }
