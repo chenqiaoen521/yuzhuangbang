@@ -65,7 +65,7 @@ export default class CenterPT extends Component {
             {this.renderHeadBottom()}
           </View>
           <View style={{marginTop:15}}>
-            <Notice titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
+            <Notice popToparent={(id)=>this.popToparent(id)} titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
           </View>
           <View style={styles.middle}>
             <CenterItem popToCenter={()=>this.toOpen()} icon={require('../imgs/middle_08.png')} txt="我要开店"/>
@@ -80,6 +80,10 @@ export default class CenterPT extends Component {
         </ScrollView>
       </View>
     );
+  }
+  popToparent(id){
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
   }
   toSetting(){
     const {navigate} = this.props.navigation;

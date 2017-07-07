@@ -14,64 +14,48 @@ import {
   Image,
   Dimensions,
   WebView,
-  Alert
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
 import IconDetail from '../Components/IconDetail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoadingView from '../Components/LoadingView';
+const host = require('../config.json').url;
 export default class MainDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title,
     tabBarIcon: ({ tintColor }) => (
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),
-    headerRight: (
-      <Ionicons.Button name="md-share" backgroundColor="transparent" underlayColor="transparent" activeOpacity={0.8}
-        onPress={ () => { navigation.state.params.handleShare(); } } />
-    )
+    headerRight:null
   });
 
   render() {
     const {state} = this.props.navigation;
-    let page = state.params.page;
-    let html = null;
-    if(page=='fav'){
-      html = require('../fw/my_fav.html')
-    }else if(page=='part'){
-      html = require('../fw/department.html')
-    }else if(page=='myhome'){
-      html = require('../fw/Merchant.html')
-    }else if(page=='custom'){
-      html = require('../fw/Client.html')
-    }else if(page=='xq'){
-      html = require('../fw/ClientXQ.html')
-    }else if(page=='cadd'){
-      html = require('../fw/ClientAdd.html')
-    }else if(page=='hmd'){
-      html = require('../fw/ClientBlack.html')
-    }else if(page=='tjzp'){
-      html = require('../fw/MerchantBJ.html')
-    }
-    else{
-      html = require('../fw/index.html')
-    }
+    let {id,page} = state.params;
+    console.log(`${host}${page}?id=${id}`)
     return (
       <ScrollView contentContainerStyle={styles.container}>
         
         <WebView
             automaticallyAdjustContentInsets={false}
             style={styles.webView}
-          source={html}
+          source={{uri:`${host}${page}?id=${id}`}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           onMessage={this.receiveMessage.bind(this)}
           decelerationRate="normal"
+          renderLoading={this.renderLoading}
           startInLoadingState={true}
           scalesPageToFit={false} />
       </ScrollView>
     );
   }
+  renderLoading() {
+        return <LoadingView />;
+    }
   receiveMessage (e) {
     let message = e.nativeEvent.data
     if(message == 'aaa'){

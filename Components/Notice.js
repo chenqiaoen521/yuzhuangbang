@@ -12,7 +12,8 @@ import {
   View,
   TextInput,
   Dimensions,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 const host = require('../config.json').url;
 const token = require('../config.json').token;
@@ -35,7 +36,8 @@ export default class Notice extends Component {
     time:'2017-05-02',
     bgcolor:'#1b1b1b',
     titleColor:'#ffffff',
-    rightBar:'#ffffff'
+    rightBar:'#ffffff',
+    popToparent:null
   }
    componentWillMount() {
     let data = this.getData();
@@ -55,6 +57,7 @@ export default class Notice extends Component {
     }
   }
   componentWillUnMount(){
+
     clearInterval(this.timer)
   }
   startTimer () {
@@ -126,12 +129,12 @@ export default class Notice extends Component {
     })
   }
   renderBannerView() {
-    
+    let that = this;
     let itemarr = [];
     if(this.state.data){
       this.state.data.map((item,i)=>{
       itemarr.push(
-          <View key={i} style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
+          <TouchableOpacity onPress={()=>this.goDetail(item.id)} key={i} style={[styles.container,{backgroundColor:this.props.bgcolor}]}>
             <View style={styles.bounce}>
               <Text style={[styles.titleStyle,{fontSize:12},{backgroundColor:'#ff3d2c'},{paddingLeft:4},{paddingRight:4}]}>{'公告'}</Text>
               <Text style={[styles.titleStyle,{color:this.props.titleColor},{fontSize:14},{marginLeft:10}]}>{item.title}</Text>
@@ -142,12 +145,17 @@ export default class Notice extends Component {
               <Text style={[styles.subFontStyle,{marginLeft:20},{fontSize:13}]}>时间:{item.c_time}</Text>
             </View>
             <Icon name="ios-arrow-dropright-outline" size={25} style={{color:this.props.rightBar,position:'absolute',right:4,bottom:15}}/>
-        </View>
+        </TouchableOpacity>
         )
     })
     return itemarr;
     }
     
+  }
+  goDetail (id) {
+    if(this.props.popToparent){
+      this.props.popToparent(id);
+    }
   }
 }
 

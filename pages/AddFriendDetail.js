@@ -88,7 +88,7 @@ export default class AddFriendDetail extends Component {
                         <Text style={{fontSize:12, color:'#858585',marginTop:3}}>15023645789</Text>
                     </Image>
                     </View>
-                    <Notice bgcolor={'#f7f7f7'} titleColor={'#333'} rightBar={'#999'} />
+                    <Notice popToparent={(id)=>this.popToparent(id)} bgcolor={'#f7f7f7'} titleColor={'#333'} rightBar={'#999'} />
                     <View style={styles.mbox}>
                     <View style={styles.mation}>
                         <Text style={styles.ltext}>账号信息</Text>
@@ -115,6 +115,10 @@ export default class AddFriendDetail extends Component {
         const {navigate} = this.props.navigation;
         navigate('AddFriendRequest',{...this.state}) 
     }
+     popToparent(id){
+    const {navigate} = this.props.navigation;
+    navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
+  }
 
 }
 

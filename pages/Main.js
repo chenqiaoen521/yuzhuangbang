@@ -39,6 +39,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 //存储登录信息
 import store from 'react-native-simple-store';
 //三级联动
+import { registerApp } from 'react-native-wechat';
 import Picker from 'react-native-roll-picker/lib/Picker2'
 import cityCode from '../Components/ChinaCityCode'
 //获取公共域名
@@ -57,6 +58,7 @@ export default class Main extends Component {
     }
     // 构造
     constructor(props) {
+        registerApp('wxb24c445773822c79');
         super(props);
         var that = this;
         // 初始状态
@@ -138,7 +140,7 @@ export default class Main extends Component {
                         <Slider/>
                     </View>
                     <View style={{marginTop:5}}>
-                        <Notice/>
+                        <Notice popToparent={(id)=>this.popToparent(id)}/>
                     </View>
                     <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
                     <WebView
@@ -321,6 +323,10 @@ export default class Main extends Component {
                 popNum:0
             });
         }
+    }
+    popToparent(id){
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
     }
     //登录按钮
     GoLogin() {

@@ -60,13 +60,13 @@ export default class HelpCenter extends Component {
             <View style={styles.container}>
                 <HelpSearch popToHome={()=>this.toSearchPage()} />
                 <View style={styles.hotit}><Text style={styles.biao}>热点问题</Text></View>
-                <HelpListview data={this.state.data} popToWatch={()=>this.toHelpView()} />
+                <HelpListview data={this.state.data} popToWatch={(id)=>this.toHelpView(id)} />
             </View>
         );
     }
-    toHelpView () {
+    toHelpView (id) {
         const {navigate} = this.props.navigation;
-        navigate('HelpDetail')
+        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
     }
     toSearchPage () {
         //const {navigate} = this.props.navigation;

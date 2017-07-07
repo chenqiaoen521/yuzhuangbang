@@ -67,7 +67,7 @@ export default class Center extends Component {
                         {this.renderHeadBottom()}
                     </View>
                     <View style={{marginTop:15}}>
-                        <Notice titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
+                        <Notice popToparent={(id)=>this.popToparent(id)} titleColor="#333333" bgcolor="#f7f7f7" rightBar="#838383" />
                     </View>
                     <View style={styles.middle}>
                         <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
@@ -84,6 +84,10 @@ export default class Center extends Component {
                 </ScrollView>
             </View>
         );
+    }
+    popToparent(id){
+        const {navigate} = this.props.navigation;
+        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
     }
     toSetting(){
         const {navigate} = this.props.navigation;

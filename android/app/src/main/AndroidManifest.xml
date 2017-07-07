@@ -35,6 +35,11 @@
           android:host="wu" />
         </intent-filter>
       </activity>
+      <!-- 微信Activity -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
