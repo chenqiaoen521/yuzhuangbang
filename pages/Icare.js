@@ -85,7 +85,8 @@ export default class Icare extends Component {
     this.state = {
       dataSource: ds,
       data:[],
-      token:''
+      token:'',
+      temp:[]
     };
   }
   onActionSelected () {
@@ -103,7 +104,8 @@ export default class Icare extends Component {
         ToastUtil.showShort('您还没有好友', false);
       }
       that.setState({
-        data:data
+        data:data,
+        temp:data
       })
     })
   }
@@ -142,10 +144,12 @@ export default class Icare extends Component {
       )
   }
   onSelect(e){
+    e = 1+parseInt(e);
+    e = e + '';
     let arr = [];
-    let data = this.state.data;
+    let data = this.state.temp;
     for(let i=0;i<data.length;i++){
-      if(data[i].fans_type == e){
+      if(data[i].type == e){
         arr.push(data[i])
       }
     }

@@ -21,7 +21,8 @@ import {
     TouchableOpacity,
     TextInput,
     Platform,
-    WebView
+    WebView,
+    Keyboard,
 } from 'react-native';
 import Search from '../Components/Search';
 import Slider from '../Components/Slider';
@@ -87,6 +88,8 @@ export default class Main extends Component {
             lingType:'',
             htmlsrc:'https://m.facebook.com',
             datatype:2,
+            //
+            upnum:width*0.45
 
         };
         //三级联动
@@ -164,17 +167,18 @@ export default class Main extends Component {
                     onRequestClose={() => {this.onRequestClose()}}  // android必须实现
                     >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsg}>
                             <View style={styles.biao}><Text style={styles.biaoti}>用户登录</Text></View>
                             <View style={styles.fill}>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image></View>
-                                    <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({LoginNum:text}) } placeholder='手机号' keyboardType={'numeric'} maxLength={11} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuru} onSubmitEditing={Keyboard.dismiss}  onChangeText={ (text) => this.setState({LoginNum:text}) } 
+                                    placeholder='手机号' keyboardType={'numeric'} maxLength={11} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({LoginWord:text}) } placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuru} onSubmitEditing={Keyboard.dismiss} onChangeText={ (text) => this.setState({LoginWord:text}) } placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={[styles.sg , styles.noneb]} >
                                     <TouchableOpacity onPress={() => this.GoArea()}><Text style={styles.link}>注册账号</Text></TouchableOpacity>
@@ -196,7 +200,7 @@ export default class Main extends Component {
                 </Modal>   
                 <Modal animationType='slide' transparent={true} visible={this.state.isArea} onRequestClose={() => {this.onRequestClose()}} >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsg}>
                             <View style={styles.biao}><Text style={styles.biaoti}>所在地区选择</Text></View>
                             <View>
@@ -205,7 +209,7 @@ export default class Main extends Component {
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>市/区</Text></View>
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>区县</Text></View>
                                 </View>
-                                <View style = {{/*height: height*0.55-144,*/ height:153, flexDirection: 'row'}}>
+                                <View style = {{/*height: height*0.55-144,*/ height:200, flexDirection: 'row'}}>
                                     
                                     <View style = {{flex: 1}}>
                                         <Picker 
@@ -259,7 +263,7 @@ export default class Main extends Component {
                 </Modal>   
                 <Modal animationType='slide' transparent={true} visible={this.state.isFill} onRequestClose={() => {this.onRequestClose()}}  >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={styles.modalViewStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                         <View style={styles.popmsgFill}>
                             <View style={styles.biao}><Text style={styles.biaoti}>注册信息</Text></View>
                             <View style={styles.fillFill}>
@@ -267,11 +271,11 @@ export default class Main extends Component {
                                     <View style={styles.imgb}>
                                         <Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image>
                                     </View>
-                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
-                                    <TextInput style={[styles.shuruFill,styles.small]} onChangeText={(text) => this.setState({ZhuMa:text})} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
+                                    <TextInput style={[styles.shuruFill,styles.small]} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuMa:text})} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
                                     <TouchableOpacity onPress={()=>this.GoSendNum()}>
                                         {/*验证码按钮*/}
                                         <View style={styles.yanzheng}>
@@ -281,18 +285,18 @@ export default class Main extends Component {
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWord:text})} placeholder='请设置您的密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuWord:text})} placeholder='请设置您的密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWordYZ:text})} placeholder='请确认您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuWordYZ:text})} placeholder='请确认您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon05.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
                                 </View>
                                 
-                                <View style={[styles.sgFill , styles.nonebaFill]}>
+                                <View style={[styles.sgFill , styles.nonebaFill,{marginTop:5}]}>
                                     <TouchableOpacity onPress={()=>this.GoFinish()}>
                                         {/*登录按钮*/}
                                         <View style={styles.fillbtn}>
@@ -423,9 +427,30 @@ export default class Main extends Component {
     }
 
     componentWillMount () {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);  
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);  
         var that = this
         that.Goread()
     }
+    componentWillUnmount () {  
+        this.keyboardDidShowListener.remove();  
+        this.keyboardDidHideListener.remove();  
+    }
+
+    _keyboardDidShow () {  
+        //alert('Keyboard Shown');
+        this.setState({
+            upnum:0
+        })  
+    }  
+  
+    _keyboardDidHide () {  
+       //alert('Keyboard Hidden');  
+       this.setState({
+            upnum:width*0.45
+        })  
+    }  
+
     Goread() {
         var that = this
         store.get('user').then(function(data){
@@ -610,24 +635,35 @@ export default class Main extends Component {
         const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})
     }
+
+    Goup() {
+        this.setState({
+            upnum:0
+        })
+    }
+    Godown() {
+        this.setState({
+            upnum:width*0.45
+        })
+    }
     
 }
 
 const styles = StyleSheet.create({
     container: { paddingTop:15, flex: 1, backgroundColor: '#151515', },
-    modalViewStyle: { height:0.2*height },
+    modalViewStyle: { /*height:0.45*height*/ },
     popmsg: { height:0.55*height, backgroundColor:'white', borderRadius:10, },
-    modalViewBStyle: { height:0.25*height, },
+    modalViewBStyle: { height:0.45*height, },
     biao: { justifyContent:'center', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#eee', paddingTop:16, paddingBottom:16, width:width, },
     biaoti: { fontSize:16, color:'#666', },
     fill: { alignItems:'center', paddingTop:10, },
-    sg: { flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingTop:10, paddingBottom:10,  borderBottomWidth:1, 
+    sg: { flexDirection:'row', justifyContent:'space-between', alignItems:'center',  borderBottomWidth:1, 
         borderBottomColor:'#eee',  width:width-30, },
-    noneb: { borderBottomWidth:0, paddingTop:20, paddingBottom:10, },    
+    noneb: { borderBottomWidth:0, marginTop:20, marginBottom:10, },    
     noneba: { borderBottomWidth:0, paddingTop:15, paddingBottom:10, },
     imgb: { width:0.1*(width-30), alignItems:'center', },
     img: { width:0.06*(width-30), height:0.06*(width-30), },
-    shuru: { width:0.9*(width-30), color:'#999', height:36, },
+    shuru: { width:0.9*(width-30), color:'#999', marginTop:12, marginBottom:12, },
     link: { fontSize:13, color:'#888', },
     textLoginViewStyle: { width: width - 30,  height: 40, backgroundColor: '#ae8300', borderRadius: 20, alignSelf: 'center', justifyContent: 'center',
         alignItems: 'center', },
@@ -644,7 +680,7 @@ const styles = StyleSheet.create({
     ktext: {  flex:1, width:width%3, alignItems:'center', justifyContent:'center',},
     ktxt: { color:'#333', fontSize:14, },
     allWidth: {  flexDirection: 'row',  borderTopWidth:1, borderTopColor:'#eee', marginTop:10, },
-    jun: { width:width*0.5,  alignItems:'center', justifyContent:'center', height:38, },
+    jun: { width:width*0.5,  alignItems:'center', justifyContent:'center', height:48, },
     jright: { borderLeftWidth:1, borderLeftColor:'#eee', },
     jtext: { color:'#b08400' },
     jtu: { flexDirection:'row', },
@@ -652,12 +688,12 @@ const styles = StyleSheet.create({
     popmsgFill: { height:0.6*height, backgroundColor:'white', borderRadius:10, },
     sgFill: { flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingTop:0, paddingBottom:0, borderBottomWidth:1,
         borderBottomColor:'#eee', width:width-30, },
-    fillbtn: { width: width-30, height: 40, justifyContent: 'center', alignItems: 'center',  paddingTop:0, paddingBottom:0, marginTop:-8, },
+    fillbtn: { width: width-30, height: 50, justifyContent: 'center', alignItems: 'center',  paddingTop:0, paddingBottom:0, marginTop:-8, },
     //登录Text文本样式
     filltext: { fontSize: 15, color: '#b08400', },   
     nonebaFill: { borderBottomWidth:0, paddingTop:8, paddingBottom:0, },
     fillFill: { alignItems:'center', paddingTop:5, },
-    shuruFill: { width:0.9*(width-30), height:38, color:'#999', fontSize:12, },
+    shuruFill: { width:0.9*(width-30), marginTop:2, marginBottom:2, color:'#999', fontSize:12, },
     small: { width:0.68*(width-30), },
     yanzheng: { width:0.22*(width-30), backgroundColor:'#eee', borderRadius:4, justifyContent:'center', alignItems:'center', height:26},
     ytext: { color:'#888', fontSize:10, },
