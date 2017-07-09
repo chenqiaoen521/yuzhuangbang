@@ -127,8 +127,8 @@ export default class Main extends Component {
     }
     render() {      
         return (
-            <View style={styles.container}>
-                <ScrollView onScroll={()=>this.GoPop()}>
+            <View style={styles.container} onScroll={()=>this.GoPop()}>
+                <ScrollView>
                     <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
                         <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
@@ -194,8 +194,7 @@ export default class Main extends Component {
                                     <TouchableOpacity onPress={() => this.Goreset()}><Text style={styles.link}>忘记密码？</Text></TouchableOpacity>
                                 </View>
                                 <View style={[styles.sg , styles.noneba]}>
-                                    <TouchableOpacity onPress={()=>this.GoLogin() }>
-                                       
+                                    <TouchableOpacity onPress={()=>this.GoLogin() }>                                       
                                         <View style={styles.textLoginViewStyle}>
                                             <Text style={styles.textLoginStyle}>登录</Text>
                                         </View>
