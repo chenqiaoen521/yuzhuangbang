@@ -74,7 +74,7 @@ export default class WorkDetail extends Component {
         let page = state.params.url;
 
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <View Style={styles.container}>
                 <Modal
                       animationType="fade"
                       visible={this.state.isShareModal}
@@ -98,7 +98,7 @@ export default class WorkDetail extends Component {
                     startInLoadingState={true}
                     renderLoading={this.renderLoading}
                     scalesPageToFit={false} />
-            </ScrollView>
+            </View>
         );
     }
 
@@ -116,8 +116,6 @@ export default class WorkDetail extends Component {
             ToastUtil.showShort('请先登录！')
             navigate('Main')
         }else if(tt2>0){
-            //去主页 
-            console.log('去主页吧')
             navigate('MyHomeOther',{title:'设计师主页',url:message})
         }
     }

@@ -51,13 +51,13 @@ export default class PersonInfo extends Component {
         this.state = {
             sex: '男',
             modalVisible: false,
-            avatar:null,
-            name:null,
-            nickname:null,
-            phone:null,
-            province:null,
-            city:null,
-            area:null,
+            avatar:'',
+            name:'请填写姓名',
+            nickname:'请填写昵称',
+            phone:'请填写电话',
+            province:'请填写省',
+            city:'市',
+            area:'区',
             token:''
         };
         //三级联动
@@ -115,18 +115,19 @@ export default class PersonInfo extends Component {
         let data = this.getData(token);
         data.then((result)=>{
             this.setState({
-                sex: result.user_info.sex,
-                avatar:result.user_info.avatar,
-                name:result.user_info.name,
-                nickname:result.user_info.nickname,
-                phone:result.user_info.phone,
-                province:result.user_info.province,
-                city:result.user_info.city,
-                area:result.user_info.area
+                sex: result.user_info.sex?result.user_info.sex:'男',
+                avatar:result.user_info.avatar?result.user_info.avatar:'',
+                name:result.user_info.name?result.user_info.name:'',
+                nickname:result.user_info.nickname?result.user_info.nickname:'',
+                phone:result.user_info.phone?result.user_info.phone:'',
+                province:result.user_info.province?result.user_info.province:'',
+                city:result.user_info.city?result.user_info.city:'',
+                area:result.user_info.area?result.user_info.area:'',
             })
         })
     }
     async getData(token) {
+        console.log(`${host}/App/Center/get_user_info?token=${token}`)
         try {   
           let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
           let responseJson = await response.json();
