@@ -67,8 +67,8 @@ import {
 
 const Root = StackNavigator(
     {   
-        Splash:{screen:Splash },
         Main:{ screen: Main },
+        Splash:{screen:Splash },
         AddFriendRequest:{ screen:AddFriendRequest },
         myBlack:{ screen:MyBlack }, 
         Kehu:{ screen:Kehu },

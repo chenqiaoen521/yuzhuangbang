@@ -68,10 +68,12 @@ export default class CenterPT extends Component {
                     </View>
                     <View style={styles.middle}>
                         <CenterItem popToCenter={()=>this.toOpen()} icon={require('../imgs/middle_08.png')} txt="我要开店"/>
-                        <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
                         <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/middle_09.png')} txt="我的收藏"/>
-                        <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}>
-                        </View>
+                        <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
+                        <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
+                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_06.png')} txt="附近搜索"/>
+                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_03.png')} txt="社区"/>
+                        <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}>
                         </View>
@@ -79,6 +81,9 @@ export default class CenterPT extends Component {
                 </ScrollView>
             </View>
         );
+    }
+    Goquan() {
+        ToastUtil.showShort('您暂时还没有权限！')
     }
     toSetting(){
         const {navigate} = this.props.navigation;
