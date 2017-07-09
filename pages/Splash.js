@@ -72,7 +72,7 @@ export default class Splash extends Component {
       if(i == (data.length-1)){
         screens.push(
         <View key={i} style={styles.imgContainerStyle}>
-          <Image style={styles.imgStyle}  source={item}/>
+          <Image style={styles.imgStyle} resizeMode={'contain'}  source={item}/>
           <TouchableOpacity TouchableOpacity={0.5}  style={styles.buttonStyle} onPress={()=>this.toIndex()} >
             <Text style={{backgroundColor:'#dcb82a',color:'#fff',fontSize:14,textAlign :'center', padding:7,width:90,borderRadius:5 }}>立即进入</Text>
           </TouchableOpacity>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle:{
     position:'absolute',
-    bottom:10,
+    bottom:20,
     left:width/2 - 45,
     zIndex:10
   },

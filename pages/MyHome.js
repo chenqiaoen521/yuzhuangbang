@@ -190,7 +190,17 @@ export default class MyHome extends Component {
         let message = e.nativeEvent.data
         console.log(message)
         const {navigate} = this.props.navigation;
-        navigate('WorkDetail',{url:message})
+        if(message.indexOf('work_detail')>0){
+          console.log("去详情页")
+            navigate('WorkDetail',{url:message})
+        }else if(message.indexOf('user_msg')>0){
+            console.log("去消息列表")
+            navigate('Message',{url:message})
+        }else if(message.indexOf('key')>0){
+            console.log("去搜索结果")
+            //navigate('Message',{url:message})
+        }      
+        
     }
 
 }

@@ -72,13 +72,18 @@ export default class Center extends Component {
                     </View>
                     <View style={styles.middle}>
                         <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
-                        <CenterItem popToCenter={()=>this.towork()} icon={require('../imgs/middle_07.png')} txt="商品管理"/>
+                        <CenterItem popToCenter={()=>this.towork()} icon={require('../imgs/middle_07.png')} txt={this.state.type==2? '作品管理' : '商品管理'}/>
                         <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
                         <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
                         <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号添加"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
+                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_06.png')} txt="附近搜索"/>
+                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_03.png')} txt="社区"/>
+                        <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
+                        <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/cicon_11.png')} txt="我的收藏"/>
+                        <CenterItem popToCenter={()=>this.Gobuild()} icon={require('../imgs/cicon_10.png')} txt="我的图文"/>
                         <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
-                        <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/middle_05.png')} txt="我的收藏"/>
+                        <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}></View>
                     </View>
@@ -86,6 +91,13 @@ export default class Center extends Component {
             </View>
         );
     }
+    Goquan() {
+        ToastUtil.showShort('您暂时还没有权限！')
+    }
+    Gobuild() {
+        ToastUtil.showShort('功能正在建设中，敬请期待！')
+    }
+
     popToparent(id){
         const {navigate} = this.props.navigation;
         navigate('MainDetail',{id:id,title:'公告详情',page:'/App/Index/article_detail'});
@@ -147,6 +159,7 @@ export default class Center extends Component {
                 area:result.user_info.area,
                 type:result.user_info.type,
             })
+            console.log(this.state.type)
         })
     }
     async getData(token) {
