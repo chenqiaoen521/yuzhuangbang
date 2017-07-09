@@ -72,9 +72,9 @@ export default class WorkDetail extends Component {
     render() {
         const {state} = this.props.navigation;
         let page = state.params.url;
-        console.log(`${url}${page}`)
+        //console.log(`${url}${page}`)
         return (
-            <View Style={styles.container}>
+            <View style={styles.container}>
                 <Modal
                       animationType="fade"
                       visible={this.state.isShareModal}
@@ -131,9 +131,7 @@ export default class WorkDetail extends Component {
         >
         <View key={'spinner'} style={styles.spinner}>
           <View style={styles.spinnerContent}>
-            <Text
-              style={[styles.spinnerTitle, { fontSize: 20, color: 'black' }]}
-            >
+            <Text style={[styles.spinnerTitle, { fontSize: 20, color: 'black' }]} >
               分享到
             </Text>
             <View style={styles.shareParent}>

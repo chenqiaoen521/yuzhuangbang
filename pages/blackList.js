@@ -89,7 +89,12 @@ class BlackList extends Component {
                 <LoadingView/>
             )
         }else{
-            return this.props.black.articleList.length==0?(<View style={{justifyContent:'center',alignItems:'center'}}><Text style={{color:'#fff',fontSize:17}}>暂无数据</Text></View>): (
+            return this.props.black.articleList.length==0?
+            (
+                <View style={{justifyContent:'center',alignItems:'center',marginTop:50}}>
+                <Text style={{fontSize:14, color:'#999'}}>暂无数据</Text></View>
+            )
+            : (
                 <ListView
                     dataSource={this.state.dataSource.cloneWithRows(this.props.black.articleList)}
                     renderRow={(rowdata)=>this.renderRow(rowdata)}

@@ -633,7 +633,7 @@ export default class Main extends Component {
 
     receiveMessage (e) {
         let message = e.nativeEvent.data
-        //console.log(message)
+        console.log(message)
         const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})
     }
