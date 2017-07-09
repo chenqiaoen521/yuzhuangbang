@@ -146,6 +146,7 @@ export default class Main extends Component {
                     <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
                     <WebView
                           automaticallyAdjustContentInsets={false}
+                          style={{ height:600}}
                           source={{uri:this.state.htmlsrc}}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}
@@ -173,12 +174,12 @@ export default class Main extends Component {
                             <View style={styles.fill}>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image></View>
-                                    <TextInput style={styles.shuru} onSubmitEditing={Keyboard.dismiss}  onChangeText={ (text) => this.setState({LoginNum:text}) } 
+                                    <TextInput style={styles.shuru}  onChangeText={ (text) => this.setState({LoginNum:text}) } 
                                     placeholder='手机号' keyboardType={'numeric'} maxLength={11} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sg}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuru} onSubmitEditing={Keyboard.dismiss} onChangeText={ (text) => this.setState({LoginWord:text}) } placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({LoginWord:text}) } placeholder='密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={[styles.sg , styles.noneb]} >
                                     <TouchableOpacity onPress={() => this.GoArea()}><Text style={styles.link}>注册账号</Text></TouchableOpacity>
@@ -271,11 +272,11 @@ export default class Main extends Component {
                                     <View style={styles.imgb}>
                                         <Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image>
                                     </View>
-                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
-                                    <TextInput style={[styles.shuruFill,styles.small]} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuMa:text})} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
+                                    <TextInput style={[styles.shuruFill,styles.small]} onChangeText={(text) => this.setState({ZhuMa:text})} placeholder='请输入验证码' underlineColorAndroid="transparent"/>
                                     <TouchableOpacity onPress={()=>this.GoSendNum()}>
                                         {/*验证码按钮*/}
                                         <View style={styles.yanzheng}>
@@ -285,15 +286,15 @@ export default class Main extends Component {
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuWord:text})} placeholder='请设置您的密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWord:text})} placeholder='请设置您的密码(字母和数字的组合)' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon03.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({ZhuWordYZ:text})} placeholder='请确认您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuWordYZ:text})} placeholder='请确认您的密码' secureTextEntry={true} underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon05.png')}></Image></View>
-                                    <TextInput style={styles.shuruFill} onSubmitEditing={Keyboard.dismiss} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
                                 </View>
                                 
                                 <View style={[styles.sgFill , styles.nonebaFill,{marginTop:5}]}>
@@ -438,17 +439,18 @@ export default class Main extends Component {
     }
 
     _keyboardDidShow () {  
-        //alert('Keyboard Shown');
-        this.setState({
+        /*var that = this
+        that.setState({
             upnum:0
-        })  
+        }) */ 
     }  
   
     _keyboardDidHide () {  
-       //alert('Keyboard Hidden');  
-       this.setState({
+       /* var that = this
+        //alert('Keyboard Hidden');  
+        that.setState({
             upnum:width*0.45
-        })  
+        })*/  
     }  
 
     Goread() {
@@ -631,21 +633,12 @@ export default class Main extends Component {
 
     receiveMessage (e) {
         let message = e.nativeEvent.data
-        console.log(message)
+        //console.log(message)
         const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})
     }
 
-    Goup() {
-        this.setState({
-            upnum:0
-        })
-    }
-    Godown() {
-        this.setState({
-            upnum:width*0.45
-        })
-    }
+
     
 }
 

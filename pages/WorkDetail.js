@@ -72,7 +72,7 @@ export default class WorkDetail extends Component {
     render() {
         const {state} = this.props.navigation;
         let page = state.params.url;
-
+        console.log(`${url}${page}`)
         return (
             <View Style={styles.container}>
                 <Modal
