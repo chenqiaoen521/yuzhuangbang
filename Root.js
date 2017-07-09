@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import Main  from './pages/Main';
+import Init  from './pages/init';
 import FindLG  from './pages/FindLG';
 import FindYP  from './pages/FindYP';
 import Center  from './pages/Center';
@@ -67,6 +68,7 @@ import {
 
 const Root = StackNavigator(
     {   
+        Init:{screen:Init },
         Main:{ screen: Main },
         Splash:{screen:Splash },
         AddFriendRequest:{ screen:AddFriendRequest },

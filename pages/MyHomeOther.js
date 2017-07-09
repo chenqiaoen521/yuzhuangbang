@@ -73,7 +73,7 @@ export default class MyHomeOther extends Component {
         let page = state.params.url;
         console.log(`${url}${page}`)
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <View contentContainerStyle={styles.container}>
                 <Modal
                   animationType="fade"
                   visible={this.state.isShareModal}
@@ -96,7 +96,7 @@ export default class MyHomeOther extends Component {
                     decelerationRate="normal"
                     startInLoadingState={true}
                     scalesPageToFit={false} />
-            </ScrollView>
+            </View>
         );
     }
 

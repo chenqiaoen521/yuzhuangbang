@@ -12,10 +12,12 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 var data = [require('../imgs/screen_01.png'),require('../imgs/screen_02.png'),require('../imgs/screen_03.png')];
 var {width,height} = Dimensions.get('window');
+import store from 'react-native-simple-store';
 export default class Splash extends Component {
   static navigationOptions = {
     header:null
@@ -87,8 +89,9 @@ export default class Splash extends Component {
     return screens
   }
   toIndex () {
+    store.save('isInit', true);
     const {navigate} = this.props.navigation;
-    navigate('Main')
+    navigate('Main');
   }
   renderIndicator () {
     let indicatorArr = [];
