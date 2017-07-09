@@ -19,6 +19,7 @@ import {
     Image,
     Modal,
     TouchableOpacity,
+      InteractionManager,
     TextInput,
     Platform,
     WebView,
@@ -101,7 +102,8 @@ export default class Main extends Component {
         //this.onSelect = this.onSelect.bind(this)
     }
     componentDidMount() {
-        var that = this
+        InteractionManager.runAfterInteractions(() => { 
+            let that =this;
         store.get('user').then(function(data){
             if(data.token){
                 that.setState({
@@ -113,6 +115,13 @@ export default class Main extends Component {
                 });
             }
         })
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);  
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);  
+        this.Goread()
+
+
+
+        });
     }
     receiveMessage (e) {
         let message = e.nativeEvent.data
@@ -427,12 +436,7 @@ export default class Main extends Component {
         }
     }
 
-    componentWillMount () {
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);  
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);  
-        var that = this
-        that.Goread()
-    }
+    
     componentWillUnmount () {  
         this.keyboardDidShowListener.remove();  
         this.keyboardDidHideListener.remove();  

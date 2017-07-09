@@ -73,7 +73,7 @@ export default class MyHomeOther extends Component {
         let page = state.params.url;
         console.log(`${url}${page}`)
         return (
-            <View contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <Modal
                   animationType="fade"
                   visible={this.state.isShareModal}

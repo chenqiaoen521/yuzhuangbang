@@ -83,7 +83,7 @@ export default class MyHome extends Component {
 
     render() {
         return (
-            <View contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <Modal
                   animationType="fade"
                   visible={this.state.isShareModal}

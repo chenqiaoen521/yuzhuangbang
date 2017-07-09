@@ -65,6 +65,9 @@ export default class WorkDetail extends Component {
         this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
         BackHandler.addEventListener('hardwareBackPress', this.goBack);
     }
+    componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.goBack);
+  }
     onNavigationStateChange(navState) {
       canGoBack = navState.canGoBack;
     }
@@ -139,9 +142,7 @@ export default class WorkDetail extends Component {
             navigate('MyHomeOther',{title:'设计师主页',url:message})
         }
     }
-    componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.goBack);
-  }
+    
     renderSpinner() {
       const { params } = this.props.navigation.state;
       return (
