@@ -157,7 +157,7 @@ export default class Main extends Component {
                 <TouchableOpacity onPress={()=>this.GoFind() }>                                      
                     <View style={{width:width, height:48, justifyContent:'center', alignItems:'center',backgroundColor:'#2a2a2a'}}>
                         <Icon name={ this.state.mode ? 'mindicon':'goodicon'}  size={22} color={'#fff'} />
-                        <Text style={{fontSize:14,color:'#fff'}}>{this.state.mode ? '找灵感':'找优品'}</Text>
+                        <Text style={{fontSize:14,color:'#fff'}}>{this.state.mode ? '找优品':'找灵感'}</Text>
                     </View>
                 </TouchableOpacity>
                 <Modal  
