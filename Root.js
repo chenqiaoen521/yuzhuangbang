@@ -21,6 +21,7 @@ import HelpDetail  from './pages/HelpDetail';
 import BlackList  from './pages/blackList';
 import Feedback  from './pages/Feedback';
 import Message  from './pages/Message';
+import ClientAdd  from './pages/ClientAdd';
 import About  from './pages/About';
 import PasswordPage  from './pages/Password';
 import ForgetPassword  from './pages/ForgetPassword';
@@ -69,6 +70,7 @@ import {
 const Root = StackNavigator(
     {   
         Init:{screen:Init },
+        ClientAdd:{screen:ClientAdd },
         Main:{ screen: Main },
         Splash:{screen:Splash },
         AddFriendRequest:{ screen:AddFriendRequest },

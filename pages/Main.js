@@ -60,7 +60,6 @@ export default class Main extends Component {
     // 构造
     constructor(props) {
         super(props);
-        var that = this;
         // 初始状态
         this.state = {
             isModal:false, //登录框是否显示
@@ -97,30 +96,30 @@ export default class Main extends Component {
         this.rowIndex0 = 0;
         this.rowIndex1 = 0;
         this.rowIndex2 = 0;
-
+        this.onIconClicked = this.onIconClicked.bind(this);
         //单选框
         //this.onSelect = this.onSelect.bind(this)
     }
+    onIconClicked() {
+    this.drawer.openDrawer();
+  }
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => { 
             let that =this;
-        store.get('user').then(function(data){
-            if(data.token){
-                that.setState({
-                    token:true,
-                });
-            }else{
-                that.setState({
-                    token:false,
-                });
-            }
-        })
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);  
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);  
-        this.Goread()
-
-
-
+            store.get('user').then(function(data){
+                if(data.token){
+                    that.setState({
+                        token:true,
+                    });
+                }else{
+                    that.setState({
+                        token:false,
+                    });
+                }
+            })
+        //this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);  
+        //this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);  
+            this.Goread()
         });
     }
     receiveMessage (e) {
@@ -438,8 +437,8 @@ export default class Main extends Component {
 
     
     componentWillUnmount () {  
-        this.keyboardDidShowListener.remove();  
-        this.keyboardDidHideListener.remove();  
+       // this.keyboardDidShowListener.remove();  
+       // this.keyboardDidHideListener.remove();  
     }
 
     _keyboardDidShow () {  
@@ -471,7 +470,6 @@ export default class Main extends Component {
                     htmlsrc:`${url}/App/Index/work_list?type=${that.state.datatype}`,
                 }); 
             }
-            console.log(that.state.htmlsrc)
         })
     }
 

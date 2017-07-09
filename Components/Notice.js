@@ -45,6 +45,7 @@ export default class Notice extends Component {
       this.setState({
         data:result
       })
+      this.startTimer();
     })
   }
   async getData() {
@@ -56,7 +57,7 @@ export default class Notice extends Component {
       console.error(error);
     }
   }
-  componentWillUnMount(){
+  componentWillUnmount(){
 
     clearInterval(this.timer)
   }
@@ -118,7 +119,6 @@ export default class Notice extends Component {
     })
   }
   onScrollEndDrag () {
-    console.log('end')
     this.startTimer();
   }
   onAnimationEnd (e) {

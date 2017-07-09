@@ -113,7 +113,7 @@ export default class Slider extends Component {
         this.startTimer()
         this.Getimage(3)
     }
-    componentWillUnMount(){
+    componentWillUnmount(){
         clearInterval(this.timer)
     }
     Getimage(type){
