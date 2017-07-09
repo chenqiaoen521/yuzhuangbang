@@ -51,14 +51,14 @@ export default class PersonInfo extends Component {
         this.state = {
             sex: '男',
             modalVisible: false,
-            avatar:'',
-            name:'请填写姓名',
-            nickname:'请填写昵称',
-            phone:'请填写电话',
-            province:'请填写省',
-            city:'市',
-            area:'区',
-            token:''
+            avatar:null,
+            name:null,
+            nickname:null,
+            phone:null,
+            province:null,
+            city:null,
+            area:null,
+            token:null
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -127,7 +127,6 @@ export default class PersonInfo extends Component {
         })
     }
     async getData(token) {
-        console.log(`${host}/App/Center/get_user_info?token=${token}`)
         try {   
           let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
           let responseJson = await response.json();
@@ -159,8 +158,20 @@ export default class PersonInfo extends Component {
             <View style={styles.container}>
                 <ScrollView>
                     <Unit popToSetting={()=>this.chooseImg.bind(this)()} topColor="#151515" bgColor="#282828" txtCol="#999999" icon={{uri:iconUrl}} title="头像"/>
-                    <Unit popToSetting={(text)=>this.changeName(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="姓名" rightInput={this.state.name}/>
-                    <Unit popToSetting={(text)=>this.changeNick(text)} topColor="#151515" bgColor="#282828" txtCol="#999999" title="昵称" rightInput={this.state.nickname}/>
+                    <View style={[styles.unitStyle,{backgroundColor:'#282828'},{borderTopColor:'#151515'}]}>
+                        <Text style={{color:'#999999',fontSize:14}}>姓名</Text>
+                        <View style={styles.rightBarStyle}>
+                          <TextInput underlineColorAndroid="transparent" onChangeText={(text) =>{this.setState({name:text})} } onEndEditing={(event) => {event.nativeEvent.text}} style={{color:'#cccccc',marginRight:20, padding:0,width:width*0.7,textAlign:'right'}} placeholderTextColor="#cccccc" defaultValue={this.state.name}  placeholder={'请输入姓名'}/>
+                          <Icon name="angle-right" size={25} color="#b6b6b6" />
+                        </View>
+                    </View>
+                    <View style={[styles.unitStyle,{backgroundColor:'#282828'},{borderTopColor:'#151515'}]}>
+                        <Text style={{color:'#999999',fontSize:14}}>昵称</Text>
+                        <View style={styles.rightBarStyle}>
+                          <TextInput underlineColorAndroid="transparent" onChangeText={(text) =>{this.setState({nickname:text})} } onEndEditing={(event) => {event.nativeEvent.text}} style={{color:'#cccccc',marginRight:20, padding:0,width:width*0.7,textAlign:'right'}} placeholderTextColor="#cccccc" defaultValue={this.state.nickname}  placeholder={'请输入昵称'}/>
+                          <Icon name="angle-right" size={25} color="#b6b6b6" />
+                        </View>
+                    </View>
                     <Unit popToSetting={()=>this.GoPhone()} edit={false} topColor="#151515" bgColor="#282828" txtCol="#999999" editable={false} title="手机号" rightInput={this.state.phone}/>
                     <View style={{marginTop:10}}>
                         <Unit popToSetting={()=>this.checkSex()} topColor="#151515" bgColor="#282828" txtCol="#999999" title="性别" rightTxt={this.state.sex}/>
@@ -176,11 +187,6 @@ export default class PersonInfo extends Component {
             </View>
         );
     }
-    changeName (text) {
-        this.setState({
-            name:text
-        })
-    }
     changeNick (text) {
         this.setState({
             nickname:text
@@ -190,11 +196,17 @@ export default class PersonInfo extends Component {
         let token = this.state.token;
             let a =this.state.sex
             let b =this.state.avatar
+            if(!b) {ToastUtil.showShort('头像不能为空', false);return;}
             let c =this.state.name
+            if(!c) {ToastUtil.showShort('姓名不能为空', false);return;}
             let d =this.state.nickname
+            if(!d) {ToastUtil.showShort('昵称不能为空', false);return;}
             let f =this.state.province
+            if(!f) {ToastUtil.showShort('省市区不能为空', false);return;}
             let g =this.state.city
+            if(!g) {ToastUtil.showShort('省市区不能为空', false);return;}
             let h =this.state.area
+            if(!h) {ToastUtil.showShort('省市区不能为空', false);return;}
         let formData = new FormData();    
         formData.append("sex",a);  
         formData.append("token",token);  
@@ -334,16 +346,15 @@ const styles = StyleSheet.create({
         backgroundColor:'#151515'
     },
     unitStyle:{
-        backgroundColor:'#fff',
-        flexDirection:'row',
-        alignItems :'center',
-        justifyContent :'space-between',
-        padding:10,
-        paddingTop:12,
-        paddingBottom:12,
-        borderBottomColor:'#e5e5e5',
-        borderBottomWidth:0.5
-    },
+    flexDirection:'row',
+    alignItems :'center',
+    justifyContent :'space-between',
+    paddingLeft:10,
+    paddingRight:10,
+    height:50,
+    borderTopWidth:0.5,
+    backgroundColor:'red'
+  },
     baocun:{
         backgroundColor:'#ae8300',
         height:45,
@@ -374,6 +385,10 @@ const styles = StyleSheet.create({
     kinda: {
         height:34,
         flexDirection: 'row',
+    },
+    rightBarStyle:{
+    flexDirection:'row',
+    alignItems:'center'
     },
     ktext: {
         flex:1,

@@ -38,7 +38,7 @@ export default class Feedback extends Component {
     };
 
   }
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle:'意见反馈',
     headerRight: (
       <Icon.Button
@@ -51,7 +51,7 @@ export default class Feedback extends Component {
         }}
       />
     )
-  }
+  });
   render() {
     return (
       <View style={styles.container}>
@@ -72,7 +72,12 @@ export default class Feedback extends Component {
       </View>
     );
   }
+  onActionSelected () {
+        const {navigate} = this.props.navigation;
+        navigate('Message');
+    }
   componentWillMount () {
+      this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
     let that = this;
     store.get('user').then(
       function(data){
@@ -83,10 +88,12 @@ export default class Feedback extends Component {
   }
   submit () {
     let content = this.state.content;
+    const {goBack} = this.props.navigation;
+                
     this.postData(content).then((data)=>{
       if(data.errorMsg=='success'){
-        ToastUtil.showShort('您的意见已经提交成功', false);return;
-        this.props.navigation.goBack(null);
+        ToastUtil.showShort('您的意见已经提交成功', false);
+        goBack(null);
       }else{
         ToastUtil.showShort('提交失败请稍后再试', false);return;
       }

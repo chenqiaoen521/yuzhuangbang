@@ -76,7 +76,7 @@ export default class Unit extends Component {
     if(this.props.rightInput){
       return (
         <View style={styles.rightBarStyle}>
-          <TextInput underlineColorAndroid="transparent" onChangeText={(text) => this.props.popToSetting(text) } onEndEditing={(event) => {event.nativeEvent.text}} style={{color:'#cccccc',marginRight:20,padding:0,width:width*0.7,textAlign:'right'}} editable ={this.props.edit} defaultValue ={this.props.rightInput}/>
+          <TextInput underlineColorAndroid="transparent" onChangeText={(text) => this.props.popToSetting(text) } onEndEditing={(event) => {event.nativeEvent.text}} style={{color:'#cccccc',marginRight:20, padding:0,width:width*0.7,textAlign:'right'}} placeholderTextColor="#cccccc" editable ={this.props.edit} placeholder={this.props.rightInput}/>
           <Icon name="angle-right" size={25} color="#b6b6b6" />
         </View>
         )
