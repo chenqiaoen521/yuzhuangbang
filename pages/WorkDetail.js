@@ -17,6 +17,7 @@ import {
     Alert,
     TouchableOpacity,
     Modal,
+    BackHandler,
     TouchableWithoutFeedback
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
@@ -25,7 +26,7 @@ import LoadingView from '../Components/LoadingView';
 import Icon from 'react-native-vector-icons/Wz';
 import IconDetail from '../Components/IconDetail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+let canGoBack = false;
 //获取公共域名
 var url = require('../config.json').url
 //弹窗信息
@@ -55,12 +56,30 @@ export default class WorkDetail extends Component {
             htmlsrc:'https://m.facebook.com',
             isShareModal: false
         };
+       this.onActionSelected = this.onActionSelected.bind(this);
         this.renderSpinner = this.renderSpinner.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
         this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
+        BackHandler.addEventListener('hardwareBackPress', this.goBack);
     }
+    onNavigationStateChange(navState) {
+      canGoBack = navState.canGoBack;
+    }
+    goBack() {
+    if (this.state.isShareModal) {
+      this.setState({
+        isShareModal: false
+      });
+      return true;
+    } else if (canGoBack) {
+      this.webview.goBack();
+      return true;
+    }
+    return false;
+  }
     onActionSelected () {
         this.setState({
             isShareModal: true
@@ -97,6 +116,7 @@ export default class WorkDetail extends Component {
                     decelerationRate="normal"
                     startInLoadingState={true}
                     renderLoading={this.renderLoading}
+                    onNavigationStateChange={this.onNavigationStateChange}
                     scalesPageToFit={false} />
             </View>
         );
@@ -119,6 +139,9 @@ export default class WorkDetail extends Component {
             navigate('MyHomeOther',{title:'设计师主页',url:message})
         }
     }
+    componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.goBack);
+  }
     renderSpinner() {
       const { params } = this.props.navigation.state;
       return (
@@ -145,7 +168,7 @@ export default class WorkDetail extends Component {
                         description: '分享自：预装帮',
                         thumbImage: null,
                         type: 'news',
-                        webpageUrl: `${url}${page}`
+                        webpageUrl: 'https://www.baidu.com/'
                       }).catch((error) => {
                         ToastUtil.showShort(error.message, true);
                       });
