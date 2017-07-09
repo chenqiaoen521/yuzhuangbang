@@ -137,7 +137,7 @@ export default class Main extends Component {
                     </View>
                     
                     <View style={{marginTop:5}}>
-                        <Slider/>
+                        <Slider ref='slide' />
                     </View>
                     <View style={{marginTop:5}}>
                         <Notice popToparent={(id)=>this.popToparent(id)}/>
@@ -145,7 +145,6 @@ export default class Main extends Component {
                     <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
                     <WebView
                           automaticallyAdjustContentInsets={false}
-                          style={{height:650}}
                           source={{uri:this.state.htmlsrc}}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}
@@ -348,11 +347,11 @@ export default class Main extends Component {
     }
     async DoLogin() {
         var that = this
-        /*if(that.state.LoginNum===''){
+        if(that.state.LoginNum===''){
             ToastUtil.showShort('手机号不能为空',true)
         }else if(that.state.LoginWord===''){
             ToastUtil.showShort('验证码不能为空',true)
-        }else{*/
+        }else{
             try {
                 let response = await fetch(`${url}/App/User/login`,{
                     method:'POST',
@@ -379,7 +378,7 @@ export default class Main extends Component {
                 console.error(error);
                 ToastUtil.showShort(error,true)
             }
-        /*}*/
+        }
     }
 
 
@@ -455,8 +454,10 @@ export default class Main extends Component {
         });
         if(that.state.datatype==2){
             that.setState({ datatype:3 });
+            that.refs.slide.Getimage(3);
         }else if(that.state.datatype==3){
             that.setState({ datatype:2 });
+            that.refs.slide.Getimage(2);
         }
         that.Goread()
     }
