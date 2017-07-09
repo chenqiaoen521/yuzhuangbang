@@ -43,6 +43,7 @@ export default class PasswordPage extends Component {
             useryan:'',
             usermi:'',
             usermit:'',
+            phone:''
         };
         
     }
@@ -68,8 +69,9 @@ export default class PasswordPage extends Component {
                 </View>
                 <View style={styles.group}>
                     <Text style={styles.txt}>手机号</Text>
-                    <TextInput  style={styles.inputStyle} onChangeText={(text) => this.setState({userphone:text})} 
-                        placeholderTextColor="#666666" underlineColorAndroid="transparent" placeholder="请输入手机号" />
+                    {/*<TextInput  style={styles.inputStyle} onChangeText={(text) => this.setState({userphone:text})} 
+                        placeholderTextColor="#666666" underlineColorAndroid="transparent" placeholder="请输入手机号" />*/}
+                        <Text style={[styles.inputStyle,{paddingTop:13},{paddingBottom:13}]} >{this.state.phone}</Text>
                 </View>
                 <View style={styles.group}>
                     <Text style={styles.txt}>验证码</Text>
@@ -105,6 +107,42 @@ export default class PasswordPage extends Component {
         );
     }
 
+    componentWillMount () {
+        let that = this;
+        store.get('user').then(
+            function(data){
+                that.setState({
+                    token:data.token
+                });  
+                that.__init(data.token)     
+                that.Getnum(data.token)        
+        })
+    }
+    __init (token) {
+        let data = this.getData(token);
+        data.then((result)=>{
+            this.setState({
+                phone:result.user_info.phone,
+            })
+            console.log(this.state.type)
+        })
+    }
+    async getData(token) {
+        try {   
+            let response = await fetch(`${url}/App/Center/get_user_info?token=${token}`);
+            let responseJson = await response.json();
+            console.log(responseJson.data)
+            if(responseJson.errorCode==0){
+                return responseJson.data;
+            }else{
+                console.log(responseJson)
+                ToastUtil.showShort(responseJson.errorMsg)
+            }
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
     //注册-发送验证码
     GoSendNum() {
         var that = this;
@@ -118,11 +156,11 @@ export default class PasswordPage extends Component {
     async DoSendnum() {
         var that = this
         //console.log('type:'+that.state.type)
-        if(that.state.userphone===''){
+        /*if(that.state.userphone===''){
             ToastUtil.showShort('请先输入手机号')
-        }else{
+        }else{*/
             try {
-                let response = await fetch(`${url}/App/User/send_code?phone=${that.state.userphone}&type=2`,{
+                let response = await fetch(`${url}/App/User/send_code?phone=${that.state.phone}&type=2`,{
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -140,7 +178,7 @@ export default class PasswordPage extends Component {
                 console.error(error);
                 ToastUtil.showShort(error)
             }
-        }
+        /*}*/
     }
 
     //提交修改

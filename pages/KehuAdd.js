@@ -36,16 +36,7 @@ import store from 'react-native-simple-store';
 
 export default class Center extends Component {
     static navigationOptions = {
-        title:'添加客户',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        title:'添加客户'
     }
     // 构造
     constructor(props) {
@@ -59,7 +50,7 @@ export default class Center extends Component {
             text3:0,
             index3:0,
             isDateTimePickerVisible: false, 
-            riqi:'2016-10-26',
+            riqi:'2016-10-26 00:00:00',
             //传递
             pername:'',
             perphone:'',
@@ -111,11 +102,11 @@ export default class Center extends Component {
                 <ScrollView>
                     <View style={styles.sg}>
                         <Text style={styles.sgtext}>姓名</Text>
-                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({pername:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='张嘉译' />
+                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({pername:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='请填写客户姓名' />
                     </View>
                     <View style={styles.sg}>
                         <Text style={styles.sgtext}>手机号</Text>
-                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({perphone:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='15845672135' />
+                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({perphone:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='请填写手机号' />
                     </View>
                     <View style={styles.sg}>
                         <Text style={styles.sgtext}>性别</Text>
@@ -152,7 +143,7 @@ export default class Center extends Component {
                     { this.state.index2==0 ?
                     (<View style={styles.sg}>
                         <Text style={styles.sgtext}>小区名称</Text>
-                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({pershename:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='欢乐颂小区' />
+                        <TextInput style={styles.minput} onChangeText={ (text) => this.setState({pershename:text}) } placeholderTextColor="#777" underlineColorAndroid="transparent" placeholder='请填写小区名称' />
                     </View>)
                     : 
                     (<View style={styles.sg}>
@@ -175,7 +166,7 @@ export default class Center extends Component {
                         <TextInput style={[styles.minput,styles.all2]}  onChangeText={ (text) => this.setState({peradress:text}) } 
                         multiline={true} placeholderTextColor="#777" 
                         underlineColorAndroid="transparent" 
-                        placeholder='河南省郑州市中中州大道郑汴路交叉口建业五栋大楼B座701室' />
+                        placeholder='请填写详细地址' />
                     </View>
                     
                     {/*<Text style={{color:'#999'}}>{this.state.text}{'\n'}{this.state.text2}{'\n'}{this.state.text3}</Text>*/}

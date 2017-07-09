@@ -13,7 +13,8 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Modal
 } from 'react-native';
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Wz';
@@ -37,7 +38,9 @@ export default class Center extends Component {
             area:null,
             type:'',
             store:'',
-            numdata:[]
+            numdata:[],
+            onoff:false,
+            onoff1:false,
         };
     }
     static navigationOptions = ({ navigation }) => ({
@@ -77,20 +80,49 @@ export default class Center extends Component {
                         <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
                         <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号添加"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
-                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_06.png')} txt="附近搜索"/>
-                        <CenterItem popToCenter={()=>this.Goquan()} icon={require('../imgs/cicon_03.png')} txt="社区"/>
+                        <CenterItem popToCenter={()=>this.Gokai()} icon={require('../imgs/cicon_06.png')} txt="附近搜索"/>
+                        <CenterItem popToCenter={()=>this.Gokai()} icon={require('../imgs/cicon_03.png')} txt="社区"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.toFav()} icon={require('../imgs/cicon_11.png')} txt="我的收藏"/>
-                        <CenterItem popToCenter={()=>this.Gobuild()} icon={require('../imgs/cicon_10.png')} txt="我的图文"/>
+                        <CenterItem popToCenter={()=>this.Gokai2()} icon={require('../imgs/cicon_10.png')} txt="我的图文"/>
                         <CenterItem popToCenter={()=>this.toMessage()} icon={require('../imgs/middle_05.png')} txt="我的消息"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.toSetting()} icon={require('../imgs/middle_06.png')} txt="设置"/>
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}></View>
                     </View>
                 </ScrollView>
+                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff} >
+                    <View style={{ backgroundColor:'rgba(0,0,0,0.4)',height:height,alignItems:'center',justifyContent:'center',}} >
+                        <View style={{ backgroundColor:'#fff', borderRadius:10, width:240, backgroundColor:'#fff',alignItems:'center',justifyContent:'center'}}>
+                            <Image style={{width:240, height:190, borderRadius:10,}} source={require('./../imgs/tippic_07.png')}></Image> 
+                            <Text style={{ paddingTop:10, paddingBottom:10}}>您暂时还没有权限！</Text>
+                        </View>
+                        <TouchableOpacity onPress={ ()=>this.Goclose() }><Image style={{width:30,height:30,marginTop:20}} source={require('./../imgs/closegray.png')}></Image></TouchableOpacity>
+                    </View>
+                </Modal>
+                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff1} >
+                    <View style={{ backgroundColor:'rgba(0,0,0,0.4)',height:height,alignItems:'center',justifyContent:'center',}} >
+                        <View style={{ backgroundColor:'#fff', borderRadius:10, width:240, backgroundColor:'#fff',alignItems:'center',justifyContent:'center'}}>
+                            <Image style={{width:240, height:190, borderRadius:10,}} source={require('./../imgs/tippic_03.png')}></Image>
+                            <Text style={{ paddingTop:10, paddingBottom:10}}>功能正在建设中，敬请期待！</Text>
+                        </View>
+                        <TouchableOpacity onPress={ ()=>this.Goclose() }><Image style={{width:30,height:30,marginTop:20}} source={require('./../imgs/closegray.png')}></Image></TouchableOpacity>
+                    </View>
+                </Modal>
             </View>
         );
     }
+
+    Gokai() {
+        this.setState({onoff:true})
+    }
+    Gokai2() {
+        this.setState({onoff1:true})
+    }
+    Goclose() {
+        this.setState({onoff:false,onoff1:false})
+    }
+
     Goquan() {
         ToastUtil.showShort('您暂时还没有权限！')
     }
