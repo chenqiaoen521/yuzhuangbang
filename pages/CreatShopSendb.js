@@ -134,7 +134,7 @@ export default class CreatShopSendb extends Component {
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                         <View style={[styles.input,styles.viewbg]}>
                             <Text style={{color:'#888',fontSize:13}}>{`${this.state.province}${this.state.city}${this.state.area}`}</Text>
-                            <Image style={{width:20,height:12}} resizeMode={'center'} source={require('../imgs/right01.png')}></Image>
+                            <Image style={{width:20,height:12}} resizeMode={'stretch'} source={require('../imgs/right01.png')}></Image>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -352,7 +352,7 @@ export default class CreatShopSendb extends Component {
         return (
             <TouchableOpacity onPress={()=> this.chooseImg(4) }>
                 <View style={styles.cpbox}>
-                    <Image style={styles.cptu} resizeMode={'center'} source={require('../imgs/sendzheng_17.png')}></Image>
+                    <Image style={styles.cptu} resizeMode={'stretch'} source={require('../imgs/sendzheng_17.png')}></Image>
                 </View>
             </TouchableOpacity>   
             )
@@ -362,8 +362,8 @@ export default class CreatShopSendb extends Component {
         return (
             <TouchableOpacity onPress={()=>this.delImage(b)}>
                 <View style={styles.cpbox}>
-                    <Image style={styles.cptu} resizeMode={'center'} source={row}></Image>
-                    <Image style={styles.cpbg} resizeMode={'center'}  source={require('../imgs/sendzheng_14.png')}></Image>
+                    <Image style={styles.cptu} resizeMode={'stretch'} source={row}></Image>
+                    <Image style={styles.cpbg} resizeMode={'stretch'}  source={require('../imgs/sendzheng_14.png')}></Image>
                 </View>
             </TouchableOpacity>
         )

@@ -57,48 +57,92 @@ export default class WorkAdd extends Component {
 
     // 构造
     constructor(props) {
+
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         super(props);
         var that = this;
         // 初始状态
         this.state = {
             dataSource: ds,
-            htmlsrc:'https://m.facebook.com',
-            yezz:require('../imgs/detialimg_03.jpg'),
-            biaoti:'',
+            yezz:'http://192.168.0.188/Uploads/App/User/2017-07-10/1499678110_18964751705963459e176b2.jpg',
+            biaoti:'测试 ',
             jianjie:'',
             xiang:'',
             zhizhao:'',
             tupian:[],
             images:[],
-            token:''
+            token:'',
+            activeid:''
         };
     }
  
-    componentDidMount() {
-        var that = this
-        /*store.get('user').then(function(data){
-            if(data.token){
-                that.setState({
-                    htmlsrc:`${url}/App/Role/work_detail?token=${data.token}`,
-                }); 
-            }else{
-                that.setState({
-                    htmlsrc:`${url}/App/Role/work_detail`,
-                }); 
-            }
-        })*/
-    }
+    componentDidMount() { }
     componentWillMount () {
         let that =this;
+        const {state} = this.props.navigation;
+        let zpid = state.params.id;
+        that.setState({  activeid:zpid, }); 
         store.get('user').then(
             function(data){
                 that.setState({
                     token:data.token,
-                });           
+                });   
+                that.Getxq(data.token,that.state.activeid)        
             })
     }
+
+    Getxq(token,id) {
+        let that = this
+        let data = this.Findxq(token,id);
+        data.then(
+            (result)=>{
+                if(result){
+                    console.log(result)
+                    that.setState({
+                        biaoti:result.name,
+                        jianjie:result.desc,
+                        xiang:result.introduce,
+                        yezz:host+result.image,
+                        //dataSource:data.album,
+                    });   
+                    var arr=[];
+                    var l = result.album.length;
+                    for(var i =0; i<l; i++){
+                        arr.push(host+result.album[i].image_url)
+                    }
+                    that.setState({ tupian:arr });
+
+                    //console.log('5555::'+that.state.biaoti)
+                }
+            }
+        )  
+    }
+    //先进详情页
+    async Findxq(token,id) {
+        console.log(token+'和'+id)
+        var that = this
+        try {
+            let response = await fetch(`${url}/App/Role/add_edit_goods_detail?token=${token}&id=${id}`, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            if(responseJson.errorCode===0){
+                //console.log(responseJson.data)
+                return responseJson.data;   
+            }else{
+                ToastUtil.showShort(responseJson.errorMsg,true)
+            }
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        } 
+    }
+
     render() {
+        console.log(this.state.yezz)
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -113,26 +157,26 @@ export default class WorkAdd extends Component {
                         scalesPageToFit={false} />*/}
                     <View style={styles.flsg}>
                         <Text style={styles.ftit}>标题编辑</Text>
-                        <TextInput style={[styles.shuru,{height:30}]} onChangeText={ (text) => this.setState({biaoti:text}) } placeholder='请在这里编辑标题内容' placeholderTextColor ='#999' underlineColorAndroid="transparent"/>
+                        <TextInput style={[styles.shuru,{height:30}]} onChangeText={ (text) => this.setState({biaoti:text}) }  defaultValue={this.state.biaoti}  underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.flsg}>
                         <Text style={styles.ftit}>简介编辑</Text>
-                        <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({jianjie:text}) } multiline={true} placeholder='请在这里编辑简介内容' placeholderTextColor ='#999' underlineColorAndroid="transparent"/>
+                        <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({jianjie:text}) } multiline={true}  defaultValue={this.state.jianjie}  underlineColorAndroid="transparent"/>
                     </View>
                     <View style={styles.flsg}>
                         <Text style={styles.ftit}>封面上传</Text>
                         <View style={styles.sendview}>
                         <TouchableOpacity  onPress={() => this.chooseImg(1)}>
-                            <Image style={styles.img} resizeMode={'stretch'} source={this.state.yezz} ></Image>
+                            <Image style={styles.img} resizeMode={'stretch'}  source={{uri:this.state.yezz}}  ></Image>
                             <View style={styles.fixtext}><Text style={styles.ftext}>重新上传</Text></View>
                         </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.flsg}>
                         <Text style={styles.ftit}>详情描述</Text>
-                        <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({xiang:text}) } multiline={true} placeholder='请在这里编辑详情' placeholderTextColor ='#999' underlineColorAndroid="transparent"/>
+                        <TextInput style={styles.shuru} onChangeText={ (text) => this.setState({xiang:text}) } multiline={true} defaultValue={this.state.xiang} underlineColorAndroid="transparent"/>
                     </View>
-                    <View style={styles.flsg}>
+                    <View style={[styles.flsg]}>
                         <ListView 
                             contentContainerStyle={styles.sendpro}
                             dataSource={this.state.dataSource.cloneWithRows(this.state.tupian)}
@@ -143,7 +187,7 @@ export default class WorkAdd extends Component {
                 </ScrollView>
                 <TouchableOpacity onPress={ ()=> this.Goadd() }>
                     <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingTop:10, paddingBottom:10,backgroundColor:'#ae8300',}}>
-                        <Text style={{ fontSize:14, color:'#fff',}}>提交保存</Text>
+                        <Text style={{ fontSize:14, color:'#fff',}}>保存修改</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -163,7 +207,7 @@ export default class WorkAdd extends Component {
         return (
             <TouchableOpacity onPress={()=>this.delImage(b)}>
                 <View style={styles.cpbox}>
-                    <Image style={styles.cptu} resizeMode={'stretch'} source={row}></Image>
+                    <Image style={styles.cptu} resizeMode={'stretch'}  source={{uri:row}} ></Image>
                     <Image style={styles.cpbg} resizeMode={'stretch'}  source={require('../imgs/sendzheng_14.png')}></Image>
                 </View>
             </TouchableOpacity>
@@ -213,8 +257,9 @@ export default class WorkAdd extends Component {
         .then((response) => response.json() )  
         .then((responseData)=>{  
             if(flag==1){
+                console.log(responseData.data.image)
                 this.setState({
-                yezz:{uri:`${host}${responseData.data.image}`},
+                yezz:`${host}${responseData.data.image}`,
                 zhizhao:responseData.data.image
                 })
             }
@@ -222,7 +267,7 @@ export default class WorkAdd extends Component {
             if(flag==4){
                 let arr = this.state.tupian;
                 let images = this.state.images;
-                arr.push({uri:`${host}${responseData.data.image}`});
+                arr.push(`${host}${responseData.data.image}`);
                 images.push(responseData.data.image);
                 this.setState({
                     tupian:arr,
@@ -251,6 +296,7 @@ export default class WorkAdd extends Component {
         formData.append("desc",this.state.jianjie); 
         formData.append("introduce",this.state.xiang);
         formData.append("image",this.state.zhizhao); 
+        formData.append("id",this.state.activeid);
         for(let i=0;i<h.length;i++){
             formData.append("images[]",this.state.images[i]); 
         }
@@ -270,7 +316,7 @@ export default class WorkAdd extends Component {
             });
             let responseJson = await response.json(); 
             if(responseJson.errorCode== 0){
-                ToastUtil.showShort('作品添加成功', false);
+                ToastUtil.showShort('作品修改成功', false);
                 const {navigate} = this.props.navigation;
                 navigate('WorkManage');
                 return responseJson;
@@ -345,6 +391,7 @@ const styles = StyleSheet.create({
     },
     sendpro: {
         flexDirection:'row',
+        flexWrap:'wrap',
     },
     cpbox: {
         paddingRight:10,

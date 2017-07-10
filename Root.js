@@ -40,6 +40,7 @@ import MyCollect  from './pages/MyCollect';
 import MyBranch  from './pages/MyBranch';
 import MyClient  from './pages/MyClient';
 import KehuNews  from './pages/KehuNews';
+import WorkAddEdit  from './pages/WorkAddEdit';
 /**H5**/
 import AccountEdit  from './pages/AccountEdit';
 
@@ -69,9 +70,11 @@ import {
 
 const Root = StackNavigator(
     {   
+
+        Main:{ screen: Main },
         Init:{screen:Init },
         ClientAdd:{screen:ClientAdd },
-        Main:{ screen: Main },
+        //Main:{ screen: Main },
         Splash:{screen:Splash },
         AddFriendRequest:{ screen:AddFriendRequest },
         myBlack:{ screen:MyBlack }, 
@@ -116,6 +119,7 @@ const Root = StackNavigator(
         MyClient:{ screen:MyClient },
         KehuNews:{ screen:KehuNews },
         AccountEdit:{ screen:AccountEdit },
+        WorkAddEdit:{ screen:WorkAddEdit },
 
     },
     {

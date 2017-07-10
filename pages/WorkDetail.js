@@ -129,17 +129,16 @@ export default class WorkDetail extends Component {
         let message = e.nativeEvent.data;
         console.log(message);
         const {navigate} = this.props.navigation;
-        navigate('MyHomeOther',{url:message})
-        var str = 'login';
-        var str2 = 'home_page';
-        var tt = message.indexOf(str);
-        var tt2 = message.indexOf(str2);
-        if( tt > 0){
-            //去登录吧
+        var that = this
+        if( message.indexOf('login')>0){
             ToastUtil.showShort('请先登录！')
             navigate('Main')
-        }else if(tt2>0){
+        }else if(message.indexOf('home_page')>0){
             navigate('MyHomeOther',{title:'设计师主页',url:message})
+        }else if(message.indexOf('hare')>0){
+            that.onActionSelected()
+        }else if(message.indexOf('ubao')>0){
+            navigate('Feedback');
         }
     }
     

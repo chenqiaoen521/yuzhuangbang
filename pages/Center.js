@@ -91,20 +91,20 @@ export default class Center extends Component {
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:50}}></View>
                     </View>
                 </ScrollView>
-                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff} >
+                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff}  onRequestClose={() => {this.Goclose()}} >
                     <View style={{ backgroundColor:'rgba(0,0,0,0.4)',height:height,alignItems:'center',justifyContent:'center',}} >
                         <View style={{ backgroundColor:'#fff', borderRadius:10, width:240, backgroundColor:'#fff',alignItems:'center',justifyContent:'center'}}>
-                            <Image style={{width:240, height:190, borderRadius:10,}} source={require('./../imgs/tippic_07.png')}></Image> 
-                            <Text style={{ paddingTop:10, paddingBottom:10}}>您暂时还没有权限！</Text>
+                            <Image style={{width:240, height:162, borderRadius:10,}} source={require('./../imgs/tippic_07.png')}></Image> 
+                            <Text style={{ paddingTop:10, paddingBottom:16}}>您暂时还没有权限！</Text>
                         </View>
                         <TouchableOpacity onPress={ ()=>this.Goclose() }><Image style={{width:30,height:30,marginTop:20}} source={require('./../imgs/closegray.png')}></Image></TouchableOpacity>
                     </View>
                 </Modal>
-                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff1} >
+                <Modal animationType='slide' transparent={true} style={{height:height}} visible={this.state.onoff1}  onRequestClose={() => {this.Goclose()}} >
                     <View style={{ backgroundColor:'rgba(0,0,0,0.4)',height:height,alignItems:'center',justifyContent:'center',}} >
                         <View style={{ backgroundColor:'#fff', borderRadius:10, width:240, backgroundColor:'#fff',alignItems:'center',justifyContent:'center'}}>
                             <Image style={{width:240, height:190, borderRadius:10,}} source={require('./../imgs/tippic_03.png')}></Image>
-                            <Text style={{ paddingTop:10, paddingBottom:10}}>功能正在建设中，敬请期待！</Text>
+                            <Text style={{ paddingTop:10, paddingBottom:16}}>功能正在建设中，敬请期待！</Text>
                         </View>
                         <TouchableOpacity onPress={ ()=>this.Goclose() }><Image style={{width:30,height:30,marginTop:20}} source={require('./../imgs/closegray.png')}></Image></TouchableOpacity>
                     </View>
