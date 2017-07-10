@@ -32,7 +32,8 @@ export default class WorkManageOne  extends Component {
             lingToken:'',
             ztai:Object,
             dataSource: ds,
-            empty:1
+            empty:1,
+            activeid:'',
         };
     }
     static defaultProps = {
@@ -103,7 +104,7 @@ export default class WorkManageOne  extends Component {
                     </TouchableOpacity>
                     <View style={styles.sinbtn}>
                         {/*<TouchableOpacity onPress={ ()=> this.Goadd(rowData.id,rowData.name,rowData.desc,rowData.image)}>*/}
-                        <TouchableOpacity onPress={ ()=> this.Goadd(rowData.id,rowData.name,rowData.desc,rowData.image)}>
+                        <TouchableOpacity onPress={ ()=> this.Goadd(rowData.id)}>
                             <View style={styles.sbtn}>
                                 <Icon size={12} color="#898989" name="edit"></Icon>
                                 <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>编辑</Text>
@@ -159,13 +160,14 @@ export default class WorkManageOne  extends Component {
     }
     // 删除按钮
     Godel(id) {
-        var that = this
+        var that = this;
+        that.setState({ activeid:id, });  
         Alert.alert(
             '删除',
             '确认删除该作品吗',
             [
                 {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: '确定', onPress: () => that.del(id) },
+                {text: '确定', onPress: () => { that.del(that.state.activeid) }  },
             ],
             { cancelable: false }
         )
@@ -197,6 +199,7 @@ export default class WorkManageOne  extends Component {
             let responseJson = await response.json();
             if(responseJson.errorCode===0){ 
                 ToastUtil.showShort('删除成功') 
+                that.setState({ activeid:'', }); 
                 that.Goget()
                 //console.log(responseJson)
                 //return responseJson;   
@@ -210,9 +213,9 @@ export default class WorkManageOne  extends Component {
     }
 
 
-    Goadd(id,name,desc,image) {
+    Goadd(id) {
         if(this.props.popToBJ){
-            this.props.popToBJ(id,name,desc,image)
+            this.props.popToBJ(id)
         }
     }  
 

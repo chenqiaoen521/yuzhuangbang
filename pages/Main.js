@@ -87,7 +87,7 @@ export default class Main extends Component {
             lingToken:'',
             lingType:'',
             htmlsrc:'https://m.facebook.com',
-            datatype:2,
+            datatype:3,
             //
             upnum:width*0.45
 
@@ -127,9 +127,8 @@ export default class Main extends Component {
     }
     render() {      
         return (
-            <View style={styles.container} onScroll={()=>this.GoPop()}>
-                <ScrollView>
-                    <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
+            <View style={styles.container}>
+                <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:5,paddingBottom:5}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
                         <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
                             { this.state.token === false ?    
@@ -144,6 +143,21 @@ export default class Main extends Component {
                         </View>
                         
                     </View>
+                <ScrollView onScroll={()=>this.GoPop()}>
+                    {/*<View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
+                        <Search popToHome={()=>this.toSearchPage()}  />
+                        <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
+                            { this.state.token === false ?    
+                            <TouchableOpacity onPress={()=>this.onRequestOpen()}>
+                                <View><Text style={{fontSize:13,color:'#fff'}}>登录</Text></View>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={()=>this.Gocenter()}>
+                                <Image style={{width:22, height:22}} source={require('./../imgs/yonghu.png')}></Image>
+                            </TouchableOpacity>
+                            }
+                        </View>
+                    </View>*/}
                     
                     <View style={{marginTop:5}}>
                         <Slider ref='slide' />

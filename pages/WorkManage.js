@@ -41,13 +41,13 @@ export default class WorkManage extends Component {
                 <ScrollableTabView initialPage={0} renderTabBar={() => <FacebookTabBar/>} onChangeTab={ (obj) => this.shuaxin(obj.i) } >
                     <ScrollView tabLabel="ios-paper" style={styles.tabView}>
                         {/*<WorkManageOne popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } Goshanchu={ (id)=> this.Shanchu(id) }  />*/}
-                        <WorkManageOne ref='zujianOne' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
+                        <WorkManageOne ref='zujianOne' popToWatch={ (id)=> this.Gojump(id) } popToBJ={ (id)=> this.Gobianji(id) } />
                     </ScrollView>
                     <ScrollView tabLabel="ios-people" style={styles.tabView}>
-                        <WorkManageTwo ref='zujianTwo' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
+                        <WorkManageTwo ref='zujianTwo' popToWatch={ (id)=> this.Gojump(id) } popToBJ={ (id)=> this.Gobianji(id) } />
                     </ScrollView>
                     <ScrollView tabLabel="ios-chatboxes" style={styles.tabView}>
-                        <WorkManageThree ref='zujianThree' popToWatch={ ()=> this.Gojump() } popToBJ={ (id,name,desc,image)=> this.Gobianji(id,name,desc,image) } />
+                        <WorkManageThree ref='zujianThree' popToWatch={ (id)=> this.Gojump(id) } popToBJ={ (id)=> this.Gobianji(id) } />
                     </ScrollView>    
                 </ScrollableTabView>
 
@@ -68,7 +68,7 @@ export default class WorkManage extends Component {
         navigate('WorkAdd',{title:'添加作品'});
     }
     //跳转详情页
-    Gojump() {
+    Gojump(id) {
         /*const {navigate} = this.props.navigation;
         navigate('WorkDetail',{title:'作品详情'})*/
     }
@@ -86,31 +86,15 @@ export default class WorkManage extends Component {
     } 
 
     //作品编辑
-    Gobianji(id,name,desc,image) {
+    Gobianji(id) {
+        console.log(id)
         var that = this
-        store.get('user')
-        .then(
-            function(data){  
-                //that.Findxq(data.token,id);
-                let find = that.Findxq(data.token,id);
-                find.then(
-                    (result)=>{
-                        if(result){
-                            //存储
-                            console.log(result)
-                            /*const {navigate} = this.props.navigation;
-                            navigate('MainDetail',{title:'这是作品详情页'})
-                            let bianji = that.findbj(data.token,id,name,desc,image,result)*/    
-                        }else{
-                            console.log('无返回')
-                        }
-                    }
-                )  
-            })
+        const {navigate} = this.props.navigation;
+        navigate('WorkAddEdit',{id:id} )
     }
 
     //先进详情页
-    async Findxq(token,id) {
+    /*async Findxq(token,id) {
         var that = this
         try {
             let response = await fetch(`${url}/App/Role/work_detail?token=${token}&id=${id}`, {
@@ -129,7 +113,7 @@ export default class WorkManage extends Component {
             console.error(error);
             ToastUtil.showShort(error,true)
         } 
-    }
+    }*/
     //再去编辑页
     /*async findbj(token,id) {
         var that = this
@@ -155,7 +139,7 @@ export default class WorkManage extends Component {
 
 
     //删除作品
-    Shanchu(id) {
+    /*Shanchu(id) {
         var that = this
         console.log(id)
         store.get('user')
@@ -186,7 +170,7 @@ export default class WorkManage extends Component {
             console.error(error);
             ToastUtil.showShort(error,true)
         }
-    }
+    }*/
 
 }
 
