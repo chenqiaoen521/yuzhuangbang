@@ -130,10 +130,10 @@ static navigationOptions = ({ navigation }) => ({
             <View style={styles.icon}>
               <Icon name="bell-o"  style={{fontSize:14,color:'#fff'}}/>
             </View>
-            <Text style={styles.date}>{rowdata.date}</Text>
+            <Text style={styles.date}>{rowdata.created_at}</Text>
           </View>
           <Text style={styles.title}>{rowdata.title}</Text>
-          <Text style={styles.info}>{rowdata.info}</Text>
+          <Text style={styles.info}>{rowdata.content}</Text>
         </TouchableOpacity>
       )
   }

@@ -95,11 +95,11 @@ export default class MyClient extends Component {
     }
 
     receiveMessage (e) {
-        let message = e.nativeEvent.data
-        console.log(message)
+        let message = e.nativeEvent.data;
+        let temp = message.split(",");
         //你去说一句吧
         const {navigate} = this.props.navigation;
-        navigate('KehuNews',{url:message})
+        navigate('ClientAdd',{id:temp[1]});
     }
 
 }

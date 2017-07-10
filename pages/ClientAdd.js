@@ -44,7 +44,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class ClientAdd extends Component {
     static navigationOptions = {
-        headerTitle:'资料提交',
+        headerTitle:'客户管理',
         headerRight: (
             <Icon.Button
                 name="bell-o"
@@ -67,7 +67,9 @@ export default class ClientAdd extends Component {
 
             tupian:[],
             images:[],
-            token:''
+            token:'',
+            contact_id:'',
+            content:''
         };
     }
     render() {
@@ -75,7 +77,7 @@ export default class ClientAdd extends Component {
             <View style={styles.container}>
                 <ScrollView >
                 <View style={styles.single}>
-                    <TextInput style={styles.textinput} selectionColor="#fff" multiline={true} onChangeText={(text) => this.setState({detail_address:text}) } placeholderTextColor="#888" placeholder='请输入您想说的内容' underlineColorAndroid="transparent"/>
+                    <TextInput style={styles.textinput} selectionColor="#fff" multiline={true} onChangeText={(text) => this.setState({content:text}) } placeholderTextColor="#888" placeholder='请输入您想说的内容' underlineColorAndroid="transparent"/>
                 </View>
                 
                 <View style={styles.single3}>
@@ -105,9 +107,9 @@ export default class ClientAdd extends Component {
                         </View>
                         </TouchableOpacity>    */}
                 </View>
-                <View style={{ paddingTop:6,paddingRight:15, paddingBottom:6, paddingLeft:15}}>
+                {/*<View style={{ paddingTop:6,paddingRight:15, paddingBottom:6, paddingLeft:15}}>
                     <Text style={styles.smalltip}>温馨提示：您需要提供八张以上产品图片以待审核，提供的图片越好越有助于更好的审核通过呦~~</Text>                   
-                </View>
+                </View>*/}
                 </ScrollView>
                 <TouchableOpacity onPress={() => this.GoWait()}>
                     <View style={styles.add}><Text style={styles.addt}>提交</Text></View>
@@ -117,7 +119,11 @@ export default class ClientAdd extends Component {
     }
 
     componentWillMount () {
+        let id = this.props.navigation.state.params.id;
         let that =this;
+        this.setState({
+            contact_id:id
+        })
       store.get('user').then(
         function(data){
           that.setState({
@@ -158,22 +164,25 @@ export default class ClientAdd extends Component {
     }
     //跳转
     GoWait() {
-        const {navigate} = this.props.navigation;
-        let token = this.state.token
-        let h= this.state.images
-        let a= this.state.desc
-        if(!a) {ToastUtil.showShort('描述不能为空', false);return;}
+        const {navigate,goBack} = this.props.navigation;
+        let token = this.state.token;
+        let h= this.state.images;
+        let b= this.state.contact_id;
+        let c= this.state.content;
+        if(!c) {ToastUtil.showShort('描述不能为空', false);return;}
+        if(h.length==0) {ToastUtil.showShort('图片不能为空', false);return;}
         let formData = new FormData();    
-        formData.append("desc",a);
-        for(let i=0;i<h.length;i++){
+        /*for(let i=0;i<h.length;i++){
             formData.append("image[]",h[i]); 
-        }
+        }*/
         formData.append("token",token); 
-        
+        formData.append("content",c);
+        formData.append("contact_id",b);
+        formData.append("images",h.join(","));
         this.submitUrl(formData).then((data)=>{
             if(data== 'success'){
               ToastUtil.showShort('提交成功', false);
-                navigate('CreatShopWait',{idcard:'商户'});  
+               goBack(null);
             }else{
                 ToastUtil.showShort('提交失败请稍后再试', false);
             }
@@ -183,7 +192,10 @@ export default class ClientAdd extends Component {
     async submitUrl(formData) {
         try {
           // 注意这里的await语句，其所在的函数必须有async关键字声明
-          let response = await fetch(`${host}/App/Role/work_detail?token=${token}&id=${id}`);
+          let response = await fetch(`${host}/App/Role/add_dynamic`,{
+            method:'POST',
+            body:formData
+          });
           let responseJson = await response.json(); 
           return responseJson.errorMsg;
         } catch(error) {
