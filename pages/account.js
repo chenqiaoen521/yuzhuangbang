@@ -119,7 +119,9 @@ export default class Account extends Component {
           <View style={[styles.unitStyle,{backgroundColor:'#1b1b1b'}]}>
             <Text style={{color:'#cccccc',fontSize:14}}>{rowdata.dt_name}</Text>
             <View style={styles.rightBarStyle}>
-              <Icon name="angle-right" size={25} color="#b6b6b6" />
+              <TouchableOpacity  onPress={()=>{that.toAdd(rowdata.id)}} style={{ backgroundColor:'#ae8300',height:30,alignItems:'center',justifyContent:'center',width:70,borderRadius:5}}>
+                <Text style={{color:'#fff'}}>添加</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Swipeout>
