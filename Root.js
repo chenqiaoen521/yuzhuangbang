@@ -13,6 +13,7 @@ import Center  from './pages/Center';
 import CenterPT  from './pages/center_putong';
 import Splash from './pages/Splash';
 import SearchPage from './pages/SearchPage';
+import SearchDetail from './pages/Search';
 import MainDetail  from './pages/MainDetail';
 import Settings  from './pages/Settings';
 import PersonInfo  from './pages/PersonInfo';
@@ -78,6 +79,7 @@ const Root = StackNavigator(
         Splash:{screen:Splash },
         AddFriendRequest:{ screen:AddFriendRequest },
         myBlack:{ screen:MyBlack }, 
+        SearchDetail:{ screen:SearchDetail }, 
         Kehu:{ screen:Kehu },
         KehuAdd:{ screen:KehuAdd },
         AddFriendAlready:{ screen:AddFriendAlready },

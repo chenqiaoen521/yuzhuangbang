@@ -106,6 +106,7 @@ export default class Main extends Component {
     componentDidMount() {
         InteractionManager.runAfterInteractions(() => { 
             let that =this;
+            //store.save('words', []);
             store.get('user').then(function(data){
                 if(data.token){
                     that.setState({
@@ -638,9 +639,11 @@ export default class Main extends Component {
             if(that.state.lingType===1){
                 const {navigate} = that.props.navigation;
                 navigate('CenterPT')
+                console.log('putong')
             }else{
                 const {navigate} = that.props.navigation;
                 navigate('Center')
+                console.log('shangjia')
             }
         })
    

@@ -23,7 +23,7 @@ import IconDetail from '../Components/IconDetail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingView from '../Components/LoadingView';
 const host = require('../config.json').url;
-export default class MainDetail extends Component {
+export default class SearchDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title,
     tabBarIcon: ({ tintColor }) => (
@@ -34,14 +34,14 @@ export default class MainDetail extends Component {
 
   render() {
     const {state} = this.props.navigation;
-    let {id,page} = state.params;
+    let {word} = state.params;
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <View contentContainerStyle={styles.container}>
         
         <WebView
             automaticallyAdjustContentInsets={false}
             style={styles.webView}
-          source={{uri:`${host}${page}?id=${id}`}}
+          source={{uri:`${host}/App/Index/work_list?type=1&name=${word}`}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           onMessage={this.receiveMessage.bind(this)}
@@ -49,7 +49,7 @@ export default class MainDetail extends Component {
           renderLoading={this.renderLoading}
           startInLoadingState={true}
           scalesPageToFit={false} />
-      </ScrollView>
+      </View>
     );
   }
   renderLoading() {

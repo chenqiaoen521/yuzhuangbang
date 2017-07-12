@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+const host = require('../config.json').url;
 import {
   StyleSheet,
   Text,
@@ -16,7 +17,10 @@ import {
   TextInput,
   Button
 } from 'react-native';
+import store from 'react-native-simple-store';
+import ToastUtil from '../utils/ToastUtil';
 var {width,height} = Dimensions.get('window');
+import {request} from '../utils/asyncRequest';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 export default class searchPage extends Component {
   static navigationOptions = {
@@ -36,10 +40,16 @@ export default class searchPage extends Component {
     super(props);
   
     this.state = {
-      activePage:0
+      activePage:0,
+      content:'',
+      history:[],
+      hot:[]
     };
   }
-
+  componentWillUnmount () {
+    let data = this.state.history;
+    store.save('words', data);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -47,9 +57,9 @@ export default class searchPage extends Component {
           <View style={styles.section}>
             <View style={{flexDirection:'row',padding:8,alignItems:'center',justifyContent : 'space-between'}}>
               <View style={styles.searchStyle}>
-                <TextInput underlineColorAndroid="transparent"  placeholderTextColor="#7c7c7c" placeholder={"请输入您想要搜索的内容"} style={styles.inputStyle}/>
+                <TextInput underlineColorAndroid="transparent"  onChangeText={(text) => this.setState({content:text}) }  placeholderTextColor="#7c7c7c" placeholder={"请输入您想要搜索的内容"} style={styles.inputStyle}/>
               </View>
-              <TouchableOpacity TouchableOpacity={0.5} >
+              <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.search()}>
                 <Text style={{color:'#fff',fontSize:14}}>搜索</Text>
               </TouchableOpacity>
             </View>
@@ -60,11 +70,11 @@ export default class searchPage extends Component {
           </View>
           <View style={[styles.section,{marginTop:10,paddingTop:7}]}>
             <Text style={{color:'#fff',marginTop:5,paddingLeft:8,fontSize:12}}>历史搜索</Text>
-            <View style={[styles.hotStyle,{borderTopColor:'#353535',borderTopWidth:0.5}]}>
+            <View style={[styles.history,{borderTopColor:'#353535',borderTopWidth:0.5}]}>
               {this.renderHistory()}
             </View>
             <View style={{flexDirection:'row', justifyContent:'center',marginTop:20,marginBottom:30}}>
-            <TouchableOpacity style={{}} TouchableOpacity={0.5} >
+            <TouchableOpacity style={{}} onPress={()=>this.clear()} TouchableOpacity={0.5} >
               <Text style={{padding:7,width:130, textAlign:'center', borderRadius:5,color:'#999999',fontSize:12,backgroundColor:'#252525'}}>清空历史搜索记录</Text>
             </TouchableOpacity>
             </View>
@@ -73,24 +83,66 @@ export default class searchPage extends Component {
       </View>
     );
   }
+  clear () {
+    this.setState({
+      history:[]
+    })
+    store.save('words', []);
+  }
+  search () {
+    let a = this.state.content;
+     if(!a) {ToastUtil.showShort('请填入搜索内容', false);return;}
+     let data = this.state.history;
+     data.push(a);
+     this.setState({
+      history:data
+     })
+     const {navigate} = this.props.navigation;
+     navigate('SearchDetail',{word:a});
+  }
+  componentDidMount() { 
+    let that = this;
+    request(`${host}/App/Index/hot`).then((data)=>{
+      that.setState({
+        hot:data.data
+      })
+    });
+    store.get('words').then((data)=>{
+      if(data){
+        that.setState({
+          history:data
+        })
+      }else{
+        that.setState({
+          history:[]
+        })
+      }
+     })
+  }
   renderHot(){
-    let itemArr = []
-    let arr = ['装饰公司','找优品','找灵感','服务','设计师','商家']
+    let itemArr = [];
+    let arr = this.state.hot;
     arr.map((item,i) =>{
       itemArr.push(
-        <View style={{backgroundColor:'#252525', height:28,borderRadius:4, padding:6,margin:5}} key={i}>
-          <Text style={{color:'#999999',fontSize:11}}>{item}</Text>
-        </View>
+        <TouchableOpacity onPress={()=>this.hotSearch(item)} style={{backgroundColor:'#252525', height:28,borderRadius:4, padding:6,margin:5}} key={i}>
+          <Text style={{color:'#999999',fontSize:14}}>{item}</Text>
+        </TouchableOpacity>
         )
     })
     return itemArr
   }
+  hotSearch (word) {
+    const {navigate} = this.props.navigation;
+     navigate('SearchDetail',{word:word});
+  }
   renderHistory(){
     let itemArr = []
-    let data = ['设计师','找灵感','设计师','找灵感','设计师','找灵感']
+    let data =this.state.history;
     data.map((item,i) =>{
       itemArr.push(
-        <Text key={i}  style={{color:'#666666',fontSize:10,margin:5}}>{item}</Text>
+          <TouchableOpacity onPress={()=>this.hotSearch(item)} style={{backgroundColor:'#252525', height:28,borderRadius:4, padding:6,margin:5,justifyContent:'center'}} key={i}>
+          <Text style={{color:'#666666',fontSize:14,margin:5}}>{item}</Text>
+          </TouchableOpacity>
         )
     })
     return itemArr
@@ -108,6 +160,12 @@ const styles = StyleSheet.create({
     padding:10,
     paddingTop:0,
     marginTop:10
+  },
+  history:{
+    flexDirection:'row',
+    flexWrap :'wrap',
+    justifyContent:'flex-start',
+    alignItems :'center'
   },
   section:{
     backgroundColor:'#1b1b1b'
