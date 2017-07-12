@@ -69,8 +69,12 @@ export default class WorkManage extends Component {
     }
     //跳转详情页
     Gojump(id) {
-        /*const {navigate} = this.props.navigation;
-        navigate('WorkDetail',{title:'作品详情'})*/
+        var that = this
+        store.get('user').then(function(data){
+            const {navigate} = that.props.navigation;
+            navigate('WorkDetail',{ url:`/App/Index/work_detail?token=${data.token}&id=${id}`});
+            console.log(`/App/Index/work_detail?token=${data.token}&id=${id}`)
+        })        
     }
 
     //刷新

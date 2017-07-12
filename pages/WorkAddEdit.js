@@ -64,7 +64,7 @@ export default class WorkAdd extends Component {
         // 初始状态
         this.state = {
             dataSource: ds,
-            yezz:'http://192.168.0.188/Uploads/App/User/2017-07-10/1499678110_18964751705963459e176b2.jpg',
+            yezz:'/Uploads/App/User/2017-07-10/1499678110_18964751705963459e176b2.jpg',
             biaoti:'测试 ',
             jianjie:'',
             xiang:'',
@@ -72,12 +72,12 @@ export default class WorkAdd extends Component {
             tupian:[],
             images:[],
             token:'',
-            activeid:''
+            activeid:'',
+            norarr:[]
         };
     }
  
-    componentDidMount() { }
-    componentWillMount () {
+    componentDidMount() {
         let that =this;
         const {state} = this.props.navigation;
         let zpid = state.params.id;
@@ -89,6 +89,9 @@ export default class WorkAdd extends Component {
                 });   
                 that.Getxq(data.token,that.state.activeid)        
             })
+     }
+    componentWillMount () {
+       
     }
 
     Getxq(token,id) {
@@ -97,22 +100,30 @@ export default class WorkAdd extends Component {
         data.then(
             (result)=>{
                 if(result){
+                    //console.log('result')
                     console.log(result)
                     that.setState({
                         biaoti:result.name,
                         jianjie:result.desc,
                         xiang:result.introduce,
-                        yezz:host+result.image,
+                        yezz:result.image,
+                        zhizhao:result.image,
                         //dataSource:data.album,
                     });   
-                    var arr=[];
-                    var l = result.album.length;
-                    for(var i =0; i<l; i++){
-                        arr.push(host+result.album[i].image_url)
+                    let arrc =[];
+                    let l = result.album.length;
+                    for(let i =0; i<l; i++){
+                        arrc.push(result.album[i].image_url)
                     }
-                    that.setState({ tupian:arr });
-
-                    //console.log('5555::'+that.state.biaoti)
+                    that.setState({ 
+                        norarr:result.album
+                    });
+                    that.setState({ 
+                        tupian:arrc,
+                        //images:arrc
+                    });
+                    console.log('图片作品集')
+                    console.log(that.state.tupian)
                 }
             }
         )  
@@ -130,13 +141,11 @@ export default class WorkAdd extends Component {
             });
             let responseJson = await response.json();
             if(responseJson.errorCode===0){
-                //console.log(responseJson.data)
                 return responseJson.data;   
             }else{
                 ToastUtil.showShort(responseJson.errorMsg,true)
             }
         } catch(error) {
-            console.error(error);
             ToastUtil.showShort(error,true)
         } 
     }
@@ -146,15 +155,6 @@ export default class WorkAdd extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    {/*<WebView
-                        automaticallyAdjustContentInsets={false}
-                        style={styles.webView}
-                        source={{uri:this.state.htmlsrc}}
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                        decelerationRate="normal"
-                        startInLoadingState={true}
-                        scalesPageToFit={false} />*/}
                     <View style={styles.flsg}>
                         <Text style={styles.ftit}>标题编辑</Text>
                         <TextInput style={[styles.shuru,{height:30}]} onChangeText={ (text) => this.setState({biaoti:text}) }  defaultValue={this.state.biaoti}  underlineColorAndroid="transparent"/>
@@ -167,7 +167,7 @@ export default class WorkAdd extends Component {
                         <Text style={styles.ftit}>封面上传</Text>
                         <View style={styles.sendview}>
                         <TouchableOpacity  onPress={() => this.chooseImg(1)}>
-                            <Image style={styles.img} resizeMode={'stretch'}  source={{uri:this.state.yezz}}  ></Image>
+                            <Image style={styles.img} resizeMode={'stretch'}  source={{uri:`${host}${this.state.yezz}`}} ></Image>
                             <View style={styles.fixtext}><Text style={styles.ftext}>重新上传</Text></View>
                         </TouchableOpacity>
                         </View>
@@ -183,6 +183,7 @@ export default class WorkAdd extends Component {
                             renderRow={(rowdata, sectionID, rowID)=>this.renderRow(rowdata,sectionID,rowID)}
                             initialListSize ={1} enableEmptySections={true}
                             renderFooter = {()=>this.renderFooter()} />
+                            
                     </View>
                 </ScrollView>
                 <TouchableOpacity onPress={ ()=> this.Goadd() }>
@@ -205,25 +206,66 @@ export default class WorkAdd extends Component {
     }
     renderRow (row,a,b) {
         return (
-            <TouchableOpacity onPress={()=>this.delImage(b)}>
+            <TouchableOpacity onPress={()=>this.delImage(b,row)}>
                 <View style={styles.cpbox}>
-                    <Image style={styles.cptu} resizeMode={'stretch'}  source={{uri:row}} ></Image>
+                    <Image style={styles.cptu} resizeMode={'stretch'} name={row}  source={{uri:`${host}${row}`}} ></Image>
                     <Image style={styles.cpbg} resizeMode={'stretch'}  source={require('../imgs/sendzheng_14.png')}></Image>
                 </View>
             </TouchableOpacity>
         )
     }
-    delImage(b) {
+    delImage(b,str) {
         let arr = this.state.tupian;
         let arr2 = this.state.images;
-        arr.splice(b,b+1);
-        arr2.splice(b,b+1);
-        this.setState({
-            tupian:arr,
-            images:arr2
-        });
-        ToastUtil.showShort('图片已删除', false);
+        let chan = this.state.norarr.length
+        let that = this
+        let num = -1
+        let strI = str
+        let flg = 1;
+        for(let i=0;i<chan;i++){
+            if(strI==that.state.norarr[i].image_url){
+               num = that.state.norarr[i].id;
+            }
+        }
+        if(num>0){
+            console.log('原有的')
+            that.Godel(num);
+        }
+
+        if(flg){
+            arr.splice(b,b+1);
+            arr2.splice(b,b+1);
+            this.setState({
+                tupian:arr,
+                //images:arr2
+                images:arr2,
+            });
+            ToastUtil.showShort('图片已删除', false);
+        }     
     }
+
+    async Godel(num) {
+        try {
+            // 注意这里的await语句，其所在的函数必须有async关键字声明
+            //let response = await fetch(`${host}/App/Role/del_work_img?token=${that.state.token}&id=${num}`)
+            //console.log(66666)
+            //console.log(host +'/App/Role/del_work_img?token='+this.state.token+'&id='+ num)
+            let response = await fetch( host +'/App/Role/del_work_img?token='+this.state.token+'&id='+ num, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json(); 
+            if(responseJson.errorCode!= 0){
+                flg = 0;
+                ToastUtil.showShort(responseJson.errorMsg, false);
+            }
+        }catch(error) {
+            ToastUtil.showShort(error, false);
+        }
+    }
+
     chooseImg (flag) {
         let that = this;
         ImagePicker.showImagePicker(photoOptions,(response) =>{
@@ -237,7 +279,6 @@ export default class WorkAdd extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                console.log()
                 that.uploadImage(response.uri,flag);
             }
         })
@@ -257,22 +298,23 @@ export default class WorkAdd extends Component {
         .then((response) => response.json() )  
         .then((responseData)=>{  
             if(flag==1){
-                console.log(responseData.data.image)
                 this.setState({
-                yezz:`${host}${responseData.data.image}`,
+                //yezz:`${host}${responseData.data.image}`,
+                yezz:`${responseData.data.image}`,
                 zhizhao:responseData.data.image
                 })
+                console.log(this.state.yezz)
             }
 
             if(flag==4){
-                let arr = this.state.tupian;
-                let images = this.state.images;
-                arr.push(`${host}${responseData.data.image}`);
-                images.push(responseData.data.image);
-                this.setState({
-                    tupian:arr,
-                    images:images
-                })
+                console.log('3333:'+responseData.data.image)
+                let arrt = that.state.tupian;
+                let images = that.state.images;
+                //arr.push(`${host}${responseData.data.image}`);
+                arrt.push(`${responseData.data.image}`);
+                //images.push(responseData.data.image);
+                images.push(`${responseData.data.image}`)
+                that.setState({ tupian:arrt })
             }
             
         })  
@@ -281,6 +323,10 @@ export default class WorkAdd extends Component {
 
         //跳转
     Goadd() {
+        let that = this
+        this.setState({ images: this.state.tupian })
+        console.log(this.state.tupian)
+        console.log(this.state.images)
         const {navigate} = this.props.navigation;
         let token = this.state.token
         let a = this.state.biaoti
@@ -288,7 +334,6 @@ export default class WorkAdd extends Component {
         if(!a) {ToastUtil.showShort('标题不能为空', false);return;}
         if(!this.state.jianjie) {ToastUtil.showShort('简介不能为空', false);return;}
         if(!this.state.xiang) {ToastUtil.showShort('详情不能为空', false);return;}
-        if(!this.state.xiang) {ToastUtil.showShort('封面不能为空', false);return;}
         if(!this.state.zhizhao) {ToastUtil.showShort('封面不能为空', false);return;}
         if(!this.state.images) {ToastUtil.showShort('相册不能为空', false);return;}
         let formData = new FormData();    
@@ -297,16 +342,19 @@ export default class WorkAdd extends Component {
         formData.append("introduce",this.state.xiang);
         formData.append("image",this.state.zhizhao); 
         formData.append("id",this.state.activeid);
-        for(let i=0;i<h.length;i++){
-            formData.append("images[]",this.state.images[i]); 
-        }
+        
         formData.append("token",token); 
-        this.submitUrl(formData).then((data)=>{
-            console.log(data)  
-        })
+        if(this.state.tupian==this.state.images){
+            for(let i=0;i<h.length;i++){
+                formData.append("images[]",this.state.images[i]); 
+            }
+            this.submitUrl(formData).then((data)=>{ })
+        }else{
+            ToastUtil.showShort('网络繁忙，请稍候');
+        }
     }
     async submitUrl(formData) {
-
+        console.log('formData')
         console.log(formData)
         try {
             // 注意这里的await语句，其所在的函数必须有async关键字声明
@@ -343,6 +391,7 @@ const styles = StyleSheet.create({
         paddingRight:15,
         borderBottomWidth:6,
         borderColor:'#151515',
+        flexWrap:'wrap',
     },
     ftit: {
         fontSize:14,

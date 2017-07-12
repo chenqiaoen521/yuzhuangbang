@@ -95,7 +95,7 @@ export default class WorkManageThree  extends Component {
                 <View style={styles.sinmid}>
                     <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome(rowData.id)}>
                         <View style={styles.sinText}>
-                            <Image style={{width:14, height:14,marginRight:4,marginTop:3,alignSelf:'flex-start'}} source={{uri:`${url}${rowData.thumb}`}}></Image>
+                            <Image style={{width:14, height:14,marginRight:4,marginTop:3,alignSelf:'flex-start',borderRadius:7}} source={{uri:`${url}${rowData.user_avatar}`}}></Image>
                             <Text style={{fontSize:12,width:width*0.5-18,color:'#fff'}} numberOfLines={2}>{rowData.name}</Text>
                         </View>
                     </TouchableOpacity>
@@ -151,9 +151,9 @@ export default class WorkManageThree  extends Component {
         );
     }
     //自定义方法
-    popToHome () {
+    popToHome (id) {
         if(this.props.popToWatch){
-            this.props.popToWatch()
+            this.props.popToWatch(id)
         }
     }
     // 删除按钮

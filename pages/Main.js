@@ -86,7 +86,7 @@ export default class Main extends Component {
             area:'',
             lingToken:'',
             lingType:'',
-            htmlsrc:'https://m.facebook.com',
+            htmlsrc:'http://192.168.0.188/App/Index/work_list?token=51_2_2_59_337&type=3',
             datatype:3,
             //
             upnum:width*0.45

@@ -63,8 +63,9 @@ export default class WorkAdd extends Component {
         // 初始状态
         this.state = {
             dataSource: ds,
-            htmlsrc:'https://m.facebook.com',
-            yezz:require('../imgs/detialimg_03.jpg'),
+            htmlsrc:'/Uploads/App/User/2017-07-10/1499678110_18964751705963459e176b2.jpg',
+            //yezz:require('../imgs/detialimg_03.jpg'),
+            yezz:'/Uploads/App/User/2017-07-10/1499678110_18964751705963459e176b2.jpg',
             biaoti:'',
             jianjie:'',
             xiang:'',
@@ -123,7 +124,8 @@ export default class WorkAdd extends Component {
                         <Text style={styles.ftit}>封面上传</Text>
                         <View style={styles.sendview}>
                         <TouchableOpacity  onPress={() => this.chooseImg(1)}>
-                            <Image style={styles.img} resizeMode={'stretch'} source={this.state.yezz} ></Image>
+                            {/*<Image style={styles.img} resizeMode={'stretch'} source={this.state.yezz} source={{uri:this.state.yezz}} ></Image>*/}
+                            <Image style={styles.img} resizeMode={'stretch'}  source={{uri:`${host}${this.state.yezz}`}}  ></Image>
                             <View style={styles.fixtext}><Text style={styles.ftext}>重新上传</Text></View>
                         </TouchableOpacity>
                         </View>
@@ -214,7 +216,8 @@ export default class WorkAdd extends Component {
         .then((responseData)=>{  
             if(flag==1){
                 this.setState({
-                yezz:{uri:`${host}${responseData.data.image}`},
+                //yezz:{uri:`${host}${responseData.data.image}`},
+                yezz:`${responseData.data.image}`,
                 zhizhao:responseData.data.image
                 })
             }
@@ -260,7 +263,6 @@ export default class WorkAdd extends Component {
         })
     }
     async submitUrl(formData) {
-
         console.log(formData)
         try {
             // 注意这里的await语句，其所在的函数必须有async关键字声明
@@ -297,6 +299,7 @@ const styles = StyleSheet.create({
         paddingRight:15,
         borderBottomWidth:6,
         borderColor:'#151515',
+        flexWrap:'wrap',
     },
     ftit: {
         fontSize:14,
@@ -345,6 +348,7 @@ const styles = StyleSheet.create({
     },
     sendpro: {
         flexDirection:'row',
+        flexWrap:'wrap',
     },
     cpbox: {
         paddingRight:10,
