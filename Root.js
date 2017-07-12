@@ -71,8 +71,8 @@ import {
 const Root = StackNavigator(
     {   
 
-        Main:{ screen: Main },
         Init:{screen:Init },
+        Main:{ screen: Main },
         ClientAdd:{screen:ClientAdd },
         //Main:{ screen: Main },
         Splash:{screen:Splash },

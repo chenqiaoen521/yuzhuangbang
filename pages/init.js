@@ -18,7 +18,7 @@
 import React from 'react';
 import { Dimensions, Animated } from 'react-native';
 import store from 'react-native-simple-store';
-//import { registerApp } from 'react-native-wechat';
+import { registerApp } from 'react-native-wechat';
 import NavigationUtil from '../utils/NavigationUtil';
 const maxHeight = Dimensions.get('window').height;
 const maxWidth = Dimensions.get('window').width;
@@ -34,7 +34,7 @@ class Init extends React.Component {
     this.state = {
       bounceValue: new Animated.Value(1)
     };
-   // registerApp('wxb24c445773822c79');
+   registerApp('wxb24c445773822c79');
   }
 
   componentDidMount() {
