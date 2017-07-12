@@ -88,8 +88,7 @@ export default class Main extends Component {
             lingType:'',
             htmlsrc:'http://192.168.0.188/App/Index/work_list?token=51_2_2_59_337&type=3',
             datatype:3,
-            //
-            upnum:width*0.45
+            //upnum:width*0.45
 
         };
         //三级联动
@@ -168,7 +167,7 @@ export default class Main extends Component {
                     <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
                     <WebView
                           automaticallyAdjustContentInsets={false}
-                          style={{ height:600}}
+                          style={{ height:800}}
                           source={{uri:this.state.htmlsrc}}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}
@@ -190,8 +189,8 @@ export default class Main extends Component {
                     onRequestClose={() => {this.onRequestClose()}}  // android必须实现
                     >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                        <View style={styles.popmsg}>
+                        <TouchableOpacity style={[styles.modalViewStyle,styles.honetop]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <View style={[styles.popmsg,styles.honemid]}>
                             <View style={styles.biao}><Text style={styles.biaoti}>用户登录</Text></View>
                             <View style={styles.fill}>
                                 <View style={styles.sg}>
@@ -217,13 +216,13 @@ export default class Main extends Component {
                                 <KeyboardSpacer/>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewBStyle,styles.honebottom]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>  
                 </Modal>   
                 <Modal animationType='slide' transparent={true} visible={this.state.isArea} onRequestClose={() => {this.onRequestClose()}} >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                        <View style={styles.popmsg}>
+                        <TouchableOpacity style={[styles.modalViewStyle,styles.htwotop]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <View style={[styles.popmsg,styles.htwomid]}>
                             <View style={styles.biao}><Text style={styles.biaoti}>所在地区选择</Text></View>
                             <View>
                                 <View style = {styles.kinda}>
@@ -231,7 +230,7 @@ export default class Main extends Component {
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>市/区</Text></View>
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>区县</Text></View>
                                 </View>
-                                <View style = {{/*height: height*0.55-144,*/ height:200, flexDirection: 'row'}}>
+                                <View style = {{/*height: height*0.55-144,*/ height:166, flexDirection: 'row'}}>
                                     
                                     <View style = {{flex: 1}}>
                                         <Picker 
@@ -280,20 +279,20 @@ export default class Main extends Component {
                                 </View>
                              </View>
                         </View>
-                        <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewBStyle,styles.htwobottom]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
                 </Modal>   
                 <Modal animationType='slide' transparent={true} visible={this.state.isFill} onRequestClose={() => {this.onRequestClose()}}  >
                     <View style={styles.modalpage}>
-                        <TouchableOpacity style={[styles.modalViewStyle,{ height:this.state.upnum}]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
-                        <View style={styles.popmsgFill}>
+                        <TouchableOpacity style={[styles.modalViewStyle,styles.hthreetop]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <View style={[styles.popmsgFill,styles.hthreemid]}>
                             <View style={styles.biao}><Text style={styles.biaoti}>注册信息</Text></View>
                             <View style={styles.fillFill}>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}>
                                         <Image style={styles.img} source={require('./../imgs/dlicon02.png')}></Image>
                                     </View>
-                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' keyboardType={'numeric'} maxLength={11}  underlineColorAndroid="transparent"/>
+                                    <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({ZhuNum:text})} placeholder='请填写您的手机号' maxLength={11}  underlineColorAndroid="transparent"/>
                                 </View>
                                 <View style={styles.sgFill}>
                                     <View style={styles.imgb}><Image style={styles.img} source={require('./../imgs/dlicon04.png')}></Image></View>
@@ -318,7 +317,7 @@ export default class Main extends Component {
                                     <TextInput style={styles.shuruFill} onChangeText={(text) => this.setState({zhuNc:text})} placeholder='请输入您的昵称' underlineColorAndroid="transparent"/>
                                 </View>
                                 
-                                <View style={[styles.sgFill , styles.nonebaFill,{marginTop:5}]}>
+                                <View style={[styles.sgFill , styles.nonebaFill]}>
                                     <TouchableOpacity onPress={()=>this.GoFinish()}>
                                         {/*登录按钮*/}
                                         <View style={styles.fillbtn}>
@@ -328,9 +327,10 @@ export default class Main extends Component {
                                 </View>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.modalViewBStyle} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
+                        <TouchableOpacity style={[styles.modalViewBStyle,styles.hthreebottom]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
                     </View>
                 </Modal>  
+                
             </View>
         );
     }
@@ -661,20 +661,30 @@ const styles = StyleSheet.create({
     container: { paddingTop:15, flex: 1, backgroundColor: '#151515', },
     modalViewStyle: { /*height:0.45*height*/ },
     popmsg: { height:0.55*height, backgroundColor:'white', borderRadius:10, },
-    modalViewBStyle: { height:0.45*height, },
-    biao: { justifyContent:'center', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#eee', paddingTop:16, paddingBottom:16, width:width, },
+    modalViewBStyle: { /*height:0.45*height,*/ },
+    biao: { justifyContent:'center', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#eee', paddingTop:11, paddingBottom:11, width:width, },
     biaoti: { fontSize:16, color:'#666', },
-    fill: { alignItems:'center', paddingTop:10, },
+    fill: { alignItems:'center', paddingTop:5, },
     sg: { flexDirection:'row', justifyContent:'space-between', alignItems:'center',  borderBottomWidth:1, 
         borderBottomColor:'#eee',  width:width-30, },
     noneb: { borderBottomWidth:0, marginTop:20, marginBottom:10, },    
     noneba: { borderBottomWidth:0, paddingTop:15, paddingBottom:10, },
     imgb: { width:0.1*(width-30), alignItems:'center', },
     img: { width:0.06*(width-30), height:0.06*(width-30), },
-    shuru: { width:0.9*(width-30), color:'#999', marginTop:12, marginBottom:12, },
+    shuru: { width:0.9*(width-30), color:'#999', marginTop:5, marginBottom:5, },
     link: { fontSize:13, color:'#888', },
     textLoginViewStyle: { width: width - 30,  height: 40, backgroundColor: '#ae8300', borderRadius: 20, alignSelf: 'center', justifyContent: 'center',
         alignItems: 'center', },
+
+    honetop:{ height:(height-290)*0.35},
+    honemid:{ height:290, },
+    honebottom:{ height:(height-290)*0.65},
+    htwotop:{ height:(height-310)*0.35},
+    htwomid:{ height:310},
+    htwobottom:{ height:(height-310)*0.65},
+    hthreetop:{ height:(height-310)*0.3},
+    hthreemid:{ height:310},
+    hthreebottom:{ height:(height-310)*0.7},
 
     //登录Text文本样式
     textLoginStyle: { fontSize: 15, color: 'white', },
@@ -696,12 +706,12 @@ const styles = StyleSheet.create({
     popmsgFill: { height:0.6*height, backgroundColor:'white', borderRadius:10, },
     sgFill: { flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingTop:0, paddingBottom:0, borderBottomWidth:1,
         borderBottomColor:'#eee', width:width-30, },
-    fillbtn: { width: width-30, height: 50, justifyContent: 'center', alignItems: 'center',  paddingTop:0, paddingBottom:0, marginTop:-8, },
+    fillbtn: { width: width-30, height: 40, justifyContent: 'center', alignItems: 'center',  paddingTop:0, paddingBottom:0, },
     //登录Text文本样式
     filltext: { fontSize: 15, color: '#b08400', },   
-    nonebaFill: { borderBottomWidth:0, paddingTop:8, paddingBottom:0, },
-    fillFill: { alignItems:'center', paddingTop:5, },
-    shuruFill: { width:0.9*(width-30), marginTop:2, marginBottom:2, color:'#999', fontSize:12, },
+    nonebaFill: { borderBottomWidth:0, paddingTop:3, paddingBottom:0, },
+    fillFill: { alignItems:'center', paddingTop:0, },
+    shuruFill: { width:0.9*(width-30), color:'#999', fontSize:12, height:42, },
     small: { width:0.68*(width-30), },
     yanzheng: { width:0.22*(width-30), backgroundColor:'#eee', borderRadius:4, justifyContent:'center', alignItems:'center', height:26},
     ytext: { color:'#888', fontSize:10, },
