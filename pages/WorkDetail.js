@@ -37,7 +37,7 @@ const shareIconWechat = require('../imgs/share_icon_wechat.png');
 const shareIconMoments = require('../imgs/share_icon_moments.png');
 export default class WorkDetail extends Component {
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: '作品详情',//navigation.state.params.title,
+        headerTitle: '详情',//navigation.state.params.title,
         tabBarIcon: ({ tintColor }) => (
             <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
         ),
@@ -53,7 +53,7 @@ export default class WorkDetail extends Component {
         var that = this;
         // 初始状态
         this.state = {
-            htmlsrc:'https://m.facebook.com',
+            htmlsrc:'http://192.168.0.188/App/Index/work_detail/id/205/token/80_976_2_59_648',
             isShareModal: false
         };
        this.onActionSelected = this.onActionSelected.bind(this);

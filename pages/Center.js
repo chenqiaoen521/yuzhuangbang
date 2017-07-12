@@ -41,6 +41,8 @@ export default class Center extends Component {
             numdata:[],
             onoff:false,
             onoff1:false,
+            shenfen:'',
+            typecom:true,
         };
     }
     static navigationOptions = ({ navigation }) => ({
@@ -77,8 +79,10 @@ export default class Center extends Component {
                         <CenterItem popToCenter={()=>this.tomyhome()} icon={require('../imgs/middle_01.png')} txt="我的主页"/>
                         <CenterItem popToCenter={()=>this.towork()} icon={require('../imgs/middle_07.png')} txt={this.state.type==2? '作品管理' : '商品管理'}/>
                         <CenterItem popToCenter={()=>this.toBlack()} icon={require('../imgs/middle_02.png')} txt="黑名单"/>
-                        <CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
-                        <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号添加"/>
+                        {this.state.typecom == true ?  
+                        <View><CenterItem popToCenter={()=>this.toPartment()} icon={require('../imgs/middle_03.png')} txt="部门管理"/>
+                        <CenterItem  popToCenter={()=>this.toSub()} icon={require('../imgs/middle_04.png')} txt="子账号添加"/></View>
+                        : null }
                         <View style={{borderTopColor:'#eeeeee',borderTopWidth:0.5,height:10}}></View>
                         <CenterItem popToCenter={()=>this.Gokai()} icon={require('../imgs/cicon_06.png')} txt="附近搜索"/>
                         <CenterItem popToCenter={()=>this.Gokai()} icon={require('../imgs/cicon_03.png')} txt="社区"/>
@@ -191,6 +195,16 @@ export default class Center extends Component {
                 area:result.user_info.area,
                 type:result.user_info.type,
             })
+            var that= this
+            if(result.user_info.type==2){
+                if(result.user_info.is_company==1){
+                    that.setState({ shenfen:'设计公司' })
+                }else{
+                    that.setState({ shenfen:'自由设计师',typecom:false })
+                }
+            }else{
+                that.setState({ shenfen:'商家' })
+            }
             console.log(this.state.type)
         })
     }
@@ -235,7 +249,10 @@ export default class Center extends Component {
                 <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
                 <View style={{flexDirection : 'row',alignItems:'center'}}>
                     <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
-                    <Text style={{marginLeft:10,borderRadius:2,padding:1, paddingLeft:3, paddingRight:3, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>{ToastUtil.getUserType(obj.state.type)}</Text>
+                    <Text style={{marginLeft:10,borderRadius:2,padding:1, paddingLeft:3, paddingRight:3, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>
+                    {/*{ToastUtil.getUserType(obj.state.type)}*/}
+                    {this.state.shenfen}
+                    </Text>
                 </View>
             </View>
         )

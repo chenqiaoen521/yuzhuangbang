@@ -66,7 +66,7 @@ export default class HelpCenter extends Component {
     }
     toHelpView (id) {
         const {navigate} = this.props.navigation;
-        navigate('MainDetail',{id:id,page:'/App/Index/article_detail'});
+        navigate('MainDetail',{id:id,page:'/App/Index/article_detail',title:'帮助中心'});
     }
     toSearchPage () {
         //const {navigate} = this.props.navigation;
