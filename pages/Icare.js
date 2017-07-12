@@ -192,7 +192,7 @@ export default class Icare extends Component {
   }
   renderRow(rowdata) {
     return (
-      <TouchableOpacity onPress={()=>this.toDetail(rowdata.fans_user_id,rowdata.fans_type)} style={{flexDirection:"row",alignItems:'center',padding:5,marginBottom:1,backgroundColor:'#1b1b1b'}}>
+      <TouchableOpacity onPress={()=>this.toDetail(rowdata.user_id,rowdata.type)} style={{flexDirection:"row",alignItems:'center',padding:5,marginBottom:1,backgroundColor:'#1b1b1b'}}>
         <Image style={{width:36,height:36,borderRadius:18,marginRight:10}} source={{uri:`${host}${rowdata.avatar}`}}/>
         <Text style={{fontSize:12,color:'#cccccc'}}>{rowdata.user_name}</Text>
       </TouchableOpacity>

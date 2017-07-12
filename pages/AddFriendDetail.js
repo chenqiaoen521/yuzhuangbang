@@ -51,7 +51,7 @@ export default class AddFriendDetail extends Component {
         type_id:'',
       };
     }
-    componentWillMount () {
+    componentDidMount () {
         let that = this;
         this.getData().then(function(data){
             that.setState({
@@ -72,6 +72,7 @@ export default class AddFriendDetail extends Component {
       try {   
         let response = await fetch(`${host}/App/User/other_user_info?user_id=${user_id}&type=${type}`);
         let responseJson = await response.json();
+
         return responseJson.data;
       } catch(error) {
           console.error(error);
@@ -85,7 +86,7 @@ export default class AddFriendDetail extends Component {
                     <Image source={require('./../imgs/friend_02.png')} style={{width:width,height:150,justifyContent:'center',alignItems:'center'}}>
                         <Image style={{width:70,height:70,borderRadius:35,}} source={{uri:`${host}${this.state.avatar}`}}></Image>
                         <Text style={{fontSize:16, color:'#cccccc',lineHeight:30}}>{this.state.nickname}</Text>
-                        <Text style={{fontSize:12, color:'#858585',marginTop:3}}>15023645789</Text>
+                        <Text style={{fontSize:12, color:'#858585',marginTop:3}}>{this.state.phone}</Text>
                     </Image>
                     </View>
                     <Notice popToparent={(id)=>this.popToparent(id)} bgcolor={'#f7f7f7'} titleColor={'#333'} rightBar={'#999'} />
