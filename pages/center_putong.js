@@ -206,12 +206,15 @@ export default class CenterPT extends Component {
         var that = this
         let data = this.Donum(token);
         data.then((result)=>{
+            //console.log(token)
+            //console.log(result)
             this.setState({
                 numdata: result,
             })
         })
     }
     async Donum(token) {
+        console.log(`${host}/App/Center/get_count?token=${token}`)
         try {   
             let response = await fetch(`${host}/App/Center/get_count?token=${token}`);
             let responseJson = await response.json();
@@ -225,16 +228,19 @@ export default class CenterPT extends Component {
             console.error(error);
         }
     }
-
+    toInfo () {
+        const {navigate} = this.props.navigation;
+        navigate('personInfo');
+    }
     renderHead(){
         return(
-            <View style={{ alignItems:'center', }}>
+            <TouchableOpacity style={{ alignItems:'center', }} onPress={()=>this.toInfo()}>
                 <Image style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={{uri:`${host}${this.state.avatar}`}}/>
                 <View style={{flexDirection : 'column',alignItems:'center'}}>
                     <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
                     <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     renderHeadBottom () {

@@ -64,6 +64,10 @@ export default class Center extends Component {
         const {navigate} = this.props.navigation;
         navigate('Message');
     }
+    toInfo () {
+        const {navigate} = this.props.navigation;
+        navigate('personInfo');
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -205,14 +209,12 @@ export default class Center extends Component {
             }else{
                 that.setState({ shenfen:'商家' })
             }
-            console.log(this.state.type)
         })
     }
     async getData(token) {
         try {   
             let response = await fetch(`${host}/App/Center/get_user_info?token=${token}`);
             let responseJson = await response.json();
-            console.log(responseJson.data)
             return responseJson.data;
         } catch(error) {
             console.error(error);
@@ -245,7 +247,7 @@ export default class Center extends Component {
 
     renderHead(obj){
         return(
-            <View style={{ alignItems:'center', }}>
+            <TouchableOpacity style={{ alignItems:'center', }} onPress={()=>this.toInfo()}>
                 <Image style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
                 <View style={{flexDirection : 'row',alignItems:'center'}}>
                     <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
@@ -254,7 +256,7 @@ export default class Center extends Component {
                     {this.state.shenfen}
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     renderHeadBottom () {
