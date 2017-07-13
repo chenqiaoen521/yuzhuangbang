@@ -79,7 +79,7 @@ export default class MyClient extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
@@ -90,7 +90,8 @@ export default class MyClient extends Component {
                     decelerationRate="normal"
                     startInLoadingState={true}
                     scalesPageToFit={false} />
-            </ScrollView>
+            
+            </View>
         );
     }
 
