@@ -26,13 +26,11 @@ export default class CenterItem extends Component {
   render() {
     return (
       <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.todoTouch()}   style={styles.container}>
-        <View style={{flexDirection:'row',
-                      justifyContent : 'flex-start',
-                      alignItems:'center'}}>
-            <Image source={this.props.icon} style={{width:20,height:20,borderRadius:10}}/>
+        <View style={{flexDirection:'row',justifyContent : 'flex-start',alignItems:'center'}}>
+            <Image source={this.props.icon} style={{width:20,height:20,borderRadius:10,marginLeft:10}}/>
             <Text style={{fontSize:15,marginLeft:10}}>{this.props.txt}</Text>
         </View>
-        <Icon name="angle-right" size={18}/>
+        <Icon style={{marginRight:10}} name="angle-right" size={18}/>
       </TouchableOpacity>
     );
   }
@@ -48,9 +46,9 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent : 'space-between',
     alignItems:'center',
-    padding:13,
+    height:50,
     borderTopColor:'#eeeeee',
     borderTopWidth:0.5,
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
   },
 });
