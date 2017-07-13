@@ -69,11 +69,12 @@ export default class Notice extends Component {
         activePage = 0;
       }else{
         activePage = this.state.activePage+1 ;
+        Scroll.scrollTo({x:activePage*width,y:0,animated:true})
       }
       this.setState({
         activePage:activePage
       })
-      Scroll.scrollTo({x:activePage*width,y:0,animated:true})
+     
     },5000)
   }
   render() {
@@ -110,7 +111,6 @@ export default class Notice extends Component {
   }
   onScrollBeginDrag (e) {
     //停止定时器
-    console.log('begin')
     clearInterval(this.timer);
     let offsetX = e.nativeEvent.contentOffset.x
     let currentPage = Math.floor(offsetX / width)
