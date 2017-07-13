@@ -49,17 +49,6 @@ export default class PasswordPage extends Component {
     }
     static navigationOptions = {
         headerTitle:'修改密码',
-        headerRight: (
-            <Icon.Button
-              name="bell-o"
-              backgroundColor="transparent"
-              underlayColor="transparent"
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.state.params.handleShare();
-              }}
-            />
-        )
     }
     render() {
         return (

@@ -24,17 +24,7 @@ import {request} from '../utils/asyncRequest';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 export default class searchPage extends Component {
   static navigationOptions = {
-    headerRight: (
-      <Ionicons.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
+    headerTitle: '搜索',
   }
    constructor(props) {
     super(props);
@@ -55,21 +45,21 @@ export default class searchPage extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.section}>
-            <View style={{flexDirection:'row',padding:8,alignItems:'center',justifyContent : 'space-between'}}>
+            <View style={{flexDirection:'row',padding:8, paddingRight:12,alignItems:'center',justifyContent : 'space-between'}}>
               <View style={styles.searchStyle}>
                 <TextInput underlineColorAndroid="transparent"  onChangeText={(text) => this.setState({content:text}) }  placeholderTextColor="#7c7c7c" placeholder={"请输入您想要搜索的内容"} style={styles.inputStyle}/>
               </View>
               <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.search()}>
-                <Text style={{color:'#fff',fontSize:14}}>搜索</Text>
+                <Text style={{color:'#fff',fontSize:15}}>搜索</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{color:'#fff',marginTop:5,paddingLeft:8,fontSize:12}}>热门搜索</Text>
+            <Text style={{color:'#fff',marginTop:5,paddingLeft:8,fontSize:14}}>热门搜索</Text>
             <View style={styles.hotStyle}>
                 {this.renderHot()}
             </View>
           </View>
           <View style={[styles.section,{marginTop:10,paddingTop:7}]}>
-            <Text style={{color:'#fff',marginTop:5,paddingLeft:8,fontSize:12}}>历史搜索</Text>
+            <Text style={{color:'#fff',marginTop:5,paddingLeft:8,fontSize:14}}>历史搜索</Text>
             <View style={[styles.history,{borderTopColor:'#353535',borderTopWidth:0.5}]}>
               {this.renderHistory()}
             </View>
@@ -174,14 +164,15 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent :'center',
     backgroundColor:'#4c4c4c',
-    borderRadius:25,
+    borderRadius:18,
     width:width*0.82,
-    height:32,
+    height:36,
     alignItems:'center',
   },
   inputStyle:{
     width:width*0.7,
-    fontSize:11,
+    fontSize:12,
     color:'#7c7c7c',
+    padding:0,
   },
 });

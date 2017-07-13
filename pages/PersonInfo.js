@@ -67,10 +67,6 @@ export default class PersonInfo extends Component {
     }
     static navigationOptions = ({ navigation }) => ({
         headerTitle:'个人资料',
-        headerRight: (
-            <Icon.Button name="bell-o" backgroundColor="transparent" underlayColor="transparent"
-              activeOpacity={0.8} onPress={() => {  navigation.state.params.handleShare(); }}  />
-        )
     });
     componentDidMount() {
     this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
