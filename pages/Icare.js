@@ -36,17 +36,9 @@ export default class Icare extends Component {
     ),
     headerRight: navigation.state.params.id===3 ? (
       <View style={{flexDirection:'row',alignItems:'center'}}>
-      <Icons.Button
-        name="ios-add"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        size={30}
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate('addFriend');
-        }}
-      />
-        <Icon.Button
+      <Icons.Button name="ios-add" backgroundColor="transparent" underlayColor="transparent" size={30}
+        activeOpacity={0.8}  onPress={() => {  navigation.navigate('addFriend'); }} />
+        {/*<Icon.Button
         name="bell-o"
         backgroundColor="transparent"
         underlayColor="transparent"
@@ -54,10 +46,10 @@ export default class Icare extends Component {
         onPress={() => {
           navigation.state.params.handleShare();
         }}
-      />
+      />*/}
 
       </View>
-    ):(
+    ): null /*(
       <Icon.Button
         name="bell-o"
         backgroundColor="transparent"
@@ -67,7 +59,7 @@ export default class Icare extends Component {
           navigation.state.params.handleShare();
         }}
       />
-    )
+    )*/
    });
   componentWillMount () {
     let that = this;

@@ -29,17 +29,6 @@ import store from 'react-native-simple-store';
 export default class Settings extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle:'设置管理',
-    headerRight: (
-      <Icon.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
   });
   componentDidMount() {
     this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });
