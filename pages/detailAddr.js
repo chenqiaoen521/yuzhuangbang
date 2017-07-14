@@ -40,7 +40,8 @@ export default class DetailAddr extends Component {
   }
   static navigationOptions = {
     headerTitle:'地址详情',
-    headerRight: (
+    headerRight: (<View></View>),
+    /*headerRight: (
       <Icon.Button
         name="bell-o"
         backgroundColor="transparent"
@@ -50,7 +51,7 @@ export default class DetailAddr extends Component {
           navigation.state.params.handleShare();
         }}
       />
-    )
+    )*/
   }
   checkArea(){
     this.setState({

@@ -30,6 +30,7 @@ import ToastUtil from '../utils/ToastUtil'
 export default class Center extends Component {
     static navigationOptions = {
         headerTitle:'找回密码',
+        headerRight: (<View></View>),
     }
     // 构造
     constructor(props) {

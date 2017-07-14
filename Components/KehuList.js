@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { AppRegistry, ListView, Text, Image, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { AppRegistry, ListView, Text, Image, View, StyleSheet, TouchableOpacity, Dimensions, WebView, ScrollView } from 'react-native';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,7 @@ import store from 'react-native-simple-store';
 
 var {width,height} = Dimensions.get('window');
 export default class KehuList  extends Component {
+    
     // 初始化模拟数据
     constructor(props) {
         super(props);
@@ -40,6 +41,7 @@ export default class KehuList  extends Component {
             ])*/,           
             onoff: true,
             empty:0,
+            htmlsrc:'https://m.facebook.com'
         };
     }
     
@@ -64,23 +66,23 @@ export default class KehuList  extends Component {
         )
     }
 
-    
+
 
     render() {
         return (
-            <View style={styles.sglist}>
-                { this.state.empty == -1 ? 
-                <View style={{ padding:20, alignItems:'center', paddingTop:50,justifyContent:'center'}}>
-                    {/*<Image style={{ width:50, height:50, marginBottom:5, marginTop:30}} source={require('./../imgs/none.png')}></Image>*/}
-                    <Text style={{ fontSize:16, color:'#888'}}>暂无此类结果</Text>
-                </View>
-                : null }
-                { this.state.empty == 1 ? 
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderMovieList.bind(this)}
-                />
-                : null }
+            <View style={styles.container}>
+                {this.state.empty==1 ?
+                <WebView
+                    automaticallyAdjustContentInsets={false}
+                    style={styles.webView}
+                    source={{uri:this.state.htmlsrc}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    onMessage={this.receiveMessage.bind(this)}
+                    decelerationRate="normal"
+                    startInLoadingState={true}
+                    scalesPageToFit={false} />
+                : null  }
             </View>
         );
     }
@@ -90,34 +92,52 @@ export default class KehuList  extends Component {
         }
     }
 
+    receiveMessage (e) {
+        let message = e.nativeEvent.data;
+        let temp = message.split(",");
+        //你去说一句吧
+        const {navigate} = this.props.navigation;
+        navigate('ClientAdd',{id:temp[1]});
+    }
+
+
+
     Dofinds(word) {
         var that = this
         store.get('user').then(
             function(data){
-                that.dfinds(data.token,word)        
+                that.setState({
+                    empty:1,
+                    htmlsrc:`${url}/App/Role/contact_list?token=${data.token}&key=${word}`
+                });  
+                console.log(that.state.empty+'和'+that.state.htmlsrc)   
             })
     }
-    async dfinds(token,name){
+    /*async dfinds(token,name){
         var that = this
         if(!name){
-            ToastUtil.showShort('关键字不能为空')
+            //ToastUtil.showShort('关键字不能为空')
         }
         else{
             try {
-                let response = await fetch(`${url}/App/Role/search_contact?token=${token}&name=${name}`,{
+                //let response = await fetch(`${url}/App/Role/search_contact?token=${token}&name=${name}`,{
+                let response = await fetch(`${url}/App/Role/contact_list?token=${token}&key=${name}`,{
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                 });
                 let responseJson = await response.json();
+                console.log(response)
                 if(responseJson.errorCode===0){
+                    console.log(responseJson.data)
                     if(responseJson.data.length==0){
                         that.setState({ empty:-1 }); 
                     }else{
                         that.setState({
                             empty:1,
-                            dataSource:that.state.dataSource.cloneWithRows(responseJson.data)
+                            //dataSource:that.state.dataSource.cloneWithRows(responseJson.data)
+                            htmlsrc:`${url}${responseJson.data}`
                         }); 
                     }   
                     console.log(responseJson)
@@ -131,16 +151,21 @@ export default class KehuList  extends Component {
                 ToastUtil.showShort(error,true)
             }
         }
-    }
+    }*/
 }
 
 
 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#151515',
+    },
     sglist: {
         paddingTop:10,
-        paddingBottom:10
+        paddingBottom:10,
+        flex:1,
     },
     sg: {
         flex: 1,
@@ -188,6 +213,10 @@ const styles = StyleSheet.create({
         paddingBottom:2,
         textAlign:'center',
         borderRadius:3
+    },
+    webView: {
+        height:height,
     }
+
 });
 

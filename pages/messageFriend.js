@@ -52,7 +52,8 @@ export default class MessageFriend extends Component {
   }
   static navigationOptions = {
     headerTitle:'我的消息',
-    headerRight: (
+    headerRight: (<View></View>),
+    /*headerRight: (
       <Icon.Button
         name="bell-o"
         backgroundColor="transparent"
@@ -62,7 +63,7 @@ export default class MessageFriend extends Component {
           navigation.state.params.handleShare();
         }}
       />
-    )
+    )*/
   }
   componentWillMount () {
     let that = this;

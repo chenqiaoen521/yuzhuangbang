@@ -37,17 +37,7 @@ export default class ChangePhone extends Component {
     }
     static navigationOptions = {
         headerTitle:'更换手机号',
-        headerRight: (
-            <Icon.Button
-              name="bell-o"
-              backgroundColor="transparent"
-              underlayColor="transparent"
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.state.params.handleShare();
-              }}
-            />
-        )
+        headerRight: (<View></View>),
     }
     render() {
         return (

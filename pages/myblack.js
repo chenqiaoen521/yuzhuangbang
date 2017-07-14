@@ -23,7 +23,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Unit from '../Components/Unit'
 export default class MyBlack extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle:'我的黑名单'
+    headerTitle:'我的黑名单',
+    headerRight: (<View></View>),
   });
   componentDidMount() {
     this.props.navigation.setParams({ handleShare: ()=>this.onActionSelected() });

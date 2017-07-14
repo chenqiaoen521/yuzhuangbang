@@ -45,6 +45,7 @@ export default class WorkManageThree  extends Component {
         that.Goget()
     }
     Goget() {
+        console.log('THREE')
         var that = this
         store.get('user')
         .then(
@@ -95,22 +96,22 @@ export default class WorkManageThree  extends Component {
                 <View style={styles.sinmid}>
                     <TouchableOpacity TouchableOpacity={0.5} onPress={()=>this.popToHome(rowData.id)}>
                         <View style={styles.sinText}>
-                            <Image style={{width:14, height:14,marginRight:4,marginTop:3,alignSelf:'flex-start',borderRadius:7}} source={{uri:`${url}${rowData.user_avatar}`}}></Image>
-                            <Text style={{fontSize:12,width:width*0.5-18,color:'#fff'}} numberOfLines={2}>{rowData.name}</Text>
+                            <Image style={{width:16, height:16,marginRight:4,marginTop:3,alignSelf:'flex-start',borderRadius:7}} source={{uri:`${url}${rowData.user_avatar}`}}></Image>
+                            <Text style={{fontSize:13,width:width*0.5-20,color:'#fff'}} numberOfLines={2}>{rowData.name}</Text>
                         </View>
                     </TouchableOpacity>
                     <View style={styles.sinbtn}>
                         {/*<TouchableOpacity onPress={ ()=> this.Goadd(rowData.id,rowData.name,rowData.desc,rowData.image)}>*/}
                         <TouchableOpacity onPress={ ()=> this.Goadd(rowData.id)}>
                             <View style={styles.sbtn}>
-                                <Icon size={12} color="#898989" name="edit"></Icon>
-                                <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>编辑</Text>
+                                <Icon size={13} color="#898989" name="edit"></Icon>
+                                <Text style={{fontSize:12,color:'#898989',marginLeft:2}}>编辑</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>this.Godel(rowData.id)}>
                             <View style={styles.sbtn}>
-                                <Icon size={11} color="#898989" name="trash-o"></Icon>
-                                <Text style={{fontSize:10,color:'#898989',marginLeft:2}}>删除</Text>
+                                <Icon size={12} color="#898989" name="trash-o"></Icon>
+                                <Text style={{fontSize:12,color:'#898989',marginLeft:2}}>删除</Text>
                             </View>
                         </TouchableOpacity>
                     </View>  
@@ -258,15 +259,15 @@ const styles = StyleSheet.create({
     },
     sinText: {
         flexDirection:'row',
-        paddingTop:5,
+        //paddingTop:5,
         width:width*0.5,
         alignItems:'center'
     },
     sinbtn: {      
         flexDirection:'row',
-        height:20, 
+        height:32, 
         width:width*0.50,
-        paddingTop:6
+        paddingTop:12
     },
     sbtn:{
         flexDirection:'row',

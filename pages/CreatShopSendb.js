@@ -46,15 +46,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class CreatShopSendb extends Component {
     static navigationOptions = {
         title:'资料提交',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        headerRight: (<View></View>),
     }
     // 构造
     constructor(props) {

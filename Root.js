@@ -62,7 +62,7 @@ import AddressPage  from './pages/address';
 import DetailAddr  from './pages/detailAddr';
 import MessageFriend  from './pages/messageFriend';
 
-import { Button, View, Text, } from 'react-native';
+import { Button, View, Text, Platform } from 'react-native';
 import {
     StackNavigator,
     TabNavigator,
@@ -130,7 +130,8 @@ const Root = StackNavigator(
             headerStyle:{
                 backgroundColor:'#151515',
                 height:56,
-                paddingTop:10,
+                paddingTop:(Platform.OS === 'ios') ? 0 : 10,
+                marginTop:(Platform.OS === 'ios') ? 10 : 0,
                 justifyContent:'center',
             },
             headerTitleStyle: {

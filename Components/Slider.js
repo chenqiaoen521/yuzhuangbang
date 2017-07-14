@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     },
     imgStyle:{
         width:width,
-        height:width*0.55,
+        height:width*0.5,
     },
     pageStyle:{
         position:'absolute',

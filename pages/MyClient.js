@@ -90,17 +90,25 @@ export default class MyClient extends Component {
                     decelerationRate="normal"
                     startInLoadingState={true}
                     scalesPageToFit={false} />
-            
             </View>
         );
     }
 
     receiveMessage (e) {
         let message = e.nativeEvent.data;
-        let temp = message.split(",");
-        //你去说一句吧
         const {navigate} = this.props.navigation;
-        navigate('ClientAdd',{id:temp[1]});
+        console.log(message)
+        if(message.indexOf('defriend')>0){
+            console.log('去拉黑')
+            //去拉黑
+            navigate('KehuNews',{url:message});
+        }else{
+            console.log('你去说一句吧')
+            let temp = message.split(",");
+            //你去说一句吧
+            navigate('ClientAdd',{id:temp[1]});
+        }
+        
     }
 
 }

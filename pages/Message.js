@@ -40,7 +40,8 @@ class Message extends Component {
   }
 static navigationOptions = ({ navigation }) => ({
     headerTitle:'我的消息',
-    headerRight:null
+    headerRight: (<View></View>),
+    //headerRight:null
  });
 
   componentWillMount () {

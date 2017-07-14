@@ -36,7 +36,8 @@ import store from 'react-native-simple-store';
 
 export default class Center extends Component {
     static navigationOptions = {
-        title:'添加客户'
+        title:'添加客户',
+        headerRight: (<View></View>),
     }
     // 构造
     constructor(props) {

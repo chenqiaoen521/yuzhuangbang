@@ -41,7 +41,8 @@ export default class AccountAdd extends Component {
       };
     }
     static navigationOptions = ({ navigation }) => ({
-        headerTitle:navigation.state.params.title
+        headerTitle:navigation.state.params.title,
+        headerRight: (<View></View>),
     });
     componentWillMount () {
         let that = this;

@@ -41,7 +41,8 @@ class BlackList extends Component {
         };
     }
     static navigationOptions = ({ navigation }) => ({
-        headerTitle:'黑名单'
+        headerTitle:'黑名单',
+        headerRight: (<View></View>),
     });
     componentWillReceiveProps(nextProps) {
     const { black } = this.props;

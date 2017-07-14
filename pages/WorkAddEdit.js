@@ -50,6 +50,7 @@ const photoOptions = {
 export default class WorkAdd extends Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: navigation.state.params.title,
+        headerRight: (<View></View>),
         tabBarIcon: ({ tintColor }) => (
             <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
         )
@@ -215,6 +216,7 @@ export default class WorkAdd extends Component {
         )
     }
     delImage(b,str) {
+        console.log('要删图了')
         let arr = this.state.tupian;
         let arr2 = this.state.images;
         let chan = this.state.norarr.length
@@ -257,6 +259,7 @@ export default class WorkAdd extends Component {
                 },
             });
             let responseJson = await response.json(); 
+            console.log(responseJson)
             if(responseJson.errorCode!= 0){
                 flg = 0;
                 ToastUtil.showShort(responseJson.errorMsg, false);
@@ -344,18 +347,18 @@ export default class WorkAdd extends Component {
         formData.append("id",this.state.activeid);
         
         formData.append("token",token); 
-        if(this.state.tupian==this.state.images){
+        /*if(this.state.tupian==this.state.images){*/
             for(let i=0;i<h.length;i++){
                 formData.append("images[]",this.state.images[i]); 
             }
             this.submitUrl(formData).then((data)=>{ })
-        }else{
+        /*}else{
             ToastUtil.showShort('网络繁忙，请稍候');
-        }
+        }*/
     }
     async submitUrl(formData) {
-        console.log('formData')
-        console.log(formData)
+        //console.log('formData')
+        //console.log(formData)
         try {
             // 注意这里的await语句，其所在的函数必须有async关键字声明
             let response = await fetch(`${host}/App/Role/add_edit_goods`,{
@@ -363,13 +366,15 @@ export default class WorkAdd extends Component {
               body:formData
             });
             let responseJson = await response.json(); 
+            console.log(responseJson)
             if(responseJson.errorCode== 0){
                 ToastUtil.showShort('作品修改成功', false);
                 const {navigate} = this.props.navigation;
                 navigate('WorkManage');
                 return responseJson;
             }else{
-                ToastUtil.showShort(responseJson.errorMsg, false);
+                console.log('出错了')
+                //ToastUtil.showShort(responseJson.errorMsg, false);
             }
         } catch(error) {
             ToastUtil.showShort(error, false);

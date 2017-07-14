@@ -28,7 +28,8 @@ import Notice from '../Components/Notice';
 export default class AddFriendDetail extends Component {
     static navigationOptions = {
         title:'好友详情',
-        headerRight: (
+        headerRight: (<View></View>),
+        /*headerRight: (
             <Icon.Button
                 name="bell-o"
                 backgroundColor="transparent"
@@ -36,7 +37,7 @@ export default class AddFriendDetail extends Component {
                 activeOpacity={0.8}
                 onPress={ () => {  navigation.state.params.handleShare(); } }
             />
-        )
+        )*/
     }
     constructor(props) {
       super(props);
