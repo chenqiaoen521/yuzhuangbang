@@ -59,8 +59,6 @@ export default class Center extends Component {
     })
 
 
-    
-
     // 构造
     constructor(props) {
         super(props);
@@ -70,6 +68,8 @@ export default class Center extends Component {
             IsResult: false,      //单选内容
             word:null,
             onoff: true,
+            empty:0,
+            token:'',
         };
         
     }
@@ -77,10 +77,10 @@ export default class Center extends Component {
         var that = this
         return (
             <View style={styles.container}>
-                <ScrollView>
+                {/*<ScrollView>
                     {
                     that.state.IsResult == false ?
-                    <TouchableOpacity /*onPress={ ()=> this.Gofind(this.state.word) }*/>
+                    <TouchableOpacity >
                     <View style={{width:width}}>
                         <Image resizeMode={'center'} style={[styles.bmid,{ width:width},{ marginTop:80}]} source={require('./../imgs/bgtext_03.png')}>
                             <Text style={styles.etext}>输入搜索指定客户以及信息</Text>
@@ -89,38 +89,86 @@ export default class Center extends Component {
                     </TouchableOpacity>
                     : null }
                     <KehuList ref='zujian' popToWatch={ ()=> that.Goxq() } />
-                </ScrollView>    
+                    
+                </ScrollView>  */}
+                {this.state.empty==1 ?
+                <WebView
+                    automaticallyAdjustContentInsets={false}
+                    style={styles.webView}
+                    source={{uri:this.state.htmlsrc}}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    onMessage={this.receiveMessage.bind(this)}
+                    decelerationRate="normal"
+                    startInLoadingState={true}
+                    scalesPageToFit={false} />
+                : null  }  
             </View>
         );
     }
     Goxq (){
-        const {navigate} = this.props.navigation;
-        navigate('Kehu',{page:'xq',title:'客户详情'});
+        /*const {navigate} = this.props.navigation;
+        navigate('Kehu',{page:'xq',title:'客户详情'});*/
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ 
-            Gosou: ()=>this.Gofind() ,
-            Goset: (text)=>this.Gokey(text)
+        var that = this;
+        that.props.navigation.setParams({ 
+            Gosou: ()=>that.Gofind() ,
+            Goset: (text)=>that.Gokey(text),
+            Goback:()=>that.Doback()
         });
+        //navigation.state.params.Gosou();
+        
     }
 
-    Gofind() {
-        this.setState({ IsResult:true }); 
+    Doback() {
+        const {navigate} = this.props.navigation;
+        navigate('CenterPT');
+    }
+
+    Gofind() {            
         var that = this
-        that.refs.zujian.Dofinds(that.state.word)    
+        if(!that.state.word){
+            ToastUtil.showShort('关键字不能为空');
+        }else{
+            this.setState({ IsResult:true }); 
+            //that.refs.zujian.Dofinds(that.state.word)
+            that.Dofinds(that.state.word)
+        }
+    }
+    Dofinds(word) {
+        var that = this
+        store.get('user').then(
+            function(data){
+                that.setState({
+                    empty:1,
+                    htmlsrc:`${url}/App/Role/contact_list?token=${data.token}&key=${word}`
+                });  
+                console.log(that.state.empty+'和'+that.state.htmlsrc)   
+            })
+    }
+
+    receiveMessage (e) {
+        let message = e.nativeEvent.data;
+        const {navigate} = this.props.navigation;
+        console.log(message)
+        if(message.indexOf('defriend')>0){
+            console.log('去拉黑')
+            //去拉黑
+            navigate('KehuNews',{url:message});
+        }else{
+            console.log('你去说一句吧')
+            let temp = message.split(",");
+            //你去说一句吧
+            navigate('ClientAdd',{id:temp[1]});
+        }
+        
     }
 
     Gokey(text) {
-        /*if(!text){
-            ToastUtil.showShort('关键字不能为空')
-        }
-        else{*/
-            this.setState({ word:text }); 
-        /*} */
+        this.setState({ word:text });    
     }
-
-    
 
 }
 
@@ -141,6 +189,9 @@ const styles = StyleSheet.create({
         fontSize:15,
         color:'#999',
     },
+    WebView: {
+        flex:1
+    }
     
     
     

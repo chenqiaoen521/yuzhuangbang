@@ -35,6 +35,7 @@ export default class HelpCenter extends Component {
     }
     static navigationOptions = {
         headerTitle:'帮助中心',
+        headerRight: (<View></View>),
     }
     componentWillMount () {
         let that = this;
@@ -47,7 +48,7 @@ export default class HelpCenter extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <HelpSearch popToHome={()=>this.toSearchPage()} />
+                {/*<HelpSearch popToHome={()=>this.toSearchPage()} />*/}
                 <View style={styles.hotit}><Text style={styles.biao}>热点问题</Text></View>
                 <HelpListview data={this.state.data} popToWatch={(id)=>this.toHelpView(id)} />
             </View>
@@ -70,10 +71,11 @@ const styles = StyleSheet.create({
         backgroundColor:'#151515'
     },
     hotit: {
-        padding:10
+        padding:10,
+        backgroundColor:'#111',
     },
     biao: {
         color:'#999',
-        fontSize:16
+        fontSize:16,
     }
 });

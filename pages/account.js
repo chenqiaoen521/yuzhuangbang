@@ -50,7 +50,8 @@ export default class Account extends Component {
     };
   }
   static navigationOptions = ({ navigation }) => ({
-    headerTitle:'子账号添加'
+    headerTitle:'子账号添加',
+    headerRight: (<View></View>),
   });
   componentDidMount () {
     let that = this;

@@ -31,7 +31,7 @@ import store from 'react-native-simple-store';
 
 export default class KehuNews extends Component {
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: navigation.state.params.title,
+        headerTitle: '加入黑名单',
         tabBarIcon: ({ tintColor }) => (
             <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
         ),

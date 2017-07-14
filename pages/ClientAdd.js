@@ -44,16 +44,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class ClientAdd extends Component {
     static navigationOptions = {
-        headerTitle:'客户管理',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        headerTitle:'添加动态',
+        headerRight: (<View></View>),
     }
     // 构造
     constructor(props) {
@@ -88,6 +80,7 @@ export default class ClientAdd extends Component {
                     renderRow={(rowdata, sectionID, rowID)=>this.renderRow(rowdata,sectionID,rowID)}
                     initialListSize ={1}
                     renderFooter = {()=>this.renderFooter()}
+                    enableEmptySections={true}
                     />
                         {/*<TouchableOpacity onPress={()=> alert(1) }>
                         <View style={styles.cpbox}>

@@ -49,6 +49,7 @@ export default class PasswordPage extends Component {
     }
     static navigationOptions = {
         headerTitle:'修改密码',
+        headerRight: (<View></View>),
     }
     render() {
         return (

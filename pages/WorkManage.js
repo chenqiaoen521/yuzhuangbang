@@ -33,7 +33,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class WorkManage extends Component {
     static navigationOptions = {
-        headerTitle:'作品管理'
+        headerTitle:'作品管理',
+        headerRight: (<View></View>),
     }
     render() {
         return (
@@ -79,7 +80,7 @@ export default class WorkManage extends Component {
 
     //刷新
     shuaxin(i) {
-        //console.log(i)
+        console.log(i+1)
         if(i==0){
             this.refs.zujianOne.Goget()
         }else if(i==1){
@@ -94,7 +95,7 @@ export default class WorkManage extends Component {
         console.log(id)
         var that = this
         const {navigate} = this.props.navigation;
-        navigate('WorkAddEdit',{id:id} )
+        navigate('WorkAddEdit',{id:id,title:'作品编辑'} )
     }
 
     //先进详情页

@@ -26,10 +26,11 @@ const host = require('../config.json').url;
 export default class MainDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title,
+    headerRight: (<View></View>),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="mineicon" size={25} color={tintColor} style={{marginTop:1.5}}/>
     ),
-    headerRight:null
+    //headerRight:null
   });
 
   render() {

@@ -32,7 +32,8 @@ import store from 'react-native-simple-store';
 
 export default class AccountEdit extends Component {
     static navigationOptions = ({ navigation }) => ({
-        headerTitle:navigation.state.params.title
+        headerTitle:navigation.state.params.title,
+        headerRight: (<View></View>),
     });
 
     constructor(props) {

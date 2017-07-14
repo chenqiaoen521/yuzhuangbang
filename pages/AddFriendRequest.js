@@ -42,7 +42,8 @@ export default class Center extends Component {
     }
     static navigationOptions = {
         title:'添加好友',
-        headerRight: (
+        headerRight: (<View></View>),
+        /*headerRight: (
             <Icon.Button
                 name="bell-o"
                 backgroundColor="transparent"
@@ -50,7 +51,7 @@ export default class Center extends Component {
                 activeOpacity={0.8}
                 onPress={ () => {  navigation.state.params.handleShare(); } }
             />
-        )
+        )*/
     }
     render() {
         return (

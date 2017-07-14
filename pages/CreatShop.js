@@ -23,15 +23,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class Center extends Component {
     static navigationOptions = {
         headerTitle:'我要开店',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        headerRight: (<View></View>),
     }
     render() {
         return (

@@ -29,19 +29,10 @@ const host = require('../config.json').url;
 export default class CreatShopWait extends Component {
     static navigationOptions = {
         title:'我要开店',
-        headerRight: (
-            <Icon.Button
-                name="bell-o"
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.8}
-                onPress={ () => {  navigation.state.params.handleShare(); } }
-            />
-        )
+        headerRight: (<View></View>),
     }
     constructor(props) {
-        super(props);
-      
+        super(props);  
         this.state = {
             roletype:null,
             shenhe:-1,

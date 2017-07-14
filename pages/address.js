@@ -38,17 +38,7 @@ export default class AddressPage extends Component {
   }
   static navigationOptions = {
     headerTitle:'我的地址',
-    headerRight: (
-      <Icon.Button
-        name="bell-o"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
+    headerRight: (<View></View>),
   }
   componentDidMount () {
     const data = require('../pages/message.json')

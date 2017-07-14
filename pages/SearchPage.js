@@ -25,6 +25,7 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 export default class searchPage extends Component {
   static navigationOptions = {
     headerTitle: '搜索',
+    headerRight: (<View></View>),
   }
    constructor(props) {
     super(props);

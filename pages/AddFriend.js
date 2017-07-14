@@ -37,7 +37,8 @@ export default class AddFriend extends Component {
     };
   }
   static navigationOptions = {
-    headerTitle:'添加好友'
+    headerTitle:'添加好友',
+    headerRight: (<View></View>),
   }
 
   render() {

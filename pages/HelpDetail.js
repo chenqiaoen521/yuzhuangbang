@@ -18,7 +18,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class HelpDetail extends Component {
     static navigationOptions = {
         headerTitle:'帮助中心',
-        headerRight: (
+        headerRight: (<View></View>),
+        /*headerRight: (
             <Icon.Button
                 name="bell-o"
                 backgroundColor="transparent"
@@ -28,7 +29,7 @@ export default class HelpDetail extends Component {
                     navigation.state.params.handleShare();
                 }}
             />
-        )
+        )*/
     }
     render() {
         return (

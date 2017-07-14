@@ -34,10 +34,7 @@ import SharePage from '../Components/SharePage';
 
 import Icon from 'react-native-vector-icons/Wz';
 
-//ios轮播图
-import RNCarousel from '../Components/RNCarousel';
-//调整键盘
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 //存储登录信息
 import store from 'react-native-simple-store';
 //三级联动
@@ -89,6 +86,7 @@ export default class Main extends Component {
             htmlsrc:'http://192.168.0.188/App/Index/work_list?token=51_2_2_59_337&type=3',
             datatype:3,
             //upnum:width*0.45
+            initialPosition: [],
 
         };
         //三级联动
@@ -128,7 +126,7 @@ export default class Main extends Component {
     render() {      
         return (
             <View style={styles.container}>
-                <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:5,paddingBottom:5}}>
+                    <View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:5,paddingBottom:5}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
                         <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
                             { this.state.token === false ?    
@@ -141,9 +139,8 @@ export default class Main extends Component {
                             </TouchableOpacity>
                             }
                         </View>
-                        
                     </View>
-                <ScrollView onScroll={()=>this.GoPop()}>
+                    <ScrollView style={{height:width*0.5}}>
                     {/*<View style={{alignItems: 'center', flexDirection:'row',justifyContent:'space-between',paddingRight:10,paddingLeft:10,paddingTop:3,paddingBottom:3}}>
                         <Search popToHome={()=>this.toSearchPage()}  />
                         <View style={{width:0.15*width, alignItems: 'center',justifyContent:'center'}} >
@@ -168,7 +165,7 @@ export default class Main extends Component {
                     <HomeTitle name={ this.state.mode ? '找灵感':'找优品' } />
                     <WebView
                           automaticallyAdjustContentInsets={false}
-                          style={{ height:800}}
+                          style={{ height:1000}}
                           source={{uri:this.state.htmlsrc}}
                           javaScriptEnabled={true}
                           domStorageEnabled={true}
@@ -177,8 +174,9 @@ export default class Main extends Component {
                           startInLoadingState={false}
                           scalesPageToFit={false} />
                 </ScrollView>
-                <TouchableOpacity onPress={()=>this.GoFind() }>                                      
-                    <View style={{width:width, height:48, justifyContent:'center', alignItems:'center',backgroundColor:'#2a2a2a'}}>
+                
+                <TouchableOpacity onPress={()=>this.GoFind()} style={{width:width, height:48, justifyContent:'center', position:'absolute', bottom:0, left:0, alignItems:'center',backgroundColor:'#2a2a2a'}}>                                      
+                    <View style={{width:width, height:48, justifyContent:'center', position:'absolute', bottom:0, left:0, alignItems:'center',backgroundColor:'#2a2a2a'}}>
                         <Icon name={ this.state.mode ? 'mindicon':'goodicon'}  size={22} color={'#fff'} />
                         <Text style={{fontSize:14,color:'#fff'}}>{this.state.mode ? '找优品':'找灵感'}</Text>
                     </View>
@@ -214,7 +212,6 @@ export default class Main extends Component {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                <KeyboardSpacer/>
                             </View>
                         </View>
                         <TouchableOpacity style={[styles.modalViewBStyle,styles.honebottom]} onPress={() => this.onRequestClose()}><View></View></TouchableOpacity>
@@ -231,7 +228,7 @@ export default class Main extends Component {
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>市/区</Text></View>
                                     <View style = {styles.ktext}><Text style = {styles.ktxt}>区县</Text></View>
                                 </View>
-                                <View style = {{/*height: height*0.55-144,*/ height:166, flexDirection: 'row'}}>
+                                <View style = {{ height:166, flexDirection: 'row'}}>
                                     
                                     <View style = {{flex: 1}}>
                                         <Picker 
@@ -268,7 +265,7 @@ export default class Main extends Component {
                                 </View>
 
                                 <View style={styles.allWidth}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={ ()=>this.Getplace() }>
                                         <View style={[styles.jun,styles.jtu]}>
                                             <Text style={styles.jtext}>一键获取</Text>
                                             <Image style={{width:16, height:16,marginLeft:5}} source={require('./../imgs/dlweizhi.png')}></Image>
@@ -335,6 +332,76 @@ export default class Main extends Component {
             </View>
         );
     }
+
+    Getplace() {
+        this._getPosition()
+    }
+
+    _getPosition(){
+        //ToastUtil.showShort('正在获取地理位置...请等待')
+        navigator.geolocation.getCurrentPosition(
+            (initialPosition) => {
+                console.log(initialPosition.coords)
+                this.setState({initialPosition: initialPosition.coords})
+                this._getData();
+            },
+            (error) => //alert(JSON.stringify(error)) 
+                alert('请求地理位置超时，建议自行选择位置')
+            ,
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        );
+        //监听位置变化
+        navigator.geolocation.watchPosition((lastPosition) => {
+            console.log(lastPosition.coords)
+            this.setState({ initialPosition: lastPosition.coords});
+            this._getData();
+        });
+   }
+   //根据经纬度获取数据
+   async _getData() {
+        var that = this;
+        //console.log(`http://gc.ditu.aliyun.com/regeocoding?l=${this.state.initialPosition.latitude},${this.state.initialPosition.longitude}&type=010`)
+        try {
+            let response = await fetch(`http://gc.ditu.aliyun.com/regeocoding?l=${this.state.initialPosition.latitude},${this.state.initialPosition.longitude}&type=010`,{
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+            let responseJson = await response.json();
+            console.log(responseJson)
+            if(responseJson.addrList[0].admName){
+                var arrwz = responseJson.addrList[0].admName.split(',')
+                Alert.alert(
+                    '一键定位',
+                    '当前位置:'+responseJson.addrList[0].admName+'如无疑问为您跳转到注册页面',
+                    [
+                        {text: '取消', onPress: () => console.log('OK Pressed!')},
+                        {text: '确认', onPress: () => that.jumpzc(arrwz) },
+                    ]
+                )
+                //ToastUtil.showShort('地理位置获取成功,已为您跳转到注册')
+                
+            }else{
+                ToastUtil.showShort('请求地理位置超时，建议自行选择位置')
+            }
+            
+        } catch(error) {
+            console.error(error);
+            ToastUtil.showShort(error,true)
+        }
+    }
+    jumpzc(arrwz) {
+        this.setState({
+            province:arrwz[0],
+            city:arrwz[1],
+            area:arrwz[2],
+            isModal:false,
+            isArea:false,
+            isFill:true,
+        });     
+    }
+
     //滚动事件
     GoPop() {
         if( this.state.token==false && this.state.popNum==1){
@@ -389,6 +456,7 @@ export default class Main extends Component {
                 //console.error(responseJson);
                 if(responseJson.errorCode === 0){
                     ToastUtil.showShort('登录成功')
+                    that.Goclose()
                     that.setState({
                         token:true,
                         isModal:false
@@ -448,27 +516,7 @@ export default class Main extends Component {
             }
         }
     }
-
-    
-    componentWillUnmount () {  
-       // this.keyboardDidShowListener.remove();  
-       // this.keyboardDidHideListener.remove();  
-    }
-
-    _keyboardDidShow () {  
-        /*var that = this
-        that.setState({
-            upnum:0
-        }) */ 
-    }  
-  
-    _keyboardDidHide () {  
-       /* var that = this
-        //alert('Keyboard Hidden');  
-        that.setState({
-            upnum:width*0.45
-        })*/  
-    }  
+ 
 
     Goread() {
         var that = this
@@ -544,6 +592,15 @@ export default class Main extends Component {
         });
     }
 
+    Goclose() {
+        this.setState({
+            token:true,
+            isModal:false,
+            isArea:false,
+            isFill:false,
+        });
+    }
+
     //注册页面02-选择地址
     GoArea () {
         this.setState({
@@ -565,7 +622,6 @@ export default class Main extends Component {
         })
         this.setState({
             isModal:false,
-            //isZhuce:false,
             isArea:false,
             isFill:true,
         });     
@@ -573,15 +629,13 @@ export default class Main extends Component {
 
     //完成注册
     GoFinish() {
+        console.log(this.state.province,this.state.city,this.state.area)
         let data = this.DoZhuce();
         data.then(
             (result)=>{
                 if(result){
-                    //存储
                     console.log(result)
                     store.save('user', { token: result.token, type:result.type })   
-                }else{
-                    console.log('注册无返回')
                 }
             }
         )  
@@ -611,6 +665,7 @@ export default class Main extends Component {
                 //return responseJson.data;
                 if(responseJson.errorCode === 0){
                     ToastUtil.showShort("注册成功")
+                    that.Goclose()
                     that.setState({
                         token:true,
                         isModal:false,
