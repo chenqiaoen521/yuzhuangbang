@@ -60,17 +60,16 @@ export default class MyCollect extends Component {
                     htmlsrc:`${url}/App/Center/my_collect?type=3`,
                 }); 
             }
-            console.log(that.state.htmlsrc)
         })
     }
     onActionSelected () {
         const {navigate} = this.props.navigation;
         navigate('Message');
     }
-
+    //'http://192.168.0.188/App/Index/work_list?type=3'
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
@@ -81,13 +80,12 @@ export default class MyCollect extends Component {
                     decelerationRate="normal"
                     startInLoadingState={true}
                     scalesPageToFit={false} />
-            </ScrollView>
+            </View>
         );
     }
 
     receiveMessage (e) {
         let message = e.nativeEvent.data
-        console.log(message)
         const {navigate} = this.props.navigation;
         navigate('WorkDetail',{url:message})
     }
@@ -97,6 +95,11 @@ export default class MyCollect extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        height:height,
         backgroundColor: '#151515',
     },
+    webView:{
+        width:width,
+        height:height
+    }
 });

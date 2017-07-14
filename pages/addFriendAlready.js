@@ -73,15 +73,15 @@ export default class AddFriendDetail extends Component {
         let {user_id,type} = this.props.navigation.state.params;
         this.getData(user_id,type,token).then(function(data){
             that.setState({
-                nickname:data.nickname,
-                name:data.name,
+                nickname:data.nickname?data.nickname:'',
+                name:data.name?data.name:'',
                 sex:data.sex,
-                phone:data.phone,
+                phone:data.phone?data.phone:'',
                 avatar:data.avatar,
                 type:ToastUtil.getUserType(data.type),
-                province:data.province,
-                city:data.city,
-                area:data.area,
+                province:data.province?data.province:'',
+                city:data.city?data.city:'',
+                area:data.area?data.area:'',
                 remark:data.remark,
                 trueSwitchIsOn:data.is_share == 1? true:false
             })
@@ -126,13 +126,13 @@ export default class AddFriendDetail extends Component {
                             <Text style={styles.ltext}>地区</Text>
                             <Text style={styles.rtext}>{`${this.state.province}${this.state.city}${this.state.area}`}</Text>
                         </View>
-                        <View style={styles.mation}>
+                        {/*<View style={styles.mation}>
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <Text style={{fontSize:13,color:'#cccccc',marginRight:10}}>客户共享</Text>
                                 <Text style={{fontSize:11,color:'#cccccc'}}>{this.state.trueSwitchIsOn  ? '允许对方服务我的客户':'拒绝对方服务我的客户'}</Text>
                             </View>
                             <Switch value={this.state.trueSwitchIsOn} onValueChange={(value) => this.setState({trueSwitchIsOn: value})} thumbTintColor="#fff"  onTintColor="#ae8300"/>
-                        </View>
+                        </View>*/}
                     </View>
                 </ScrollView>
                 

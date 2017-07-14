@@ -71,8 +71,8 @@ import {
 
 const Root = StackNavigator(
     {   
-
         Init:{screen:Init },
+        CreatShopSenda:{ screen:CreatShopSenda },
         Main:{ screen: Main },
         ClientAdd:{screen:ClientAdd },
         //Main:{ screen: Main },
@@ -87,7 +87,6 @@ const Root = StackNavigator(
         ChangePhone:{ screen:ChangePhone },
         CreatShop:{ screen:CreatShop },
         CreatShopWait:{ screen:CreatShopWait },
-        CreatShopSenda:{ screen:CreatShopSenda },
         CreatShopSendb:{ screen:CreatShopSendb },  
         WorkManage:{ screen:WorkManage },
         MainDetail:{ screen:MainDetail },

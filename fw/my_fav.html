@@ -82,6 +82,34 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_07.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="box">
+                            <div class="pic">
+                                <img src="../imgs/indeximg_05.jpg"/>
+                                <div class="title">
+                                    <img src="../imgs/detailicon_36.png" class="icon"><span class="name">简约&nbsp;清新小户型 一居室</span>  
+                                </div>
+                                <p class="desc">适用于年轻工薪家庭装饰风格，简约清新，温馨舒适</p>
+                                <div class="bottom">
+                                    <i class="bottom_icon share"></i>
+                                    <span class="num">10086</span>&nbsp;&nbsp;&nbsp;
+                                    <i class="bottom_icon star"></i><span class="num">10086</span>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <!-- 加载提示符 -->
@@ -113,13 +141,13 @@ function waterfall() {
     var boxes = $$('.main .box');
     var columns = 2;//列num
     var boxesW = boxes[0].offsetWidth;//列num
-    var h_array = [] //存高
-    for(let i=0;i<boxes.length;i++){
+    var h_array = []; //存高
+    for(var i=0;i<boxes.length;i++){
         if(i<columns){
             h_array.push(boxes[i].offsetHeight);
         }else{
-            let minH = Math.min.apply(null,h_array);
-            let minIndex= getMinHIndex(h_array,minH);
+            var minH = Math.min.apply(null,h_array);
+            var minIndex= getMinHIndex(h_array,minH);
             boxes[i].style.position = 'absolute';
             boxes[i].style.top = minH+'px';
             boxes[i].style.left = (boxesW*minIndex)+'px';
@@ -147,10 +175,20 @@ var maxItems = 560;
  
 // 每次加载添加多少条目
 var itemsPerLoad = 20;
- 
 // 注册'infinite'事件处理函数
+ $$(".infinite-scroll").scroll(function(){
+
+              var obj = $$(".infinite-scroll"),
+              viewH =obj.height(),//可见高度
+              contentH =obj[0].scrollHeight,//内容高度
+              scrollTop =obj.scrollTop();//滚动高度
+             //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容
+                  if(scrollTop/(contentH -viewH)>=0.8){ //到达底部100px时,加载新内容
+            
+            }
+        });
 $$('.infinite-scroll').on('infinite', function () {
- 
+    
     // 如果正在加载，则退出
     if (loading) return;
  
@@ -173,7 +211,7 @@ $$('.infinite-scroll').on('infinite', function () {
         // 生成新条目的HTML
         var html = '';
         for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
-            let srcimg = '5';
+            var srcimg = '5';
             if(i%2==0){
                 srcimg = '7';
             }else{

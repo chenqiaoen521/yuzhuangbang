@@ -138,7 +138,7 @@ export default class MessageFriend extends Component {
         </View>
         :
          <View style={styles.btns}>
-          <View onPress={()=>this.submit(1)} style={styles.btn}><Text style={styles.btnTxt}>{ToastUtil.friendType(this.state.status)}</Text></View>
+          <View onPress={()=>this.submit(1)} style={styles.btn}><Text style={styles.btnTxt}>{`已${ToastUtil.friendType(this.state.status)}`}</Text></View>
         </View> 
         }
       </View>

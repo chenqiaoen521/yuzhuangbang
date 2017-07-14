@@ -110,7 +110,7 @@ export default class CreatShopSenda extends Component {
                     <TouchableOpacity onPress={()=>this.onRequestOpen()}>
                         <View style={[styles.TextView,styles.viewbg]}>
                             <Text style={{color:'#888',fontSize:13}}>{`${this.state.province}${this.state.city}${this.state.area}`}</Text>
-                            <Image style={{width:20,height:12}} resizeMode={'stretch'} source={require('../imgs/right01.png')}></Image>
+                            <Image style={{width:15,height:15}} source={require('../imgs/right01.png')}></Image>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -122,7 +122,7 @@ export default class CreatShopSenda extends Component {
                     <View style={styles.sendV}>
                         <View style={styles.sendview}>
                             <TouchableOpacity  onPress={() => this.chooseImg(1)}>
-                                <Image style={styles.img1} source={this.state.yezz}></Image>
+                                <Image resizeMode={Image.resizeMode.center} style={styles.img1} source={this.state.yezz}></Image>
                                 <View style={styles.fixtext}><Text style={styles.ftext}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -133,13 +133,13 @@ export default class CreatShopSenda extends Component {
                     <View style={styles.sendV}>
                         <View style={styles.sendview2}>
                             <TouchableOpacity onPress={()=> this.chooseImg(2) }>
-                                <Image style={styles.img2} source={this.state.sfzz}></Image>                            
+                                <Image resizeMode={Image.resizeMode.center} style={styles.img2} source={this.state.sfzz}></Image>                            
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.sendview2}>
                             <TouchableOpacity onPress={()=> this.chooseImg(3) }>
-                                <Image style={styles.img2} source={this.state.sfzf}></Image>
+                                <Image resizeMode={Image.resizeMode.center} style={styles.img2} source={this.state.sfzf}></Image>
                                 <View style={styles.fixtext2}><Text style={styles.ftext2}>点击上传</Text></View>
                             </TouchableOpacity>
                         </View>
@@ -282,8 +282,8 @@ export default class CreatShopSenda extends Component {
         return (
             <TouchableOpacity onPress={()=>this.delImage(b)}>
                 <View style={styles.cpbox}>
-                    <Image style={styles.cptu} resizeMode={'stretch'} source={row}></Image>
-                    <Image style={styles.cpbg} resizeMode={'stretch'}  source={require('../imgs/sendzheng_14.png')}></Image>
+                    <Image resizeMode={Image.resizeMode.center} style={styles.cptu} resizeMode={'stretch'} source={row}></Image>
+                    <Image  style={styles.cpbg} resizeMode={'stretch'}  source={require('../imgs/sendzheng_14.png')}></Image>
                 </View>
             </TouchableOpacity>
         )
@@ -374,20 +374,21 @@ export default class CreatShopSenda extends Component {
           }
         })
     }
-    uploadImage(uri,flag){  
+    async uploadImage(uri,flag){  
         let formData = new FormData();  
         let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
         let that = this;
         formData.append("image",file);  
-        fetch(`${host}/App/User/upload_image`,{  
+        try { 
+        let response = await fetch(`${host}/App/User/upload_image`,{  
             method:'POST',  
             headers:{  
                 'Content-Type':'multipart/form-data',  
             },  
             body:formData,  
-        })  
-        .then((response) => response.json() )  
-        .then((responseData)=>{  
+        })  ;
+        let responseData = await response.json();  
+        console.log(responseData.data.image)
             if(flag==1){
                 this.setState({
                 yezz:{uri:`${host}${responseData.data.image}`},
@@ -416,9 +417,9 @@ export default class CreatShopSenda extends Component {
                     images:images
                 })
             }
-            
-        })  
-        .catch((error)=>{console.error('error',error)});  
+        } catch(error) {
+            console.error(error);
+        } 
   
     } 
     onSelect(index, value){
@@ -595,6 +596,7 @@ const styles = StyleSheet.create({
     },
     sendpro: {
         flexDirection:'row',
+        flexWrap : 'wrap'
     },
     cpbox: {
         paddingRight:10,

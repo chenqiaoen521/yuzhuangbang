@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 const host = require('../config.json').url;
 const token = require('../config.json').token;
-const data = require('../data/notice.js')
+const data = require('../data/notice.js');
 var {width,height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/Ionicons';
 export default class Notice extends Component {
@@ -62,13 +62,16 @@ export default class Notice extends Component {
     clearInterval(this.timer)
   }
   startTimer () {
-    let Scroll = this.refs.noticeScroll
+    let Scroll = this.refs.noticeScroll;
+    let activePage = this.state.activePage;
+    let data = this.state.data;
     this.timer = setInterval(() => {
-      let activePage = this.state.activePage;
-      if((this.state.activePage+1)>= data.data.length){
+      if(data&&data.length==1){
+        return;
+      }else if((activePage+1)>= data.length){
         activePage = 0;
       }else{
-        activePage = this.state.activePage+1 ;
+        activePage ++ ;
         Scroll.scrollTo({x:activePage*width,y:0,animated:true})
       }
       this.setState({

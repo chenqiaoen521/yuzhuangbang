@@ -33,7 +33,8 @@ import {
     Button,
     Switch,
     Alert,
-    Modal
+    Modal,
+    ActivityIndicator
 } from 'react-native';
 const CANCEL_INDEX = 0
 const options = [  'Cancel','男', '女' ]
@@ -58,7 +59,8 @@ export default class PersonInfo extends Component {
             province:null,
             city:null,
             area:null,
-            token:null
+            token:null,
+            isimg:false
         };
         //三级联动
         this.rowIndex0 = 0;
@@ -75,24 +77,29 @@ export default class PersonInfo extends Component {
     const {navigate} = this.props.navigation;
     navigate('Message');
   }
-    uploadImage(uri){  
+  async  uploadImage(uri){  
+
         let formData = new FormData();  
         let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
         formData.append("image",file);  
-        fetch(`${host}/App/User/upload_image`,{  
+        try {   
+        let response = await fetch(`${host}/App/User/upload_image`,{  
             method:'POST',  
             headers:{  
                 'Content-Type':'multipart/form-data',  
             },  
             body:formData,  
         })  
-        .then((response) => response.json() )  
-        .then((responseData)=>{  
+        let responseJson = await response.json();
+        console.log(responseJson.data.image);
             this.setState({
-               avatar: responseData.data.image
+               avatar: responseJson.data.image,
+               isimg:false
             })
-        })  
-        .catch((error)=>{console.error('error',error)});  
+ 
+        } catch(error) {
+            console.error(error);
+        } 
   
     }  
 
@@ -144,6 +151,9 @@ export default class PersonInfo extends Component {
             console.log('User tapped custom button: ', response.customButton);
           }
           else {
+            that.setState({
+                isimg:true
+            });
             that.uploadImage(response.uri);
           }
         })
@@ -180,6 +190,16 @@ export default class PersonInfo extends Component {
                 <ActionSheet ref={o => this.ActionSheet = o} options={options} cancelButtonIndex={CANCEL_INDEX}
                     onPress={this.handlePress.bind(this)} />
                  {this.renderPicker()}
+                 <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                  visible={this.state.isimg}
+            >
+               <View style={styles.loading}>
+            <ActivityIndicator size="large" color="#ffaa66cc" />
+            <Text style={styles.loadingText}>图片加载中...</Text>
+  </View>
+            </Modal>
             </View>
         );
     }
@@ -396,4 +416,15 @@ const styles = StyleSheet.create({
         color:'#333',
         fontSize:15,
     },
+    loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.9)'
+  },
+  loadingText: {
+    marginTop: 10,
+    color:'#fff',
+    textAlign: 'center'
+  }
 });
