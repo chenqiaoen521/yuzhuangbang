@@ -130,8 +130,7 @@ const Root = StackNavigator(
             headerStyle:{
                 backgroundColor:'#151515',
                 height:56,
-                paddingTop:(Platform.OS === 'ios') ? 0 : 10,
-                marginTop:(Platform.OS === 'ios') ? 10 : 0,
+                paddingTop:10,
                 justifyContent:'center',
             },
             headerTitleStyle: {
