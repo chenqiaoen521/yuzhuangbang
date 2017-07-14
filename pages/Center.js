@@ -248,7 +248,7 @@ export default class Center extends Component {
     renderHead(obj){
         return(
             <TouchableOpacity style={{ alignItems:'center', }} onPress={()=>this.toInfo()}>
-                <Image resizeMode={Image.resizeMode.center} style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
+                <Image  style={{width:62,height:62,borderRadius:31,marginTop:10,marginBottom:15}} source={{uri:`${host}${obj.state.avatar}`}}/>
                 <View style={{flexDirection : 'row',alignItems:'center'}}>
                     <Text style={{color:'#cccccc',fontSize:16}}>{obj.state.name}</Text>
                     <Text style={{marginLeft:10,borderRadius:2,padding:1, paddingLeft:3, paddingRight:3, color:'#fff',fontSize:10,backgroundColor:'#ae8300',textAlign:'center'}}>

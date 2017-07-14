@@ -35,13 +35,14 @@ export default class SearchDetail extends Component {
   render() {
     const {state} = this.props.navigation;
     let {word} = state.params;
+    let html = `${host}/App/Index/work_list?type=1&name=${word}`;
     return (
-      <View contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         
         <WebView
             automaticallyAdjustContentInsets={false}
             style={styles.webView}
-          source={{uri:`${host}/App/Index/work_list?type=1&name=${word}`}}
+            source={{uri:html}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           onMessage={this.receiveMessage.bind(this)}
@@ -93,6 +94,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#151515',
   },
+  webView:{
+    height:height
+  }
 });
 /*
   {this.renderHeader()}

@@ -85,7 +85,7 @@ export default class Unit extends Component {
       return (
         <View style={styles.rightBarStyle}>
           <Text style={{color:'#cccccc',marginRight:20}}>{this.props.rightTxt}</Text>
-          <Image style={{width:38,height:38,borderRadius:19}} resizeMode={Image.resizeMode.center} source={this.props.icon}/>
+          <Image style={{width:38,height:38,borderRadius:19}}  source={this.props.icon}/>
         </View>
         )
     }

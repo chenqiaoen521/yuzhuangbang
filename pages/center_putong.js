@@ -235,7 +235,7 @@ export default class CenterPT extends Component {
     renderHead(){
         return(
             <TouchableOpacity style={{ alignItems:'center', }} onPress={()=>this.toInfo()}>
-                <Image resizeMode={Image.resizeMode.center}  style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={{uri:`${host}${this.state.avatar}`}}/>
+                <Image   style={{width:70,height:70,borderRadius:35,marginTop:10,marginBottom:10}} source={{uri:`${host}${this.state.avatar}`}}/>
                 <View style={{flexDirection : 'column',alignItems:'center'}}>
                     <Text style={{color:'#cccccc',fontSize:16}}>{this.state.name}</Text>
                     <Text style={{textAlign:'center',color:'#999999',fontSize:13,marginTop:5}}>{this.state.phone}</Text>

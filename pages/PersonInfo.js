@@ -83,6 +83,7 @@ export default class PersonInfo extends Component {
         let formData = new FormData();  
         let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};  
         formData.append("image",file);  
+        formData.append("type",1);  
         try {   
         let response = await fetch(`${host}/App/User/upload_image`,{  
             method:'POST',  
@@ -92,7 +93,6 @@ export default class PersonInfo extends Component {
             body:formData,  
         })  
         let responseJson = await response.json();
-        console.log(responseJson.data.image);
             this.setState({
                avatar: responseJson.data.image,
                isimg:false
